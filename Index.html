@@ -8,271 +8,232 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#FFD600;--black:#0d0d0d;--dark:#1a1a1a;--card:#fff;--light:#f7f7f5;--border:#e8e8e8;--text:#1a1a1a;--muted:#888}
-body{font-family:'Barlow',sans-serif;background:#fff;color:#1a1a1a}
+body{font-family:'Barlow',sans-serif;background:#fff;color:#111}
 .page{display:none;flex-direction:column;min-height:100vh}
 .page.active{display:flex}
-
-/* NAV */
-nav{background:#0d0d0d;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 rgba(255,214,0,.15)}
-.logo-wrap{display:flex;align-items:center;gap:12px;cursor:pointer}
+nav{background:#111;padding:0 1.2rem;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100}
+.logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer}
 .logo-img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #FFD600}
-.logo-text{font-family:‘Bebas Neue’,sans-serif;font-size:22px;color:#FFD600;letter-spacing:3px}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD600;letter-spacing:3px}
 .nav-links{display:flex;gap:2px;align-items:center}
-.nav-btn{background:none;border:none;color:#666;font-family:‘Barlow’,sans-serif;font-size:13px;font-weight:600;padding:8px 14px;cursor:pointer;border-radius:6px;transition:all .2s;letter-spacing:.5px;text-transform:uppercase}
-.nav-btn:hover,.nav-btn.active{color:#FFD600;background:rgba(255,214,0,.08)}
-.notif-bell{position:relative;cursor:pointer;padding:8px;border-radius:50%;background:none;border:none;display:flex;align-items:center;justify-content:center}
-.notif-bell svg{width:20px;height:20px;fill:#666;transition:fill .2s}
-.notif-bell:hover svg{fill:#FFD600}
-.notif-dot{position:absolute;top:4px;right:4px;width:9px;height:9px;background:#ff3b3b;border-radius:50%;display:none;border:2px solid #0d0d0d;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,59,59,.4)}50%{box-shadow:0 0 0 5px rgba(255,59,59,0)}}
-
+.nav-btn{background:none;border:none;color:#888;font-family:'Barlow',sans-serif;font-size:13px;font-weight:600;padding:8px 12px;cursor:pointer;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+.nav-btn:hover,.nav-btn.active{color:#FFD600;background:rgba(255,214,0,.1)}
+.notif-bell{background:none;border:none;cursor:pointer;padding:8px;position:relative;display:none}
+.notif-bell svg{width:20px;height:20px;fill:#888}
+.notif-dot{position:absolute;top:4px;right:4px;width:9px;height:9px;background:#ff3b3b;border-radius:50%;display:none;border:2px solid #111}
 /* HERO */
-.hero{background:#0d0d0d;padding:6rem 2rem 5rem;text-align:center;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,214,0,.08) 0%,transparent 70%)}
-.hero-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;margin:0 auto 2rem;display:block;position:relative;z-index:1;border:3px solid rgba(255,214,0,.5);box-shadow:0 0 40px rgba(255,214,0,.15)}
-.hero-tag{display:inline-block;background:rgba(255,214,0,.1);color:#FFD600;font-size:11px;font-weight:700;letter-spacing:3px;padding:5px 14px;border-radius:20px;margin-bottom:1.25rem;position:relative;z-index:1;border:1px solid rgba(255,214,0,.2)}
-.hero h1{font-family:‘Bebas Neue’,sans-serif;font-size:clamp(60px,12vw,110px);color:#fff;line-height:.95;letter-spacing:2px;position:relative;z-index:1}
+.hero{background:#111;padding:5rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(255,214,0,.07) 0%,transparent 70%);pointer-events:none}
+.hero-tag{display:inline-block;background:rgba(255,214,0,.1);color:#FFD600;font-size:11px;font-weight:700;letter-spacing:3px;padding:5px 14px;border-radius:20px;margin-bottom:1.5rem;border:1px solid rgba(255,214,0,.2)}
+.hero-logo{width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 1.5rem;display:block;border:3px solid rgba(255,214,0,.5)}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,14vw,100px);color:#fff;line-height:.95;letter-spacing:2px}
 .hero h1 span{color:#FFD600}
-.hero-sub{color:rgba(255,214,0,.7);font-family:‘Barlow’,sans-serif;font-size:13px;font-weight:700;letter-spacing:5px;text-transform:uppercase;position:relative;z-index:1;margin-top:.75rem}
-.hero p{color:#666;font-size:16px;margin-top:1.25rem;max-width:420px;margin-inline:auto;line-height:1.8;position:relative;z-index:1}
-.hero-btns{display:flex;gap:12px;justify-content:center;margin-top:2.5rem;flex-wrap:wrap;position:relative;z-index:1}
-.btn-gold{background:#FFD600;color:#0d0d0d;border:none;padding:14px 32px;font-family:‘Barlow’,sans-serif;font-weight:700;font-size:13px;letter-spacing:1.5px;cursor:pointer;border-radius:4px;transition:all .25s;text-transform:uppercase}
-.btn-gold:hover{background:#ffe033;transform:translateY(-2px);box-shadow:0 8px 25px rgba(255,214,0,.3)}
-.btn-outline{background:none;color:#FFD600;border:1.5px solid rgba(255,214,0,.4);padding:13px 30px;font-family:‘Barlow’,sans-serif;font-weight:700;font-size:13px;letter-spacing:1.5px;cursor:pointer;border-radius:4px;transition:all .25s;text-transform:uppercase}
-.btn-outline:hover{border-color:#FFD600;background:rgba(255,214,0,.06)}
-
-/* STATS BAR */
-.stats-bar{background:rgba(255,214,0,.06);border-top:1px solid rgba(255,214,0,.1);border-bottom:1px solid rgba(255,214,0,.1);padding:1.5rem 2rem;display:grid;grid-template-columns:repeat(3,1fr)}
-.stat-item{text-align:center}
-.stat-item .num{font-family:‘Bebas Neue’,sans-serif;font-size:32px;color:#FFD600;letter-spacing:1px}
-.stat-item .lbl{font-size:11px;color:#555;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-top:2px}
-
+.hero-sub{color:rgba(255,214,0,.6);font-size:12px;font-weight:700;letter-spacing:5px;text-transform:uppercase;margin-top:.75rem}
+.hero p{color:#666;font-size:15px;margin-top:1rem;max-width:400px;margin-inline:auto;line-height:1.8}
+.hero-btns{display:flex;gap:12px;justify-content:center;margin-top:2rem;flex-wrap:wrap}
+.btn-gold{background:#FFD600;color:#111;border:none;padding:13px 28px;font-family:'Barlow',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:4px;text-transform:uppercase}
+.btn-gold:hover{background:#ffe033}
+.btn-outline{background:none;color:#FFD600;border:2px solid rgba(255,214,0,.4);padding:11px 26px;font-family:'Barlow',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:4px;text-transform:uppercase}
+.btn-outline:hover{border-color:#FFD600}
+/* HOURS BAR */
+.hours-bar{background:#0d0d0d;border-top:1px solid rgba(255,214,0,.1);display:grid;grid-template-columns:repeat(3,1fr);padding:1.25rem}
+.hour-item{text-align:center}
+.hour-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD600}
+.hour-lbl{font-size:10px;color:#555;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:2px}
 /* SERVICES */
-.services-section{padding:5rem 2rem;background:#fff}
-.sec-inner{max-width:940px;margin:0 auto}
-.sec-eyebrow{font-size:11px;font-weight:700;letter-spacing:4px;color:#FFD600;text-transform:uppercase;margin-bottom:.75rem}
-.sec-title{font-family:‘Bebas Neue’,sans-serif;font-size:44px;color:#1a1a1a;letter-spacing:2px;margin-bottom:.5rem;line-height:1}
-.sec-sub{color:#888888;font-size:15px;margin-bottom:2.5rem;line-height:1.7}
-.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:2px}
-.svc{background:#0d0d0d;padding:1.75rem 1.5rem;position:relative;overflow:hidden;transition:all .25s;cursor:default}
-.svc::before{content:’’;position:absolute;bottom:0;left:0;right:0;height:2px;background:#FFD600;transform:scaleX(0);transition:transform .3s}
-.svc:hover::before{transform:scaleX(1)}
-.svc:hover{background:#161616}
-.svc-icon{font-size:26px;margin-bottom:1rem;display:block}
-.svc h3{font-family:‘Bebas Neue’,sans-serif;font-size:20px;color:#ffffff;letter-spacing:1px;margin-bottom:.5rem}
-.svc p{font-size:13px;color:#999;line-height:1.6}
-
+.services-wrap{padding:4rem 1.5rem;background:#fff}
+.services-inner{max-width:900px;margin:0 auto}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;color:#FFD600;text-transform:uppercase;margin-bottom:.5rem}
+.big-title{font-family:'Bebas Neue',sans-serif;font-size:40px;color:#111;letter-spacing:2px;margin-bottom:.5rem;line-height:1}
+.sub-text{color:#888;font-size:14px;margin-bottom:2rem;line-height:1.7}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:2px}
+.svc{background:#111;padding:1.5rem;position:relative}
+.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#FFD600;transform:scaleX(0);transition:transform .3s}
+.svc:hover::after{transform:scaleX(1)}
+.svc-icon{font-size:24px;margin-bottom:.75rem;display:block}
+.svc h3{font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;margin-bottom:.4rem}
+.svc p{font-size:12px;color:#666;line-height:1.6}
 /* CONTACT */
-.contact-section{background:#0d0d0d;padding:5rem 2rem}
-.contact-inner{max-width:900px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
-@media(max-width:700px){.contact-inner{grid-template-columns:1fr;gap:2rem}}
-.contact-left .sec-title{color:#fff}
-.contact-left p{color:#555;font-size:15px;line-height:1.8;margin-top:.75rem;margin-bottom:2rem}
-.contact-details{display:flex;flex-direction:column;gap:1.25rem}
-.cd-item{display:flex;align-items:flex-start;gap:14px}
-.cd-icon{width:40px;height:40px;background:rgba(255,214,0,.1);border:1px solid rgba(255,214,0,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.cd-info .cd-label{font-size:11px;color:#555;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
-.cd-info .cd-val{font-size:15px;color:#ccc;line-height:1.6}
-
+.contact-wrap{background:#111;padding:4rem 1.5rem}
+.contact-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.contact-details{display:flex;flex-direction:column;gap:1.25rem;margin-top:1.25rem}
+.cd{display:flex;gap:12px;align-items:flex-start}
+.cd-icon{width:38px;height:38px;background:rgba(255,214,0,.1);border:1px solid rgba(255,214,0,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.cd-label{font-size:10px;color:#555;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.cd-val{font-size:14px;color:#aaa;line-height:1.6}
 /* BOOKING PAGE */
-.book-page{background:#f7f7f5;padding:4rem 1rem;flex:1}
-.booking-box{background:#fff;border:1px solid #e8e8e8;border-radius:12px;max-width:560px;margin:0 auto;overflow:hidden;box-shadow:0 4px 30px rgba(0,0,0,.07)}
-.b-step{padding:2rem}
-.step-hdr{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #e8e8e8}
-.step-num{width:34px;height:34px;background:#0d0d0d;color:#FFD600;display:flex;align-items:center;justify-content:center;font-family:‘Bebas Neue’,sans-serif;font-size:19px;border-radius:6px;flex-shrink:0}
-.step-title{font-family:‘Bebas Neue’,sans-serif;font-size:24px;letter-spacing:1px;color:#1a1a1a}
-.notice{background:#fffbea;border:1px solid #ffe066;border-radius:8px;padding:1rem 1.25rem;margin-bottom:1.5rem;display:flex;gap:10px}
-.notice-icon{color:#cc9900;font-size:20px;flex-shrink:0;margin-top:1px}
-.notice-txt{font-size:13px;color:#665500;line-height:1.6}
-.notice-txt strong{display:block;font-weight:700;margin-bottom:3px;color:#443700}
-.fr{margin-bottom:14px}
-.fr label{display:block;font-size:11px;font-weight:700;color:#888;letter-spacing:.8px;margin-bottom:6px;text-transform:uppercase}
-.fr input,.fr select,.fr textarea{width:100%;padding:11px 14px;border:1.5px solid #e8e8e8;border-radius:8px;font-family:‘Barlow’,sans-serif;font-size:14px;color:#1a1a1a;background:#fff;outline:none;transition:all .2s}
-.fr input:focus,.fr select:focus,.fr textarea:focus{border-color:#FFD600;box-shadow:0 0 0 3px rgba(255,214,0,.1)}
-.fr textarea{height:90px;resize:vertical}
-.success-box{text-align:center;padding:3rem 2rem}
-.ok-icon{font-size:52px;margin-bottom:1rem}
-.success-box h3{font-family:‘Bebas Neue’,sans-serif;font-size:32px;letter-spacing:1px;margin-bottom:.75rem}
-.success-box p{color:#888;font-size:15px;line-height:1.7}
-.confirm-card{margin-top:1.25rem;padding:1rem 1.25rem;background:#f7f7f5;border-radius:8px;font-size:13px;color:#888;text-align:left;line-height:2;border:1px solid #e8e8e8}
-
+.book-wrap{background:#f5f5f0;padding:3rem 1rem;flex:1}
+.book-center{max-width:540px;margin:0 auto}
+.book-header{text-align:center;margin-bottom:1.5rem}
+.booking-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.book-body{padding:1.75rem}
+.book-top{display:flex;align-items:center;gap:12px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid #f0f0f0}
+.book-num{width:32px;height:32px;background:#111;color:#FFD600;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:18px;border-radius:6px;flex-shrink:0}
+.book-ttl{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#111}
+.notice{background:#fffbea;border:1px solid #ffe066;border-radius:8px;padding:.875rem 1rem;margin-bottom:1.25rem;display:flex;gap:10px}
+.notice-ico{color:#cc9900;font-size:18px;flex-shrink:0;margin-top:1px}
+.notice-txt{font-size:13px;color:#665500;line-height:1.5}
+.notice-txt strong{display:block;font-weight:700;color:#443700;margin-bottom:2px}
+.fr{margin-bottom:12px}
+.fr label{display:block;font-size:11px;font-weight:700;color:#888;letter-spacing:.5px;margin-bottom:5px;text-transform:uppercase}
+.fr input,.fr select,.fr textarea{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:6px;font-family:'Barlow',sans-serif;font-size:14px;color:#111;background:#fff;outline:none}
+.fr input:focus,.fr select:focus,.fr textarea:focus{border-color:#FFD600}
+.fr textarea{height:80px;resize:vertical}
+.ok-wrap{text-align:center;padding:2.5rem 1.5rem}
+.ok-wrap h3{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;margin:.75rem 0}
+.ok-wrap p{color:#888;font-size:14px;line-height:1.7}
+.confirm-info{margin-top:1rem;padding:.875rem 1rem;background:#f9f9f9;border-radius:6px;font-size:13px;color:#888;text-align:left;line-height:1.9}
 /* LOCK */
-.lock-screen{position:fixed;inset:0;background:#0d0d0d;display:flex;align-items:center;justify-content:center;z-index:999}
-.lock-box{background:#161616;border:1px solid #2a2a2a;border-radius:16px;padding:2.5rem;width:90%;max-width:360px;text-align:center}
-.lock-logo{width:76px;height:76px;border-radius:50%;object-fit:cover;border:2px solid #FFD600;margin:0 auto 1.25rem;display:block}
-.lock-title{font-family:‘Bebas Neue’,sans-serif;font-size:28px;color:#FFD600;letter-spacing:3px;margin-bottom:.4rem}
-.lock-sub{font-size:13px;color:#555;margin-bottom:1.5rem}
-.lock-input{width:100%;padding:13px 16px;background:#0d0d0d;border:1.5px solid #2a2a2a;border-radius:8px;color:#fff;font-family:‘Barlow’,sans-serif;font-size:15px;outline:none;text-align:center;letter-spacing:3px;transition:border .2s}
+.lock-overlay{position:fixed;inset:0;background:#111;display:flex;align-items:center;justify-content:center;z-index:999}
+.lock-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;padding:2.25rem;width:90%;max-width:340px;text-align:center}
+.lock-logo{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #FFD600;margin:0 auto 1rem;display:block}
+.lock-title{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#FFD600;letter-spacing:3px;margin-bottom:.3rem}
+.lock-sub{font-size:12px;color:#555;margin-bottom:1.25rem}
+.lock-input{width:100%;padding:12px;background:#111;border:1.5px solid #2a2a2a;border-radius:6px;color:#fff;font-family:'Barlow',sans-serif;font-size:15px;outline:none;text-align:center;letter-spacing:2px}
 .lock-input:focus{border-color:#FFD600}
-.lock-error{color:#ff4444;font-size:13px;margin-top:8px;display:none}
-
-/* POPUPS */
-.booking-popup{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:998;display:flex;align-items:center;justify-content:center;padding:1rem;animation:fadeIn .25s ease}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.booking-popup-box{background:#fff;border-radius:16px;width:100%;max-width:420px;overflow:hidden;animation:slideUp .3s ease}
-@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
-.bp-header{background:#0d0d0d;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,214,0,.15)}
-.bp-bell{font-size:22px}
-.bp-title{font-family:‘Bebas Neue’,sans-serif;font-size:22px;color:#FFD600;letter-spacing:2px;flex:1}
-.bp-close{background:none;border:none;color:#555;font-size:20px;cursor:pointer;padding:4px;line-height:1}
-.bp-body{padding:1.5rem;display:flex;flex-direction:column;gap:12px}
-.bp-row{display:flex;gap:12px;align-items:flex-start}
-.bp-icon{font-size:17px;flex-shrink:0;margin-top:2px}
-.bp-content .bp-label{font-size:10px;color:#aaa;font-weight:700;letter-spacing:1px;text-transform:uppercase}
-.bp-content .bp-val{font-size:15px;font-weight:600;color:#1a1a1a;margin-top:1px}
-.bp-footer{padding:1rem 1.5rem;background:#f7f7f5;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid #e8e8e8}
-.btn-call{background:#22c55e;color:#fff;border:none;padding:12px 18px;font-family:‘Barlow’,sans-serif;font-weight:700;font-size:13px;cursor:pointer;border-radius:8px;flex:1;display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;letter-spacing:.5px}
-.btn-call:hover{background:#16a34a}
-.btn-confirm{background:#FFD600;color:#0d0d0d;border:none;padding:12px 18px;font-family:‘Barlow’,sans-serif;font-weight:700;font-size:13px;cursor:pointer;border-radius:8px;flex:1;letter-spacing:.5px}
-.btn-dismiss{background:none;border:1.5px solid #e8e8e8;color:#888;padding:10px;font-family:‘Barlow’,sans-serif;font-size:13px;cursor:pointer;border-radius:8px;width:100%;margin-top:2px}
-
+.lock-err{color:#ff4444;font-size:13px;margin-top:8px;display:none}
+/* POPUP */
+.popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:998;display:flex;align-items:center;justify-content:center;padding:1rem}
+.popup-card{background:#fff;border-radius:14px;width:100%;max-width:400px;overflow:hidden}
+.popup-hdr{background:#111;padding:1.1rem 1.25rem;display:flex;align-items:center;gap:10px}
+.popup-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#FFD600;letter-spacing:2px;flex:1}
+.popup-close{background:none;border:none;color:#666;font-size:20px;cursor:pointer}
+.popup-body{padding:1.25rem;display:flex;flex-direction:column;gap:10px}
+.popup-row{display:flex;gap:10px;align-items:flex-start}
+.popup-ico{font-size:16px;flex-shrink:0;margin-top:2px}
+.popup-lbl{font-size:10px;color:#aaa;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.popup-val{font-size:14px;font-weight:600;color:#111}
+.popup-footer{padding:.875rem 1.25rem;background:#f5f5f0;display:flex;gap:8px;flex-wrap:wrap}
+.btn-call{background:#22c55e;color:#fff;border:none;padding:11px 16px;font-family:'Barlow',sans-serif;font-weight:700;font-size:13px;cursor:pointer;border-radius:7px;flex:1;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-ok{background:#FFD600;color:#111;border:none;padding:11px 16px;font-family:'Barlow',sans-serif;font-weight:700;font-size:13px;cursor:pointer;border-radius:7px;flex:1}
+.btn-skip{background:none;border:1px solid #ddd;color:#888;padding:9px;font-family:'Barlow',sans-serif;font-size:13px;cursor:pointer;border-radius:7px;width:100%;margin-top:4px}
 /* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:997;display:flex;align-items:center;justify-content:center;padding:1rem}
-.modal-box{background:#fff;border-radius:16px;width:100%;max-width:420px;overflow:hidden;max-height:90vh;overflow-y:auto}
-.modal-hdr{background:#0d0d0d;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:1}
-.modal-title{font-family:‘Bebas Neue’,sans-serif;font-size:22px;color:#FFD600;letter-spacing:2px}
-.modal-close{background:none;border:none;color:#555;font-size:22px;cursor:pointer;line-height:1}
-.modal-close:hover{color:#fff}
-.modal-body{padding:1.5rem;display:flex;flex-direction:column;gap:0}
-.modal-row{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid #e8e8e8;align-items:flex-start}
-.modal-row:last-child{border-bottom:none}
-.modal-icon{font-size:19px;flex-shrink:0;margin-top:1px}
-.modal-info .label{font-size:10px;color:#aaa;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px}
-.modal-info .val{font-size:15px;color:#1a1a1a;font-weight:500}
-.modal-footer{padding:1rem 1.5rem;background:#f7f7f5;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid #e8e8e8}
-
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:997;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modal-card{background:#fff;border-radius:14px;width:100%;max-width:400px;overflow:hidden;max-height:90vh;overflow-y:auto}
+.modal-hdr{background:#111;padding:1.1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#FFD600;letter-spacing:2px}
+.modal-close{background:none;border:none;color:#666;font-size:22px;cursor:pointer}
+.modal-body{padding:1.25rem;display:flex;flex-direction:column;gap:0}
+.m-row{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid #f0f0f0;align-items:flex-start}
+.m-row:last-child{border-bottom:none}
+.m-ico{font-size:18px;flex-shrink:0;margin-top:1px}
+.m-lbl{font-size:10px;color:#aaa;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px}
+.m-val{font-size:14px;color:#111;font-weight:500}
+.modal-footer{padding:.875rem 1.25rem;background:#f5f5f0;display:flex;gap:8px;flex-wrap:wrap}
 /* ADMIN */
-.admin-page{padding:1.75rem;background:#f7f7f5;flex:1}
-.admin-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:12px}
-.admin-title{font-family:‘Bebas Neue’,sans-serif;font-size:28px;letter-spacing:2px;color:#1a1a1a}
-.tabs{display:flex;gap:3px;background:#0d0d0d;border-radius:8px;padding:4px;flex-wrap:wrap}
-.tab{padding:8px 16px;font-family:‘Barlow’,sans-serif;font-size:12px;font-weight:700;color:#555;border:none;background:none;cursor:pointer;border-radius:6px;transition:all .2s;letter-spacing:.5px;text-transform:uppercase}
-.tab.active{background:#FFD600;color:#0d0d0d}
+.admin-wrap{padding:1.5rem;background:#f5f5f0;flex:1}
+.admin-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px}
+.admin-ttl{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px}
+.tabs{display:flex;gap:3px;background:#111;border-radius:8px;padding:4px;flex-wrap:wrap}
+.tab{padding:7px 13px;font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;color:#666;border:none;background:none;cursor:pointer;border-radius:5px;text-transform:uppercase;letter-spacing:.5px}
+.tab.active{background:#FFD600;color:#111}
 .tc{display:none}.tc.active{display:block}
-
-/* ADMIN CARDS */
-.a-card{background:#fff;border:1px solid #e8e8e8;border-radius:12px;margin-bottom:12px;overflow:hidden;transition:box-shadow .2s}
-.a-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.07)}
-.a-card-hdr{padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e8e8e8;flex-wrap:wrap;gap:8px}
-.a-card-body{padding:1rem 1.25rem}
-.car-reg{font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:3px;color:#1a1a1a}
-.car-make{font-size:13px;color:#888888;margin-top:2px}
-.car-details{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid #e8e8e8}
-.cd-cell{font-size:12px;color:#888888}
-.cd-cell strong{display:block;color:#1a1a1a;font-size:13px;margin-top:2px;font-weight:600}
-.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.5px}
+.a-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px;margin-bottom:1.25rem}
+.a-stat{background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:.875rem;text-align:center}
+.a-stat-n{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#111}
+.a-stat-l{font-size:10px;color:#888;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-top:2px}
+.a-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;margin-bottom:10px;overflow:hidden}
+.a-card-hdr{padding:.875rem 1rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f0f0f0;flex-wrap:wrap;gap:8px}
+.a-card-body{padding:.875rem 1rem}
+.car-reg{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:3px;color:#111}
+.car-make{font-size:13px;color:#888;margin-top:2px}
+.car-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid #f5f5f5}
+.car-cell{font-size:11px;color:#aaa}
+.car-cell strong{display:block;color:#333;font-size:13px;margin-top:2px;font-weight:600}
+.badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700}
 .b-done{background:#dcfce7;color:#166534}
 .b-prog{background:#dbeafe;color:#1e40af}
 .b-wait{background:#fef9c3;color:#854d0e}
 .b-new{background:#fee2e2;color:#991b1b}
-.cat-badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;background:#0d0d0d;color:#FFD600;margin-right:6px}
-.job-row{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #e8e8e8;flex-wrap:wrap}
+.cat-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700;background:#111;color:#FFD600;margin-right:6px}
+.job-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid #f5f5f5;flex-wrap:wrap}
 .job-row:last-child{border-bottom:none}
-.job-date{font-size:11px;color:#888888;min-width:70px;margin-top:3px;font-weight:600}
-.job-info{flex:1;min-width:150px}
-.job-desc{font-size:14px;font-weight:600;color:#1a1a1a;margin-bottom:4px}
-.job-meta{font-size:12px;color:#888888;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.job-price{font-size:14px;color:#22c55e;font-weight:700;margin-left:auto;white-space:nowrap}
-.add-form{background:#f7f7f5;border:1.5px dashed #e8e8e8;border-radius:10px;padding:1.25rem;margin-top:12px}
-.add-form h4{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888888;margin-bottom:12px}
-.fc2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.fc3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:14px}
-.cat-btn{background:#fff;border:1.5px solid #e8e8e8;border-radius:10px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .2s}
-.cat-btn:hover{border-color:#FFD600;background:#fffbea}
-.cat-btn.selected{border-color:#FFD600;background:#fffbea;box-shadow:0 0 0 3px rgba(255,214,0,.15)}
-.cat-btn .ci{font-size:20px;display:block;margin-bottom:4px}
-.cat-btn .cl{font-size:11px;font-weight:700;color:#1a1a1a;letter-spacing:.3px}
-
+.job-date{font-size:11px;color:#aaa;min-width:68px;margin-top:2px;font-weight:600}
+.job-info{flex:1;min-width:140px}
+.job-desc{font-size:13px;font-weight:600;color:#111;margin-bottom:4px}
+.job-meta{font-size:11px;color:#aaa;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.job-price{font-size:13px;color:#22c55e;font-weight:700;margin-left:auto;white-space:nowrap}
+.add-form{background:#f9f9f9;border:1.5px dashed #e0e0e0;border-radius:8px;padding:1.1rem;margin-top:10px}
+.add-form-ttl{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin-bottom:10px}
+.fc2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fc3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.divider{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin:12px 0 8px;padding-bottom:6px;border-bottom:1px solid #e5e5e5}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(90px,1fr));gap:7px;margin-bottom:12px}
+.cat-btn{background:#fff;border:1.5px solid #e5e5e5;border-radius:8px;padding:10px 5px;text-align:center;cursor:pointer}
+.cat-btn:hover,.cat-btn.selected{border-color:#FFD600;background:#fffbea}
+.cat-btn .ci{font-size:18px;display:block;margin-bottom:3px}
+.cat-btn .cl{font-size:10px;font-weight:700;color:#333}
 /* RECEIPT */
-.receipt-box{background:#fff;border:1px solid #e8e8e8;border-radius:12px;max-width:480px;margin:0 auto;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,.06)}
-.rec-logo{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:2px solid #1a1a1a}
-.rec-logo img{width:44px;height:44px;border-radius:50%;object-fit:cover}
-.rec-company{font-family:‘Bebas Neue’,sans-serif;font-size:22px;letter-spacing:2px;color:#1a1a1a}
-.rec-row{display:flex;justify-content:space-between;padding:7px 0;font-size:14px;border-bottom:1px solid #e8e8e8}
-.rec-row.total{font-weight:700;font-size:16px;border-bottom:none;border-top:2px solid #1a1a1a;margin-top:8px;padding-top:10px}
-.rec-label{color:#888888}
-.rec-meta{font-size:12px;color:#888888;margin-top:1.5rem;text-align:center;line-height:2}
-
+.rec-box{background:#fff;border:1px solid #e5e5e5;border-radius:10px;max-width:460px;margin:0 auto;padding:1.75rem}
+.rec-top{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid #111}
+.rec-top img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.rec-co{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#111}
+.rec-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid #f5f5f5}
+.rec-row.tot{font-weight:700;font-size:15px;border-bottom:none;border-top:2px solid #111;margin-top:6px;padding-top:8px}
+.rec-lbl{color:#888}
+.rec-meta{font-size:11px;color:#aaa;margin-top:1.25rem;text-align:center;line-height:2}
 /* BOOKING LIST */
-.b-item{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:1rem 1.25rem;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:all .2s}
-.b-item:hover{border-color:#FFD600;box-shadow:0 2px 15px rgba(255,214,0,.1);transform:translateY(-1px)}
-.b-item.b-new-item{border-color:#fca5a5;background:#fff9f9}
+.b-item{background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:.875rem 1rem;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer}
+.b-item:hover{border-color:#FFD600}
+.b-item.is-new{border-color:#fca5a5;background:#fff9f9}
 .b-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .b-inf{flex:1}
-.b-name{font-size:14px;font-weight:700;color:#1a1a1a}
-.b-det{font-size:12px;color:#888888;margin-top:3px;line-height:1.5}
-.b-arrow{color:#ddd;font-size:20px;flex-shrink:0;font-weight:300}
-
-/* BUTTONS */
-.btn-sm{background:#0d0d0d;color:#FFD600;border:none;padding:7px 14px;font-family:‘Barlow’,sans-serif;font-size:12px;font-weight:700;cursor:pointer;border-radius:6px;transition:all .2s;letter-spacing:.5px;text-transform:uppercase}
-.btn-sm:hover{background:#222}
-.btn-del{background:#fee2e2;color:#991b1b;border:none;padding:7px 12px;font-family:‘Barlow’,sans-serif;font-size:12px;font-weight:700;cursor:pointer;border-radius:6px;transition:all .2s}
-.btn-del:hover{background:#fecaca}
-.logout-btn{background:none;border:1px solid #333;color:#555;font-family:‘Barlow’,sans-serif;font-size:12px;font-weight:700;padding:7px 14px;cursor:pointer;border-radius:6px;text-transform:uppercase;letter-spacing:.5px;transition:all .2s}
-.logout-btn:hover{border-color:#dc2626;color:#dc2626}
-
-/* STATS */
-.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:1.5rem}
-.admin-stat{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:1rem;text-align:center}
-.admin-stat .sn{font-family:‘Bebas Neue’,sans-serif;font-size:28px;color:#1a1a1a;letter-spacing:1px}
-.admin-stat .sl{font-size:10px;color:#888888;letter-spacing:1.5px;text-transform:uppercase;margin-top:2px;font-weight:700}
-
-.section-divider{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#888888;margin:14px 0 10px;padding-bottom:6px;border-bottom:1px solid #e8e8e8}
-.save-indicator{position:fixed;bottom:24px;right:24px;background:#22c55e;color:#fff;padding:10px 20px;border-radius:20px;font-family:‘Barlow’,sans-serif;font-size:13px;font-weight:700;z-index:500;display:none;box-shadow:0 4px 15px rgba(34,197,94,.3)}
-.empty{text-align:center;color:#888888;font-size:14px;padding:2.5rem;line-height:1.8}
-
+.b-name{font-size:14px;font-weight:700;color:#111}
+.b-det{font-size:12px;color:#888;margin-top:2px;line-height:1.5}
+.b-arr{color:#ddd;font-size:20px;flex-shrink:0}
+.btn-sm{background:#111;color:#FFD600;border:none;padding:6px 12px;font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;cursor:pointer;border-radius:5px;text-transform:uppercase}
+.btn-del{background:#fee2e2;color:#991b1b;border:none;padding:6px 10px;font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;cursor:pointer;border-radius:5px}
+.btn-logout{background:none;border:1px solid #333;color:#666;font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;padding:6px 12px;cursor:pointer;border-radius:5px;text-transform:uppercase}
+.empty{text-align:center;color:#aaa;font-size:14px;padding:2rem;line-height:1.8}
+.save-toast{position:fixed;bottom:20px;right:20px;background:#22c55e;color:#fff;padding:10px 18px;border-radius:20px;font-family:'Barlow',sans-serif;font-size:13px;font-weight:700;z-index:500;display:none}
 @media(max-width:600px){
-.hero h1{font-size:64px}
-.fc2{grid-template-columns:1fr}
-.fc3{grid-template-columns:1fr 1fr}
-.tabs{gap:2px}.tab{padding:7px 10px;font-size:11px}
-.stats-bar{grid-template-columns:repeat(3,1fr)}
-.hero{padding:4rem 1.5rem 3.5rem}
+  .hero h1{font-size:68px}
+  .contact-inner{grid-template-columns:1fr}
+  .fc2{grid-template-columns:1fr}
+  .fc3{grid-template-columns:1fr 1fr}
+  .tabs .tab{padding:6px 9px;font-size:10px}
 }
 </style>
-
 </head>
 <body>
 
-<div id="save-indicator" class="save-indicator">✅ Sparat!</div>
+<div id="save-toast" class="save-toast">✅ Sparat!</div>
 
-<!-- LOCK -->
+<!-- LÖSENORD -->
 
-<div id="lock-screen" class="lock-screen" style="display:none">
-  <div class="lock-box">
+<div id="lock" class="lock-overlay" style="display:none">
+  <div class="lock-card">
     <img class="lock-logo" src="data:image/jpeg;base64,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" alt="RBwolf">
     <div class="lock-title">Admin</div>
-    <div class="lock-sub">Ange lösenord för att komma in</div>
-    <input class="lock-input" type="password" id="pw-input" placeholder="••••••••••" onkeydown="if(event.key==='Enter')checkPw()">
-    <div class="lock-error" id="pw-error">❌ Fel lösenord, försök igen</div>
-    <button class="btn-gold" style="width:100%;margin-top:16px;padding:14px" onclick="checkPw()">Logga in</button>
+    <div class="lock-sub">Ange lösenord</div>
+    <input class="lock-input" type="password" id="pw" placeholder="••••••••••" onkeydown="if(event.key==='Enter')checkPw()">
+    <div class="lock-err" id="pw-err">❌ Fel lösenord</div>
+    <button class="btn-gold" style="width:100%;margin-top:14px;padding:13px" onclick="checkPw()">Logga in</button>
   </div>
 </div>
 
 <!-- NY BOKNING POPUP -->
 
-<div id="booking-popup" class="booking-popup" style="display:none">
-  <div class="booking-popup-box">
-    <div class="bp-header">
-      <span class="bp-bell">🔔</span>
-      <span class="bp-title">NY BOKNING</span>
-      <button class="bp-close" onclick="closePopup()">✕</button>
+<div id="popup" class="popup-overlay" style="display:none">
+  <div class="popup-card">
+    <div class="popup-hdr">
+      <span style="font-size:20px">🔔</span>
+      <span class="popup-title">NY BOKNING!</span>
+      <button class="popup-close" onclick="closePopup()">✕</button>
     </div>
-    <div class="bp-body" id="bp-body"></div>
-    <div class="bp-footer">
-      <a id="bp-call-btn" href="#" class="btn-call">📞 Ring kunden</a>
-      <button class="btn-confirm" onclick="confirmFromPopup()">✓ Bekräfta</button>
-      <button class="btn-dismiss" onclick="closePopup()">Stäng — visa senare</button>
+    <div class="popup-body" id="popup-body"></div>
+    <div class="popup-footer">
+      <a id="popup-call" href="#" class="btn-call">📞 Ring kunden</a>
+      <button class="btn-ok" onclick="confirmPopup()">✓ Bekräfta</button>
+      <button class="btn-skip" onclick="closePopup()">Stäng — visa senare</button>
     </div>
   </div>
 </div>
 
-<!-- BOKNINGSDETALJ MODAL -->
+<!-- BOKNINGSDETALJ -->
 
-<div id="booking-modal" class="modal-overlay" style="display:none">
-  <div class="modal-box">
+<div id="modal" class="modal-overlay" style="display:none">
+  <div class="modal-card">
     <div class="modal-hdr">
       <span class="modal-title">Bokning</span>
       <button class="modal-close" onclick="closeModal()">✕</button>
@@ -281,6 +242,8 @@ nav{background:#0d0d0d;padding:0 1.5rem;display:flex;align-items:center;justify-
     <div class="modal-footer" id="modal-footer"></div>
   </div>
 </div>
+
+<!-- NAV -->
 
 <nav>
   <div class="logo-wrap" onclick="goHome()">
@@ -291,7 +254,7 @@ nav{background:#0d0d0d;padding:0 1.5rem;display:flex;align-items:center;justify-
     <button class="nav-btn active" id="nb-home" onclick="goHome()">Start</button>
     <button class="nav-btn" id="nb-book" onclick="goBook()">Boka</button>
     <button class="nav-btn" id="nb-admin" onclick="tryAdmin()">Admin</button>
-    <button class="notif-bell" id="notif-bell" onclick="tryAdmin()" style="display:none">
+    <button class="notif-bell" id="notif-bell" onclick="tryAdmin()">
       <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
       <div class="notif-dot" id="notif-dot"></div>
     </button>
@@ -302,202 +265,200 @@ nav{background:#0d0d0d;padding:0 1.5rem;display:flex;align-items:center;justify-
 
 <div id="pg-home" class="page active">
   <div class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-glow"></div>
     <div class="hero-tag">Bilverkstad i Bromölla</div>
     <img src="data:image/jpeg;base64,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" class="hero-logo" alt="RBwolf">
     <h1>RB<span>WOLF</span></h1>
-    <div class="hero-sub">Bilservice · Reparationer · Felsökning</div>
-    <p>Vi tar hand om din bil som om det vore vår egen. Professionell service med personlig touch.</p>
+    <div class="hero-sub">Service · Reparationer · Felsökning</div>
+    <p>Vi tar hand om din bil som om det vore vår egen.</p>
     <div class="hero-btns">
       <button class="btn-gold" onclick="goBook()">Boka tid</button>
       <button class="btn-outline" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Kontakt</button>
     </div>
   </div>
 
-  <div class="stats-bar" style="background:#0d0d0d">
-    <div class="stat-item"><div class="num">09–18</div><div class="lbl">Mån–Fre</div></div>
-    <div class="stat-item"><div class="num">10–16</div><div class="lbl">Lördag</div></div>
-    <div class="stat-item"><div class="num">Stängt</div><div class="lbl">Söndag</div></div>
+  <div class="hours-bar">
+    <div class="hour-item"><div class="hour-num">09–18</div><div class="hour-lbl">Mån–Fre</div></div>
+    <div class="hour-item"><div class="hour-num">10–16</div><div class="hour-lbl">Lördag</div></div>
+    <div class="hour-item"><div class="hour-num">Stängt</div><div class="hour-lbl">Söndag</div></div>
   </div>
 
-  <div class="services-section">
-    <div class="sec-inner">
-      <div class="sec-eyebrow">Vad vi gör</div>
-      <div class="sec-title">Våra tjänster</div>
-      <div class="sec-sub">Allt från enklare service till komplexa reparationer — vi fixar det mesta.</div>
+  <div class="services-wrap">
+    <div class="services-inner">
+      <div class="eyebrow">Vad vi gör</div>
+      <div class="big-title">Våra tjänster</div>
+      <div class="sub-text">Allt från enklare service till komplexa reparationer.</div>
       <div class="svc-grid">
-        <div class="svc"><span class="svc-icon">⚙️</span><h3>Service & Olja</h3><p>Oljebyte, filter och kontroll av alla vätskor.</p></div>
-        <div class="svc"><span class="svc-icon">🔧</span><h3>Reparationer</h3><p>Motor, växellåda, bromsar och styrning.</p></div>
-        <div class="svc"><span class="svc-icon">🔍</span><h3>Felsökning</h3><p>Modern diagnos — vi hittar felet snabbt.</p></div>
+        <div class="svc"><span class="svc-icon">⚙️</span><h3>Service & Olja</h3><p>Oljebyte, filter och vätskor.</p></div>
+        <div class="svc"><span class="svc-icon">🔧</span><h3>Reparationer</h3><p>Motor, bromsar och styrning.</p></div>
+        <div class="svc"><span class="svc-icon">🔍</span><h3>Felsökning</h3><p>Modern diagnos — snabbt och säkert.</p></div>
         <div class="svc"><span class="svc-icon">🛞</span><h3>Däck & Hjul</h3><p>Säsongsbyte och balansering.</p></div>
-        <div class="svc"><span class="svc-icon">💡</span><h3>Belysning & El</h3><p>Lampbyte, elsystem och batteri.</p></div>
-        <div class="svc"><span class="svc-icon">🚗</span><h3>Besiktning</h3><p>Vi förbereder och fixar anmärkningar.</p></div>
+        <div class="svc"><span class="svc-icon">💡</span><h3>El & Belysning</h3><p>Lampbyte, elsystem, batteri.</p></div>
+        <div class="svc"><span class="svc-icon">🚗</span><h3>Besiktning</h3><p>Förberedelse och anmärkningar.</p></div>
       </div>
     </div>
   </div>
 
-  <div id="kontakt" class="contact-section">
+  <div id="kontakt" class="contact-wrap">
     <div class="contact-inner">
-      <div class="contact-left">
-        <div class="sec-eyebrow">Kontakt</div>
-        <div class="sec-title" style="color:#fff">Hitta oss</div>
-        <p>Välkommen in till oss i Bromölla. Vi tar emot dig utan bokning under öppettiderna, men det är alltid smidigare att boka tid.</p>
+      <div>
+        <div class="eyebrow">Kontakt</div>
+        <div class="big-title" style="color:#fff">Hitta oss</div>
+        <p style="color:#555;font-size:14px;line-height:1.8;margin-top:.75rem;margin-bottom:1.5rem">Välkommen in — utan bokning under öppettiderna, eller boka tid nedan.</p>
         <button class="btn-gold" onclick="goBook()">Boka tid nu</button>
       </div>
       <div class="contact-details">
-        <div class="cd-item"><div class="cd-icon">📞</div><div class="cd-info"><div class="cd-label">Telefon</div><div class="cd-val">073-933 44 46</div></div></div>
-        <div class="cd-item"><div class="cd-icon">📍</div><div class="cd-info"><div class="cd-label">Adress</div><div class="cd-val">Ugnsvägen 4A<br>295 39 Bromölla</div></div></div>
-        <div class="cd-item"><div class="cd-icon">🕐</div><div class="cd-info"><div class="cd-label">Öppettider</div><div class="cd-val">Mån–Fre 09:00–18:00<br>Lördag 10:00–16:00<br>Söndag Stängt</div></div></div>
+        <div class="cd"><div class="cd-icon">📞</div><div><div class="cd-label">Telefon</div><div class="cd-val">073-933 44 46</div></div></div>
+        <div class="cd"><div class="cd-icon">📍</div><div><div class="cd-label">Adress</div><div class="cd-val">Ugnsvägen 4A<br>295 39 Bromölla</div></div></div>
+        <div class="cd"><div class="cd-icon">🕐</div><div><div class="cd-label">Öppettider</div><div class="cd-val">Mån–Fre 09–18<br>Lördag 10–16<br>Söndag Stängt</div></div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- BOKNINGSSIDA -->
+<!-- BOKA -->
 
 <div id="pg-book" class="page">
-  <div class="book-page">
-    <div style="max-width:560px;margin:0 auto">
-      <div style="text-align:center;margin-bottom:1.75rem">
-        <div class="sec-eyebrow" style="margin-bottom:.4rem">Bokningssystem</div>
-        <div class="sec-title">Boka tid</div>
+  <div class="book-wrap">
+    <div class="book-center">
+      <div class="book-header">
+        <div class="eyebrow" style="margin-bottom:.3rem">Bokningssystem</div>
+        <div class="big-title">Boka tid</div>
       </div>
-      <div id="book-form" class="booking-box">
-        <div class="b-step">
-          <div class="step-hdr"><div class="step-num">1</div><div class="step-title">Dina uppgifter</div></div>
+      <div id="book-form" class="booking-card">
+        <div class="book-body">
+          <div class="book-top"><div class="book-num">1</div><div class="book-ttl">Dina uppgifter</div></div>
           <div class="notice">
-            <div class="notice-icon">📞</div>
-            <div class="notice-txt"><strong>Vi ringer dig!</strong>En mekaniker ringer upp dig för att bekräfta. Eller ring direkt: <strong>073-933 44 46</strong></div>
+            <div class="notice-ico">📞</div>
+            <div class="notice-txt"><strong>Vi ringer dig!</strong>En mekaniker ringer upp dig för att bekräfta. Eller ring: <strong>073-933 44 46</strong></div>
           </div>
           <div class="fr"><label>Namn *</label><input type="text" id="b-name" placeholder="Anna Andersson"></div>
           <div class="fr"><label>Telefon *</label><input type="tel" id="b-phone" placeholder="070-123 45 67"></div>
           <div class="fr"><label>E-post</label><input type="email" id="b-email" placeholder="din@epost.se"></div>
           <div class="fr"><label>Registreringsnummer *</label><input type="text" id="b-reg" placeholder="ABC123" style="text-transform:uppercase"></div>
-          <div class="fr"><label>Bilmärke & modell</label><input type="text" id="b-car" placeholder="t.ex. Volvo V70 2018"></div>
+          <div class="fr"><label>Bilmärke & modell</label><input type="text" id="b-car" placeholder="Volvo V70 2018"></div>
           <div class="fr"><label>Önskat datum</label><input type="date" id="b-date"></div>
           <div class="fr"><label>Beskriv ärendet</label><textarea id="b-desc" placeholder="Vad behöver din bil hjälp med?"></textarea></div>
-          <button class="btn-gold" style="width:100%;padding:15px;font-size:14px" onclick="submitBooking()">Skicka bokningsförfrågan →</button>
+          <button class="btn-gold" style="width:100%;padding:14px;font-size:14px" onclick="submitBook()">Skicka bokningsförfrågan →</button>
         </div>
       </div>
-      <div id="book-ok" class="booking-box" style="display:none">
-        <div class="success-box">
-          <div class="ok-icon">✅</div>
+      <div id="book-ok" class="booking-card" style="display:none">
+        <div class="ok-wrap">
+          <div style="font-size:48px">✅</div>
           <h3>Förfrågan skickad!</h3>
-          <p>Vi ringer upp dig inom kort för att bekräfta tid och gå igenom jobbet.</p>
-          <div class="confirm-card" id="book-confirm"></div>
-          <button class="btn-gold" style="margin-top:1.5rem" onclick="newBooking()">Ny bokning</button>
+          <p>Vi ringer upp dig inom kort för att bekräfta tid.</p>
+          <div class="confirm-info" id="book-confirm"></div>
+          <button class="btn-gold" style="margin-top:1.25rem" onclick="newBook()">Ny bokning</button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ADMINPANEL -->
+<!-- ADMIN -->
 
 <div id="pg-admin" class="page">
-  <div class="admin-page">
-    <div class="admin-header">
-      <div class="admin-title">Administration</div>
-      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+  <div class="admin-wrap">
+    <div class="admin-top">
+      <div class="admin-ttl">Administration</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <div class="tabs">
           <button class="tab active" id="tab-b" onclick="showTab('t-book')">📋 Bokningar</button>
           <button class="tab" id="tab-c" onclick="showTab('t-cars')">🚗 Bilar</button>
           <button class="tab" id="tab-h" onclick="showTab('t-hist')">🔧 Historik</button>
           <button class="tab" id="tab-r" onclick="showTab('t-rec')">🧾 Kvitton</button>
         </div>
-        <button class="logout-btn" onclick="logout()">🔒 Logga ut</button>
+        <button class="btn-logout" onclick="logout()">🔒 Logga ut</button>
       </div>
     </div>
-    <div class="admin-stats">
-      <div class="admin-stat"><div class="sn" id="s1">0</div><div class="sl">Bokningar</div></div>
-      <div class="admin-stat"><div class="sn" id="s2">0</div><div class="sl">Bilar</div></div>
-      <div class="admin-stat"><div class="sn" id="s3">0</div><div class="sl">Utförda</div></div>
-      <div class="admin-stat"><div class="sn" id="s4">0 kr</div><div class="sl">Intäkt</div></div>
+    <div class="a-stats">
+      <div class="a-stat"><div class="a-stat-n" id="s1">0</div><div class="a-stat-l">Bokningar</div></div>
+      <div class="a-stat"><div class="a-stat-n" id="s2">0</div><div class="a-stat-l">Bilar</div></div>
+      <div class="a-stat"><div class="a-stat-n" id="s3">0</div><div class="a-stat-l">Utförda</div></div>
+      <div class="a-stat"><div class="a-stat-n" id="s4">0 kr</div><div class="a-stat-l">Intäkt</div></div>
     </div>
 
 ```
 <div id="t-book" class="tc active">
-  <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
-    <div style="font-weight:700;font-size:15px">Bokningar</div>
-    <span id="new-count" style="display:none;background:#dc2626;color:#fff;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:700"></span>
+  <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+    <div style="font-weight:700;font-size:14px">Bokningar</div>
+    <span id="new-badge" style="display:none;background:#dc2626;color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:700"></span>
   </div>
   <div id="book-list"></div>
 </div>
 
 <div id="t-cars" class="tc">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-    <div style="font-weight:700;font-size:15px">Registrerade bilar</div>
-    <button class="btn-sm" onclick="toggleForm('add-car-form')">+ Ny bil</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div style="font-weight:700;font-size:14px">Registrerade bilar</div>
+    <button class="btn-sm" onclick="tog('add-car')">+ Ny bil</button>
   </div>
-  <div id="add-car-form" class="add-form" style="display:none;margin-bottom:14px">
-    <h4>Lägg till bil</h4>
-    <div class="section-divider">Fordon</div>
+  <div id="add-car" class="add-form" style="display:none;margin-bottom:12px">
+    <div class="add-form-ttl">Ny bil</div>
+    <div class="divider">Fordon</div>
     <div class="fc2">
       <div class="fr" style="margin:0"><label>Reg.nr *</label><input id="c-reg" placeholder="ABC123" style="text-transform:uppercase"></div>
       <div class="fr" style="margin:0"><label>Märke *</label><input id="c-make" placeholder="Volvo"></div>
     </div>
-    <div class="fc2" style="margin-top:10px">
+    <div class="fc2" style="margin-top:8px">
       <div class="fr" style="margin:0"><label>Modell</label><input id="c-model" placeholder="V70"></div>
       <div class="fr" style="margin:0"><label>År</label><input id="c-year" type="number" placeholder="2018"></div>
     </div>
-    <div class="fc3" style="margin-top:10px">
+    <div class="fc3" style="margin-top:8px">
       <div class="fr" style="margin:0"><label>Färg</label><input id="c-color" placeholder="Svart"></div>
-      <div class="fr" style="margin:0"><label>Drivmedel</label>
-        <select id="c-fuel"><option value="">Välj...</option><option>Bensin</option><option>Diesel</option><option>El</option><option>Hybrid</option><option>Laddhybrid</option><option>Gas</option></select>
-      </div>
-      <div class="fr" style="margin:0"><label>Miltal (mil)</label><input id="c-mileage" type="number" placeholder="15000"></div>
+      <div class="fr" style="margin:0"><label>Drivmedel</label><select id="c-fuel"><option value="">Välj...</option><option>Bensin</option><option>Diesel</option><option>El</option><option>Hybrid</option><option>Laddhybrid</option><option>Gas</option></select></div>
+      <div class="fr" style="margin:0"><label>Miltal</label><input id="c-mileage" type="number" placeholder="15000"></div>
     </div>
-    <div class="section-divider" style="margin-top:14px">Ägare</div>
+    <div class="divider" style="margin-top:12px">Ägare</div>
     <div class="fc2">
       <div class="fr" style="margin:0"><label>Namn</label><input id="c-owner" placeholder="Anna Andersson"></div>
       <div class="fr" style="margin:0"><label>Telefon</label><input id="c-phone" placeholder="070-123 45 67"></div>
     </div>
-    <div class="fr" style="margin-top:10px"><label>E-post</label><input id="c-email" type="email" placeholder="anna@epost.se"></div>
-    <div class="fr" style="margin-top:10px"><label>Anteckningar</label><textarea id="c-notes" placeholder="Extra info..."></textarea></div>
-    <button class="btn-gold" style="margin-top:12px" onclick="addCar()">Spara bil</button>
+    <div class="fr" style="margin-top:8px"><label>E-post</label><input id="c-email" type="email" placeholder="anna@epost.se"></div>
+    <div class="fr" style="margin-top:8px"><label>Anteckningar</label><textarea id="c-notes" placeholder="Extra info..."></textarea></div>
+    <button class="btn-gold" style="margin-top:10px" onclick="addCar()">Spara bil</button>
   </div>
   <div id="cars-list"></div>
 </div>
 
 <div id="t-hist" class="tc">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-    <div style="font-weight:700;font-size:15px">Jobbhistorik</div>
-    <button class="btn-sm" onclick="toggleForm('add-job-form')">+ Nytt jobb</button>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+    <div style="font-weight:700;font-size:14px">Jobbhistorik</div>
+    <button class="btn-sm" onclick="tog('add-job')">+ Nytt jobb</button>
   </div>
-  <div id="add-job-form" class="add-form" style="display:none;margin-bottom:14px">
-    <h4>Lägg till jobb</h4>
-    <div class="section-divider">Kategori</div>
+  <div id="add-job" class="add-form" style="display:none;margin-bottom:12px">
+    <div class="add-form-ttl">Nytt jobb</div>
+    <div class="divider">Kategori</div>
     <div class="cat-grid" id="cat-grid"></div>
     <div class="fc2">
       <div class="fr" style="margin:0"><label>Reg.nr *</label><input id="j-reg" placeholder="ABC123" style="text-transform:uppercase"></div>
       <div class="fr" style="margin:0"><label>Datum</label><input id="j-date" type="date"></div>
     </div>
-    <div class="fr" style="margin-top:10px"><label>Beskrivning *</label><input id="j-desc" placeholder="Beskriv jobbet"></div>
-    <div class="fc2" style="margin-top:10px">
+    <div class="fr" style="margin-top:8px"><label>Beskrivning *</label><input id="j-desc" placeholder="Beskriv jobbet"></div>
+    <div class="fc2" style="margin-top:8px">
       <div class="fr" style="margin:0"><label>Pris (kr)</label><input id="j-price" type="number" placeholder="1500"></div>
       <div class="fr" style="margin:0"><label>Miltal</label><input id="j-mileage" type="number" placeholder="15200"></div>
     </div>
-    <div class="fr" style="margin-top:10px"><label>Mekaniker</label><input id="j-mech" placeholder="Ahmad"></div>
-    <div class="fr" style="margin-top:10px"><label>Status</label>
+    <div class="fr" style="margin-top:8px"><label>Mekaniker</label><input id="j-mech" placeholder="Ahmad"></div>
+    <div class="fr" style="margin-top:8px"><label>Status</label>
       <select id="j-status"><option value="done">✅ Utfört</option><option value="progress">🔧 Pågående</option><option value="pending">⏳ Väntar</option></select>
     </div>
-    <div class="fr" style="margin-top:10px"><label>Anteckningar</label><textarea id="j-notes" placeholder="Extra info, nästa service..."></textarea></div>
-    <button class="btn-gold" style="margin-top:12px;width:100%" onclick="addJob()">Spara jobb</button>
+    <div class="fr" style="margin-top:8px"><label>Anteckningar</label><textarea id="j-notes" placeholder="Extra info..."></textarea></div>
+    <button class="btn-gold" style="margin-top:10px;width:100%" onclick="addJob()">Spara jobb</button>
   </div>
   <div id="hist-list"></div>
 </div>
 
 <div id="t-rec" class="tc">
-  <div style="font-weight:700;font-size:15px;margin-bottom:12px">Generera kvitto</div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">
-    <div class="fr" style="margin:0"><label>Bil</label><select id="r-car" onchange="fillJobSelect()"><option value="">-- Välj bil --</option></select></div>
+  <div style="font-weight:700;font-size:14px;margin-bottom:10px">Generera kvitto</div>
+  <div class="fc2" style="margin-bottom:10px">
+    <div class="fr" style="margin:0"><label>Bil</label><select id="r-car" onchange="fillJobs()"><option value="">-- Välj bil --</option></select></div>
     <div class="fr" style="margin:0"><label>Jobb</label><select id="r-job"><option value="">-- Välj jobb --</option></select></div>
   </div>
-  <div style="display:flex;gap:10px;flex-wrap:wrap">
-    <button class="btn-gold" onclick="genReceipt()">Generera kvitto</button>
+  <div style="display:flex;gap:8px">
+    <button class="btn-gold" onclick="genRec()">Generera kvitto</button>
     <button class="btn-sm" onclick="window.print()">🖨️ Skriv ut</button>
   </div>
-  <div id="rec-out" style="margin-top:1.5rem"></div>
+  <div id="rec-out" style="margin-top:1.25rem"></div>
 </div>
 ```
 
@@ -505,209 +466,276 @@ nav{background:#0d0d0d;padding:0 1.5rem;display:flex;align-items:center;justify-
 </div>
 
 <script>
-var LOGO_SRC="data:image/jpeg;base64,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";
-var ADMIN_PW="Ahmad_rbwolf";
-var adminUnlocked=false;
-var selectedCat="";
-var currentPopupId=null;
-var currentModalIdx=null;
+var PW = "Ahmad_rbwolf";
+var unlocked = false;
+var selCat = "";
+var popupId = null;
+var modalIdx = null;
 
-var CATEGORIES=[
-  {id:"service",icon:"⚙️",label:"Service & Olja"},
+var CATS = [
+  {id:"service",icon:"⚙️",label:"Service"},
   {id:"brakes",icon:"🛑",label:"Bromsar"},
   {id:"engine",icon:"🔩",label:"Motor"},
-  {id:"tires",icon:"🛞",label:"Däck & Hjul"},
-  {id:"electrical",icon:"💡",label:"El & Ljus"},
+  {id:"tires",icon:"🛞",label:"Däck"},
+  {id:"electrical",icon:"💡",label:"El"},
   {id:"gearbox",icon:"⚡",label:"Växellåda"},
   {id:"steering",icon:"🎯",label:"Styrning"},
   {id:"inspection",icon:"🚗",label:"Besiktning"},
-  {id:"ac",icon:"❄️",label:"Luftkond."},
-  {id:"exhaust",icon:"💨",label:"Avgassystem"},
   {id:"suspension",icon:"🔧",label:"Fjädring"},
   {id:"other",icon:"🛠️",label:"Övrigt"}
 ];
 
-var DEFAULT={bookings:[],cars:[],jobs:[],nextId:1};
-var DATA=JSON.parse(JSON.stringify(DEFAULT));
+var D = {bookings:[],cars:[],jobs:[],nid:1};
 
-function saveData(){try{localStorage.setItem("rbwolf_v2",JSON.stringify(DATA));showSaved()}catch(e){}}
-function loadData(){try{var s=localStorage.getItem("rbwolf_v2");if(s)DATA=JSON.parse(s)}catch(e){}}
-function showSaved(){var el=document.getElementById("save-indicator");el.style.display="block";clearTimeout(window._st);window._st=setTimeout(function(){el.style.display="none"},2000)}
-loadData();
+function save(){try{localStorage.setItem("rbw",JSON.stringify(D));toast()}catch(e){}}
+function load(){try{var s=localStorage.getItem("rbw");if(s)D=JSON.parse(s);}catch(e){}}
+function toast(){var t=document.getElementById("save-toast");t.style.display="block";clearTimeout(window._t);window._t=setTimeout(function(){t.style.display="none"},2000)}
 
-function getCatLabel(id){var c=CATEGORIES.find(function(x){return x.id===id});return c?c.icon+" "+c.label:"🛠️ Övrigt"}
-function buildCatGrid(){var g=document.getElementById("cat-grid");g.innerHTML=CATEGORIES.map(function(c){return'<div class="cat-btn" id="cat-'+c.id+'" onclick="selCat(\''+c.id+'\')"><span class="ci">'+c.icon+'</span><span class="cl">'+c.label+'</span></div>'}).join("")}
-function selCat(id){selectedCat=id;document.querySelectorAll(".cat-btn").forEach(function(b){b.classList.remove("selected")});document.getElementById("cat-"+id).classList.add("selected")}
+load();
 
-function tryAdmin(){if(adminUnlocked){goAdmin();return}document.getElementById("lock-screen").style.display="flex";document.getElementById("pw-input").value="";document.getElementById("pw-error").style.display="none";setTimeout(function(){document.getElementById("pw-input").focus()},100)}
-function checkPw(){var v=document.getElementById("pw-input").value;if(v===ADMIN_PW){adminUnlocked=true;document.getElementById("lock-screen").style.display="none";goAdmin()}else{document.getElementById("pw-error").style.display="block";document.getElementById("pw-input").value="";document.getElementById("pw-input").focus()}}
-function logout(){adminUnlocked=false;document.getElementById("notif-bell").style.display="none";goHome()}
+function catLabel(id){var c=CATS.find(function(x){return x.id===id});return c?c.icon+" "+c.label:"🛠️ Övrigt"}
 
-function goHome(){showPage("pg-home");setNav("nb-home");updateStats()}
-function goBook(){showPage("pg-book");setNav("nb-book")}
-function goAdmin(){showPage("pg-admin");setNav("nb-admin");updateStats();renderCars();renderHist();renderBooks();populateCarSelect();buildCatGrid();updateBell()}
-function showPage(id){document.querySelectorAll(".page").forEach(function(e){e.classList.remove("active")});document.getElementById(id).classList.add("active")}
-function setNav(id){document.querySelectorAll(".nav-btn").forEach(function(b){b.classList.remove("active")});document.getElementById(id).classList.add("active")}
-function showTab(t){document.querySelectorAll(".tc").forEach(function(e){e.classList.remove("active")});document.querySelectorAll(".tab").forEach(function(b){b.classList.remove("active")});document.getElementById(t).classList.add("active");var m={"t-book":"tab-b","t-cars":"tab-c","t-hist":"tab-h","t-rec":"tab-r"};document.getElementById(m[t]).classList.add("active");if(t==="t-rec")populateCarSelect();if(t==="t-cars")renderCars();if(t==="t-hist"){renderHist();buildCatGrid()}if(t==="t-book")renderBooks()}
-function toggleForm(id){var f=document.getElementById(id);f.style.display=f.style.display==="none"?"block":"none";if(id==="add-job-form"&&f.style.display==="block"){selectedCat="";buildCatGrid()}}
+function buildCats(){
+  var g=document.getElementById("cat-grid");
+  g.innerHTML=CATS.map(function(c){
+    return '<div class="cat-btn" id="cbt-'+c.id+'" onclick="pickCat(\''+c.id+'\')"><span class="ci">'+c.icon+'</span><span class="cl">'+c.label+'</span></div>';
+  }).join("");
+}
+function pickCat(id){
+  selCat=id;
+  document.querySelectorAll(".cat-btn").forEach(function(b){b.classList.remove("selected")});
+  var el=document.getElementById("cbt-"+id);
+  if(el)el.classList.add("selected");
+}
 
-// POPUP
+function goHome(){nav("pg-home","nb-home");stats()}
+function goBook(){nav("pg-book","nb-book")}
+function goAdmin(){nav("pg-admin","nb-admin");stats();renderCars();renderHist();renderBooks();fillCarSelect();buildCats();bell()}
+
+function nav(page,btn){
+  document.querySelectorAll(".page").forEach(function(e){e.classList.remove("active")});
+  document.getElementById(page).classList.add("active");
+  document.querySelectorAll(".nav-btn").forEach(function(b){b.classList.remove("active")});
+  document.getElementById(btn).classList.add("active");
+}
+
+function showTab(t){
+  document.querySelectorAll(".tc").forEach(function(e){e.classList.remove("active")});
+  document.querySelectorAll(".tab").forEach(function(b){b.classList.remove("active")});
+  document.getElementById(t).classList.add("active");
+  var m={"t-book":"tab-b","t-cars":"tab-c","t-hist":"tab-h","t-rec":"tab-r"};
+  document.getElementById(m[t]).classList.add("active");
+  if(t==="t-rec")fillCarSelect();
+  if(t==="t-cars")renderCars();
+  if(t==="t-hist"){renderHist();buildCats();}
+  if(t==="t-book")renderBooks();
+}
+
+function tog(id){
+  var f=document.getElementById(id);
+  f.style.display=f.style.display==="none"?"block":"none";
+  if(id==="add-job"&&f.style.display==="block"){selCat="";buildCats();}
+}
+
+function tryAdmin(){
+  if(unlocked){goAdmin();return}
+  document.getElementById("lock").style.display="flex";
+  document.getElementById("pw").value="";
+  document.getElementById("pw-err").style.display="none";
+  setTimeout(function(){document.getElementById("pw").focus()},100);
+}
+function checkPw(){
+  if(document.getElementById("pw").value===PW){
+    unlocked=true;
+    document.getElementById("lock").style.display="none";
+    goAdmin();
+  } else {
+    document.getElementById("pw-err").style.display="block";
+    document.getElementById("pw").value="";
+  }
+}
+function logout(){unlocked=false;document.getElementById("notif-bell").style.display="none";goHome()}
+
 function showPopup(b){
-  currentPopupId=b.id;
-  document.getElementById("bp-call-btn").href="tel:"+b.phone.replace(/[^0-9+]/g,"");
-  document.getElementById("bp-body").innerHTML=
-    '<div class="bp-row"><span class="bp-icon">👤</span><div class="bp-content"><div class="bp-label">Kund</div><div class="bp-val">'+b.name+'</div></div></div>'+
-    '<div class="bp-row"><span class="bp-icon">📞</span><div class="bp-content"><div class="bp-label">Telefon</div><div class="bp-val" style="color:#22c55e;font-size:17px">'+b.phone+'</div></div></div>'+
-    '<div class="bp-row"><span class="bp-icon">🚗</span><div class="bp-content"><div class="bp-label">Bil</div><div class="bp-val">'+b.reg+(b.car?' · '+b.car:'')+'</div></div></div>'+
-    (b.date?'<div class="bp-row"><span class="bp-icon">📅</span><div class="bp-content"><div class="bp-label">Datum</div><div class="bp-val">'+b.date+'</div></div></div>':'')+
-    (b.desc?'<div class="bp-row"><span class="bp-icon">📝</span><div class="bp-content"><div class="bp-label">Ärende</div><div class="bp-val">'+b.desc+'</div></div></div>':'');
-  document.getElementById("booking-popup").style.display="flex";
+  popupId=b.id;
+  document.getElementById("popup-call").href="tel:"+b.phone.replace(/[^0-9+]/g,"");
+  document.getElementById("popup-body").innerHTML=
+    '<div class="popup-row"><span class="popup-ico">👤</span><div><div class="popup-lbl">Kund</div><div class="popup-val">'+b.name+'</div></div></div>'+
+    '<div class="popup-row"><span class="popup-ico">📞</span><div><div class="popup-lbl">Telefon</div><div class="popup-val" style="color:#22c55e;font-size:17px">'+b.phone+'</div></div></div>'+
+    '<div class="popup-row"><span class="popup-ico">🚗</span><div><div class="popup-lbl">Bil</div><div class="popup-val">'+b.reg+(b.car?' · '+b.car:'')+'</div></div></div>'+
+    (b.date?'<div class="popup-row"><span class="popup-ico">📅</span><div><div class="popup-lbl">Datum</div><div class="popup-val">'+b.date+'</div></div></div>':'')+
+    (b.desc?'<div class="popup-row"><span class="popup-ico">📝</span><div><div class="popup-lbl">Ärende</div><div class="popup-val">'+b.desc+'</div></div></div>':'');
+  document.getElementById("popup").style.display="flex";
 }
-function closePopup(){document.getElementById("booking-popup").style.display="none";currentPopupId=null}
-function confirmFromPopup(){
-  if(!currentPopupId)return;
-  var idx=DATA.bookings.findIndex(function(b){return b.id===currentPopupId});
-  if(idx>=0){DATA.bookings[idx].status="confirmed";DATA.bookings[idx].isNew=false}
-  saveData();closePopup();updateBell();if(adminUnlocked)renderBooks();
+function closePopup(){document.getElementById("popup").style.display="none";popupId=null}
+function confirmPopup(){
+  if(!popupId)return;
+  var i=D.bookings.findIndex(function(b){return b.id===popupId});
+  if(i>=0){D.bookings[i].status="confirmed";D.bookings[i].isNew=false}
+  save();closePopup();bell();if(unlocked)renderBooks();
 }
 
-// MODAL
 function openModal(idx){
-  currentModalIdx=idx;
-  var b=DATA.bookings[idx];
-  b.isNew=false;saveData();updateBell();renderBooks();
+  modalIdx=idx;
+  var b=D.bookings[idx];
+  b.isNew=false;save();bell();renderBooks();
   var clr={pending:"#f59e0b",confirmed:"#22c55e",done:"#9ca3af"};
-  var lbl={pending:"Väntar på bekräftelse",confirmed:"✅ Bekräftad",done:"Avslutad"};
+  var lbl={pending:"Väntar",confirmed:"✅ Bekräftad",done:"Avslutad"};
   document.getElementById("modal-body").innerHTML=
-    '<div class="modal-row"><span class="modal-icon">👤</span><div class="modal-info"><div class="label">Kund</div><div class="val">'+b.name+'</div></div></div>'+
-    '<div class="modal-row"><span class="modal-icon">📞</span><div class="modal-info"><div class="label">Telefon</div><div class="val" style="color:#22c55e;font-size:17px;font-weight:700">'+b.phone+'</div></div></div>'+
-    (b.email?'<div class="modal-row"><span class="modal-icon">📧</span><div class="modal-info"><div class="label">E-post</div><div class="val">'+b.email+'</div></div></div>':'')+
-    '<div class="modal-row"><span class="modal-icon">🚘</span><div class="modal-info"><div class="label">Reg.nr</div><div class="val">'+b.reg+'</div></div></div>'+
-    (b.car?'<div class="modal-row"><span class="modal-icon">🔑</span><div class="modal-info"><div class="label">Bil</div><div class="val">'+b.car+'</div></div></div>':'')+
-    (b.date?'<div class="modal-row"><span class="modal-icon">📅</span><div class="modal-info"><div class="label">Önskat datum</div><div class="val">'+b.date+'</div></div></div>':'')+
-    (b.desc?'<div class="modal-row"><span class="modal-icon">📝</span><div class="modal-info"><div class="label">Ärende</div><div class="val">'+b.desc+'</div></div></div>':'')+
-    '<div class="modal-row"><span class="modal-icon">🔔</span><div class="modal-info"><div class="label">Status</div><div class="val"><span style="color:'+clr[b.status]+'">'+lbl[b.status]+'</span></div></div></div>';
+    '<div class="m-row"><span class="m-ico">👤</span><div><div class="m-lbl">Kund</div><div class="m-val">'+b.name+'</div></div></div>'+
+    '<div class="m-row"><span class="m-ico">📞</span><div><div class="m-lbl">Telefon</div><div class="m-val" style="color:#22c55e;font-size:17px;font-weight:700">'+b.phone+'</div></div></div>'+
+    (b.email?'<div class="m-row"><span class="m-ico">📧</span><div><div class="m-lbl">E-post</div><div class="m-val">'+b.email+'</div></div></div>':'')+
+    '<div class="m-row"><span class="m-ico">🚘</span><div><div class="m-lbl">Reg.nr</div><div class="m-val">'+b.reg+'</div></div></div>'+
+    (b.car?'<div class="m-row"><span class="m-ico">🔑</span><div><div class="m-lbl">Bil</div><div class="m-val">'+b.car+'</div></div></div>':'')+
+    (b.date?'<div class="m-row"><span class="m-ico">📅</span><div><div class="m-lbl">Datum</div><div class="m-val">'+b.date+'</div></div></div>':'')+
+    (b.desc?'<div class="m-row"><span class="m-ico">📝</span><div><div class="m-lbl">Ärende</div><div class="m-val">'+b.desc+'</div></div></div>':'')+
+    '<div class="m-row"><span class="m-ico">🔔</span><div><div class="m-lbl">Status</div><div class="m-val" style="color:'+clr[b.status]+'">'+lbl[b.status]+'</div></div></div>';
   document.getElementById("modal-footer").innerHTML=
-    '<a href="tel:'+b.phone.replace(/[^0-9+]/g,"")+'" class="btn-call" style="text-decoration:none">📞 Ring '+b.phone+'</a>'+
-    (b.status!=="confirmed"?'<button class="btn-confirm" onclick="confirmModal()">✓ Bekräfta</button>':'')+
-    '<button class="btn-del" style="width:100%;padding:11px;margin-top:4px" onclick="deleteModal()">🗑️ Ta bort bokning</button>';
-  document.getElementById("booking-modal").style.display="flex";
+    '<a href="tel:'+b.phone.replace(/[^0-9+]/g,"")+'" class="btn-call" style="text-decoration:none;flex:1">📞 Ring '+b.phone+'</a>'+
+    (b.status!=="confirmed"?'<button class="btn-ok" onclick="confirmModal()">✓ Bekräfta</button>':'')+
+    '<button class="btn-del" style="width:100%;padding:10px;margin-top:4px" onclick="delModal()">🗑️ Ta bort bokning</button>';
+  document.getElementById("modal").style.display="flex";
 }
-function closeModal(){document.getElementById("booking-modal").style.display="none";currentModalIdx=null}
-function confirmModal(){if(currentModalIdx===null)return;DATA.bookings[currentModalIdx].status="confirmed";saveData();closeModal();renderBooks();updateBell()}
-function deleteModal(){if(currentModalIdx===null)return;if(!confirm("Ta bort bokning?"))return;DATA.bookings.splice(currentModalIdx,1);saveData();closeModal();renderBooks();updateStats();updateBell()}
+function closeModal(){document.getElementById("modal").style.display="none";modalIdx=null}
+function confirmModal(){if(modalIdx===null)return;D.bookings[modalIdx].status="confirmed";save();closeModal();renderBooks();bell()}
+function delModal(){if(modalIdx===null)return;if(!confirm("Ta bort bokning?"))return;D.bookings.splice(modalIdx,1);save();closeModal();renderBooks();stats();bell()}
 
-function updateBell(){
-  var n=DATA.bookings.filter(function(b){return b.isNew});
-  var dot=document.getElementById("notif-dot"),nc=document.getElementById("new-count");
-  if(adminUnlocked){
-    document.getElementById("notif-bell").style.display="flex";
-    if(n.length>0){dot.style.display="block";nc.style.display="inline";nc.textContent=n.length+" ny"+(n.length>1?"a":"")}
-    else{dot.style.display="none";nc.style.display="none"}
+function bell(){
+  var n=D.bookings.filter(function(b){return b.isNew});
+  var dot=document.getElementById("notif-dot");
+  var nb=document.getElementById("new-badge");
+  if(unlocked){
+    document.getElementById("notif-bell").style.display="block";
+    dot.style.display=n.length?"block":"none";
+    nb.style.display=n.length?"inline":"none";
+    if(n.length)nb.textContent=n.length+" ny"+(n.length>1?"a":"");
   }
 }
 
-function submitBooking(){
-  var n=document.getElementById("b-name").value.trim(),p=document.getElementById("b-phone").value.trim(),r=document.getElementById("b-reg").value.trim().toUpperCase();
+function submitBook(){
+  var n=document.getElementById("b-name").value.trim();
+  var p=document.getElementById("b-phone").value.trim();
+  var r=document.getElementById("b-reg").value.trim().toUpperCase();
   if(!n||!p||!r){alert("Fyll i namn, telefon och reg.nr");return}
-  var nb={id:Date.now(),name:n,phone:p,email:document.getElementById("b-email").value,reg:r,car:document.getElementById("b-car").value,date:document.getElementById("b-date").value,desc:document.getElementById("b-desc").value,status:"pending",isNew:true};
-  DATA.bookings.push(nb);saveData();
-  document.getElementById("book-confirm").innerHTML="<strong>"+n+"</strong> · "+r+(nb.car?" ("+nb.car+")":"")+"<br>📅 "+(nb.date||"Datum ej angivet")+"<br>📞 "+p;
-  document.getElementById("book-form").style.display="none";document.getElementById("book-ok").style.display="block";
-  updateStats();updateBell();if(adminUnlocked)showPopup(nb);
+  var b={id:Date.now(),name:n,phone:p,email:document.getElementById("b-email").value,reg:r,car:document.getElementById("b-car").value,date:document.getElementById("b-date").value,desc:document.getElementById("b-desc").value,status:"pending",isNew:true};
+  D.bookings.push(b);save();
+  document.getElementById("book-confirm").innerHTML="<strong>"+n+"</strong> · "+r+(b.car?" ("+b.car+")")+"<br>📅 "+(b.date||"Datum ej angivet")+"<br>📞 "+p;
+  document.getElementById("book-form").style.display="none";
+  document.getElementById("book-ok").style.display="block";
+  stats();bell();
+  if(unlocked)showPopup(b);
 }
-function newBooking(){document.getElementById("book-form").style.display="block";document.getElementById("book-ok").style.display="none";["b-name","b-phone","b-email","b-reg","b-car","b-date","b-desc"].forEach(function(i){document.getElementById(i).value=""})}
+function newBook(){
+  document.getElementById("book-form").style.display="block";
+  document.getElementById("book-ok").style.display="none";
+  ["b-name","b-phone","b-email","b-reg","b-car","b-date","b-desc"].forEach(function(i){document.getElementById(i).value=""});
+}
 
 function renderBooks(){
   var el=document.getElementById("book-list");
-  if(!DATA.bookings.length){el.innerHTML='<div class="empty">Inga bokningar ännu<br><small>Bokningar visas här när kunder bokar tid</small></div>';return}
+  if(!D.bookings.length){el.innerHTML='<div class="empty">Inga bokningar ännu</div>';return}
   var clr={pending:"#f59e0b",confirmed:"#22c55e",done:"#9ca3af"};
   var lbl={pending:"Väntar",confirmed:"Bekräftad",done:"Avslutad"};
-  el.innerHTML=DATA.bookings.slice().reverse().map(function(b,ri){
-    var i=DATA.bookings.length-1-ri;
-    return'<div class="b-item'+(b.isNew?" b-new-item":"")+'" onclick="openModal('+i+')">'+
+  el.innerHTML=D.bookings.slice().reverse().map(function(b,ri){
+    var i=D.bookings.length-1-ri;
+    return '<div class="b-item'+(b.isNew?" is-new":"")+'" onclick="openModal('+i+')">'+
       '<div class="b-dot" style="background:'+clr[b.status]+'"></div>'+
       '<div class="b-inf">'+
-        '<div class="b-name">'+(b.isNew?'<span class="badge b-new" style="margin-right:6px;font-size:10px">NY</span>':'')+b.name+' · '+b.reg+(b.car?' ('+b.car+')':"")+'</div>'+
-        '<div class="b-det">'+b.phone+(b.date?" · "+b.date:"")+(b.desc?" · "+b.desc.substring(0,35)+(b.desc.length>35?"...":""):"")+'</div>'+
-        '<div style="margin-top:5px"><span class="badge '+(b.status==="confirmed"?"b-done":b.status==="done"?"b-wait":"b-wait")+'">'+lbl[b.status]+'</span></div>'+
-      '</div><div class="b-arrow">›</div></div>';
+        '<div class="b-name">'+(b.isNew?'<span class="badge b-new" style="margin-right:5px;font-size:10px">NY</span>':'')+b.name+' · '+b.reg+(b.car?' ('+b.car+')':"")+'</div>'+
+        '<div class="b-det">'+b.phone+(b.date?" · "+b.date:"")+(b.desc?" · "+b.desc.substring(0,30)+(b.desc.length>30?"...":""):"")+'</div>'+
+        '<div style="margin-top:4px"><span class="badge '+(b.status==="confirmed"?"b-done":"b-wait")+'">'+lbl[b.status]+'</span></div>'+
+      '</div><div class="b-arr">›</div></div>';
   }).join("")
 }
 
 function addCar(){
-  var r=document.getElementById("c-reg").value.trim().toUpperCase(),m=document.getElementById("c-make").value.trim();
+  var r=document.getElementById("c-reg").value.trim().toUpperCase();
+  var m=document.getElementById("c-make").value.trim();
   if(!r||!m){alert("Reg.nr och märke krävs");return}
-  if(DATA.cars.find(function(c){return c.reg===r})){alert("Bil med det reg.nr finns redan");return}
-  DATA.cars.push({reg:r,make:m,model:document.getElementById("c-model").value,year:document.getElementById("c-year").value,color:document.getElementById("c-color").value,fuel:document.getElementById("c-fuel").value,mileage:document.getElementById("c-mileage").value,owner:document.getElementById("c-owner").value,phone:document.getElementById("c-phone").value,email:document.getElementById("c-email").value,notes:document.getElementById("c-notes").value});
+  D.cars.push({reg:r,make:m,model:document.getElementById("c-model").value,year:document.getElementById("c-year").value,color:document.getElementById("c-color").value,fuel:document.getElementById("c-fuel").value,mileage:document.getElementById("c-mileage").value,owner:document.getElementById("c-owner").value,phone:document.getElementById("c-phone").value,email:document.getElementById("c-email").value,notes:document.getElementById("c-notes").value});
   ["c-reg","c-make","c-model","c-year","c-color","c-owner","c-phone","c-email","c-notes","c-mileage"].forEach(function(id){document.getElementById(id).value=""});
   document.getElementById("c-fuel").value="";
-  document.getElementById("add-car-form").style.display="none";
-  saveData();renderCars();updateStats();
+  document.getElementById("add-car").style.display="none";
+  save();renderCars();stats();
 }
-function deleteCar(reg){
-  if(!confirm("Radera bil "+reg+" och all dess historik?"))return;
-  DATA.cars=DATA.cars.filter(function(c){return c.reg!==reg});
-  DATA.jobs=DATA.jobs.filter(function(j){return j.reg!==reg});
-  saveData();renderCars();renderHist();updateStats();
+function delCar(reg){
+  if(!confirm("Radera "+reg+"?"))return;
+  D.cars=D.cars.filter(function(c){return c.reg!==reg});
+  D.jobs=D.jobs.filter(function(j){return j.reg!==reg});
+  save();renderCars();renderHist();stats();
 }
 function renderCars(){
   var el=document.getElementById("cars-list");
-  if(!DATA.cars.length){el.innerHTML='<div class="empty">Inga bilar registrerade</div>';return}
-  el.innerHTML=DATA.cars.map(function(c){
-    var jobs=DATA.jobs.filter(function(j){return j.reg===c.reg});
+  if(!D.cars.length){el.innerHTML='<div class="empty">Inga bilar registrerade</div>';return}
+  el.innerHTML=D.cars.map(function(c){
+    var jobs=D.jobs.filter(function(j){return j.reg===c.reg});
     var last=jobs.length?jobs[jobs.length-1]:null;
-    return'<div class="a-card"><div class="a-card-hdr"><div><div class="car-reg">'+c.reg+'</div><div class="car-make">'+c.make+(c.model?" "+c.model:"")+(c.year?" · "+c.year:"")+'</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px"><div style="font-size:13px;color:#888888;text-align:right">'+c.owner+'<br>'+c.phone+'</div><button class="btn-del" onclick="deleteCar(\''+c.reg+'\')" style="font-size:11px;padding:5px 10px">🗑️ Radera</button></div></div><div class="a-card-body"><div class="car-details"><div class="cd-cell">Färg<strong>'+(c.color||"—")+'</strong></div><div class="cd-cell">Drivmedel<strong>'+(c.fuel||"—")+'</strong></div><div class="cd-cell">Miltal<strong>'+(c.mileage?Number(c.mileage).toLocaleString("sv")+" mil":"—")+'</strong></div><div class="cd-cell">E-post<strong style="font-size:12px">'+(c.email||"—")+'</strong></div><div class="cd-cell">Jobb<strong>'+jobs.length+' st</strong></div><div class="cd-cell">Senaste<strong>'+(last?last.date:"—")+'</strong></div></div>'+(c.notes?'<div style="margin-top:10px;font-size:13px;color:#888888;background:#f7f7f5;padding:8px 12px;border-radius:6px;border:1px solid #e8e8e8">📝 '+c.notes+'</div>':'')+'</div></div>';
+    return '<div class="a-card"><div class="a-card-hdr"><div><div class="car-reg">'+c.reg+'</div><div class="car-make">'+c.make+(c.model?" "+c.model:"")+(c.year?" · "+c.year:"")+'</div></div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px"><span style="font-size:13px;color:#888;text-align:right">'+c.owner+'<br>'+c.phone+'</span><button class="btn-del" onclick="delCar(\''+c.reg+'\')">🗑️ Radera</button></div></div><div class="a-card-body"><div class="car-grid"><div class="car-cell">Färg<strong>'+(c.color||"—")+'</strong></div><div class="car-cell">Drivmedel<strong>'+(c.fuel||"—")+'</strong></div><div class="car-cell">Miltal<strong>'+(c.mileage?Number(c.mileage).toLocaleString("sv")+" mil":"—")+'</strong></div><div class="car-cell">E-post<strong style="font-size:11px">'+(c.email||"—")+'</strong></div><div class="car-cell">Jobb<strong>'+jobs.length+' st</strong></div><div class="car-cell">Senaste<strong>'+(last?last.date:"—")+'</strong></div></div>'+(c.notes?'<div style="margin-top:8px;font-size:12px;color:#aaa;background:#f9f9f9;padding:8px;border-radius:5px">📝 '+c.notes+'</div>':'')+'</div></div>';
   }).join("")
 }
 
 function addJob(){
-  var r=document.getElementById("j-reg").value.trim().toUpperCase(),d=document.getElementById("j-desc").value.trim();
+  var r=document.getElementById("j-reg").value.trim().toUpperCase();
+  var d=document.getElementById("j-desc").value.trim();
   if(!r||!d){alert("Reg.nr och beskrivning krävs");return}
-  if(!selectedCat){alert("Välj jobbkategori");return}
-  DATA.jobs.push({id:DATA.nextId++,reg:r,cat:selectedCat,date:document.getElementById("j-date").value,desc:d,price:parseInt(document.getElementById("j-price").value)||0,mileage:document.getElementById("j-mileage").value,mech:document.getElementById("j-mech").value,status:document.getElementById("j-status").value,notes:document.getElementById("j-notes").value});
+  if(!selCat){alert("Välj jobbkategori");return}
+  D.jobs.push({id:D.nid++,reg:r,cat:selCat,date:document.getElementById("j-date").value,desc:d,price:parseInt(document.getElementById("j-price").value)||0,mileage:document.getElementById("j-mileage").value,mech:document.getElementById("j-mech").value,status:document.getElementById("j-status").value,notes:document.getElementById("j-notes").value});
   ["j-reg","j-date","j-desc","j-price","j-mileage","j-mech","j-notes"].forEach(function(id){document.getElementById(id).value=""});
-  selectedCat="";document.getElementById("add-job-form").style.display="none";
-  saveData();renderHist();updateStats();
+  selCat="";
+  document.getElementById("add-job").style.display="none";
+  save();renderHist();stats();
 }
-function deleteJob(id){
-  if(!confirm("Radera detta jobb?"))return;
-  DATA.jobs=DATA.jobs.filter(function(j){return j.id!==id});
-  saveData();renderHist();updateStats();
+function delJob(id){
+  if(!confirm("Radera jobb?"))return;
+  D.jobs=D.jobs.filter(function(j){return j.id!==id});
+  save();renderHist();stats();
 }
 function renderHist(){
   var el=document.getElementById("hist-list");
-  if(!DATA.jobs.length){el.innerHTML='<div class="empty">Inga jobb registrerade</div>';return}
-  var byReg={};DATA.jobs.forEach(function(j){if(!byReg[j.reg])byReg[j.reg]=[];byReg[j.reg].push(j)});
+  if(!D.jobs.length){el.innerHTML='<div class="empty">Inga jobb registrerade</div>';return}
+  var byR={};D.jobs.forEach(function(j){if(!byR[j.reg])byR[j.reg]=[];byR[j.reg].push(j)});
   var bc={done:"b-done",progress:"b-prog",pending:"b-wait"};
   var bl={done:"Utfört",progress:"Pågående",pending:"Väntar"};
-  el.innerHTML=Object.keys(byReg).map(function(reg){
-    var car=DATA.cars.find(function(c){return c.reg===reg});
-    return'<div class="a-card"><div class="a-card-hdr"><div><div class="car-reg">'+reg+'</div><div class="car-make">'+(car?car.make+(car.model?" "+car.model:""):"Okänd bil")+'</div></div></div><div class="a-card-body">'+
-      byReg[reg].map(function(j){return'<div class="job-row"><div class="job-date">'+j.date+'</div><div class="job-info"><div class="job-desc"><span class="cat-badge">'+getCatLabel(j.cat)+'</span>'+j.desc+'</div><div class="job-meta">'+(j.mech?"👤 "+j.mech:"")+(j.mileage?" 📍 "+Number(j.mileage).toLocaleString("sv")+" mil":"")+'<span class="badge '+bc[j.status]+'">'+bl[j.status]+'</span></div>'+(j.notes?'<div style="font-size:12px;color:#888888;margin-top:4px">📝 '+j.notes+'</div>':'')+'</div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px"><div class="job-price">'+j.price.toLocaleString("sv")+' kr</div><button class="btn-del" onclick="deleteJob('+j.id+')" style="font-size:11px;padding:4px 8px">🗑️</button></div></div>'}).join("")+
+  el.innerHTML=Object.keys(byR).map(function(reg){
+    var car=D.cars.find(function(c){return c.reg===reg});
+    return '<div class="a-card"><div class="a-card-hdr"><div><div class="car-reg">'+reg+'</div><div class="car-make">'+(car?car.make+(car.model?" "+car.model:""):"Okänd")+'</div></div></div><div class="a-card-body">'+
+      byR[reg].map(function(j){return '<div class="job-row"><div class="job-date">'+j.date+'</div><div class="job-info"><div class="job-desc"><span class="cat-badge">'+catLabel(j.cat)+'</span>'+j.desc+'</div><div class="job-meta">'+(j.mech?"👤 "+j.mech+" ":"")+(j.mileage?"📍 "+Number(j.mileage).toLocaleString("sv")+" mil ":"")+'<span class="badge '+bc[j.status]+'">'+bl[j.status]+'</span></div>'+(j.notes?'<div style="font-size:11px;color:#aaa;margin-top:3px">📝 '+j.notes+'</div>':'')+'</div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px"><div class="job-price">'+j.price.toLocaleString("sv")+' kr</div><button class="btn-del" onclick="delJob('+j.id+')">🗑️</button></div></div>'}).join("")+
     '</div></div>';
   }).join("")
 }
 
-function populateCarSelect(){var cs=document.getElementById("r-car");cs.innerHTML='<option value="">-- Välj bil --</option>';DATA.cars.forEach(function(c){cs.innerHTML+='<option value="'+c.reg+'">'+c.reg+" · "+c.make+(c.model?" "+c.model:"")+'</option>'});document.getElementById("r-job").innerHTML='<option value="">-- Välj jobb --</option>'}
-function fillJobSelect(){var reg=document.getElementById("r-car").value,rj=document.getElementById("r-job");rj.innerHTML='<option value="">-- Välj jobb --</option>';DATA.jobs.filter(function(j){return j.reg===reg}).forEach(function(j){rj.innerHTML+='<option value="'+j.id+'">'+j.date+" · "+getCatLabel(j.cat)+" · "+j.desc+'</option>'})}
-function genReceipt(){
-  var reg=document.getElementById("r-car").value,jid=parseInt(document.getElementById("r-job").value);
+function fillCarSelect(){
+  var cs=document.getElementById("r-car");
+  cs.innerHTML='<option value="">-- Välj bil --</option>';
+  D.cars.forEach(function(c){cs.innerHTML+='<option value="'+c.reg+'">'+c.reg+" · "+c.make+(c.model?" "+c.model:"")+'</option>'});
+  document.getElementById("r-job").innerHTML='<option value="">-- Välj jobb --</option>';
+}
+function fillJobs(){
+  var reg=document.getElementById("r-car").value;
+  var rj=document.getElementById("r-job");
+  rj.innerHTML='<option value="">-- Välj jobb --</option>';
+  D.jobs.filter(function(j){return j.reg===reg}).forEach(function(j){rj.innerHTML+='<option value="'+j.id+'">'+j.date+" · "+catLabel(j.cat)+" · "+j.desc+'</option>'});
+}
+function genRec(){
+  var reg=document.getElementById("r-car").value;
+  var jid=parseInt(document.getElementById("r-job").value);
   if(!reg||!jid){alert("Välj bil och jobb");return}
-  var car=DATA.cars.find(function(c){return c.reg===reg}),job=DATA.jobs.find(function(j){return j.id===jid});
+  var car=D.cars.find(function(c){return c.reg===reg});
+  var job=D.jobs.find(function(j){return j.id===jid});
   if(!car||!job)return;
+  var LOGO="data:image/jpeg;base64,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";
   var moms=Math.round(job.price*.25),ex=job.price-moms,kv="KV-"+job.id+"-"+Date.now().toString().slice(-4),dag=new Date().toLocaleDateString("sv-SE");
-  document.getElementById("rec-out").innerHTML='<div class="receipt-box"><div class="rec-logo"><img src="'+LOGO_SRC+'"><div><div class="rec-company">RBwolf Bilverkstad</div><div style="font-size:11px;color:#888888">073-933 44 46</div></div><div style="margin-left:auto;text-align:right;font-size:12px;color:#888888"><strong style="color:#1a1a1a;font-size:14px">'+kv+'</strong><br>'+dag+'</div></div><div class="rec-row"><span class="rec-label">Kund</span><span>'+car.owner+'</span></div>'+(car.phone?'<div class="rec-row"><span class="rec-label">Telefon</span><span>'+car.phone+'</span></div>':'')+'<div class="rec-row"><span class="rec-label">Reg.nr</span><span>'+reg+'</span></div><div class="rec-row"><span class="rec-label">Fordon</span><span>'+car.make+(car.model?" "+car.model:"")+(car.year?" ("+car.year+")")+'</span></div>'+(job.mileage?'<div class="rec-row"><span class="rec-label">Miltal</span><span>'+Number(job.mileage).toLocaleString("sv")+" mil"+'</span></div>':'')+'<div class="rec-row" style="margin-top:6px;border-top:1px solid #e8e8e8;padding-top:6px"><span class="rec-label">Kategori</span><span>'+getCatLabel(job.cat)+'</span></div><div class="rec-row"><span class="rec-label">Arbete</span><span style="text-align:right;max-width:55%">'+job.desc+'</span></div>'+(job.mech?'<div class="rec-row"><span class="rec-label">Mekaniker</span><span>'+job.mech+'</span></div>':'')+'<div class="rec-row"><span class="rec-label">Exkl. moms</span><span>'+ex.toLocaleString("sv")+" kr"+'</span></div><div class="rec-row"><span class="rec-label">Moms 25%</span><span>'+moms.toLocaleString("sv")+" kr"+'</span></div><div class="rec-row total"><span>Totalt</span><span>'+job.price.toLocaleString("sv")+" kr"+'</span></div><div class="rec-meta">RBwolf Bilverkstad · Ugnsvägen 4A, 295 39 Bromölla<br>073-933 44 46</div></div>'
+  document.getElementById("rec-out").innerHTML='<div class="rec-box"><div class="rec-top"><img src="'+LOGO+'"><div><div class="rec-co">RBwolf Bilverkstad</div><div style="font-size:11px;color:#aaa">073-933 44 46</div></div><div style="margin-left:auto;text-align:right;font-size:12px;color:#aaa"><strong style="color:#111;font-size:13px">'+kv+'</strong><br>'+dag+'</div></div><div class="rec-row"><span class="rec-lbl">Kund</span><span>'+car.owner+'</span></div>'+(car.phone?'<div class="rec-row"><span class="rec-lbl">Tel</span><span>'+car.phone+'</span></div>':'')+'<div class="rec-row"><span class="rec-lbl">Reg.nr</span><span>'+reg+'</span></div><div class="rec-row"><span class="rec-lbl">Fordon</span><span>'+car.make+(car.model?" "+car.model:"")+(car.year?" ("+car.year+")")+'</span></div><div class="rec-row"><span class="rec-lbl">Kategori</span><span>'+catLabel(job.cat)+'</span></div><div class="rec-row"><span class="rec-lbl">Arbete</span><span style="text-align:right;max-width:55%">'+job.desc+'</span></div>'+(job.mech?'<div class="rec-row"><span class="rec-lbl">Mekaniker</span><span>'+job.mech+'</span></div>':'')+'<div class="rec-row"><span class="rec-lbl">Exkl. moms</span><span>'+ex.toLocaleString("sv")+" kr"+'</span></div><div class="rec-row"><span class="rec-lbl">Moms 25%</span><span>'+moms.toLocaleString("sv")+" kr"+'</span></div><div class="rec-row tot"><span>Totalt</span><span>'+job.price.toLocaleString("sv")+" kr"+'</span></div><div class="rec-meta">RBwolf Bilverkstad · Ugnsvägen 4A, 295 39 Bromölla · 073-933 44 46</div></div>'
 }
 
-function updateStats(){
-  document.getElementById("s1").textContent=DATA.bookings.length;
-  document.getElementById("s2").textContent=DATA.cars.length;
-  var done=DATA.jobs.filter(function(j){return j.status==="done"});
+function stats(){
+  document.getElementById("s1").textContent=D.bookings.length;
+  document.getElementById("s2").textContent=D.cars.length;
+  var done=D.jobs.filter(function(j){return j.status==="done"});
   document.getElementById("s3").textContent=done.length;
-  document.getElementById("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr"
+  document.getElementById("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr";
 }
-updateStats();
+stats();
 </script>
 
 </body>
