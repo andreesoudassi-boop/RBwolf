@@ -508,11 +508,11 @@ function pickCat(id){
   if(el)el.classList.add("selected");
 }
 
-function goHome(){nav("pg-home","nb-home");stats()}
-function goBook(){nav("pg-book","nb-book")}
-function goAdmin(){nav("pg-admin","nb-admin");stats();renderCars();renderHist();renderBooks();fillCarSelect();buildCats();bell()}
+function goHome(){switchPage("pg-home","nb-home");stats()}
+function goBook(){switchPage("pg-book","nb-book")}
+function goAdmin(){switchPage("pg-admin","nb-admin");stats();renderCars();renderHist();renderBooks();fillCarSelect();buildCats();bell()}
 
-function nav(page,btn){
+function switchPage(page,btn){
   document.querySelectorAll(".page").forEach(function(e){e.classList.remove("active")});
   document.getElementById(page).classList.add("active");
   document.querySelectorAll(".nav-btn").forEach(function(b){b.classList.remove("active")});
