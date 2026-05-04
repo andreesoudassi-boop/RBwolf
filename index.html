@@ -5,131 +5,176 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RBwolf Bilverkstad</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#111;color:#fff}
-nav{background:#111;padding:0 1rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;border-bottom:2px solid #FFD600;z-index:100}
-.logo{font-size:20px;color:#FFD600;font-weight:bold;cursor:pointer;text-decoration:none}
-.nav-links{display:flex;gap:6px}
-.nbtn{background:#FFD600;color:#111;border:none;padding:8px 14px;font-size:13px;font-weight:bold;cursor:pointer;border-radius:4px}
-.nbtn.out{background:none;color:#FFD600;border:2px solid #FFD600}
-.page{display:none;min-height:80vh}
-.page.active{display:block}
-.hero{background:#111;text-align:center;padding:4rem 1.5rem}
-.hero h1{font-size:56px;color:#FFD600;font-weight:900}
-.hero-sub{color:rgba(255,214,0,.7);font-size:12px;letter-spacing:4px;margin-top:.5rem}
-.hero p{color:#888;font-size:15px;margin-top:1rem;max-width:400px;margin-inline:auto;line-height:1.7}
-.hbtns{display:flex;gap:10px;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
-.gbtn{background:#FFD600;color:#111;border:none;padding:12px 24px;font-size:13px;font-weight:bold;cursor:pointer;border-radius:4px}
-.gbtn.out{background:none;color:#FFD600;border:2px solid #FFD600}
-.svc-sec{background:#1a1a1a;padding:2.5rem 1.5rem}
-.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:1.25rem}
-.svc{background:#111;border-left:3px solid #FFD600;padding:1rem;border-radius:4px}
-.svc h3{color:#fff;font-size:15px;margin:.4rem 0 .3rem}
-.svc p{color:#666;font-size:12px}
-.contact-sec{background:#111;padding:2.5rem 1.5rem;border-top:1px solid #222}
-.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:1.25rem}
-.ci-lbl{color:#FFD600;font-size:10px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.ci-val{color:#aaa;font-size:13px;line-height:1.7}
-.sec-lbl{font-size:10px;font-weight:bold;letter-spacing:3px;color:#FFD600;text-transform:uppercase;margin-bottom:.4rem}
-.sec-ttl{font-size:26px;color:#fff;margin-bottom:0}
-.book-page{background:#f5f5f0;padding:2rem 1rem}
-.bcard{background:#fff;border-radius:8px;padding:1.5rem;max-width:540px;box-shadow:0 2px 10px rgba(0,0,0,.06);color:#111}
-.notice{background:#fffbea;border:1px solid #ffe066;border-radius:6px;padding:.875rem;margin-bottom:1.25rem;font-size:13px;color:#665500}
-.fl{display:block;font-size:11px;font-weight:bold;color:#555;text-transform:uppercase;margin-bottom:4px;margin-top:10px}
-.fi{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:14px;color:#111;background:#fff}
-.fi:focus{border-color:#FFD600;outline:none}
-textarea.fi{height:80px;resize:vertical}
-.sbtn{width:100%;padding:13px;background:#FFD600;color:#111;border:none;font-size:14px;font-weight:bold;cursor:pointer;border-radius:4px;margin-top:14px}
-.ok-wrap{text-align:center;padding:2rem;color:#111}
-.admin-wrap{background:#f5f5f0;padding:1.5rem;min-height:80vh}
-.admin-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px}
-.atabs{display:flex;gap:3px;background:#111;padding:4px;border-radius:6px;flex-wrap:wrap}
-.atab{background:none;border:none;color:#666;padding:7px 12px;cursor:pointer;border-radius:4px;font-size:12px;font-weight:bold;text-transform:uppercase}
-.atab.act{background:#FFD600;color:#111}
-.tc{display:none;color:#111}.tc.act{display:block}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
-.stat{background:#fff;border:1px solid #ddd;border-radius:8px;padding:.75rem;text-align:center;color:#111}
-.sn{font-size:22px;font-weight:bold}
-.sl{font-size:10px;color:#888;text-transform:uppercase;font-weight:bold}
-.acard{background:#fff;border:1px solid #ddd;border-radius:8px;margin-bottom:8px;overflow:hidden;color:#111}
-.acard-hdr{padding:.875rem 1rem;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px}
+body{font-family:'Barlow',sans-serif;background:#fff;color:#111}
+nav{background:#111;padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 1px 0 rgba(255,214,0,.2)}
+.logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer}
+.logo-img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #FFD600}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD600;letter-spacing:2px}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nbtn{background:none;border:none;color:#888;font-family:'Barlow',sans-serif;font-size:13px;font-weight:600;padding:7px 13px;cursor:pointer;border-radius:4px;text-transform:uppercase;letter-spacing:.5px}
+.nbtn:hover,.nbtn.act{color:#FFD600;background:rgba(255,214,0,.1)}
+.notifbtn{background:none;border:none;cursor:pointer;padding:8px;display:none;position:relative}
+.notifbtn svg{width:20px;height:20px;fill:#888}
+.notifbtn.act svg{fill:#FFD600}
+.ndot{position:absolute;top:4px;right:4px;width:9px;height:9px;background:#ff3b3b;border-radius:50%;display:none;border:2px solid #111}
+.hero{background:#111;padding:5rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden}
+.hero-glow{position:absolute;top:0;left:50%;transform:translateX(-50%);width:500px;height:250px;background:radial-gradient(ellipse,rgba(255,214,0,.08),transparent 70%);pointer-events:none}
+.hero-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;margin:0 auto 1.5rem;display:block;border:3px solid rgba(255,214,0,.5);position:relative;z-index:1}
+.hero-tag{display:inline-block;background:rgba(255,214,0,.1);color:#FFD600;font-size:11px;font-weight:700;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:1.25rem;border:1px solid rgba(255,214,0,.2);position:relative;z-index:1}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(60px,14vw,100px);color:#fff;line-height:.95;letter-spacing:2px;position:relative;z-index:1}
+.hero h1 span{color:#FFD600}
+.hero-sub{color:rgba(255,214,0,.6);font-size:12px;font-weight:700;letter-spacing:5px;text-transform:uppercase;margin-top:.6rem;position:relative;z-index:1}
+.hero p{color:#777;font-size:15px;margin-top:1rem;max-width:420px;margin-inline:auto;line-height:1.8;position:relative;z-index:1}
+.hero-btns{display:flex;gap:12px;justify-content:center;margin-top:2rem;flex-wrap:wrap;position:relative;z-index:1}
+.hours-bar{background:#0d0d0d;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,214,0,.1)}
+.hi{text-align:center;padding:1.25rem .5rem}
+.hi-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:#FFD600}
+.hi-lbl{font-size:10px;color:#555;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:2px}
+.btn-gold{background:#FFD600;color:#111;border:none;padding:12px 26px;font-family:'Barlow',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase}
+.btn-gold:hover{background:#ffe033}
+.btn-out{background:none;color:#FFD600;border:2px solid rgba(255,214,0,.5);padding:11px 24px;font-family:'Barlow',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase}
+.btn-out:hover{border-color:#FFD600}
+.svc-sec{padding:4rem 1.5rem;background:#fff}
+.sec-inner{max-width:860px;margin:0 auto}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;color:#FFD600;text-transform:uppercase;margin-bottom:.4rem}
+.big-ttl{font-family:'Bebas Neue',sans-serif;font-size:38px;color:#111;letter-spacing:2px;margin-bottom:.5rem}
+.sub-txt{color:#888;font-size:14px;line-height:1.7;margin-bottom:2rem}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2px}
+.svc{background:#111;padding:1.5rem;position:relative}
+.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#FFD600;transform:scaleX(0);transition:transform .3s}
+.svc:hover::after{transform:scaleX(1)}
+.svc-ico{font-size:22px;display:block;margin-bottom:.75rem}
+.svc h3{font-family:'Bebas Neue',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;margin-bottom:.4rem}
+.svc p{font-size:12px;color:#666;line-height:1.6}
+.contact-sec{background:#111;padding:4rem 1.5rem}
+.contact-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.contact-items{display:flex;flex-direction:column;gap:1.25rem;margin-top:1rem}
+.ci{display:flex;gap:12px;align-items:flex-start}
+.ci-icon{width:36px;height:36px;background:rgba(255,214,0,.1);border:1px solid rgba(255,214,0,.2);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.ci-lbl{font-size:10px;color:#555;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
+.ci-val{font-size:14px;color:#aaa;line-height:1.7}
+.book-wrap{background:#f5f5f0;padding:3rem 1rem;flex:1}
+.bcard{background:#fff;border:1px solid #e5e5e5;border-radius:10px;max-width:540px;margin:0 auto;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.binner{padding:1.75rem}
+.bhdr{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid #f0f0f0}
+.bnum{width:30px;height:30px;background:#111;color:#FFD600;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:17px;border-radius:4px}
+.bttl{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px}
+.notice{background:#fffbea;border:1px solid #ffe066;border-radius:7px;padding:.875rem 1rem;margin-bottom:1.25rem;display:flex;gap:8px}
+.n-ico{font-size:17px;flex-shrink:0;margin-top:1px;color:#cc9900}
+.n-txt{font-size:13px;color:#665500;line-height:1.5}
+.n-txt strong{display:block;font-weight:700;color:#443700;margin-bottom:2px}
+.fl{display:block;font-size:11px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;margin-top:12px}
+.fi{width:100%;padding:10px 12px;border:1.5px solid #e5e5e5;border-radius:6px;font-family:'Barlow',sans-serif;font-size:14px;color:#111;background:#fff;outline:none}
+.fi:focus{border-color:#FFD600}
+textarea.fi{height:82px;resize:vertical}
+.ok-wrap{text-align:center;padding:2.5rem 1.5rem}
+.ok-wrap h3{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;margin:.75rem 0}
+.ok-wrap p{color:#888;font-size:14px;line-height:1.7}
+.lock{position:fixed;inset:0;background:#111;display:flex;align-items:center;justify-content:center;z-index:999}
+.lockbox{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;padding:2.25rem;width:90%;max-width:320px;text-align:center}
+.lock-logo{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #FFD600;margin:0 auto 1rem;display:block}
+.lock-ttl{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#FFD600;letter-spacing:3px;margin-bottom:.3rem}
+.lock-sub{font-size:12px;color:#555;margin-bottom:1.25rem}
+.lock-input{width:100%;padding:12px;background:#111;border:1.5px solid #2a2a2a;border-radius:6px;color:#fff;font-family:'Barlow',sans-serif;font-size:15px;outline:none;text-align:center;letter-spacing:2px}
+.lock-input:focus{border-color:#FFD600}
+.lock-err{color:#ff4444;font-size:12px;margin-top:6px;display:none}
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:998;display:flex;align-items:center;justify-content:center;padding:1rem}
+.popbox{background:#fff;border-radius:14px;width:100%;max-width:380px;overflow:hidden}
+.pop-hdr{background:#111;padding:1.1rem 1.25rem;display:flex;align-items:center;gap:8px}
+.pop-ttl{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#FFD600;letter-spacing:2px;flex:1}
+.pop-close{background:none;border:none;color:#666;font-size:20px;cursor:pointer}
+.pop-body{padding:1.25rem;display:flex;flex-direction:column;gap:10px}
+.prow{display:flex;gap:10px}
+.pico{font-size:16px;flex-shrink:0;margin-top:2px}
+.plbl{font-size:10px;color:#aaa;font-weight:700;text-transform:uppercase;margin-bottom:2px}
+.pval{font-size:14px;font-weight:600;color:#111}
+.pop-ftr{padding:.875rem 1.25rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap}
+.btn-call{background:#22c55e;color:#fff;border:none;padding:11px 14px;border-radius:7px;flex:1;font-weight:700;cursor:pointer;text-decoration:none;display:block;text-align:center;font-size:13px;font-family:'Barlow',sans-serif}
+.btn-ok{background:#FFD600;color:#111;border:none;padding:11px 14px;border-radius:7px;flex:1;font-weight:700;cursor:pointer;font-size:13px;font-family:'Barlow',sans-serif}
+.btn-skip{background:none;border:1px solid #e5e5e5;color:#888;padding:9px;border-radius:7px;width:100%;margin-top:3px;cursor:pointer;font-size:13px;font-family:'Barlow',sans-serif}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:997;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modbox{background:#fff;border-radius:14px;width:100%;max-width:380px;overflow:hidden;max-height:90vh;overflow-y:auto}
+.mod-hdr{background:#111;padding:1.1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0}
+.mod-ttl{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#FFD600;letter-spacing:2px}
+.mod-close{background:none;border:none;color:#666;font-size:22px;cursor:pointer}
+.mod-body{padding:1.25rem}
+.mrow{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5;align-items:flex-start}
+.mrow:last-child{border-bottom:none}
+.mico{font-size:17px;flex-shrink:0}
+.mlbl{font-size:10px;color:#aaa;font-weight:700;text-transform:uppercase;margin-bottom:2px}
+.mval{font-size:14px;font-weight:500;color:#111}
+.mod-ftr{padding:.875rem 1.25rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap}
+.adm-wrap{padding:1.5rem;background:#f5f5f0;flex:1}
+.adm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px}
+.adm-ttl{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px}
+.tabs{display:flex;gap:3px;background:#111;border-radius:7px;padding:4px;flex-wrap:wrap}
+.tab{padding:7px 12px;font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;color:#666;border:none;background:none;cursor:pointer;border-radius:5px;text-transform:uppercase;letter-spacing:.5px}
+.tab.act{background:#FFD600;color:#111}
+.tc{display:none}.tc.act{display:block}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.25rem}
+.stat{background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:.875rem;text-align:center}
+.sn{font-family:'Bebas Neue',sans-serif;font-size:26px;color:#111}
+.sl{font-size:10px;color:#888;text-transform:uppercase;font-weight:700;margin-top:2px}
+.acard{background:#fff;border:1px solid #e5e5e5;border-radius:8px;margin-bottom:10px;overflow:hidden}
+.acard-hdr{padding:.875rem 1rem;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid #f0f0f0;flex-wrap:wrap;gap:6px}
 .acard-body{padding:.875rem 1rem}
-.creg{font-family:monospace;font-size:19px;font-weight:bold;letter-spacing:2px}
-.cmake{font-size:12px;color:#666;margin-top:2px}
+.creg{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:#111}
+.cmake{font-size:12px;color:#888;margin-top:2px}
 .cgrd{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid #f5f5f5;font-size:11px}
 .cl{color:#aaa;display:block}
-.cv{font-weight:bold;color:#333;font-size:12px}
-.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:bold}
+.cv{font-weight:600;color:#333;font-size:12px;margin-top:1px}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
 .bdone{background:#dcfce7;color:#166534}
 .bprog{background:#dbeafe;color:#1e40af}
 .bwait{background:#fef9c3;color:#854d0e}
 .bnew{background:#fee2e2;color:#991b1b}
-.catbadge{background:#111;color:#FFD600;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:bold;margin-right:5px}
+.catbadge{background:#111;color:#FFD600;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:700;margin-right:5px;display:inline-block}
 .jrow{display:flex;gap:8px;padding:8px 0;border-top:1px solid #f5f5f5;flex-wrap:wrap}
-.jdate{font-size:11px;color:#aaa;min-width:65px;margin-top:2px}
+.jdate{font-size:11px;color:#aaa;min-width:65px;margin-top:2px;font-weight:600}
 .jinfo{flex:1}
-.jdesc{font-size:13px;font-weight:600;margin-bottom:3px}
-.jmeta{font-size:11px;color:#aaa}
-.jprice{font-size:13px;color:#22c55e;font-weight:bold;margin-left:auto;white-space:nowrap}
-.addf{background:#f9f9f9;border:1px dashed #ddd;border-radius:8px;padding:1rem;margin-top:10px;color:#111}
-.addf-ttl{font-size:10px;font-weight:bold;text-transform:uppercase;color:#888;margin-bottom:8px}
+.jdesc{font-size:13px;font-weight:600;margin-bottom:3px;color:#111}
+.jmeta{font-size:11px;color:#aaa;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.jprice{font-size:13px;color:#22c55e;font-weight:700;white-space:nowrap}
+.addf{background:#f9f9f9;border:1px dashed #ddd;border-radius:8px;padding:1rem;margin-top:10px}
+.addf-ttl{font-size:10px;font-weight:700;text-transform:uppercase;color:#aaa;margin-bottom:8px;letter-spacing:1px}
 .fc2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fc3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .catg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
-.catbtn{background:#fff;border:2px solid #ddd;border-radius:6px;padding:8px 4px;text-align:center;cursor:pointer;font-size:11px;font-weight:bold;color:#333}
+.catbtn{background:#fff;border:1.5px solid #e5e5e5;border-radius:7px;padding:9px 4px;text-align:center;cursor:pointer;font-size:11px;font-weight:700;color:#333}
 .catbtn.sel{border-color:#FFD600;background:#fffbea}
-.bi{background:#fff;border:1px solid #ddd;border-radius:8px;padding:.875rem 1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#111}
+.bi{background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:.875rem 1rem;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer}
 .bi:hover{border-color:#FFD600}
 .bi.isnew{border-color:#fca5a5;background:#fff9f9}
 .bdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .binf{flex:1}
-.bname{font-size:14px;font-weight:700}
+.bname{font-size:14px;font-weight:700;color:#111}
 .bdet{font-size:12px;color:#888;margin-top:2px;line-height:1.4}
-.barr{color:#ccc;font-size:18px}
-.btndel{background:#fee2e2;color:#991b1b;border:none;padding:5px 9px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold}
-.btnout{background:none;color:#FFD600;border:1px solid #FFD600;padding:6px 12px;font-size:12px;font-weight:bold;cursor:pointer;border-radius:4px}
-.lock{position:fixed;inset:0;background:#111;display:flex;align-items:center;justify-content:center;z-index:999}
-.lockbox{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:2rem;width:90%;max-width:320px;text-align:center}
-.lockbox h2{color:#FFD600;font-size:22px;margin-bottom:.75rem}
-.lockbox p{color:#555;font-size:13px;margin-bottom:1rem}
-.lockbox input{width:100%;padding:11px;background:#111;border:1px solid #333;border-radius:6px;color:#fff;font-size:15px;text-align:center;letter-spacing:2px;outline:none}
-.lockbox input:focus{border-color:#FFD600}
-.lockerr{color:#ff4444;font-size:13px;margin-top:6px;display:none}
-.popup{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:998;display:flex;align-items:center;justify-content:center;padding:1rem}
-.popbox{background:#fff;border-radius:12px;width:100%;max-width:380px;overflow:hidden}
-.pophdr{background:#111;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between}
-.pophdr span{color:#FFD600;font-size:17px;font-weight:bold}
-.pophdr button{background:none;border:none;color:#888;font-size:20px;cursor:pointer}
-.popbody{padding:1.25rem;color:#111}
-.prow{margin-bottom:8px}
-.plbl{font-size:10px;color:#aaa;font-weight:bold;text-transform:uppercase;margin-bottom:2px}
-.pval{font-size:14px;font-weight:600}
-.popftr{padding:1rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap}
-.bcall{background:#22c55e;color:#fff;border:none;padding:11px 14px;border-radius:6px;flex:1;font-weight:bold;cursor:pointer;text-decoration:none;display:block;text-align:center;font-size:13px}
-.bok{background:#FFD600;color:#111;border:none;padding:11px 14px;border-radius:6px;flex:1;font-weight:bold;cursor:pointer;font-size:13px}
-.bskip{background:none;border:1px solid #ddd;color:#888;padding:9px;border-radius:6px;width:100%;margin-top:4px;cursor:pointer;font-size:13px}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:997;display:flex;align-items:center;justify-content:center;padding:1rem}
-.modbox{background:#fff;border-radius:12px;width:100%;max-width:380px;overflow:hidden;max-height:90vh;overflow-y:auto}
-.modhdr{background:#111;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0}
-.modhdr span{color:#FFD600;font-size:17px;font-weight:bold}
-.modhdr button{background:none;border:none;color:#888;font-size:22px;cursor:pointer}
-.modbody{padding:1.25rem;color:#111}
-.mrow{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0f0f0}
-.mrow:last-child{border-bottom:none}
-.mico{font-size:17px;flex-shrink:0}
-.mlbl{font-size:10px;color:#aaa;font-weight:bold;text-transform:uppercase;margin-bottom:2px}
-.mval{font-size:14px;font-weight:500}
-.modftr{padding:1rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap}
-.rec{background:#fff;color:#111;border:1px solid #ddd;border-radius:8px;padding:1.5rem;max-width:440px}
-.rectop{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid #111}
-.reco{font-size:18px;font-weight:bold}
-.recrow{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f5f5f5}
-.recrow.tot{font-weight:bold;font-size:14px;border:none;border-top:2px solid #111;margin-top:6px;padding-top:8px}
-.reclbl{color:#888}
-.recmeta{font-size:11px;color:#aaa;margin-top:1rem;text-align:center;line-height:2}
-.toast{position:fixed;bottom:20px;right:20px;background:#22c55e;color:#fff;padding:10px 18px;border-radius:20px;font-weight:bold;display:none;z-index:500;font-size:13px}
-.notif{background:none;border:none;cursor:pointer;padding:8px;display:none;color:#FFD600;font-size:18px;position:relative}
-@media(max-width:500px){.stats{grid-template-columns:repeat(2,1fr)}.cg{grid-template-columns:1fr}.fc2{grid-template-columns:1fr}.svc-grid{grid-template-columns:1fr}}
+.barr{color:#ddd;font-size:18px}
+.btn-del{background:#fee2e2;color:#991b1b;border:none;padding:5px 9px;border-radius:5px;cursor:pointer;font-size:11px;font-weight:700}
+.btn-logout{background:none;border:1px solid #333;color:#666;font-family:'Barlow',sans-serif;font-size:11px;font-weight:700;padding:6px 12px;cursor:pointer;border-radius:5px;text-transform:uppercase}
+.rec-box{background:#fff;border:1px solid #e5e5e5;border-radius:8px;max-width:440px;padding:1.75rem}
+.rec-top{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid #111}
+.rec-top img{width:38px;height:38px;border-radius:50%;object-fit:cover}
+.rec-co{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;color:#111}
+.rec-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f5f5f5}
+.rec-row.tot{font-weight:700;font-size:14px;border:none;border-top:2px solid #111;margin-top:6px;padding-top:8px}
+.rec-lbl{color:#888}
+.rec-meta{font-size:11px;color:#aaa;margin-top:1rem;text-align:center;line-height:2}
+.toast{position:fixed;bottom:20px;right:20px;background:#22c55e;color:#fff;padding:10px 18px;border-radius:20px;font-weight:700;display:none;z-index:500;font-size:13px;box-shadow:0 4px 15px rgba(34,197,94,.3)}
+.divider{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin:10px 0 6px;padding-bottom:5px;border-bottom:1px solid #e5e5e5}
+.empty{text-align:center;color:#aaa;font-size:14px;padding:2rem;line-height:1.8}
+@media(max-width:600px){
+  .hero h1{font-size:64px}
+  .contact-inner{grid-template-columns:1fr}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .fc2{grid-template-columns:1fr}
+  .fc3{grid-template-columns:1fr 1fr}
+  .tabs{gap:2px}.tab{padding:6px 8px;font-size:10px}
+  .svc-grid{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
@@ -138,84 +183,115 @@ textarea.fi{height:80px;resize:vertical}
 
 <div id="lock" class="lock" style="display:none">
   <div class="lockbox">
-    <h2>🔒 Admin</h2>
-    <p>Ange lösenord</p>
-    <input type="password" id="pw" placeholder="••••••••••">
-    <div id="pwerr" class="lockerr">❌ Fel lösenord</div>
-    <button id="loginbtn" class="sbtn" style="margin-top:12px">Logga in</button>
+    <img class="lock-logo" src="data:image/jpeg;base64,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" alt="RBwolf">
+    <div class="lock-ttl">Admin</div>
+    <div class="lock-sub">Ange lösenord</div>
+    <input class="lock-input" type="password" id="pw" placeholder="••••••••••">
+    <div class="lock-err" id="pwerr">❌ Fel lösenord</div>
+    <button class="btn-gold" id="loginbtn" style="width:100%;margin-top:14px;padding:13px">Logga in</button>
   </div>
 </div>
 
 <div id="popup" class="popup" style="display:none">
   <div class="popbox">
-    <div class="pophdr"><span>🔔 NY BOKNING!</span><button id="closepopupbtn">✕</button></div>
-    <div class="popbody" id="popbody"></div>
-    <div class="popftr">
-      <a id="callbtn" href="#" class="bcall">📞 Ring kunden</a>
-      <button id="cfmpopupbtn" class="bok">✓ Bekräfta</button>
-      <button id="skippopupbtn" class="bskip">Stäng</button>
+    <div class="pop-hdr"><span style="font-size:20px">🔔</span><span class="pop-ttl">NY BOKNING!</span><button class="pop-close" id="closepopup">✕</button></div>
+    <div class="pop-body" id="popbody"></div>
+    <div class="pop-ftr">
+      <a id="callbtn" href="#" class="btn-call">📞 Ring kunden</a>
+      <button class="btn-ok" id="cfmpopup">✓ Bekräfta</button>
+      <button class="btn-skip" id="skippopup">Stäng</button>
     </div>
   </div>
 </div>
 
 <div id="modal" class="modal" style="display:none">
   <div class="modbox">
-    <div class="modhdr"><span>Bokning</span><button id="closemodalbtn">✕</button></div>
-    <div class="modbody" id="modalbody"></div>
-    <div class="modftr" id="modalftr"></div>
+    <div class="mod-hdr"><span class="mod-ttl">Bokning</span><button class="mod-close" id="closemodal">✕</button></div>
+    <div class="mod-body" id="modalbody"></div>
+    <div class="mod-ftr" id="modalftr"></div>
   </div>
 </div>
 
 <nav>
-  <span class="logo" id="logobtn">🐺 RBwolf</span>
+  <div class="logo-wrap" id="logobtn">
+    <img class="logo-img" src="data:image/jpeg;base64,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" alt="RBwolf">
+    <span class="logo-text">RBwolf</span>
+  </div>
   <div class="nav-links">
-    <button class="nbtn" id="nb-home">Start</button>
-    <button class="nbtn out" id="nb-book">Boka</button>
-    <button class="nbtn out" id="nb-admin">Admin</button>
-    <button class="notif" id="notifbtn">🔔<span id="nbadge2" style="display:none;font-size:10px;margin-left:2px"></span></button>
+    <button class="nbtn act" id="nb-home">Start</button>
+    <button class="nbtn" id="nb-book">Boka</button>
+    <button class="nbtn" id="nb-admin">Admin</button>
+    <button class="notifbtn" id="notifbtn">
+      <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      <div class="ndot" id="ndot"></div>
+    </button>
   </div>
 </nav>
 
-<div id="pg-home" class="page active">
+<!-- STARTSIDA -->
+
+<div id="pg-home" class="page active" style="display:flex;flex-direction:column">
   <div class="hero">
-    <h1>RBWOLF</h1>
-    <div class="hero-sub">BILVERKSTAD · BROMÖLLA</div>
-    <p>Professionell service, felsökning och reparation av alla bilmärken.</p>
-    <div class="hbtns">
-      <button class="gbtn" id="hero-book-btn">Boka tid</button>
-      <button class="gbtn out" id="hero-contact-btn">Kontakt</button>
+    <div class="hero-glow"></div>
+    <div class="hero-tag">Bilverkstad i Bromölla</div>
+    <img class="hero-logo" src="data:image/jpeg;base64,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" alt="RBwolf">
+    <h1>RB<span>WOLF</span></h1>
+    <div class="hero-sub">Service · Reparationer · Felsökning</div>
+    <p>Vi tar hand om din bil som om det vore vår egen.</p>
+    <div class="hero-btns">
+      <button class="btn-gold" id="herobookbtn">Boka tid</button>
+      <button class="btn-out" id="herocontactbtn">Kontakt</button>
     </div>
   </div>
+  <div class="hours-bar">
+    <div class="hi"><div class="hi-num">09–18</div><div class="hi-lbl">Mån–Fre</div></div>
+    <div class="hi"><div class="hi-num">10–16</div><div class="hi-lbl">Lördag</div></div>
+    <div class="hi"><div class="hi-num">Stängt</div><div class="hi-lbl">Söndag</div></div>
+  </div>
   <div class="svc-sec">
-    <div class="sec-lbl">Vad vi gör</div>
-    <div class="sec-ttl">Våra tjänster</div>
-    <div class="svc-grid">
-      <div class="svc"><span>⚙️</span><h3>Service & Olja</h3><p>Oljebyte, filter och vätskor.</p></div>
-      <div class="svc"><span>🔧</span><h3>Reparationer</h3><p>Motor, bromsar och styrning.</p></div>
-      <div class="svc"><span>🔍</span><h3>Felsökning</h3><p>Modern diagnos — snabbt.</p></div>
-      <div class="svc"><span>🛞</span><h3>Däck & Hjul</h3><p>Säsongsbyte och balansering.</p></div>
-      <div class="svc"><span>💡</span><h3>El & Belysning</h3><p>Lampbyte, elsystem, batteri.</p></div>
-      <div class="svc"><span>🚗</span><h3>Besiktning</h3><p>Förberedelse och anmärkningar.</p></div>
+    <div class="sec-inner">
+      <div class="eyebrow">Vad vi gör</div>
+      <div class="big-ttl">Våra tjänster</div>
+      <div class="sub-txt">Allt från enklare service till komplexa reparationer.</div>
+      <div class="svc-grid">
+        <div class="svc"><span class="svc-ico">⚙️</span><h3>Service & Olja</h3><p>Oljebyte, filter och vätskor.</p></div>
+        <div class="svc"><span class="svc-ico">🔧</span><h3>Reparationer</h3><p>Motor, bromsar och styrning.</p></div>
+        <div class="svc"><span class="svc-ico">🔍</span><h3>Felsökning</h3><p>Modern diagnos — snabbt.</p></div>
+        <div class="svc"><span class="svc-ico">🛞</span><h3>Däck & Hjul</h3><p>Säsongsbyte och balansering.</p></div>
+        <div class="svc"><span class="svc-ico">💡</span><h3>El & Belysning</h3><p>Lampbyte, elsystem, batteri.</p></div>
+        <div class="svc"><span class="svc-ico">🚗</span><h3>Besiktning</h3><p>Förberedelse och anmärkningar.</p></div>
+      </div>
     </div>
   </div>
   <div id="kontakt" class="contact-sec">
-    <div class="sec-lbl">Kontakt</div>
-    <div class="sec-ttl">Hitta oss</div>
-    <div class="cg">
-      <div><div class="ci-lbl">Telefon</div><div class="ci-val">073-933 44 46</div></div>
-      <div><div class="ci-lbl">Öppettider</div><div class="ci-val">Mån–Fre 09–18<br>Lördag 10–16<br>Söndag Stängt</div></div>
-      <div><div class="ci-lbl">Adress</div><div class="ci-val">Ugnsvägen 4A<br>295 39 Bromölla</div></div>
+    <div class="contact-inner">
+      <div>
+        <div class="eyebrow">Kontakt</div>
+        <div class="big-ttl" style="color:#fff">Hitta oss</div>
+        <p style="color:#555;font-size:14px;line-height:1.8;margin-top:.75rem;margin-bottom:1.5rem">Välkommen in — utan bokning under öppettiderna, eller boka tid nedan.</p>
+        <button class="btn-gold" id="contactbookbtn">Boka tid nu</button>
+      </div>
+      <div class="contact-items">
+        <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-lbl">Telefon</div><div class="ci-val">073-933 44 46</div></div></div>
+        <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-lbl">Adress</div><div class="ci-val">Ugnsvägen 4A<br>295 39 Bromölla</div></div></div>
+        <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-lbl">Öppettider</div><div class="ci-val">Mån–Fre 09–18<br>Lördag 10–16<br>Söndag Stängt</div></div></div>
+      </div>
     </div>
-    <button class="gbtn" id="contact-book-btn" style="margin-top:1.5rem">Boka tid nu</button>
   </div>
 </div>
 
-<div id="pg-book" class="page">
-  <div class="book-page">
-    <h2 style="color:#111;margin-bottom:1rem">Boka tid</h2>
-    <div class="bcard">
-      <div id="bform">
-        <div class="notice"><strong style="display:block;margin-bottom:3px">Vi ringer dig!</strong>En mekaniker ringer upp för att bekräfta. Ring direkt: <strong>073-933 44 46</strong></div>
+<!-- BOKNINGSSIDA -->
+
+<div id="pg-book" class="page" style="display:flex;flex-direction:column">
+  <div class="book-wrap">
+    <div style="text-align:center;margin-bottom:1.5rem">
+      <div class="eyebrow">Bokningssystem</div>
+      <div class="big-ttl">Boka tid</div>
+    </div>
+    <div id="bform" class="bcard">
+      <div class="binner">
+        <div class="bhdr"><div class="bnum">1</div><div class="bttl">Dina uppgifter</div></div>
+        <div class="notice"><div class="n-ico">📞</div><div class="n-txt"><strong>Vi ringer dig!</strong>En mekaniker ringer upp för att bekräfta. Ring direkt: <strong>073-933 44 46</strong></div></div>
         <label class="fl">Namn *</label><input class="fi" type="text" id="bn" placeholder="Anna Andersson">
         <label class="fl">Telefon *</label><input class="fi" type="tel" id="bp" placeholder="070-123 45 67">
         <label class="fl">E-post</label><input class="fi" type="email" id="be" placeholder="din@epost.se">
@@ -223,31 +299,35 @@ textarea.fi{height:80px;resize:vertical}
         <label class="fl">Bilmärke & modell</label><input class="fi" type="text" id="bc" placeholder="Volvo V70 2018">
         <label class="fl">Önskat datum</label><input class="fi" type="date" id="bd">
         <label class="fl">Beskriv ärendet</label><textarea class="fi" id="bdesc" placeholder="Vad behöver din bil hjälp med?"></textarea>
-        <button class="sbtn" id="subbookbtn">Skicka bokningsförfrågan →</button>
+        <button class="btn-gold" id="subbookbtn" style="width:100%;padding:14px;margin-top:14px;font-size:14px">Skicka bokningsförfrågan →</button>
       </div>
-      <div id="bokOk" style="display:none;text-align:center;padding:2rem">
-        <div style="font-size:46px">✅</div>
-        <h3 style="color:#111;margin:.75rem 0">Skickad!</h3>
-        <p style="color:#888">Vi ringer upp dig inom kort.</p>
-        <div id="bconf" style="margin-top:1rem;padding:.875rem;background:#f9f9f9;border-radius:6px;font-size:13px;color:#888;text-align:left;line-height:1.9"></div>
-        <button class="sbtn" id="newbookbtn" style="margin-top:1rem">Ny bokning</button>
+    </div>
+    <div id="bokOk" class="bcard" style="display:none">
+      <div class="ok-wrap">
+        <div style="font-size:48px">✅</div>
+        <h3>Förfrågan skickad!</h3>
+        <p>Vi ringer upp dig inom kort för att bekräfta tid.</p>
+        <div id="bconf" style="margin-top:1rem;padding:.875rem 1rem;background:#f9f9f9;border-radius:7px;font-size:13px;color:#888;text-align:left;line-height:1.9"></div>
+        <button class="btn-gold" id="newbookbtn" style="margin-top:1.25rem">Ny bokning</button>
       </div>
     </div>
   </div>
 </div>
 
-<div id="pg-admin" class="page">
-  <div class="admin-wrap">
-    <div class="admin-top">
-      <h2 style="color:#111">Administration</h2>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-        <div class="atabs">
-          <button class="atab act" id="tab-b">📋 Bokningar</button>
-          <button class="atab" id="tab-c">🚗 Bilar</button>
-          <button class="atab" id="tab-h">🔧 Historik</button>
-          <button class="atab" id="tab-r">🧾 Kvitton</button>
+<!-- ADMINPANEL -->
+
+<div id="pg-admin" class="page" style="display:flex;flex-direction:column">
+  <div class="adm-wrap">
+    <div class="adm-top">
+      <div class="adm-ttl">Administration</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <div class="tabs">
+          <button class="tab act" id="tab-b">📋 Bokningar</button>
+          <button class="tab" id="tab-c">🚗 Bilar</button>
+          <button class="tab" id="tab-h">🔧 Historik</button>
+          <button class="tab" id="tab-r">🧾 Kvitton</button>
         </div>
-        <button class="btnout" id="logoutbtn">🔒 Logga ut</button>
+        <button class="btn-logout" id="logoutbtn">🔒 Logga ut</button>
       </div>
     </div>
     <div class="stats">
@@ -259,17 +339,18 @@ textarea.fi{height:80px;resize:vertical}
     <div id="tc-b" class="tc act">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
         <strong>Bokningar</strong>
-        <span id="nbadge" style="display:none;background:#dc2626;color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:bold"></span>
+        <span id="nbadge" style="display:none;background:#dc2626;color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:700"></span>
       </div>
       <div id="blist"></div>
     </div>
     <div id="tc-c" class="tc">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
         <strong>Bilar</strong>
-        <button class="nbtn" id="addcarbtn" style="font-size:12px;padding:6px 12px">+ Ny bil</button>
+        <button class="btn-gold" id="addcarbtn" style="font-size:11px;padding:6px 12px">+ Ny bil</button>
       </div>
       <div id="addcarform" class="addf" style="display:none;margin-bottom:12px">
         <div class="addf-ttl">Ny bil</div>
+        <div class="divider">Fordon</div>
         <div class="fc2">
           <div><label class="fl">Reg.nr *</label><input class="fi" id="creg" placeholder="ABC123" style="text-transform:uppercase"></div>
           <div><label class="fl">Märke *</label><input class="fi" id="cmake" placeholder="Volvo"></div>
@@ -278,27 +359,26 @@ textarea.fi{height:80px;resize:vertical}
           <div><label class="fl">Modell</label><input class="fi" id="cmod" placeholder="V70"></div>
           <div><label class="fl">År</label><input class="fi" id="cyr" type="number" placeholder="2018"></div>
         </div>
-        <div class="fc2">
+        <div class="fc3">
           <div><label class="fl">Färg</label><input class="fi" id="ccol" placeholder="Svart"></div>
           <div><label class="fl">Drivmedel</label><select class="fi" id="cfuel"><option value="">Välj...</option><option>Bensin</option><option>Diesel</option><option>El</option><option>Hybrid</option><option>Laddhybrid</option><option>Gas</option></select></div>
-        </div>
-        <div class="fc2">
           <div><label class="fl">Miltal</label><input class="fi" id="cmil" type="number" placeholder="15000"></div>
-          <div><label class="fl">Ägare</label><input class="fi" id="cown" placeholder="Anna Andersson"></div>
         </div>
+        <div class="divider">Ägare</div>
         <div class="fc2">
+          <div><label class="fl">Namn</label><input class="fi" id="cown" placeholder="Anna Andersson"></div>
           <div><label class="fl">Telefon</label><input class="fi" id="ctel" placeholder="070-123 45 67"></div>
-          <div><label class="fl">E-post</label><input class="fi" id="cemail" type="email" placeholder="anna@epost.se"></div>
         </div>
+        <label class="fl">E-post</label><input class="fi" id="cemail" type="email" placeholder="anna@epost.se">
         <label class="fl">Anteckningar</label><textarea class="fi" id="cnotes" placeholder="Extra info..."></textarea>
-        <button class="sbtn" id="savecar" style="margin-top:10px">Spara bil</button>
+        <button class="btn-gold" id="savecarbtn" style="margin-top:12px">Spara bil</button>
       </div>
       <div id="clist"></div>
     </div>
     <div id="tc-h" class="tc">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
         <strong>Jobbhistorik</strong>
-        <button class="nbtn" id="addjobbtn" style="font-size:12px;padding:6px 12px">+ Nytt jobb</button>
+        <button class="btn-gold" id="addjobbtn" style="font-size:11px;padding:6px 12px">+ Nytt jobb</button>
       </div>
       <div id="addjobform" class="addf" style="display:none;margin-bottom:12px">
         <div class="addf-ttl">Kategori</div>
@@ -315,7 +395,7 @@ textarea.fi{height:80px;resize:vertical}
         <label class="fl">Mekaniker</label><input class="fi" id="jmek" placeholder="Ahmad">
         <label class="fl">Status</label><select class="fi" id="jstat"><option value="done">✅ Utfört</option><option value="progress">🔧 Pågående</option><option value="pending">⏳ Väntar</option></select>
         <label class="fl">Anteckningar</label><textarea class="fi" id="jnotes" placeholder="Extra info..."></textarea>
-        <button class="sbtn" id="savejob" style="margin-top:10px">Spara jobb</button>
+        <button class="btn-gold" id="savejobbtn" style="margin-top:12px;width:100%">Spara jobb</button>
       </div>
       <div id="hlist"></div>
     </div>
@@ -326,426 +406,202 @@ textarea.fi{height:80px;resize:vertical}
         <div><label class="fl">Jobb</label><select class="fi" id="rjob"></select></div>
       </div>
       <div style="display:flex;gap:8px">
-        <button class="sbtn" id="genrecbtn" style="flex:1;padding:10px">Generera kvitto</button>
-        <button class="btnout" id="printbtn" style="padding:10px 14px">🖨️</button>
+        <button class="btn-gold" id="genrecbtn" style="flex:1;padding:11px">Generera kvitto</button>
+        <button class="btn-logout" id="printbtn" style="padding:11px 14px">🖨️</button>
       </div>
-      <div id="rout" style="margin-top:1.25rem"></div>
+      <div id="rout" style="margin-top:1.5rem"></div>
     </div>
   </div>
 </div>
 
 <script>
-var PW = "Ahmad_rbwolf";
-var unlocked = false;
-var selCat = "";
-var popId = null;
-var modIdx = null;
-
-var CATS = [
-  {id:"service",e:"⚙️",l:"Service"},
-  {id:"brakes",e:"🛑",l:"Bromsar"},
-  {id:"engine",e:"🔩",l:"Motor"},
-  {id:"tires",e:"🛞",l:"Däck"},
-  {id:"electrical",e:"💡",l:"El"},
-  {id:"gearbox",e:"⚡",l:"Växellåda"},
-  {id:"steering",e:"🎯",l:"Styrning"},
-  {id:"inspection",e:"🚗",l:"Besiktning"},
-  {id:"suspension",e:"🔧",l:"Fjädring"},
-  {id:"other",e:"🛠️",l:"Övrigt"}
-];
-
-var D = {bookings:[], cars:[], jobs:[], nid:1};
-
-function save() {
-  try { localStorage.setItem("rbw4", JSON.stringify(D)); showToast(); } catch(e) {}
-}
-function load() {
-  try { var s = localStorage.getItem("rbw4"); if(s) D = JSON.parse(s); } catch(e) {}
-}
-function showToast() {
-  var t = document.getElementById("toast");
-  t.style.display = "block";
-  clearTimeout(window._tt);
-  window._tt = setTimeout(function(){ t.style.display = "none"; }, 2000);
-}
+var PW="Ahmad_rbwolf",unlocked=false,selCat="",popId=null,modIdx=null;
+var LOGO_SRC="data:image/jpeg;base64,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";
+var CATS=[{id:"service",e:"⚙️",l:"Service"},{id:"brakes",e:"🛑",l:"Bromsar"},{id:"engine",e:"🔩",l:"Motor"},{id:"tires",e:"🛞",l:"Däck"},{id:"electrical",e:"💡",l:"El"},{id:"gearbox",e:"⚡",l:"Växellåda"},{id:"steering",e:"🎯",l:"Styrning"},{id:"inspection",e:"🚗",l:"Besiktning"},{id:"suspension",e:"🔧",l:"Fjädring"},{id:"other",e:"🛠️",l:"Övrigt"}];
+var D={bookings:[],cars:[],jobs:[],nid:1};
+function save(){try{localStorage.setItem("rbw5",JSON.stringify(D));var t=document.getElementById("toast");t.style.display="block";clearTimeout(window._tt);window._tt=setTimeout(function(){t.style.display="none"},2000)}catch(e){}}
+function load(){try{var s=localStorage.getItem("rbw5");if(s)D=JSON.parse(s)}catch(e){}}
 load();
+function catL(id){var c=CATS.find(function(x){return x.id===id});return c?c.e+" "+c.l:"🛠️ Övrigt"}
+function G(id){return document.getElementById(id)}
 
-function catL(id) {
-  var c = CATS.find(function(x){ return x.id === id; });
-  return c ? c.e + " " + c.l : "🛠️ Övrigt";
+function showPage(p){
+  document.querySelectorAll(".page").forEach(function(e){e.style.display="none";e.classList.remove("active")});
+  var pg=G("pg-"+p);
+  pg.style.display="flex";
+  pg.classList.add("active");
+  document.querySelectorAll(".nbtn").forEach(function(b){b.classList.remove("act")});
+  var nb=G("nb-"+p);
+  if(nb)nb.classList.add("act");
 }
-
-function showPage(p) {
-  document.querySelectorAll(".page").forEach(function(e){ e.classList.remove("active"); });
-  document.getElementById("pg-" + p).classList.add("active");
-  document.querySelectorAll(".nbtn").forEach(function(b){ b.classList.add("out"); });
-  var nb = document.getElementById("nb-" + p);
-  if(nb) { nb.classList.remove("out"); }
-}
-
-function showAdmin() {
-  if(!unlocked) {
-    document.getElementById("lock").style.display = "flex";
-    document.getElementById("pw").value = "";
-    document.getElementById("pwerr").style.display = "none";
-    setTimeout(function(){ document.getElementById("pw").focus(); }, 100);
-    return;
-  }
+function showAdmin(){
+  if(!unlocked){G("lock").style.display="flex";G("pw").value="";G("pwerr").style.display="none";setTimeout(function(){G("pw").focus()},100);return}
   showPage("admin");
-  uStats(); rCars(); rHist(); rBooks(); fillRC(); bCats(); uBell();
+  uStats();rCars();rHist();rBooks();fillRC();bCats();uBell();
+}
+function showTab(t){
+  document.querySelectorAll(".tc").forEach(function(e){e.classList.remove("act")});
+  document.querySelectorAll(".tab").forEach(function(b){b.classList.remove("act")});
+  G("tc-"+t).classList.add("act");
+  G("tab-"+t).classList.add("act");
+  if(t==="r")fillRC();
+  if(t==="c")rCars();
+  if(t==="h"){rHist();bCats()}
+  if(t==="b")rBooks();
 }
 
-function showTab(t) {
-  document.querySelectorAll(".tc").forEach(function(e){ e.classList.remove("act"); });
-  document.querySelectorAll(".atab").forEach(function(b){ b.classList.remove("act"); });
-  document.getElementById("tc-" + t).classList.add("act");
-  document.getElementById("tab-" + t).classList.add("act");
-  if(t === "r") fillRC();
-  if(t === "c") rCars();
-  if(t === "h") { rHist(); bCats(); }
-  if(t === "b") rBooks();
-}
+G("logobtn").addEventListener("click",function(){showPage("home")});
+G("nb-home").addEventListener("click",function(){showPage("home")});
+G("nb-book").addEventListener("click",function(){showPage("book")});
+G("nb-admin").addEventListener("click",function(){showAdmin()});
+G("notifbtn").addEventListener("click",function(){showAdmin()});
+G("herobookbtn").addEventListener("click",function(){showPage("book")});
+G("herocontactbtn").addEventListener("click",function(){G("kontakt").scrollIntoView({behavior:"smooth"})});
+G("contactbookbtn").addEventListener("click",function(){showPage("book")});
+G("tab-b").addEventListener("click",function(){showTab("b")});
+G("tab-c").addEventListener("click",function(){showTab("c")});
+G("tab-h").addEventListener("click",function(){showTab("h")});
+G("tab-r").addEventListener("click",function(){showTab("r")});
+G("logoutbtn").addEventListener("click",function(){unlocked=false;G("notifbtn").style.display="none";showPage("home")});
+G("loginbtn").addEventListener("click",function(){
+  if(G("pw").value===PW){unlocked=true;G("lock").style.display="none";showAdmin()}
+  else{G("pwerr").style.display="block";G("pw").value=""}
+});
+G("pw").addEventListener("keydown",function(e){if(e.key==="Enter")G("loginbtn").click()});
+G("closepopup").addEventListener("click",function(){G("popup").style.display="none";popId=null});
+G("skippopup").addEventListener("click",function(){G("popup").style.display="none";popId=null});
+G("cfmpopup").addEventListener("click",function(){
+  if(!popId)return;
+  var i=D.bookings.findIndex(function(b){return b.id===popId});
+  if(i>=0){D.bookings[i].status="confirmed";D.bookings[i].isNew=false}
+  save();G("popup").style.display="none";popId=null;uBell();rBooks();
+});
+G("closemodal").addEventListener("click",function(){G("modal").style.display="none";modIdx=null});
+G("subbookbtn").addEventListener("click",function(){
+  var n=G("bn").value.trim(),p=G("bp").value.trim(),r=G("br").value.trim().toUpperCase();
+  if(!n||!p||!r){alert("Fyll i namn, telefon och reg.nr");return}
+  var b={id:Date.now(),name:n,phone:p,email:G("be").value,reg:r,car:G("bc").value,date:G("bd").value,desc:G("bdesc").value,status:"pending",isNew:true};
+  D.bookings.push(b);save();
+  G("bconf").innerHTML="<strong>"+n+"</strong> · "+r+(b.car?" ("+b.car+")")+"<br>📅 "+(b.date||"Datum ej angivet")+"<br>📞 "+p;
+  G("bform").style.display="none";G("bokOk").style.display="block";
+  uStats();uBell();if(unlocked)showPopup(b);
+});
+G("newbookbtn").addEventListener("click",function(){
+  G("bform").style.display="block";G("bokOk").style.display="none";
+  ["bn","bp","be","br","bc","bd","bdesc"].forEach(function(i){G(i).value=""});
+});
+G("addcarbtn").addEventListener("click",function(){var f=G("addcarform");f.style.display=f.style.display==="none"?"block":"none"});
+G("savecarbtn").addEventListener("click",function(){
+  var r=G("creg").value.trim().toUpperCase(),m=G("cmake").value.trim();
+  if(!r||!m){alert("Reg.nr och märke krävs");return}
+  D.cars.push({reg:r,make:m,model:G("cmod").value,year:G("cyr").value,color:G("ccol").value,fuel:G("cfuel").value,mileage:G("cmil").value,owner:G("cown").value,phone:G("ctel").value,email:G("cemail").value,notes:G("cnotes").value});
+  ["creg","cmake","cmod","cyr","ccol","cmil","cown","ctel","cemail","cnotes"].forEach(function(id){G(id).value=""});
+  G("cfuel").value="";G("addcarform").style.display="none";
+  save();rCars();uStats();
+});
+G("addjobbtn").addEventListener("click",function(){var f=G("addjobform");f.style.display=f.style.display==="none"?"block":"none";if(f.style.display==="block"){selCat="";bCats()}});
+G("savejobbtn").addEventListener("click",function(){
+  var r=G("jreg").value.trim().toUpperCase(),d=G("jdesc").value.trim();
+  if(!r||!d){alert("Reg.nr och beskrivning krävs");return}
+  if(!selCat){alert("Välj kategori");return}
+  D.jobs.push({id:D.nid++,reg:r,cat:selCat,date:G("jdat").value,desc:d,price:parseInt(G("jpris").value)||0,mileage:G("jmil").value,mech:G("jmek").value,status:G("jstat").value,notes:G("jnotes").value});
+  ["jreg","jdat","jdesc","jpris","jmil","jmek","jnotes"].forEach(function(id){G(id).value=""});
+  selCat="";G("addjobform").style.display="none";save();rHist();uStats();
+});
+G("genrecbtn").addEventListener("click",genRec);
+G("printbtn").addEventListener("click",function(){window.print()});
+G("rcar").addEventListener("change",fillRJ);
 
-// Attach all event listeners here - NO inline onclick
-document.getElementById("logobtn").addEventListener("click", function(){ showPage("home"); });
-document.getElementById("nb-home").addEventListener("click", function(){ showPage("home"); });
-document.getElementById("nb-book").addEventListener("click", function(){ showPage("book"); });
-document.getElementById("nb-admin").addEventListener("click", function(){ showAdmin(); });
-document.getElementById("notifbtn").addEventListener("click", function(){ showAdmin(); });
-document.getElementById("hero-book-btn").addEventListener("click", function(){ showPage("book"); });
-document.getElementById("hero-contact-btn").addEventListener("click", function(){ document.getElementById("kontakt").scrollIntoView({behavior:"smooth"}); });
-document.getElementById("contact-book-btn").addEventListener("click", function(){ showPage("book"); });
-document.getElementById("tab-b").addEventListener("click", function(){ showTab("b"); });
-document.getElementById("tab-c").addEventListener("click", function(){ showTab("c"); });
-document.getElementById("tab-h").addEventListener("click", function(){ showTab("h"); });
-document.getElementById("tab-r").addEventListener("click", function(){ showTab("r"); });
-document.getElementById("logoutbtn").addEventListener("click", function(){ unlocked = false; document.getElementById("notifbtn").style.display = "none"; showPage("home"); });
-document.getElementById("loginbtn").addEventListener("click", function(){
-  if(document.getElementById("pw").value === PW) {
-    unlocked = true;
-    document.getElementById("lock").style.display = "none";
-    showAdmin();
-  } else {
-    document.getElementById("pwerr").style.display = "block";
-    document.getElementById("pw").value = "";
-  }
-});
-document.getElementById("pw").addEventListener("keydown", function(e){ if(e.key === "Enter") document.getElementById("loginbtn").click(); });
-document.getElementById("closepopupbtn").addEventListener("click", function(){ document.getElementById("popup").style.display = "none"; popId = null; });
-document.getElementById("skippopupbtn").addEventListener("click", function(){ document.getElementById("popup").style.display = "none"; popId = null; });
-document.getElementById("cfmpopupbtn").addEventListener("click", function(){
-  if(!popId) return;
-  var i = D.bookings.findIndex(function(b){ return b.id === popId; });
-  if(i >= 0) { D.bookings[i].status = "confirmed"; D.bookings[i].isNew = false; }
-  save(); document.getElementById("popup").style.display = "none"; popId = null; uBell(); rBooks();
-});
-document.getElementById("closemodalbtn").addEventListener("click", function(){ document.getElementById("modal").style.display = "none"; modIdx = null; });
-document.getElementById("subbookbtn").addEventListener("click", function(){
-  var n = document.getElementById("bn").value.trim();
-  var p = document.getElementById("bp").value.trim();
-  var r = document.getElementById("br").value.trim().toUpperCase();
-  if(!n || !p || !r) { alert("Fyll i namn, telefon och reg.nr"); return; }
-  var b = {id:Date.now(), name:n, phone:p, email:document.getElementById("be").value, reg:r, car:document.getElementById("bc").value, date:document.getElementById("bd").value, desc:document.getElementById("bdesc").value, status:"pending", isNew:true};
-  D.bookings.push(b); save();
-  document.getElementById("bconf").innerHTML = "<strong>" + n + "</strong> · " + r + (b.car ? " (" + b.car + ")" : "") + "<br>📅 " + (b.date || "Datum ej angivet") + "<br>📞 " + p;
-  document.getElementById("bform").style.display = "none";
-  document.getElementById("bokOk").style.display = "block";
-  uStats(); uBell(); if(unlocked) showPopup(b);
-});
-document.getElementById("newbookbtn").addEventListener("click", function(){
-  document.getElementById("bform").style.display = "block";
-  document.getElementById("bokOk").style.display = "none";
-  ["bn","bp","be","br","bc","bd","bdesc"].forEach(function(i){ document.getElementById(i).value = ""; });
-});
-document.getElementById("addcarbtn").addEventListener("click", function(){
-  var f = document.getElementById("addcarform");
-  f.style.display = f.style.display === "none" ? "block" : "none";
-});
-document.getElementById("savecar").addEventListener("click", function(){
-  var r = document.getElementById("creg").value.trim().toUpperCase();
-  var m = document.getElementById("cmake").value.trim();
-  if(!r || !m) { alert("Reg.nr och märke krävs"); return; }
-  D.cars.push({reg:r, make:m, model:document.getElementById("cmod").value, year:document.getElementById("cyr").value, color:document.getElementById("ccol").value, fuel:document.getElementById("cfuel").value, mileage:document.getElementById("cmil").value, owner:document.getElementById("cown").value, phone:document.getElementById("ctel").value, email:document.getElementById("cemail").value, notes:document.getElementById("cnotes").value});
-  ["creg","cmake","cmod","cyr","ccol","cmil","cown","ctel","cemail","cnotes"].forEach(function(id){ document.getElementById(id).value = ""; });
-  document.getElementById("cfuel").value = "";
-  document.getElementById("addcarform").style.display = "none";
-  save(); rCars(); uStats();
-});
-document.getElementById("addjobBtn") && document.getElementById("addjobbtn");
-document.getElementById("addjobbt") && null;
-document.getElementById("addjobbn") && null;
-
-// Fix: use correct id
-var ajb = document.getElementById("addjobBtn") || document.getElementById("addjobbtn");
-if(ajb) ajb.addEventListener("click", function(){
-  var f = document.getElementById("addjobform");
-  f.style.display = f.style.display === "none" ? "block" : "none";
-  if(f.style.display === "block") { selCat = ""; bCats(); }
-});
-
-document.getElementById("savejob").addEventListener("click", function(){
-  var r = document.getElementById("jreg").value.trim().toUpperCase();
-  var d = document.getElementById("jdesc").value.trim();
-  if(!r || !d) { alert("Reg.nr och beskrivning krävs"); return; }
-  if(!selCat) { alert("Välj kategori"); return; }
-  D.jobs.push({id:D.nid++, reg:r, cat:selCat, date:document.getElementById("jdat").value, desc:d, price:parseInt(document.getElementById("jpris").value)||0, mileage:document.getElementById("jmil").value, mech:document.getElementById("jmek").value, status:document.getElementById("jstat").value, notes:document.getElementById("jnotes").value});
-  ["jreg","jdat","jdesc","jpris","jmil","jmek","jnotes"].forEach(function(id){ document.getElementById(id).value = ""; });
-  selCat = ""; document.getElementById("addjobform").style.display = "none";
-  save(); rHist(); uStats();
-});
-document.getElementById("genrecbtn").addEventListener("click", genRec);
-document.getElementById("printbtn").addEventListener("click", function(){ window.print(); });
-document.getElementById("rcar").addEventListener("change", fillRJ);
-
-function bCats() {
-  var g = document.getElementById("catg");
-  g.innerHTML = "";
-  CATS.forEach(function(c) {
-    var btn = document.createElement("div");
-    btn.className = "catbtn" + (selCat === c.id ? " sel" : "");
-    btn.textContent = c.e + " " + c.l;
-    btn.addEventListener("click", function(){
-      selCat = c.id;
-      document.querySelectorAll(".catbtn").forEach(function(b){ b.classList.remove("sel"); });
-      btn.classList.add("sel");
-    });
+function bCats(){
+  var g=G("catg");g.innerHTML="";
+  CATS.forEach(function(c){
+    var btn=document.createElement("div");
+    btn.className="catbtn"+(selCat===c.id?" sel":"");
+    btn.textContent=c.e+" "+c.l;
+    btn.addEventListener("click",function(){selCat=c.id;document.querySelectorAll(".catbtn").forEach(function(b){b.classList.remove("sel")});btn.classList.add("sel")});
     g.appendChild(btn);
   });
 }
-
-function showPopup(b) {
-  popId = b.id;
-  document.getElementById("callbtn").href = "tel:" + b.phone.replace(/[^0-9+]/g, "");
-  document.getElementById("popbody").innerHTML =
-    '<div class="prow"><div class="plbl">Kund</div><div class="pval">' + b.name + '</div></div>' +
-    '<div class="prow"><div class="plbl">Telefon</div><div class="pval" style="color:#22c55e;font-size:16px">' + b.phone + '</div></div>' +
-    '<div class="prow"><div class="plbl">Bil</div><div class="pval">' + b.reg + (b.car ? " · " + b.car : "") + '</div></div>' +
-    (b.date ? '<div class="prow"><div class="plbl">Datum</div><div class="pval">' + b.date + '</div></div>' : "") +
-    (b.desc ? '<div class="prow"><div class="plbl">Ärende</div><div class="pval">' + b.desc + '</div></div>' : "");
-  document.getElementById("popup").style.display = "flex";
+function uBell(){
+  var n=D.bookings.filter(function(b){return b.isNew});
+  if(unlocked){G("notifbtn").style.display="block";G("ndot").style.display=n.length?"block":"none"}
+  var nb=G("nbadge");nb.style.display=n.length?"inline":"none";if(n.length)nb.textContent=n.length+" ny"+(n.length>1?"a":"");
 }
-
-function openModal(idx) {
-  modIdx = idx;
-  var b = D.bookings[idx];
-  b.isNew = false; save(); uBell(); rBooks();
-  var clr = {pending:"#f59e0b", confirmed:"#22c55e", done:"#9ca3af"};
-  var lbl = {pending:"Väntar", confirmed:"✅ Bekräftad", done:"Avslutad"};
-  document.getElementById("modalbody").innerHTML =
-    '<div class="mrow"><span class="mico">👤</span><div><div class="mlbl">Kund</div><div class="mval">' + b.name + '</div></div></div>' +
-    '<div class="mrow"><span class="mico">📞</span><div><div class="mlbl">Telefon</div><div class="mval" style="color:#22c55e;font-size:16px;font-weight:700">' + b.phone + '</div></div></div>' +
-    (b.email ? '<div class="mrow"><span class="mico">📧</span><div><div class="mlbl">E-post</div><div class="mval">' + b.email + '</div></div></div>' : "") +
-    '<div class="mrow"><span class="mico">🚘</span><div><div class="mlbl">Reg.nr</div><div class="mval">' + b.reg + '</div></div></div>' +
-    (b.car ? '<div class="mrow"><span class="mico">🔑</span><div><div class="mlbl">Bil</div><div class="mval">' + b.car + '</div></div></div>' : "") +
-    (b.date ? '<div class="mrow"><span class="mico">📅</span><div><div class="mlbl">Datum</div><div class="mval">' + b.date + '</div></div></div>' : "") +
-    (b.desc ? '<div class="mrow"><span class="mico">📝</span><div><div class="mlbl">Ärende</div><div class="mval">' + b.desc + '</div></div></div>' : "") +
-    '<div class="mrow"><span class="mico">🔔</span><div><div class="mlbl">Status</div><div class="mval" style="color:' + clr[b.status] + '">' + lbl[b.status] + '</div></div></div>';
-
-  var ftr = document.getElementById("modalftr");
-  ftr.innerHTML = "";
-
-  var callA = document.createElement("a");
-  callA.href = "tel:" + b.phone.replace(/[^0-9+]/g, "");
-  callA.className = "bcall";
-  callA.style.flex = "1";
-  callA.textContent = "📞 Ring " + b.phone;
-  ftr.appendChild(callA);
-
-  if(b.status !== "confirmed") {
-    var cfmB = document.createElement("button");
-    cfmB.className = "bok";
-    cfmB.textContent = "✓ Bekräfta";
-    cfmB.addEventListener("click", function(){
-      D.bookings[modIdx].status = "confirmed";
-      save(); document.getElementById("modal").style.display = "none"; modIdx = null; rBooks(); uBell();
-    });
-    ftr.appendChild(cfmB);
-  }
-
-  var delB = document.createElement("button");
-  delB.className = "btndel";
-  delB.style.cssText = "width:100%;padding:10px;margin-top:4px";
-  delB.textContent = "🗑️ Ta bort bokning";
-  delB.addEventListener("click", function(){
-    if(!confirm("Ta bort?")) return;
-    D.bookings.splice(modIdx, 1);
-    save(); document.getElementById("modal").style.display = "none"; modIdx = null; rBooks(); uStats(); uBell();
-  });
-  ftr.appendChild(delB);
-
-  document.getElementById("modal").style.display = "flex";
+function showPopup(b){
+  popId=b.id;G("callbtn").href="tel:"+b.phone.replace(/[^0-9+]/g,"");
+  G("popbody").innerHTML='<div class="prow"><span class="pico">👤</span><div><div class="plbl">Kund</div><div class="pval">'+b.name+'</div></div></div><div class="prow"><span class="pico">📞</span><div><div class="plbl">Telefon</div><div class="pval" style="color:#22c55e;font-size:16px">'+b.phone+'</div></div></div><div class="prow"><span class="pico">🚗</span><div><div class="plbl">Bil</div><div class="pval">'+b.reg+(b.car?" · "+b.car:"")+'</div></div></div>'+(b.date?'<div class="prow"><span class="pico">📅</span><div><div class="plbl">Datum</div><div class="pval">'+b.date+'</div></div></div>':'')+(b.desc?'<div class="prow"><span class="pico">📝</span><div><div class="plbl">Ärende</div><div class="pval">'+b.desc+'</div></div></div>':'');
+  G("popup").style.display="flex";
 }
-
-function uBell() {
-  var n = D.bookings.filter(function(b){ return b.isNew; });
-  if(unlocked) {
-    document.getElementById("notifbtn").style.display = "block";
-    document.getElementById("nbadge2").style.display = n.length ? "inline" : "none";
-    if(n.length) document.getElementById("nbadge2").textContent = n.length;
-  }
-  var nb = document.getElementById("nbadge");
-  nb.style.display = n.length ? "inline" : "none";
-  if(n.length) nb.textContent = n.length + " ny" + (n.length > 1 ? "a" : "");
+function openModal(idx){
+  modIdx=idx;var b=D.bookings[idx];b.isNew=false;save();uBell();rBooks();
+  var clr={pending:"#f59e0b",confirmed:"#22c55e",done:"#9ca3af"};
+  var lbl={pending:"Väntar",confirmed:"✅ Bekräftad",done:"Avslutad"};
+  G("modalbody").innerHTML='<div class="mrow"><span class="mico">👤</span><div><div class="mlbl">Kund</div><div class="mval">'+b.name+'</div></div></div><div class="mrow"><span class="mico">📞</span><div><div class="mlbl">Telefon</div><div class="mval" style="color:#22c55e;font-size:16px;font-weight:700">'+b.phone+'</div></div></div>'+(b.email?'<div class="mrow"><span class="mico">📧</span><div><div class="mlbl">E-post</div><div class="mval">'+b.email+'</div></div></div>':'')+'<div class="mrow"><span class="mico">🚘</span><div><div class="mlbl">Reg.nr</div><div class="mval">'+b.reg+'</div></div></div>'+(b.car?'<div class="mrow"><span class="mico">🔑</span><div><div class="mlbl">Bil</div><div class="mval">'+b.car+'</div></div></div>':'')+(b.date?'<div class="mrow"><span class="mico">📅</span><div><div class="mlbl">Datum</div><div class="mval">'+b.date+'</div></div></div>':'')+(b.desc?'<div class="mrow"><span class="mico">📝</span><div><div class="mlbl">Ärende</div><div class="mval">'+b.desc+'</div></div></div>':'')+'<div class="mrow"><span class="mico">🔔</span><div><div class="mlbl">Status</div><div class="mval" style="color:'+clr[b.status]+'">'+lbl[b.status]+'</div></div></div>';
+  var ftr=G("modalftr");ftr.innerHTML="";
+  var ca=document.createElement("a");ca.href="tel:"+b.phone.replace(/[^0-9+]/g,"");ca.className="btn-call";ca.style.flex="1";ca.textContent="📞 Ring "+b.phone;ftr.appendChild(ca);
+  if(b.status!=="confirmed"){var cb=document.createElement("button");cb.className="btn-ok";cb.textContent="✓ Bekräfta";cb.addEventListener("click",function(){D.bookings[modIdx].status="confirmed";save();G("modal").style.display="none";modIdx=null;rBooks();uBell()});ftr.appendChild(cb)}
+  var db=document.createElement("button");db.className="btn-del";db.style.cssText="width:100%;padding:10px;margin-top:4px";db.textContent="🗑️ Ta bort bokning";db.addEventListener("click",function(){if(!confirm("Ta bort?"))return;D.bookings.splice(modIdx,1);save();G("modal").style.display="none";modIdx=null;rBooks();uStats();uBell()});ftr.appendChild(db);
+  G("modal").style.display="flex";
 }
-
-function rBooks() {
-  var el = document.getElementById("blist");
-  if(!D.bookings.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;padding:2rem">Inga bokningar ännu</p>'; return; }
-  var clr = {pending:"#f59e0b", confirmed:"#22c55e", done:"#9ca3af"};
-  var lbl = {pending:"Väntar", confirmed:"Bekräftad", done:"Avslutad"};
-  el.innerHTML = "";
-  D.bookings.slice().reverse().forEach(function(b, ri) {
-    var i = D.bookings.length - 1 - ri;
-    var div = document.createElement("div");
-    div.className = "bi" + (b.isNew ? " isnew" : "");
-    div.innerHTML =
-      '<div class="bdot" style="background:' + clr[b.status] + '"></div>' +
-      '<div class="binf"><div class="bname">' + (b.isNew ? '<span class="badge bnew" style="margin-right:5px">NY</span>' : '') + b.name + ' · ' + b.reg + (b.car ? ' (' + b.car + ')' : '') + '</div>' +
-      '<div class="bdet">' + b.phone + (b.date ? " · " + b.date : "") + (b.desc ? " · " + b.desc.substring(0, 30) + (b.desc.length > 30 ? "..." : "") : "") + '</div>' +
-      '<div style="margin-top:4px"><span class="badge ' + (b.status === "confirmed" ? "bdone" : "bwait") + '">' + lbl[b.status] + '</span></div>' +
-      '</div><div class="barr">›</div>';
-    div.addEventListener("click", function(){ openModal(i); });
+function rBooks(){
+  var el=G("blist");
+  if(!D.bookings.length){el.innerHTML='<div class="empty">Inga bokningar ännu</div>';return}
+  var clr={pending:"#f59e0b",confirmed:"#22c55e",done:"#9ca3af"};
+  var lbl={pending:"Väntar",confirmed:"Bekräftad",done:"Avslutad"};
+  el.innerHTML="";
+  D.bookings.slice().reverse().forEach(function(b,ri){
+    var i=D.bookings.length-1-ri;
+    var div=document.createElement("div");
+    div.className="bi"+(b.isNew?" isnew":"");
+    div.innerHTML='<div class="bdot" style="background:'+clr[b.status]+'"></div><div class="binf"><div class="bname">'+(b.isNew?'<span class="badge bnew" style="margin-right:5px">NY</span>':'')+b.name+' · '+b.reg+(b.car?' ('+b.car+')':"")+'</div><div class="bdet">'+b.phone+(b.date?" · "+b.date:"")+(b.desc?" · "+b.desc.substring(0,30)+(b.desc.length>30?"...":""):"")+'</div><div style="margin-top:4px"><span class="badge '+(b.status==="confirmed"?"bdone":"bwait")+'">'+lbl[b.status]+'</span></div></div><div class="barr">›</div>';
+    div.addEventListener("click",function(){openModal(i)});
     el.appendChild(div);
   });
 }
-
-function delCar(reg) {
-  if(!confirm("Radera " + reg + "?")) return;
-  D.cars = D.cars.filter(function(c){ return c.reg !== reg; });
-  D.jobs = D.jobs.filter(function(j){ return j.reg !== reg; });
-  save(); rCars(); rHist(); uStats();
-}
-
-function rCars() {
-  var el = document.getElementById("clist");
-  if(!D.cars.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;padding:2rem">Inga bilar</p>'; return; }
-  el.innerHTML = "";
-  D.cars.forEach(function(c) {
-    var jobs = D.jobs.filter(function(j){ return j.reg === c.reg; });
-    var last = jobs.length ? jobs[jobs.length-1] : null;
-    var div = document.createElement("div");
-    div.className = "acard";
-    div.innerHTML =
-      '<div class="acard-hdr">' +
-      '<div><div class="creg">' + c.reg + '</div><div class="cmake">' + c.make + (c.model?" "+c.model:"") + (c.year?" · "+c.year:"") + '</div></div>' +
-      '<div style="text-align:right"><div style="font-size:13px;color:#888">' + c.owner + '<br>' + c.phone + '</div></div>' +
-      '</div>' +
-      '<div class="acard-body">' +
-      '<div class="cgrd">' +
-      '<div><span class="cl">Färg</span><span class="cv">' + (c.color||"—") + '</span></div>' +
-      '<div><span class="cl">Drivmedel</span><span class="cv">' + (c.fuel||"—") + '</span></div>' +
-      '<div><span class="cl">Miltal</span><span class="cv">' + (c.mileage?Number(c.mileage).toLocaleString("sv")+" mil":"—") + '</span></div>' +
-      '<div><span class="cl">E-post</span><span class="cv" style="font-size:11px">' + (c.email||"—") + '</span></div>' +
-      '<div><span class="cl">Jobb</span><span class="cv">' + jobs.length + ' st</span></div>' +
-      '<div><span class="cl">Senaste</span><span class="cv">' + (last?last.date:"—") + '</span></div>' +
-      '</div>' +
-      (c.notes ? '<div style="margin-top:8px;font-size:12px;color:#888;background:#f9f9f9;padding:8px;border-radius:4px">📝 ' + c.notes + '</div>' : '') +
-      '</div>';
-    var delBtn = document.createElement("button");
-    delBtn.className = "btndel";
-    delBtn.textContent = "🗑️ Radera";
-    delBtn.style.marginTop = "6px";
-    delBtn.addEventListener("click", function(){ delCar(c.reg); });
-    div.querySelector(".acard-hdr div:last-child").appendChild(delBtn);
+function delCar(reg){if(!confirm("Radera "+reg+"?"))return;D.cars=D.cars.filter(function(c){return c.reg!==reg});D.jobs=D.jobs.filter(function(j){return j.reg!==reg});save();rCars();rHist();uStats()}
+function rCars(){
+  var el=G("clist");
+  if(!D.cars.length){el.innerHTML='<div class="empty">Inga bilar</div>';return}
+  el.innerHTML="";
+  D.cars.forEach(function(c){
+    var jobs=D.jobs.filter(function(j){return j.reg===c.reg}),last=jobs.length?jobs[jobs.length-1]:null;
+    var div=document.createElement("div");div.className="acard";
+    div.innerHTML='<div class="acard-hdr"><div><div class="creg">'+c.reg+'</div><div class="cmake">'+c.make+(c.model?" "+c.model:"")+(c.year?" · "+c.year:"")+'</div></div><div style="text-align:right"><div style="font-size:13px;color:#888">'+c.owner+'<br>'+c.phone+'</div></div></div><div class="acard-body"><div class="cgrd"><div><span class="cl">Färg</span><span class="cv">'+(c.color||"—")+'</span></div><div><span class="cl">Drivmedel</span><span class="cv">'+(c.fuel||"—")+'</span></div><div><span class="cl">Miltal</span><span class="cv">'+(c.mileage?Number(c.mileage).toLocaleString("sv")+" mil":"—")+'</span></div><div><span class="cl">E-post</span><span class="cv" style="font-size:11px">'+(c.email||"—")+'</span></div><div><span class="cl">Jobb</span><span class="cv">'+jobs.length+' st</span></div><div><span class="cl">Senaste</span><span class="cv">'+(last?last.date:"—")+'</span></div></div>'+(c.notes?'<div style="margin-top:8px;font-size:12px;color:#888;background:#f9f9f9;padding:8px;border-radius:5px">📝 '+c.notes+'</div>':'')+'</div>';
+    var db=document.createElement("button");db.className="btn-del";db.textContent="🗑️ Radera";db.style.marginTop="6px";db.addEventListener("click",function(){delCar(c.reg)});
+    div.querySelector(".acard-hdr div:last-child").appendChild(db);
     el.appendChild(div);
   });
 }
-
-function delJob(id) {
-  if(!confirm("Radera jobb?")) return;
-  D.jobs = D.jobs.filter(function(j){ return j.id !== id; });
-  save(); rHist(); uStats();
-}
-
-function rHist() {
-  var el = document.getElementById("hlist");
-  if(!D.jobs.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;padding:2rem">Inga jobb</p>'; return; }
-  var byR = {};
-  D.jobs.forEach(function(j){ if(!byR[j.reg]) byR[j.reg]=[]; byR[j.reg].push(j); });
-  var bc = {done:"bdone", progress:"bprog", pending:"bwait"};
-  var bl = {done:"Utfört", progress:"Pågående", pending:"Väntar"};
-  el.innerHTML = "";
-  Object.keys(byR).forEach(function(reg) {
-    var car = D.cars.find(function(c){ return c.reg === reg; });
-    var div = document.createElement("div");
-    div.className = "acard";
-    var bodyHTML = '<div class="acard-hdr"><div><div class="creg">' + reg + '</div><div class="cmake">' + (car ? car.make+(car.model?" "+car.model:"") : "Okänd") + '</div></div></div><div class="acard-body">';
-    byR[reg].forEach(function(j) {
-      bodyHTML +=
-        '<div class="jrow">' +
-        '<div class="jdate">' + j.date + '</div>' +
-        '<div class="jinfo">' +
-        '<div class="jdesc"><span class="catbadge">' + catL(j.cat) + '</span>' + j.desc + '</div>' +
-        '<div class="jmeta">' + (j.mech?"👤 "+j.mech+" ":"") + (j.mileage?"📍 "+Number(j.mileage).toLocaleString("sv")+" mil ":"") + '<span class="badge ' + bc[j.status] + '">' + bl[j.status] + '</span></div>' +
-        (j.notes ? '<div style="font-size:11px;color:#aaa;margin-top:2px">📝 ' + j.notes + '</div>' : '') +
-        '</div>' +
-        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">' +
-        '<div class="jprice">' + j.price.toLocaleString("sv") + ' kr</div>' +
-        '<button class="btndel" data-jid="' + j.id + '">🗑️</button>' +
-        '</div></div>';
+function delJob(id){if(!confirm("Radera jobb?"))return;D.jobs=D.jobs.filter(function(j){return j.id!==id});save();rHist();uStats()}
+function rHist(){
+  var el=G("hlist");
+  if(!D.jobs.length){el.innerHTML='<div class="empty">Inga jobb</div>';return}
+  var byR={};D.jobs.forEach(function(j){if(!byR[j.reg])byR[j.reg]=[];byR[j.reg].push(j)});
+  var bc={done:"bdone",progress:"bprog",pending:"bwait"},bl={done:"Utfört",progress:"Pågående",pending:"Väntar"};
+  el.innerHTML="";
+  Object.keys(byR).forEach(function(reg){
+    var car=D.cars.find(function(c){return c.reg===reg});
+    var div=document.createElement("div");div.className="acard";
+    var html='<div class="acard-hdr"><div><div class="creg">'+reg+'</div><div class="cmake">'+(car?car.make+(car.model?" "+car.model:""):"Okänd")+'</div></div></div><div class="acard-body">';
+    byR[reg].forEach(function(j){
+      html+='<div class="jrow"><div class="jdate">'+j.date+'</div><div class="jinfo"><div class="jdesc"><span class="catbadge">'+catL(j.cat)+'</span>'+j.desc+'</div><div class="jmeta">'+(j.mech?"👤 "+j.mech+" ":"")+(j.mileage?"📍 "+Number(j.mileage).toLocaleString("sv")+" mil ":"")+'<span class="badge '+bc[j.status]+'">'+bl[j.status]+'</span></div>'+(j.notes?'<div style="font-size:11px;color:#aaa;margin-top:2px">📝 '+j.notes+'</div>':'')+'</div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><div class="jprice">'+j.price.toLocaleString("sv")+' kr</div><button class="btn-del" data-id="'+j.id+'">🗑️</button></div></div>';
     });
-    bodyHTML += '</div>';
-    div.innerHTML = bodyHTML;
-    div.querySelectorAll("button[data-jid]").forEach(function(btn) {
-      btn.addEventListener("click", function(){ delJob(parseInt(btn.getAttribute("data-jid"))); });
-    });
+    html+='</div>';div.innerHTML=html;
+    div.querySelectorAll("button[data-id]").forEach(function(btn){btn.addEventListener("click",function(){delJob(parseInt(btn.getAttribute("data-id")))})});
     el.appendChild(div);
   });
 }
-
-function fillRC() {
-  var cs = document.getElementById("rcar");
-  cs.innerHTML = '<option value="">-- Välj bil --</option>';
-  D.cars.forEach(function(c){ cs.innerHTML += '<option value="' + c.reg + '">' + c.reg + " · " + c.make + (c.model?" "+c.model:"") + '</option>'; });
-  document.getElementById("rjob").innerHTML = '<option value="">-- Välj jobb --</option>';
+function fillRC(){var cs=G("rcar");cs.innerHTML='<option value="">-- Välj bil --</option>';D.cars.forEach(function(c){cs.innerHTML+='<option value="'+c.reg+'">'+c.reg+" · "+c.make+(c.model?" "+c.model:"")+'</option>'});G("rjob").innerHTML='<option value="">-- Välj jobb --</option>'}
+function fillRJ(){var reg=G("rcar").value,rj=G("rjob");rj.innerHTML='<option value="">-- Välj jobb --</option>';D.jobs.filter(function(j){return j.reg===reg}).forEach(function(j){rj.innerHTML+='<option value="'+j.id+'">'+j.date+" · "+catL(j.cat)+" · "+j.desc+'</option>'})}
+function genRec(){
+  var reg=G("rcar").value,jid=parseInt(G("rjob").value);
+  if(!reg||!jid){alert("Välj bil och jobb");return}
+  var car=D.cars.find(function(c){return c.reg===reg}),job=D.jobs.find(function(j){return j.id===jid});
+  if(!car||!job)return;
+  var moms=Math.round(job.price*.25),ex=job.price-moms,kv="KV-"+job.id+"-"+Date.now().toString().slice(-4),dag=new Date().toLocaleDateString("sv-SE");
+  G("rout").innerHTML='<div class="rec-box"><div class="rec-top"><img src="'+LOGO_SRC+'"><div><div class="rec-co">RBwolf Bilverkstad</div><div style="font-size:11px;color:#aaa">073-933 44 46</div></div><div style="margin-left:auto;text-align:right;font-size:12px;color:#aaa"><strong style="color:#111">'+kv+'</strong><br>'+dag+'</div></div><div class="rec-row"><span class="rec-lbl">Kund</span><span>'+car.owner+'</span></div>'+(car.phone?'<div class="rec-row"><span class="rec-lbl">Tel</span><span>'+car.phone+'</span></div>':'')+'<div class="rec-row"><span class="rec-lbl">Reg.nr</span><span>'+reg+'</span></div><div class="rec-row"><span class="rec-lbl">Fordon</span><span>'+car.make+(car.model?" "+car.model:"")+(car.year?" ("+car.year+")")+'</span></div><div class="rec-row"><span class="rec-lbl">Kategori</span><span>'+catL(job.cat)+'</span></div><div class="rec-row"><span class="rec-lbl">Arbete</span><span>'+job.desc+'</span></div>'+(job.mech?'<div class="rec-row"><span class="rec-lbl">Mekaniker</span><span>'+job.mech+'</span></div>':'')+'<div class="rec-row"><span class="rec-lbl">Exkl. moms</span><span>'+ex.toLocaleString("sv")+' kr</span></div><div class="rec-row"><span class="rec-lbl">Moms 25%</span><span>'+moms.toLocaleString("sv")+' kr</span></div><div class="rec-row tot"><span>Totalt</span><span>'+job.price.toLocaleString("sv")+' kr</span></div><div class="rec-meta">RBwolf Bilverkstad · Ugnsvägen 4A, 295 39 Bromölla · 073-933 44 46</div></div>';
 }
-function fillRJ() {
-  var reg = document.getElementById("rcar").value;
-  var rj = document.getElementById("rjob");
-  rj.innerHTML = '<option value="">-- Välj jobb --</option>';
-  D.jobs.filter(function(j){ return j.reg === reg; }).forEach(function(j){
-    rj.innerHTML += '<option value="' + j.id + '">' + j.date + " · " + catL(j.cat) + " · " + j.desc + '</option>';
-  });
-}
-function genRec() {
-  var reg = document.getElementById("rcar").value;
-  var jid = parseInt(document.getElementById("rjob").value);
-  if(!reg || !jid) { alert("Välj bil och jobb"); return; }
-  var car = D.cars.find(function(c){ return c.reg === reg; });
-  var job = D.jobs.find(function(j){ return j.id === jid; });
-  if(!car || !job) return;
-  var moms = Math.round(job.price*.25), ex = job.price-moms;
-  var kv = "KV-" + job.id + "-" + Date.now().toString().slice(-4);
-  var dag = new Date().toLocaleDateString("sv-SE");
-  document.getElementById("rout").innerHTML =
-    '<div class="rec"><div class="rectop"><div><div class="reco">🐺 RBwolf Bilverkstad</div><div style="font-size:11px;color:#aaa">073-933 44 46</div></div><div style="margin-left:auto;text-align:right;font-size:12px;color:#aaa"><strong style="color:#111">' + kv + '</strong><br>' + dag + '</div></div>' +
-    '<div class="recrow"><span class="reclbl">Kund</span><span>' + car.owner + '</span></div>' +
-    (car.phone ? '<div class="recrow"><span class="reclbl">Tel</span><span>' + car.phone + '</span></div>' : '') +
-    '<div class="recrow"><span class="reclbl">Reg.nr</span><span>' + reg + '</span></div>' +
-    '<div class="recrow"><span class="reclbl">Fordon</span><span>' + car.make + (car.model?" "+car.model:"") + (car.year?" ("+car.year+")":"") + '</span></div>' +
-    '<div class="recrow"><span class="reclbl">Kategori</span><span>' + catL(job.cat) + '</span></div>' +
-    '<div class="recrow"><span class="reclbl">Arbete</span><span>' + job.desc + '</span></div>' +
-    (job.mech ? '<div class="recrow"><span class="reclbl">Mekaniker</span><span>' + job.mech + '</span></div>' : '') +
-    '<div class="recrow"><span class="reclbl">Exkl. moms</span><span>' + ex.toLocaleString("sv") + ' kr</span></div>' +
-    '<div class="recrow"><span class="reclbl">Moms 25%</span><span>' + moms.toLocaleString("sv") + ' kr</span></div>' +
-    '<div class="recrow tot"><span>Totalt</span><span>' + job.price.toLocaleString("sv") + ' kr</span></div>' +
-    '<div class="recmeta">RBwolf Bilverkstad · Ugnsvägen 4A, 295 39 Bromölla · 073-933 44 46</div></div>';
-}
-
-// Fix addjob button
-document.getElementById("addjobbtn").addEventListener("click", function(){
-  var f = document.getElementById("addjobform");
-  f.style.display = f.style.display === "none" ? "block" : "none";
-  if(f.style.display === "block") { selCat = ""; bCats(); }
-});
-
-function uStats() {
-  document.getElementById("s1").textContent = D.bookings.length;
-  document.getElementById("s2").textContent = D.cars.length;
-  var done = D.jobs.filter(function(j){ return j.status === "done"; });
-  document.getElementById("s3").textContent = done.length;
-  document.getElementById("s4").textContent = done.reduce(function(s,j){ return s+j.price; }, 0).toLocaleString("sv") + " kr";
-}
+function uStats(){G("s1").textContent=D.bookings.length;G("s2").textContent=D.cars.length;var done=D.jobs.filter(function(j){return j.status==="done"});G("s3").textContent=done.length;G("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr"}
 uStats();
 </script>
 
