@@ -137,9 +137,9 @@ label{font-size:12px;font-weight:bold;color:#555;text-transform:uppercase}
   <div class="logo" onclick="goTo('home')">🐺 RBwolf</div>
   <div class="nav-links">
     <button id="nb-home" class="active" onclick="goTo('home')">Start</button>
-    <button id="nb-book" class="outline" onclick="goTo('book')">Boka</button>
-    <button id="nb-admin" class="outline" onclick="goTo('admin')">Admin</button>
-    <button class="notif outline" id="notif" onclick="goTo('admin')" style="display:none">
+    <button id="nb-book" class="outline" onclick="document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});document.getElementById('pg-book').classList.add('active')">Boka</button>
+    <button id="nb-admin" class="outline" onclick="document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});document.getElementById('pg-admin').classList.add('active');if(!unlocked){document.getElementById('lock').style.display='flex';document.getElementById('pw').value='';document.getElementById('pwerr').style.display='none'}else{uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}">Admin</button>
+    <button class="notif outline" id="notif" onclick="document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});document.getElementById('pg-admin').classList.add('active');if(!unlocked){document.getElementById('lock').style.display='flex';document.getElementById('pw').value='';document.getElementById('pwerr').style.display='none'}else{uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}" style="display:none">
       🔔<span id="ndot" style="display:none;background:#ff3b3b;color:#fff;font-size:10px;padding:1px 5px;border-radius:10px;margin-left:4px"></span>
     </button>
   </div>
@@ -151,7 +151,7 @@ label{font-size:12px;font-weight:bold;color:#555;text-transform:uppercase}
     <p style="color:#FFD600;font-size:13px;letter-spacing:3px;margin-top:.5rem">BILVERKSTAD · BROMÖLLA</p>
     <p style="margin-top:.75rem">Professionell service, felsökning och reparation av alla bilmärken.</p>
     <div class="hero-btns">
-      <button onclick="goTo('book')">Boka tid</button>
+      <button onclick="document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});document.getElementById('pg-book').classList.add('active')">Boka tid</button>
       <button class="outline" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Kontakt</button>
     </div>
   </div>
@@ -175,7 +175,7 @@ label{font-size:12px;font-weight:bold;color:#555;text-transform:uppercase}
       <div class="ci"><span>Öppettider</span><p>Mån–Fre 09–18<br>Lördag 10–16<br>Söndag Stängt</p></div>
       <div class="ci"><span>Adress</span><p>Ugnsvägen 4A<br>295 39 Bromölla</p></div>
     </div>
-    <button onclick="goTo('book')" style="margin-top:1.5rem">Boka tid nu</button>
+    <button onclick="document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});document.getElementById('pg-book').classList.add('active')" style="margin-top:1.5rem">Boka tid nu</button>
   </div>
 </div>
 
