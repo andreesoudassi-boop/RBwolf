@@ -8,95 +8,128 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:Arial,sans-serif;background:#111;color:#fff}
-nav{background:#111;padding:0 1rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;border-bottom:1px solid #FFD600}
-.logo{font-size:22px;color:#FFD600;font-weight:bold;cursor:pointer}
-.nav-links{display:flex;gap:8px}
-button{background:#FFD600;color:#111;border:none;padding:8px 16px;font-size:14px;font-weight:bold;cursor:pointer;border-radius:4px}
-button.outline{background:none;color:#FFD600;border:2px solid #FFD600}
-button.active{background:#FFD600;color:#111}
-.page{display:none;padding:2rem;min-height:80vh}
+nav{background:#111;padding:0 1rem;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;border-bottom:2px solid #FFD600;z-index:100}
+.logo{font-size:20px;color:#FFD600;font-weight:bold;cursor:pointer;text-decoration:none}
+.nav-links{display:flex;gap:6px}
+.nbtn{background:#FFD600;color:#111;border:none;padding:8px 14px;font-size:13px;font-weight:bold;cursor:pointer;border-radius:4px}
+.nbtn.out{background:none;color:#FFD600;border:2px solid #FFD600}
+.page{display:none;min-height:80vh}
 .page.active{display:block}
-.hero{background:#111;text-align:center;padding:4rem 2rem;border-bottom:1px solid #333}
-.hero h1{font-size:60px;color:#FFD600}
-.hero p{color:#888;margin-top:1rem}
-.hero-btns{display:flex;gap:12px;justify-content:center;margin-top:2rem}
-input,textarea,select{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:14px;margin-top:6px;margin-bottom:12px}
-label{font-size:12px;font-weight:bold;color:#555;text-transform:uppercase}
-.card{background:#fff;color:#111;border:1px solid #ddd;border-radius:8px;padding:1rem;margin-bottom:10px}
-.gold{color:#FFD600}
-.admin-tabs{display:flex;gap:4px;background:#111;padding:4px;border-radius:6px;margin-bottom:1rem}
-.tab{background:none;border:none;color:#888;padding:8px 14px;cursor:pointer;border-radius:4px;font-size:12px;font-weight:bold}
-.tab.active{background:#FFD600;color:#111}
-.tc{display:none}.tc.active{display:block}
-.lock{position:fixed;inset:0;background:#111;display:flex;align-items:center;justify-content:center;z-index:999}
-.lock-box{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:2rem;width:90%;max-width:340px;text-align:center}
-.lock-box h2{color:#FFD600;font-size:24px;margin-bottom:1rem}
-.lock-box input{background:#111;border:1px solid #333;color:#fff;text-align:center;letter-spacing:2px}
-.toast{position:fixed;bottom:20px;right:20px;background:#22c55e;color:#fff;padding:10px 20px;border-radius:20px;font-weight:bold;display:none;z-index:500}
-.btn-del{background:#fee2e2;color:#991b1b;border:none;padding:6px 10px;border-radius:4px;cursor:pointer;font-size:12px;font-weight:bold}
-.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:bold}
-.done{background:#dcfce7;color:#166534}
-.prog{background:#dbeafe;color:#1e40af}
-.wait{background:#fef9c3;color:#854d0e}
-.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-.cat-btn{background:#fff;border:2px solid #ddd;border-radius:8px;padding:10px 4px;text-align:center;cursor:pointer;font-size:12px;font-weight:bold}
-.cat-btn.sel{border-color:#FFD600;background:#fffbea}
-.fc2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.popup{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:998;display:flex;align-items:center;justify-content:center;padding:1rem}
-.popup-box{background:#fff;border-radius:12px;width:100%;max-width:400px;overflow:hidden}
-.popup-hdr{background:#111;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between}
-.popup-hdr span{color:#FFD600;font-size:18px;font-weight:bold}
-.popup-hdr button{background:none;border:none;color:#888;font-size:20px;cursor:pointer}
-.popup-body{padding:1.25rem;color:#111}
-.popup-row{margin-bottom:10px}
-.popup-lbl{font-size:10px;color:#aaa;font-weight:bold;text-transform:uppercase;margin-bottom:2px}
-.popup-val{font-size:15px;font-weight:600}
-.popup-footer{padding:1rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap}
-.btn-call{background:#22c55e;color:#fff;border:none;padding:11px 16px;border-radius:6px;flex:1;font-weight:bold;cursor:pointer;text-decoration:none;display:block;text-align:center}
-.btn-ok{background:#FFD600;color:#111;border:none;padding:11px 16px;border-radius:6px;flex:1;font-weight:bold;cursor:pointer}
-.btn-skip{background:none;border:1px solid #ddd;color:#888;padding:9px;border-radius:6px;width:100%;margin-top:4px;cursor:pointer}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:997;display:flex;align-items:center;justify-content:center;padding:1rem}
-.modal-box{background:#fff;border-radius:12px;width:100%;max-width:400px;overflow:hidden;max-height:90vh;overflow-y:auto}
-.modal-hdr{background:#111;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0}
-.modal-hdr span{color:#FFD600;font-size:18px;font-weight:bold}
-.modal-hdr button{background:none;border:none;color:#888;font-size:22px;cursor:pointer}
-.modal-body{padding:1.25rem;color:#111}
-.mrow{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f0f0f0;align-items:flex-start}
-.mrow:last-child{border-bottom:none}
-.mico{font-size:18px;flex-shrink:0}
-.mlbl{font-size:10px;color:#aaa;font-weight:bold;text-transform:uppercase;margin-bottom:2px}
-.mval{font-size:14px;font-weight:500}
-.modal-footer{padding:1rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap}
-.b-item{background:#fff;border:1px solid #ddd;border-radius:8px;padding:.875rem 1rem;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer;color:#111}
-.b-item:hover{border-color:#FFD600}
-.b-item.isnew{border-color:#fca5a5;background:#fff9f9}
-.b-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
-.b-inf{flex:1}
-.b-name{font-size:14px;font-weight:700}
-.b-det{font-size:12px;color:#888;margin-top:2px}
-.b-arr{color:#ccc;font-size:20px}
-.notif{position:relative;background:none;border:none;cursor:pointer;padding:8px;display:none}
-.notif svg{width:20px;height:20px;fill:#aaa}
-.ndot{position:absolute;top:4px;right:4px;width:9px;height:9px;background:#ff3b3b;border-radius:50%;display:none;border:2px solid #111}
+.hero{background:#111;text-align:center;padding:4rem 1.5rem}
+.hero h1{font-size:56px;color:#FFD600;font-weight:900}
+.hero-sub{color:rgba(255,214,0,.7);font-size:12px;letter-spacing:4px;margin-top:.5rem}
+.hero p{color:#888;font-size:15px;margin-top:1rem;max-width:400px;margin-inline:auto;line-height:1.7}
+.hbtns{display:flex;gap:10px;justify-content:center;margin-top:1.5rem;flex-wrap:wrap}
+.gbtn{background:#FFD600;color:#111;border:none;padding:12px 24px;font-size:13px;font-weight:bold;cursor:pointer;border-radius:4px}
+.gbtn.out{background:none;color:#FFD600;border:2px solid #FFD600}
+.svc-sec{background:#1a1a1a;padding:2.5rem 1.5rem}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:1.25rem}
+.svc{background:#111;border-left:3px solid #FFD600;padding:1rem;border-radius:4px}
+.svc h3{color:#fff;font-size:15px;margin:.4rem 0 .3rem}
+.svc p{color:#666;font-size:12px}
+.contact-sec{background:#111;padding:2.5rem 1.5rem;border-top:1px solid #222}
+.cg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:1.25rem}
+.ci-lbl{color:#FFD600;font-size:10px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.ci-val{color:#aaa;font-size:13px;line-height:1.7}
+.sec-lbl{font-size:10px;font-weight:bold;letter-spacing:3px;color:#FFD600;text-transform:uppercase;margin-bottom:.4rem}
+.sec-ttl{font-size:26px;color:#fff;margin-bottom:0}
+.book-page{background:#f5f5f0;padding:2rem 1rem}
+.bcard{background:#fff;border-radius:8px;padding:1.5rem;max-width:540px;box-shadow:0 2px 10px rgba(0,0,0,.06);color:#111}
+.notice{background:#fffbea;border:1px solid #ffe066;border-radius:6px;padding:.875rem;margin-bottom:1.25rem;font-size:13px;color:#665500}
+.fl{display:block;font-size:11px;font-weight:bold;color:#555;text-transform:uppercase;margin-bottom:4px;margin-top:10px}
+.fi{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:14px;color:#111;background:#fff}
+.fi:focus{border-color:#FFD600;outline:none}
+textarea.fi{height:80px;resize:vertical}
+.sbtn{width:100%;padding:13px;background:#FFD600;color:#111;border:none;font-size:14px;font-weight:bold;cursor:pointer;border-radius:4px;margin-top:14px}
+.ok-wrap{text-align:center;padding:2rem;color:#111}
+.admin-wrap{background:#f5f5f0;padding:1.5rem;min-height:80vh}
+.admin-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px}
+.atabs{display:flex;gap:3px;background:#111;padding:4px;border-radius:6px;flex-wrap:wrap}
+.atab{background:none;border:none;color:#666;padding:7px 12px;cursor:pointer;border-radius:4px;font-size:12px;font-weight:bold;text-transform:uppercase}
+.atab.act{background:#FFD600;color:#111}
+.tc{display:none;color:#111}.tc.act{display:block}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
 .stat{background:#fff;border:1px solid #ddd;border-radius:8px;padding:.75rem;text-align:center;color:#111}
-.stat-n{font-size:24px;font-weight:bold}
-.stat-l{font-size:10px;color:#888;text-transform:uppercase;font-weight:bold}
-.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:1rem}
-.svc{background:#1a1a1a;border-left:3px solid #FFD600;padding:1rem;border-radius:4px}
-.svc h3{color:#fff;font-size:16px;margin:.5rem 0 .3rem}
-.svc p{color:#666;font-size:12px}
-.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:1.5rem}
-.ci span{display:block;color:#FFD600;font-size:10px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.ci p{color:#aaa;font-size:13px;line-height:1.7}
-.receipt{background:#fff;color:#111;border:1px solid #ddd;border-radius:8px;padding:1.5rem;max-width:460px}
-.rec-top{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid #111}
-.rec-co{font-size:18px;font-weight:bold}
-.rec-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f5f5f5}
-.rec-row.tot{font-weight:bold;font-size:15px;border:none;border-top:2px solid #111;margin-top:6px;padding-top:8px}
-.rec-lbl{color:#888}
-.rec-meta{font-size:11px;color:#aaa;margin-top:1rem;text-align:center;line-height:2}
-@media(max-width:500px){.stats{grid-template-columns:repeat(2,1fr)}.contact-grid{grid-template-columns:1fr}.fc2{grid-template-columns:1fr}}
+.sn{font-size:22px;font-weight:bold}
+.sl{font-size:10px;color:#888;text-transform:uppercase;font-weight:bold}
+.acard{background:#fff;border:1px solid #ddd;border-radius:8px;margin-bottom:8px;overflow:hidden;color:#111}
+.acard-hdr{padding:.875rem 1rem;border-bottom:1px solid #f0f0f0;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px}
+.acard-body{padding:.875rem 1rem}
+.creg{font-family:monospace;font-size:19px;font-weight:bold;letter-spacing:2px}
+.cmake{font-size:12px;color:#666;margin-top:2px}
+.cgrd{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid #f5f5f5;font-size:11px}
+.cl{color:#aaa;display:block}
+.cv{font-weight:bold;color:#333;font-size:12px}
+.badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:bold}
+.bdone{background:#dcfce7;color:#166534}
+.bprog{background:#dbeafe;color:#1e40af}
+.bwait{background:#fef9c3;color:#854d0e}
+.bnew{background:#fee2e2;color:#991b1b}
+.catbadge{background:#111;color:#FFD600;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:bold;margin-right:5px}
+.jrow{display:flex;gap:8px;padding:8px 0;border-top:1px solid #f5f5f5;flex-wrap:wrap}
+.jdate{font-size:11px;color:#aaa;min-width:65px;margin-top:2px}
+.jinfo{flex:1}
+.jdesc{font-size:13px;font-weight:600;margin-bottom:3px}
+.jmeta{font-size:11px;color:#aaa}
+.jprice{font-size:13px;color:#22c55e;font-weight:bold;margin-left:auto;white-space:nowrap}
+.addf{background:#f9f9f9;border:1px dashed #ddd;border-radius:8px;padding:1rem;margin-top:10px;color:#111}
+.addf-ttl{font-size:10px;font-weight:bold;text-transform:uppercase;color:#888;margin-bottom:8px}
+.fc2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.catg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
+.catbtn{background:#fff;border:2px solid #ddd;border-radius:6px;padding:8px 4px;text-align:center;cursor:pointer;font-size:11px;font-weight:bold;color:#333}
+.catbtn.sel{border-color:#FFD600;background:#fffbea}
+.bi{background:#fff;border:1px solid #ddd;border-radius:8px;padding:.875rem 1rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;cursor:pointer;color:#111}
+.bi:hover{border-color:#FFD600}
+.bi.isnew{border-color:#fca5a5;background:#fff9f9}
+.bdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.binf{flex:1}
+.bname{font-size:14px;font-weight:700}
+.bdet{font-size:12px;color:#888;margin-top:2px;line-height:1.4}
+.barr{color:#ccc;font-size:18px}
+.btndel{background:#fee2e2;color:#991b1b;border:none;padding:5px 9px;border-radius:4px;cursor:pointer;font-size:11px;font-weight:bold}
+.btnout{background:none;color:#FFD600;border:1px solid #FFD600;padding:6px 12px;font-size:12px;font-weight:bold;cursor:pointer;border-radius:4px}
+.lock{position:fixed;inset:0;background:#111;display:flex;align-items:center;justify-content:center;z-index:999}
+.lockbox{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:2rem;width:90%;max-width:320px;text-align:center}
+.lockbox h2{color:#FFD600;font-size:22px;margin-bottom:.75rem}
+.lockbox p{color:#555;font-size:13px;margin-bottom:1rem}
+.lockbox input{width:100%;padding:11px;background:#111;border:1px solid #333;border-radius:6px;color:#fff;font-size:15px;text-align:center;letter-spacing:2px;outline:none}
+.lockbox input:focus{border-color:#FFD600}
+.lockerr{color:#ff4444;font-size:13px;margin-top:6px;display:none}
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:998;display:flex;align-items:center;justify-content:center;padding:1rem}
+.popbox{background:#fff;border-radius:12px;width:100%;max-width:380px;overflow:hidden}
+.pophdr{background:#111;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between}
+.pophdr span{color:#FFD600;font-size:17px;font-weight:bold}
+.pophdr button{background:none;border:none;color:#888;font-size:20px;cursor:pointer}
+.popbody{padding:1.25rem;color:#111}
+.prow{margin-bottom:8px}
+.plbl{font-size:10px;color:#aaa;font-weight:bold;text-transform:uppercase;margin-bottom:2px}
+.pval{font-size:14px;font-weight:600}
+.popftr{padding:1rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap}
+.bcall{background:#22c55e;color:#fff;border:none;padding:11px 14px;border-radius:6px;flex:1;font-weight:bold;cursor:pointer;text-decoration:none;display:block;text-align:center;font-size:13px}
+.bok{background:#FFD600;color:#111;border:none;padding:11px 14px;border-radius:6px;flex:1;font-weight:bold;cursor:pointer;font-size:13px}
+.bskip{background:none;border:1px solid #ddd;color:#888;padding:9px;border-radius:6px;width:100%;margin-top:4px;cursor:pointer;font-size:13px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:997;display:flex;align-items:center;justify-content:center;padding:1rem}
+.modbox{background:#fff;border-radius:12px;width:100%;max-width:380px;overflow:hidden;max-height:90vh;overflow-y:auto}
+.modhdr{background:#111;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0}
+.modhdr span{color:#FFD600;font-size:17px;font-weight:bold}
+.modhdr button{background:none;border:none;color:#888;font-size:22px;cursor:pointer}
+.modbody{padding:1.25rem;color:#111}
+.mrow{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.mrow:last-child{border-bottom:none}
+.mico{font-size:17px;flex-shrink:0}
+.mlbl{font-size:10px;color:#aaa;font-weight:bold;text-transform:uppercase;margin-bottom:2px}
+.mval{font-size:14px;font-weight:500}
+.modftr{padding:1rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap}
+.rec{background:#fff;color:#111;border:1px solid #ddd;border-radius:8px;padding:1.5rem;max-width:440px}
+.rectop{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid #111}
+.reco{font-size:18px;font-weight:bold}
+.recrow{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f5f5f5}
+.recrow.tot{font-weight:bold;font-size:14px;border:none;border-top:2px solid #111;margin-top:6px;padding-top:8px}
+.reclbl{color:#888}
+.recmeta{font-size:11px;color:#aaa;margin-top:1rem;text-align:center;line-height:2}
+.toast{position:fixed;bottom:20px;right:20px;background:#22c55e;color:#fff;padding:10px 18px;border-radius:20px;font-weight:bold;display:none;z-index:500;font-size:13px}
+.notif{background:none;border:none;cursor:pointer;padding:8px;display:none;color:#FFD600;font-size:18px;position:relative}
+@media(max-width:500px){.stats{grid-template-columns:repeat(2,1fr)}.cg{grid-template-columns:1fr}.fc2{grid-template-columns:1fr}.svc-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -104,60 +137,58 @@ label{font-size:12px;font-weight:bold;color:#555;text-transform:uppercase}
 <div id="toast" class="toast">✅ Sparat!</div>
 
 <div id="lock" class="lock" style="display:none">
-  <div class="lock-box">
+  <div class="lockbox">
     <h2>🔒 Admin</h2>
-    <p style="color:#555;font-size:13px;margin-bottom:1rem">Ange lösenord</p>
-    <input type="password" id="pw" placeholder="••••••••••" onkeydown="if(event.key==='Enter')chkPw()">
-    <p id="pwerr" style="color:#ff4444;font-size:13px;display:none;margin-top:6px">❌ Fel lösenord</p>
-    <button onclick="chkPw()" style="width:100%;margin-top:12px;padding:13px">Logga in</button>
+    <p>Ange lösenord</p>
+    <input type="password" id="pw" placeholder="••••••••••">
+    <div id="pwerr" class="lockerr">❌ Fel lösenord</div>
+    <button id="loginbtn" class="sbtn" style="margin-top:12px">Logga in</button>
   </div>
 </div>
 
 <div id="popup" class="popup" style="display:none">
-  <div class="popup-box">
-    <div class="popup-hdr"><span>🔔 NY BOKNING!</span><button onclick="closePopup()">✕</button></div>
-    <div class="popup-body" id="popup-body"></div>
-    <div class="popup-footer">
-      <a id="popup-call" href="#" class="btn-call">📞 Ring kunden</a>
-      <button class="btn-ok" onclick="cfmPopup()">✓ Bekräfta</button>
-      <button class="btn-skip" onclick="closePopup()">Stäng</button>
+  <div class="popbox">
+    <div class="pophdr"><span>🔔 NY BOKNING!</span><button id="closepopupbtn">✕</button></div>
+    <div class="popbody" id="popbody"></div>
+    <div class="popftr">
+      <a id="callbtn" href="#" class="bcall">📞 Ring kunden</a>
+      <button id="cfmpopupbtn" class="bok">✓ Bekräfta</button>
+      <button id="skippopupbtn" class="bskip">Stäng</button>
     </div>
   </div>
 </div>
 
 <div id="modal" class="modal" style="display:none">
-  <div class="modal-box">
-    <div class="modal-hdr"><span>Bokning</span><button onclick="closeModal()">✕</button></div>
-    <div class="modal-body" id="modal-body"></div>
-    <div class="modal-footer" id="modal-footer"></div>
+  <div class="modbox">
+    <div class="modhdr"><span>Bokning</span><button id="closemodalbtn">✕</button></div>
+    <div class="modbody" id="modalbody"></div>
+    <div class="modftr" id="modalftr"></div>
   </div>
 </div>
 
 <nav>
-  <div class="logo" onclick="goTo('home')">🐺 RBwolf</div>
+  <span class="logo" id="logobtn">🐺 RBwolf</span>
   <div class="nav-links">
-    <button id="nb-home" class="active" onclick="goTo('home')">Start</button>
-    <button id="nb-book" class="outline" onclick="document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});document.getElementById('pg-book').classList.add('active')">Boka</button>
-    <button id="nb-admin" class="outline" onclick="document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});document.getElementById('pg-admin').classList.add('active');if(!unlocked){document.getElementById('lock').style.display='flex';document.getElementById('pw').value='';document.getElementById('pwerr').style.display='none'}else{uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}">Admin</button>
-    <button class="notif outline" id="notif" onclick="document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});document.getElementById('pg-admin').classList.add('active');if(!unlocked){document.getElementById('lock').style.display='flex';document.getElementById('pw').value='';document.getElementById('pwerr').style.display='none'}else{uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}" style="display:none">
-      🔔<span id="ndot" style="display:none;background:#ff3b3b;color:#fff;font-size:10px;padding:1px 5px;border-radius:10px;margin-left:4px"></span>
-    </button>
+    <button class="nbtn" id="nb-home">Start</button>
+    <button class="nbtn out" id="nb-book">Boka</button>
+    <button class="nbtn out" id="nb-admin">Admin</button>
+    <button class="notif" id="notifbtn">🔔<span id="nbadge2" style="display:none;font-size:10px;margin-left:2px"></span></button>
   </div>
 </nav>
 
 <div id="pg-home" class="page active">
   <div class="hero">
     <h1>RBWOLF</h1>
-    <p style="color:#FFD600;font-size:13px;letter-spacing:3px;margin-top:.5rem">BILVERKSTAD · BROMÖLLA</p>
-    <p style="margin-top:.75rem">Professionell service, felsökning och reparation av alla bilmärken.</p>
-    <div class="hero-btns">
-      <button onclick="document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});document.getElementById('pg-book').classList.add('active')">Boka tid</button>
-      <button class="outline" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">Kontakt</button>
+    <div class="hero-sub">BILVERKSTAD · BROMÖLLA</div>
+    <p>Professionell service, felsökning och reparation av alla bilmärken.</p>
+    <div class="hbtns">
+      <button class="gbtn" id="hero-book-btn">Boka tid</button>
+      <button class="gbtn out" id="hero-contact-btn">Kontakt</button>
     </div>
   </div>
-  <div style="background:#1a1a1a;padding:2rem 1.5rem">
-    <p style="color:#FFD600;font-size:10px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;margin-bottom:.5rem">Vad vi gör</p>
-    <h2 style="font-size:28px;color:#fff;margin-bottom:1.5rem">Våra tjänster</h2>
+  <div class="svc-sec">
+    <div class="sec-lbl">Vad vi gör</div>
+    <div class="sec-ttl">Våra tjänster</div>
     <div class="svc-grid">
       <div class="svc"><span>⚙️</span><h3>Service & Olja</h3><p>Oljebyte, filter och vätskor.</p></div>
       <div class="svc"><span>🔧</span><h3>Reparationer</h3><p>Motor, bromsar och styrning.</p></div>
@@ -167,285 +198,554 @@ label{font-size:12px;font-weight:bold;color:#555;text-transform:uppercase}
       <div class="svc"><span>🚗</span><h3>Besiktning</h3><p>Förberedelse och anmärkningar.</p></div>
     </div>
   </div>
-  <div id="kontakt" style="background:#111;padding:2rem 1.5rem">
-    <p style="color:#FFD600;font-size:10px;font-weight:bold;letter-spacing:3px;text-transform:uppercase;margin-bottom:.5rem">Kontakt</p>
-    <h2 style="font-size:28px;color:#fff;margin-bottom:1rem">Hitta oss</h2>
-    <div class="contact-grid">
-      <div class="ci"><span>Telefon</span><p>073-933 44 46</p></div>
-      <div class="ci"><span>Öppettider</span><p>Mån–Fre 09–18<br>Lördag 10–16<br>Söndag Stängt</p></div>
-      <div class="ci"><span>Adress</span><p>Ugnsvägen 4A<br>295 39 Bromölla</p></div>
+  <div id="kontakt" class="contact-sec">
+    <div class="sec-lbl">Kontakt</div>
+    <div class="sec-ttl">Hitta oss</div>
+    <div class="cg">
+      <div><div class="ci-lbl">Telefon</div><div class="ci-val">073-933 44 46</div></div>
+      <div><div class="ci-lbl">Öppettider</div><div class="ci-val">Mån–Fre 09–18<br>Lördag 10–16<br>Söndag Stängt</div></div>
+      <div><div class="ci-lbl">Adress</div><div class="ci-val">Ugnsvägen 4A<br>295 39 Bromölla</div></div>
     </div>
-    <button onclick="document.querySelectorAll('.page').forEach(function(e){e.classList.remove('active')});document.getElementById('pg-book').classList.add('active')" style="margin-top:1.5rem">Boka tid nu</button>
+    <button class="gbtn" id="contact-book-btn" style="margin-top:1.5rem">Boka tid nu</button>
   </div>
 </div>
 
-<div id="pg-book" class="page" style="background:#f5f5f0">
-  <h2 style="margin-bottom:1rem;color:#111">Boka tid</h2>
-  <div style="background:#fff;border-radius:8px;padding:1.5rem;max-width:540px;box-shadow:0 2px 10px rgba(0,0,0,.06)">
-    <div id="bform">
-      <div style="background:#fffbea;border:1px solid #ffe066;border-radius:6px;padding:.875rem;margin-bottom:1.25rem;font-size:13px;color:#665500">
-        <strong style="display:block;margin-bottom:3px">Vi ringer dig!</strong>
-        En mekaniker ringer upp för att bekräfta. Ring direkt: <strong>073-933 44 46</strong>
+<div id="pg-book" class="page">
+  <div class="book-page">
+    <h2 style="color:#111;margin-bottom:1rem">Boka tid</h2>
+    <div class="bcard">
+      <div id="bform">
+        <div class="notice"><strong style="display:block;margin-bottom:3px">Vi ringer dig!</strong>En mekaniker ringer upp för att bekräfta. Ring direkt: <strong>073-933 44 46</strong></div>
+        <label class="fl">Namn *</label><input class="fi" type="text" id="bn" placeholder="Anna Andersson">
+        <label class="fl">Telefon *</label><input class="fi" type="tel" id="bp" placeholder="070-123 45 67">
+        <label class="fl">E-post</label><input class="fi" type="email" id="be" placeholder="din@epost.se">
+        <label class="fl">Registreringsnummer *</label><input class="fi" type="text" id="br" placeholder="ABC123" style="text-transform:uppercase">
+        <label class="fl">Bilmärke & modell</label><input class="fi" type="text" id="bc" placeholder="Volvo V70 2018">
+        <label class="fl">Önskat datum</label><input class="fi" type="date" id="bd">
+        <label class="fl">Beskriv ärendet</label><textarea class="fi" id="bdesc" placeholder="Vad behöver din bil hjälp med?"></textarea>
+        <button class="sbtn" id="subbookbtn">Skicka bokningsförfrågan →</button>
       </div>
-      <label>Namn *</label><input type="text" id="bn" placeholder="Anna Andersson">
-      <label>Telefon *</label><input type="tel" id="bp" placeholder="070-123 45 67">
-      <label>E-post</label><input type="email" id="be" placeholder="din@epost.se">
-      <label>Registreringsnummer *</label><input type="text" id="br" placeholder="ABC123" style="text-transform:uppercase">
-      <label>Bilmärke & modell</label><input type="text" id="bc" placeholder="Volvo V70 2018">
-      <label>Önskat datum</label><input type="date" id="bd">
-      <label>Beskriv ärendet</label><textarea id="bdesc" placeholder="Vad behöver din bil hjälp med?"></textarea>
-      <button onclick="subBook()" style="width:100%;padding:14px">Skicka bokningsförfrågan →</button>
-    </div>
-    <div id="bok-ok" style="display:none;text-align:center;padding:2rem">
-      <div style="font-size:48px">✅</div>
-      <h3 style="color:#111;font-size:24px;margin:.75rem 0">Skickad!</h3>
-      <p style="color:#888">Vi ringer upp dig inom kort.</p>
-      <div id="bconf" style="margin-top:1rem;padding:.875rem;background:#f9f9f9;border-radius:6px;font-size:13px;color:#888;text-align:left;line-height:1.9"></div>
-      <button onclick="newBook()" style="margin-top:1.25rem">Ny bokning</button>
+      <div id="bokOk" style="display:none;text-align:center;padding:2rem">
+        <div style="font-size:46px">✅</div>
+        <h3 style="color:#111;margin:.75rem 0">Skickad!</h3>
+        <p style="color:#888">Vi ringer upp dig inom kort.</p>
+        <div id="bconf" style="margin-top:1rem;padding:.875rem;background:#f9f9f9;border-radius:6px;font-size:13px;color:#888;text-align:left;line-height:1.9"></div>
+        <button class="sbtn" id="newbookbtn" style="margin-top:1rem">Ny bokning</button>
+      </div>
     </div>
   </div>
 </div>
 
-<div id="pg-admin" class="page" style="background:#f5f5f0">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:8px">
-    <h2 style="color:#111">Administration</h2>
-    <div style="display:flex;gap:8px;flex-wrap:wrap">
-      <div class="admin-tabs">
-        <button class="tab active" id="tab-b" onclick="sTab('tb')">📋 Bokningar</button>
-        <button class="tab" id="tab-c" onclick="sTab('tc')">🚗 Bilar</button>
-        <button class="tab" id="tab-h" onclick="sTab('th')">🔧 Historik</button>
-        <button class="tab" id="tab-r" onclick="sTab('tr')">🧾 Kvitton</button>
+<div id="pg-admin" class="page">
+  <div class="admin-wrap">
+    <div class="admin-top">
+      <h2 style="color:#111">Administration</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <div class="atabs">
+          <button class="atab act" id="tab-b">📋 Bokningar</button>
+          <button class="atab" id="tab-c">🚗 Bilar</button>
+          <button class="atab" id="tab-h">🔧 Historik</button>
+          <button class="atab" id="tab-r">🧾 Kvitton</button>
+        </div>
+        <button class="btnout" id="logoutbtn">🔒 Logga ut</button>
       </div>
-      <button class="outline" onclick="doLogout()" style="font-size:12px;padding:6px 12px">🔒 Logga ut</button>
     </div>
-  </div>
-  <div class="stats">
-    <div class="stat"><div class="stat-n" id="s1">0</div><div class="stat-l">Bokningar</div></div>
-    <div class="stat"><div class="stat-n" id="s2">0</div><div class="stat-l">Bilar</div></div>
-    <div class="stat"><div class="stat-n" id="s3">0</div><div class="stat-l">Utförda</div></div>
-    <div class="stat"><div class="stat-n" id="s4">0 kr</div><div class="stat-l">Intäkt</div></div>
-  </div>
-
-  <div id="tb" class="tc active">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-      <strong style="color:#111">Bokningar</strong>
-      <span id="nbadge" style="display:none;background:#dc2626;color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:bold"></span>
+    <div class="stats">
+      <div class="stat"><div class="sn" id="s1">0</div><div class="sl">Bokningar</div></div>
+      <div class="stat"><div class="sn" id="s2">0</div><div class="sl">Bilar</div></div>
+      <div class="stat"><div class="sn" id="s3">0</div><div class="sl">Utförda</div></div>
+      <div class="stat"><div class="sn" id="s4">0 kr</div><div class="sl">Intäkt</div></div>
     </div>
-    <div id="blist"></div>
-  </div>
-
-  <div id="tc" class="tc">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <strong style="color:#111">Bilar</strong>
-      <button onclick="tog('acar')" style="font-size:12px;padding:6px 12px">+ Ny bil</button>
-    </div>
-    <div id="acar" style="display:none;background:#f9f9f9;border:1px dashed #ddd;border-radius:8px;padding:1rem;margin-bottom:12px;color:#111">
-      <p style="font-size:11px;font-weight:bold;text-transform:uppercase;color:#888;margin-bottom:10px">Ny bil</p>
-      <div class="fc2">
-        <div><label>Reg.nr *</label><input id="creg" placeholder="ABC123" style="text-transform:uppercase"></div>
-        <div><label>Märke *</label><input id="cmake" placeholder="Volvo"></div>
+    <div id="tc-b" class="tc act">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+        <strong>Bokningar</strong>
+        <span id="nbadge" style="display:none;background:#dc2626;color:#fff;font-size:10px;padding:2px 7px;border-radius:20px;font-weight:bold"></span>
       </div>
-      <div class="fc2">
-        <div><label>Modell</label><input id="cmod" placeholder="V70"></div>
-        <div><label>År</label><input id="cyr" type="number" placeholder="2018"></div>
-      </div>
-      <div class="fc2">
-        <div><label>Färg</label><input id="ccol" placeholder="Svart"></div>
-        <div><label>Drivmedel</label><select id="cfuel"><option value="">Välj...</option><option>Bensin</option><option>Diesel</option><option>El</option><option>Hybrid</option><option>Laddhybrid</option><option>Gas</option></select></div>
-      </div>
-      <div class="fc2">
-        <div><label>Miltal</label><input id="cmil" type="number" placeholder="15000"></div>
-        <div><label>Ägare</label><input id="cown" placeholder="Anna Andersson"></div>
-      </div>
-      <div class="fc2">
-        <div><label>Telefon</label><input id="ctel" placeholder="070-123 45 67"></div>
-        <div><label>E-post</label><input id="cemail" type="email" placeholder="anna@epost.se"></div>
-      </div>
-      <label>Anteckningar</label><textarea id="cnotes" placeholder="Extra info..."></textarea>
-      <button onclick="addCar()" style="margin-top:8px">Spara bil</button>
+      <div id="blist"></div>
     </div>
-    <div id="clist"></div>
-  </div>
-
-  <div id="th" class="tc">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-      <strong style="color:#111">Jobbhistorik</strong>
-      <button onclick="tog('ajob')" style="font-size:12px;padding:6px 12px">+ Nytt jobb</button>
-    </div>
-    <div id="ajob" style="display:none;background:#f9f9f9;border:1px dashed #ddd;border-radius:8px;padding:1rem;margin-bottom:12px;color:#111">
-      <p style="font-size:11px;font-weight:bold;text-transform:uppercase;color:#888;margin-bottom:8px">Kategori</p>
-      <div class="cat-grid" id="cgrid"></div>
-      <div class="fc2">
-        <div><label>Reg.nr *</label><input id="jreg" placeholder="ABC123" style="text-transform:uppercase"></div>
-        <div><label>Datum</label><input id="jdat" type="date"></div>
+    <div id="tc-c" class="tc">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <strong>Bilar</strong>
+        <button class="nbtn" id="addcarbtn" style="font-size:12px;padding:6px 12px">+ Ny bil</button>
       </div>
-      <label>Beskrivning *</label><input id="jdesc" placeholder="Beskriv jobbet">
-      <div class="fc2">
-        <div><label>Pris (kr)</label><input id="jpris" type="number" placeholder="1500"></div>
-        <div><label>Miltal</label><input id="jmil" type="number" placeholder="15200"></div>
+      <div id="addcarform" class="addf" style="display:none;margin-bottom:12px">
+        <div class="addf-ttl">Ny bil</div>
+        <div class="fc2">
+          <div><label class="fl">Reg.nr *</label><input class="fi" id="creg" placeholder="ABC123" style="text-transform:uppercase"></div>
+          <div><label class="fl">Märke *</label><input class="fi" id="cmake" placeholder="Volvo"></div>
+        </div>
+        <div class="fc2">
+          <div><label class="fl">Modell</label><input class="fi" id="cmod" placeholder="V70"></div>
+          <div><label class="fl">År</label><input class="fi" id="cyr" type="number" placeholder="2018"></div>
+        </div>
+        <div class="fc2">
+          <div><label class="fl">Färg</label><input class="fi" id="ccol" placeholder="Svart"></div>
+          <div><label class="fl">Drivmedel</label><select class="fi" id="cfuel"><option value="">Välj...</option><option>Bensin</option><option>Diesel</option><option>El</option><option>Hybrid</option><option>Laddhybrid</option><option>Gas</option></select></div>
+        </div>
+        <div class="fc2">
+          <div><label class="fl">Miltal</label><input class="fi" id="cmil" type="number" placeholder="15000"></div>
+          <div><label class="fl">Ägare</label><input class="fi" id="cown" placeholder="Anna Andersson"></div>
+        </div>
+        <div class="fc2">
+          <div><label class="fl">Telefon</label><input class="fi" id="ctel" placeholder="070-123 45 67"></div>
+          <div><label class="fl">E-post</label><input class="fi" id="cemail" type="email" placeholder="anna@epost.se"></div>
+        </div>
+        <label class="fl">Anteckningar</label><textarea class="fi" id="cnotes" placeholder="Extra info..."></textarea>
+        <button class="sbtn" id="savecar" style="margin-top:10px">Spara bil</button>
       </div>
-      <label>Mekaniker</label><input id="jmek" placeholder="Ahmad">
-      <label>Status</label><select id="jstat"><option value="done">✅ Utfört</option><option value="progress">🔧 Pågående</option><option value="pending">⏳ Väntar</option></select>
-      <label>Anteckningar</label><textarea id="jnotes" placeholder="Extra info..."></textarea>
-      <button onclick="addJob()" style="margin-top:8px;width:100%">Spara jobb</button>
+      <div id="clist"></div>
     </div>
-    <div id="hlist"></div>
-  </div>
-
-  <div id="tr" class="tc">
-    <strong style="color:#111;display:block;margin-bottom:10px">Generera kvitto</strong>
-    <div class="fc2" style="margin-bottom:10px">
-      <div><label>Bil</label><select id="rcar" onchange="fillRJ()"><option value="">-- Välj bil --</option></select></div>
-      <div><label>Jobb</label><select id="rjob"><option value="">-- Välj jobb --</option></select></div>
+    <div id="tc-h" class="tc">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <strong>Jobbhistorik</strong>
+        <button class="nbtn" id="addjobbtn" style="font-size:12px;padding:6px 12px">+ Nytt jobb</button>
+      </div>
+      <div id="addjobform" class="addf" style="display:none;margin-bottom:12px">
+        <div class="addf-ttl">Kategori</div>
+        <div class="catg" id="catg"></div>
+        <div class="fc2">
+          <div><label class="fl">Reg.nr *</label><input class="fi" id="jreg" placeholder="ABC123" style="text-transform:uppercase"></div>
+          <div><label class="fl">Datum</label><input class="fi" id="jdat" type="date"></div>
+        </div>
+        <label class="fl">Beskrivning *</label><input class="fi" id="jdesc" placeholder="Beskriv jobbet">
+        <div class="fc2">
+          <div><label class="fl">Pris (kr)</label><input class="fi" id="jpris" type="number" placeholder="1500"></div>
+          <div><label class="fl">Miltal</label><input class="fi" id="jmil" type="number" placeholder="15200"></div>
+        </div>
+        <label class="fl">Mekaniker</label><input class="fi" id="jmek" placeholder="Ahmad">
+        <label class="fl">Status</label><select class="fi" id="jstat"><option value="done">✅ Utfört</option><option value="progress">🔧 Pågående</option><option value="pending">⏳ Väntar</option></select>
+        <label class="fl">Anteckningar</label><textarea class="fi" id="jnotes" placeholder="Extra info..."></textarea>
+        <button class="sbtn" id="savejob" style="margin-top:10px">Spara jobb</button>
+      </div>
+      <div id="hlist"></div>
     </div>
-    <div style="display:flex;gap:8px">
-      <button onclick="genRec()">Generera kvitto</button>
-      <button class="outline" onclick="window.print()" style="font-size:12px;padding:8px 14px">🖨️ Skriv ut</button>
+    <div id="tc-r" class="tc">
+      <strong style="display:block;margin-bottom:10px">Generera kvitto</strong>
+      <div class="fc2" style="margin-bottom:10px">
+        <div><label class="fl">Bil</label><select class="fi" id="rcar"></select></div>
+        <div><label class="fl">Jobb</label><select class="fi" id="rjob"></select></div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="sbtn" id="genrecbtn" style="flex:1;padding:10px">Generera kvitto</button>
+        <button class="btnout" id="printbtn" style="padding:10px 14px">🖨️</button>
+      </div>
+      <div id="rout" style="margin-top:1.25rem"></div>
     </div>
-    <div id="rout" style="margin-top:1.25rem"></div>
   </div>
 </div>
 
 <script>
-var PW="Ahmad_rbwolf",unlocked=false,selCat="",popId=null,modIdx=null;
-var CATS=[{id:"service",e:"⚙️",l:"Service"},{id:"brakes",e:"🛑",l:"Bromsar"},{id:"engine",e:"🔩",l:"Motor"},{id:"tires",e:"🛞",l:"Däck"},{id:"electrical",e:"💡",l:"El"},{id:"gearbox",e:"⚡",l:"Växellåda"},{id:"steering",e:"🎯",l:"Styrning"},{id:"inspection",e:"🚗",l:"Besiktning"},{id:"suspension",e:"🔧",l:"Fjädring"},{id:"other",e:"🛠️",l:"Övrigt"}];
-var D={bookings:[],cars:[],jobs:[],nid:1};
+var PW = "Ahmad_rbwolf";
+var unlocked = false;
+var selCat = "";
+var popId = null;
+var modIdx = null;
 
-function save(){try{localStorage.setItem("rbw3",JSON.stringify(D));var t=document.getElementById("toast");t.style.display="block";clearTimeout(window._tt);window._tt=setTimeout(function(){t.style.display="none"},2000)}catch(e){}}
-function load(){try{var s=localStorage.getItem("rbw3");if(s)D=JSON.parse(s)}catch(e){}}
+var CATS = [
+  {id:"service",e:"⚙️",l:"Service"},
+  {id:"brakes",e:"🛑",l:"Bromsar"},
+  {id:"engine",e:"🔩",l:"Motor"},
+  {id:"tires",e:"🛞",l:"Däck"},
+  {id:"electrical",e:"💡",l:"El"},
+  {id:"gearbox",e:"⚡",l:"Växellåda"},
+  {id:"steering",e:"🎯",l:"Styrning"},
+  {id:"inspection",e:"🚗",l:"Besiktning"},
+  {id:"suspension",e:"🔧",l:"Fjädring"},
+  {id:"other",e:"🛠️",l:"Övrigt"}
+];
+
+var D = {bookings:[], cars:[], jobs:[], nid:1};
+
+function save() {
+  try { localStorage.setItem("rbw4", JSON.stringify(D)); showToast(); } catch(e) {}
+}
+function load() {
+  try { var s = localStorage.getItem("rbw4"); if(s) D = JSON.parse(s); } catch(e) {}
+}
+function showToast() {
+  var t = document.getElementById("toast");
+  t.style.display = "block";
+  clearTimeout(window._tt);
+  window._tt = setTimeout(function(){ t.style.display = "none"; }, 2000);
+}
 load();
 
-function cl(id){return document.getElementById(id)}
-function catL(id){var c=CATS.find(function(x){return x.id===id});return c?c.e+" "+c.l:"🛠️ Övrigt"}
+function catL(id) {
+  var c = CATS.find(function(x){ return x.id === id; });
+  return c ? c.e + " " + c.l : "🛠️ Övrigt";
+}
 
-function goTo(p){
-  document.querySelectorAll(".page").forEach(function(e){e.classList.remove("active")});
-  cl("pg-"+p).classList.add("active");
-  document.querySelectorAll(".nav-links button").forEach(function(b){b.classList.remove("active");b.classList.add("outline")});
-  cl("nb-"+p).classList.remove("outline");
-  cl("nb-"+p).classList.add("active");
-  if(p==="admin"){
-    if(!unlocked){cl("lock").style.display="flex";cl("pw").value="";cl("pwerr").style.display="none";setTimeout(function(){cl("pw").focus()},100);return}
-    uStats();rCars();rHist();rBooks();fillRC();bCats();uBell();
+function showPage(p) {
+  document.querySelectorAll(".page").forEach(function(e){ e.classList.remove("active"); });
+  document.getElementById("pg-" + p).classList.add("active");
+  document.querySelectorAll(".nbtn").forEach(function(b){ b.classList.add("out"); });
+  var nb = document.getElementById("nb-" + p);
+  if(nb) { nb.classList.remove("out"); }
+}
+
+function showAdmin() {
+  if(!unlocked) {
+    document.getElementById("lock").style.display = "flex";
+    document.getElementById("pw").value = "";
+    document.getElementById("pwerr").style.display = "none";
+    setTimeout(function(){ document.getElementById("pw").focus(); }, 100);
+    return;
   }
+  showPage("admin");
+  uStats(); rCars(); rHist(); rBooks(); fillRC(); bCats(); uBell();
 }
 
-function chkPw(){
-  if(cl("pw").value===PW){unlocked=true;cl("lock").style.display="none";goTo("admin")}
-  else{cl("pwerr").style.display="block";cl("pw").value=""}
-}
-function doLogout(){unlocked=false;cl("notif").style.display="none";goTo("home")}
-
-function sTab(t){
-  document.querySelectorAll(".tc").forEach(function(e){e.classList.remove("active")});
-  document.querySelectorAll(".tab").forEach(function(b){b.classList.remove("active")});
-  cl(t).classList.add("active");
-  var m={tb:"tab-b",tc:"tab-c",th:"tab-h",tr:"tab-r"};cl(m[t]).classList.add("active");
-  if(t==="tr")fillRC();if(t==="tc")rCars();if(t==="th"){rHist();bCats()}if(t==="tb")rBooks();
-}
-function tog(id){var f=cl(id);f.style.display=f.style.display==="none"?"block":"none";if(id==="ajob"&&f.style.display==="block"){selCat="";bCats()}}
-
-function bCats(){var g=cl("cgrid");g.innerHTML=CATS.map(function(c){return'<div class="cat-btn" id="cb'+c.id+'" onclick="pCat(\''+c.id+'\')">'+c.e+'<br>'+c.l+'</div>'}).join("")}
-function pCat(id){selCat=id;document.querySelectorAll(".cat-btn").forEach(function(b){b.classList.remove("sel")});var el=cl("cb"+id);if(el)el.classList.add("sel")}
-
-function uBell(){
-  var n=D.bookings.filter(function(b){return b.isNew});
-  if(unlocked){cl("notif").style.display="block";cl("ndot").style.display=n.length?"inline":"none";if(n.length)cl("ndot").textContent=n.length}
-  var nb=cl("nbadge");nb.style.display=n.length?"inline":"none";if(n.length)nb.textContent=n.length+" ny"+(n.length>1?"a":"");
+function showTab(t) {
+  document.querySelectorAll(".tc").forEach(function(e){ e.classList.remove("act"); });
+  document.querySelectorAll(".atab").forEach(function(b){ b.classList.remove("act"); });
+  document.getElementById("tc-" + t).classList.add("act");
+  document.getElementById("tab-" + t).classList.add("act");
+  if(t === "r") fillRC();
+  if(t === "c") rCars();
+  if(t === "h") { rHist(); bCats(); }
+  if(t === "b") rBooks();
 }
 
-function showPopup(b){
-  popId=b.id;
-  cl("popup-call").href="tel:"+b.phone.replace(/[^0-9+]/g,"");
-  cl("popup-body").innerHTML='<div class="popup-row"><div class="popup-lbl">Kund</div><div class="popup-val">'+b.name+'</div></div><div class="popup-row"><div class="popup-lbl">Telefon</div><div class="popup-val" style="color:#22c55e;font-size:17px">'+b.phone+'</div></div><div class="popup-row"><div class="popup-lbl">Bil</div><div class="popup-val">'+b.reg+(b.car?' · '+b.car:'')+'</div></div>'+(b.date?'<div class="popup-row"><div class="popup-lbl">Datum</div><div class="popup-val">'+b.date+'</div></div>':'')+(b.desc?'<div class="popup-row"><div class="popup-lbl">Ärende</div><div class="popup-val">'+b.desc+'</div></div>':'');
-  cl("popup").style.display="flex";
-}
-function closePopup(){cl("popup").style.display="none";popId=null}
-function cfmPopup(){if(!popId)return;var i=D.bookings.findIndex(function(b){return b.id===popId});if(i>=0){D.bookings[i].status="confirmed";D.bookings[i].isNew=false}save();closePopup();uBell();if(unlocked)rBooks()}
+// Attach all event listeners here - NO inline onclick
+document.getElementById("logobtn").addEventListener("click", function(){ showPage("home"); });
+document.getElementById("nb-home").addEventListener("click", function(){ showPage("home"); });
+document.getElementById("nb-book").addEventListener("click", function(){ showPage("book"); });
+document.getElementById("nb-admin").addEventListener("click", function(){ showAdmin(); });
+document.getElementById("notifbtn").addEventListener("click", function(){ showAdmin(); });
+document.getElementById("hero-book-btn").addEventListener("click", function(){ showPage("book"); });
+document.getElementById("hero-contact-btn").addEventListener("click", function(){ document.getElementById("kontakt").scrollIntoView({behavior:"smooth"}); });
+document.getElementById("contact-book-btn").addEventListener("click", function(){ showPage("book"); });
+document.getElementById("tab-b").addEventListener("click", function(){ showTab("b"); });
+document.getElementById("tab-c").addEventListener("click", function(){ showTab("c"); });
+document.getElementById("tab-h").addEventListener("click", function(){ showTab("h"); });
+document.getElementById("tab-r").addEventListener("click", function(){ showTab("r"); });
+document.getElementById("logoutbtn").addEventListener("click", function(){ unlocked = false; document.getElementById("notifbtn").style.display = "none"; showPage("home"); });
+document.getElementById("loginbtn").addEventListener("click", function(){
+  if(document.getElementById("pw").value === PW) {
+    unlocked = true;
+    document.getElementById("lock").style.display = "none";
+    showAdmin();
+  } else {
+    document.getElementById("pwerr").style.display = "block";
+    document.getElementById("pw").value = "";
+  }
+});
+document.getElementById("pw").addEventListener("keydown", function(e){ if(e.key === "Enter") document.getElementById("loginbtn").click(); });
+document.getElementById("closepopupbtn").addEventListener("click", function(){ document.getElementById("popup").style.display = "none"; popId = null; });
+document.getElementById("skippopupbtn").addEventListener("click", function(){ document.getElementById("popup").style.display = "none"; popId = null; });
+document.getElementById("cfmpopupbtn").addEventListener("click", function(){
+  if(!popId) return;
+  var i = D.bookings.findIndex(function(b){ return b.id === popId; });
+  if(i >= 0) { D.bookings[i].status = "confirmed"; D.bookings[i].isNew = false; }
+  save(); document.getElementById("popup").style.display = "none"; popId = null; uBell(); rBooks();
+});
+document.getElementById("closemodalbtn").addEventListener("click", function(){ document.getElementById("modal").style.display = "none"; modIdx = null; });
+document.getElementById("subbookbtn").addEventListener("click", function(){
+  var n = document.getElementById("bn").value.trim();
+  var p = document.getElementById("bp").value.trim();
+  var r = document.getElementById("br").value.trim().toUpperCase();
+  if(!n || !p || !r) { alert("Fyll i namn, telefon och reg.nr"); return; }
+  var b = {id:Date.now(), name:n, phone:p, email:document.getElementById("be").value, reg:r, car:document.getElementById("bc").value, date:document.getElementById("bd").value, desc:document.getElementById("bdesc").value, status:"pending", isNew:true};
+  D.bookings.push(b); save();
+  document.getElementById("bconf").innerHTML = "<strong>" + n + "</strong> · " + r + (b.car ? " (" + b.car + ")" : "") + "<br>📅 " + (b.date || "Datum ej angivet") + "<br>📞 " + p;
+  document.getElementById("bform").style.display = "none";
+  document.getElementById("bokOk").style.display = "block";
+  uStats(); uBell(); if(unlocked) showPopup(b);
+});
+document.getElementById("newbookbtn").addEventListener("click", function(){
+  document.getElementById("bform").style.display = "block";
+  document.getElementById("bokOk").style.display = "none";
+  ["bn","bp","be","br","bc","bd","bdesc"].forEach(function(i){ document.getElementById(i).value = ""; });
+});
+document.getElementById("addcarbtn").addEventListener("click", function(){
+  var f = document.getElementById("addcarform");
+  f.style.display = f.style.display === "none" ? "block" : "none";
+});
+document.getElementById("savecar").addEventListener("click", function(){
+  var r = document.getElementById("creg").value.trim().toUpperCase();
+  var m = document.getElementById("cmake").value.trim();
+  if(!r || !m) { alert("Reg.nr och märke krävs"); return; }
+  D.cars.push({reg:r, make:m, model:document.getElementById("cmod").value, year:document.getElementById("cyr").value, color:document.getElementById("ccol").value, fuel:document.getElementById("cfuel").value, mileage:document.getElementById("cmil").value, owner:document.getElementById("cown").value, phone:document.getElementById("ctel").value, email:document.getElementById("cemail").value, notes:document.getElementById("cnotes").value});
+  ["creg","cmake","cmod","cyr","ccol","cmil","cown","ctel","cemail","cnotes"].forEach(function(id){ document.getElementById(id).value = ""; });
+  document.getElementById("cfuel").value = "";
+  document.getElementById("addcarform").style.display = "none";
+  save(); rCars(); uStats();
+});
+document.getElementById("addjobBtn") && document.getElementById("addjobbtn");
+document.getElementById("addjobbt") && null;
+document.getElementById("addjobbn") && null;
 
-function openModal(idx){
-  modIdx=idx;var b=D.bookings[idx];b.isNew=false;save();uBell();rBooks();
-  var clr={pending:"#f59e0b",confirmed:"#22c55e",done:"#9ca3af"};
-  var lbl={pending:"Väntar",confirmed:"✅ Bekräftad",done:"Avslutad"};
-  cl("modal-body").innerHTML='<div class="mrow"><span class="mico">👤</span><div><div class="mlbl">Kund</div><div class="mval">'+b.name+'</div></div></div><div class="mrow"><span class="mico">📞</span><div><div class="mlbl">Telefon</div><div class="mval" style="color:#22c55e;font-size:16px;font-weight:700">'+b.phone+'</div></div></div>'+(b.email?'<div class="mrow"><span class="mico">📧</span><div><div class="mlbl">E-post</div><div class="mval">'+b.email+'</div></div></div>':'')+'<div class="mrow"><span class="mico">🚘</span><div><div class="mlbl">Reg.nr</div><div class="mval">'+b.reg+'</div></div></div>'+(b.car?'<div class="mrow"><span class="mico">🔑</span><div><div class="mlbl">Bil</div><div class="mval">'+b.car+'</div></div></div>':'')+(b.date?'<div class="mrow"><span class="mico">📅</span><div><div class="mlbl">Datum</div><div class="mval">'+b.date+'</div></div></div>':'')+(b.desc?'<div class="mrow"><span class="mico">📝</span><div><div class="mlbl">Ärende</div><div class="mval">'+b.desc+'</div></div></div>':'')+'<div class="mrow"><span class="mico">🔔</span><div><div class="mlbl">Status</div><div class="mval" style="color:'+clr[b.status]+'">'+lbl[b.status]+'</div></div></div>';
-  cl("modal-footer").innerHTML='<a href="tel:'+b.phone.replace(/[^0-9+]/g,"")+'" class="btn-call" style="flex:1">📞 Ring '+b.phone+'</a>'+(b.status!=="confirmed"?'<button class="btn-ok" onclick="cfmModal()">✓ Bekräfta</button>':'')+'<button class="btn-del" style="width:100%;padding:10px;margin-top:4px" onclick="delModal()">🗑️ Ta bort bokning</button>';
-  cl("modal").style.display="flex";
-}
-function closeModal(){cl("modal").style.display="none";modIdx=null}
-function cfmModal(){if(modIdx===null)return;D.bookings[modIdx].status="confirmed";save();closeModal();rBooks();uBell()}
-function delModal(){if(modIdx===null)return;if(!confirm("Ta bort?"))return;D.bookings.splice(modIdx,1);save();closeModal();rBooks();uStats();uBell()}
+// Fix: use correct id
+var ajb = document.getElementById("addjobBtn") || document.getElementById("addjobbtn");
+if(ajb) ajb.addEventListener("click", function(){
+  var f = document.getElementById("addjobform");
+  f.style.display = f.style.display === "none" ? "block" : "none";
+  if(f.style.display === "block") { selCat = ""; bCats(); }
+});
 
-function subBook(){
-  var n=cl("bn").value.trim(),p=cl("bp").value.trim(),r=cl("br").value.trim().toUpperCase();
-  if(!n||!p||!r){alert("Fyll i namn, telefon och reg.nr");return}
-  var b={id:Date.now(),name:n,phone:p,email:cl("be").value,reg:r,car:cl("bc").value,date:cl("bd").value,desc:cl("bdesc").value,status:"pending",isNew:true};
-  D.bookings.push(b);save();
-  cl("bconf").innerHTML="<strong>"+n+"</strong> · "+r+(b.car?" ("+b.car+")")+"<br>📅 "+(b.date||"Datum ej angivet")+"<br>📞 "+p;
-  cl("bform").style.display="none";cl("bok-ok").style.display="block";
-  uStats();uBell();if(unlocked)showPopup(b);
-}
-function newBook(){cl("bform").style.display="block";cl("bok-ok").style.display="none";["bn","bp","be","br","bc","bd","bdesc"].forEach(function(i){cl(i).value=""})}
+document.getElementById("savejob").addEventListener("click", function(){
+  var r = document.getElementById("jreg").value.trim().toUpperCase();
+  var d = document.getElementById("jdesc").value.trim();
+  if(!r || !d) { alert("Reg.nr och beskrivning krävs"); return; }
+  if(!selCat) { alert("Välj kategori"); return; }
+  D.jobs.push({id:D.nid++, reg:r, cat:selCat, date:document.getElementById("jdat").value, desc:d, price:parseInt(document.getElementById("jpris").value)||0, mileage:document.getElementById("jmil").value, mech:document.getElementById("jmek").value, status:document.getElementById("jstat").value, notes:document.getElementById("jnotes").value});
+  ["jreg","jdat","jdesc","jpris","jmil","jmek","jnotes"].forEach(function(id){ document.getElementById(id).value = ""; });
+  selCat = ""; document.getElementById("addjobform").style.display = "none";
+  save(); rHist(); uStats();
+});
+document.getElementById("genrecbtn").addEventListener("click", genRec);
+document.getElementById("printbtn").addEventListener("click", function(){ window.print(); });
+document.getElementById("rcar").addEventListener("change", fillRJ);
 
-function rBooks(){
-  var el=cl("blist");
-  if(!D.bookings.length){el.innerHTML='<p style="text-align:center;color:#aaa;padding:2rem">Inga bokningar ännu</p>';return}
-  var clr={pending:"#f59e0b",confirmed:"#22c55e",done:"#9ca3af"};
-  var lbl={pending:"Väntar",confirmed:"Bekräftad",done:"Avslutad"};
-  el.innerHTML=D.bookings.slice().reverse().map(function(b,ri){
-    var i=D.bookings.length-1-ri;
-    return'<div class="b-item'+(b.isNew?" isnew":"")+'" onclick="openModal('+i+')">'+'<div class="b-dot" style="background:'+clr[b.status]+'"></div>'+'<div class="b-inf"><div class="b-name">'+(b.isNew?'<span class="badge" style="background:#fee2e2;color:#991b1b;margin-right:5px">NY</span>':'')+b.name+' · '+b.reg+(b.car?' ('+b.car+')':"")+'</div><div class="b-det">'+b.phone+(b.date?" · "+b.date:"")+(b.desc?" · "+b.desc.substring(0,30)+(b.desc.length>30?"...":""):"")+'</div><div style="margin-top:4px"><span class="badge '+(b.status==="confirmed"?"done":"wait")+'">'+lbl[b.status]+'</span></div></div><div class="b-arr">›</div></div>';
-  }).join("")
-}
-
-function addCar(){
-  var r=cl("creg").value.trim().toUpperCase(),m=cl("cmake").value.trim();
-  if(!r||!m){alert("Reg.nr och märke krävs");return}
-  D.cars.push({reg:r,make:m,model:cl("cmod").value,year:cl("cyr").value,color:cl("ccol").value,fuel:cl("cfuel").value,mileage:cl("cmil").value,owner:cl("cown").value,phone:cl("ctel").value,email:cl("cemail").value,notes:cl("cnotes").value});
-  ["creg","cmake","cmod","cyr","ccol","cmil","cown","ctel","cemail","cnotes"].forEach(function(id){cl(id).value=""});
-  cl("cfuel").value="";cl("acar").style.display="none";save();rCars();uStats();
-}
-function delCar(reg){if(!confirm("Radera "+reg+"?"))return;D.cars=D.cars.filter(function(c){return c.reg!==reg});D.jobs=D.jobs.filter(function(j){return j.reg!==reg});save();rCars();rHist();uStats()}
-function rCars(){
-  var el=cl("clist");
-  if(!D.cars.length){el.innerHTML='<p style="text-align:center;color:#aaa;padding:2rem">Inga bilar</p>';return}
-  el.innerHTML=D.cars.map(function(c){
-    var jobs=D.jobs.filter(function(j){return j.reg===c.reg}),last=jobs.length?jobs[jobs.length-1]:null;
-    return'<div class="card"><div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px"><div><div style="font-family:monospace;font-size:20px;font-weight:bold;letter-spacing:2px">'+c.reg+'</div><div style="font-size:13px;color:#666">'+c.make+(c.model?" "+c.model:"")+(c.year?" · "+c.year:"")+'</div></div><div style="text-align:right"><div style="font-size:13px;color:#888">'+c.owner+'<br>'+c.phone+'</div><button class="btn-del" onclick="delCar(\''+c.reg+'\')" style="margin-top:6px">🗑️ Radera</button></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid #f5f5f5;font-size:12px"><div><span style="color:#aaa;display:block">Färg</span><strong>'+(c.color||"—")+'</strong></div><div><span style="color:#aaa;display:block">Drivmedel</span><strong>'+(c.fuel||"—")+'</strong></div><div><span style="color:#aaa;display:block">Miltal</span><strong>'+(c.mileage?Number(c.mileage).toLocaleString("sv")+" mil":"—")+'</strong></div><div><span style="color:#aaa;display:block">Jobb</span><strong>'+jobs.length+' st</strong></div><div><span style="color:#aaa;display:block">Senaste</span><strong>'+(last?last.date:"—")+'</strong></div></div>'+(c.notes?'<div style="margin-top:8px;font-size:12px;color:#888;background:#f9f9f9;padding:8px;border-radius:4px">📝 '+c.notes+'</div>':'')+'</div>';
-  }).join("")
+function bCats() {
+  var g = document.getElementById("catg");
+  g.innerHTML = "";
+  CATS.forEach(function(c) {
+    var btn = document.createElement("div");
+    btn.className = "catbtn" + (selCat === c.id ? " sel" : "");
+    btn.textContent = c.e + " " + c.l;
+    btn.addEventListener("click", function(){
+      selCat = c.id;
+      document.querySelectorAll(".catbtn").forEach(function(b){ b.classList.remove("sel"); });
+      btn.classList.add("sel");
+    });
+    g.appendChild(btn);
+  });
 }
 
-function addJob(){
-  var r=cl("jreg").value.trim().toUpperCase(),d=cl("jdesc").value.trim();
-  if(!r||!d){alert("Reg.nr och beskrivning krävs");return}
-  if(!selCat){alert("Välj kategori");return}
-  D.jobs.push({id:D.nid++,reg:r,cat:selCat,date:cl("jdat").value,desc:d,price:parseInt(cl("jpris").value)||0,mileage:cl("jmil").value,mech:cl("jmek").value,status:cl("jstat").value,notes:cl("jnotes").value});
-  ["jreg","jdat","jdesc","jpris","jmil","jmek","jnotes"].forEach(function(id){cl(id).value=""});
-  selCat="";cl("ajob").style.display="none";save();rHist();uStats();
-}
-function delJob(id){if(!confirm("Radera jobb?"))return;D.jobs=D.jobs.filter(function(j){return j.id!==id});save();rHist();uStats()}
-function rHist(){
-  var el=cl("hlist");
-  if(!D.jobs.length){el.innerHTML='<p style="text-align:center;color:#aaa;padding:2rem">Inga jobb</p>';return}
-  var byR={};D.jobs.forEach(function(j){if(!byR[j.reg])byR[j.reg]=[];byR[j.reg].push(j)});
-  var bc={done:"done",progress:"prog",pending:"wait"},bl={done:"Utfört",progress:"Pågående",pending:"Väntar"};
-  el.innerHTML=Object.keys(byR).map(function(reg){
-    var car=D.cars.find(function(c){return c.reg===reg});
-    return'<div class="card"><div style="font-family:monospace;font-size:18px;font-weight:bold;letter-spacing:2px">'+reg+'</div><div style="font-size:13px;color:#666;margin-bottom:10px">'+(car?car.make+(car.model?" "+car.model:""):"Okänd")+'</div>'+byR[reg].map(function(j){return'<div style="display:flex;gap:10px;padding:8px 0;border-top:1px solid #f5f5f5;flex-wrap:wrap"><div style="font-size:11px;color:#aaa;min-width:68px;margin-top:2px">'+j.date+'</div><div style="flex:1"><div style="font-size:13px;font-weight:600;margin-bottom:3px"><span style="background:#111;color:#FFD600;font-size:10px;font-weight:bold;padding:2px 6px;border-radius:10px;margin-right:5px">'+catL(j.cat)+'</span>'+j.desc+'</div><div style="font-size:11px;color:#aaa">'+(j.mech?"👤 "+j.mech+" ":"")+(j.mileage?"📍 "+Number(j.mileage).toLocaleString("sv")+" mil ":"")+'<span class="badge '+bc[j.status]+'">'+bl[j.status]+'</span></div>'+(j.notes?'<div style="font-size:11px;color:#aaa;margin-top:2px">📝 '+j.notes+'</div>':'')+'</div><div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px"><div style="color:#22c55e;font-weight:700;font-size:13px">'+j.price.toLocaleString("sv")+' kr</div><button class="btn-del" onclick="delJob('+j.id+')">🗑️</button></div></div>'}).join("")+'</div>';
-  }).join("")
+function showPopup(b) {
+  popId = b.id;
+  document.getElementById("callbtn").href = "tel:" + b.phone.replace(/[^0-9+]/g, "");
+  document.getElementById("popbody").innerHTML =
+    '<div class="prow"><div class="plbl">Kund</div><div class="pval">' + b.name + '</div></div>' +
+    '<div class="prow"><div class="plbl">Telefon</div><div class="pval" style="color:#22c55e;font-size:16px">' + b.phone + '</div></div>' +
+    '<div class="prow"><div class="plbl">Bil</div><div class="pval">' + b.reg + (b.car ? " · " + b.car : "") + '</div></div>' +
+    (b.date ? '<div class="prow"><div class="plbl">Datum</div><div class="pval">' + b.date + '</div></div>' : "") +
+    (b.desc ? '<div class="prow"><div class="plbl">Ärende</div><div class="pval">' + b.desc + '</div></div>' : "");
+  document.getElementById("popup").style.display = "flex";
 }
 
-function fillRC(){var cs=cl("rcar");cs.innerHTML='<option value="">-- Välj bil --</option>';D.cars.forEach(function(c){cs.innerHTML+='<option value="'+c.reg+'">'+c.reg+" · "+c.make+(c.model?" "+c.model:"")+'</option>'});cl("rjob").innerHTML='<option value="">-- Välj jobb --</option>'}
-function fillRJ(){var reg=cl("rcar").value,rj=cl("rjob");rj.innerHTML='<option value="">-- Välj jobb --</option>';D.jobs.filter(function(j){return j.reg===reg}).forEach(function(j){rj.innerHTML+='<option value="'+j.id+'">'+j.date+" · "+catL(j.cat)+" · "+j.desc+'</option>'})}
-function genRec(){
-  var reg=cl("rcar").value,jid=parseInt(cl("rjob").value);
-  if(!reg||!jid){alert("Välj bil och jobb");return}
-  var car=D.cars.find(function(c){return c.reg===reg}),job=D.jobs.find(function(j){return j.id===jid});
-  if(!car||!job)return;
-  var moms=Math.round(job.price*.25),ex=job.price-moms,kv="KV-"+job.id+"-"+Date.now().toString().slice(-4),dag=new Date().toLocaleDateString("sv-SE");
-  cl("rout").innerHTML='<div class="receipt"><div class="rec-top"><div><div class="rec-co">🐺 RBwolf Bilverkstad</div><div style="font-size:11px;color:#aaa">073-933 44 46</div></div><div style="margin-left:auto;text-align:right;font-size:12px;color:#aaa"><strong style="color:#111">'+kv+'</strong><br>'+dag+'</div></div><div class="rec-row"><span class="rec-lbl">Kund</span><span>'+car.owner+'</span></div>'+(car.phone?'<div class="rec-row"><span class="rec-lbl">Tel</span><span>'+car.phone+'</span></div>':'')+'<div class="rec-row"><span class="rec-lbl">Reg.nr</span><span>'+reg+'</span></div><div class="rec-row"><span class="rec-lbl">Fordon</span><span>'+car.make+(car.model?" "+car.model:"")+(car.year?" ("+car.year+")")+'</span></div><div class="rec-row"><span class="rec-lbl">Kategori</span><span>'+catL(job.cat)+'</span></div><div class="rec-row"><span class="rec-lbl">Arbete</span><span>'+job.desc+'</span></div>'+(job.mech?'<div class="rec-row"><span class="rec-lbl">Mekaniker</span><span>'+job.mech+'</span></div>':'')+'<div class="rec-row"><span class="rec-lbl">Exkl. moms</span><span>'+ex.toLocaleString("sv")+" kr"+'</span></div><div class="rec-row"><span class="rec-lbl">Moms 25%</span><span>'+moms.toLocaleString("sv")+" kr"+'</span></div><div class="rec-row tot"><span>Totalt</span><span>'+job.price.toLocaleString("sv")+" kr"+'</span></div><div class="rec-meta">RBwolf Bilverkstad · Ugnsvägen 4A, 295 39 Bromölla · 073-933 44 46</div></div>'
+function openModal(idx) {
+  modIdx = idx;
+  var b = D.bookings[idx];
+  b.isNew = false; save(); uBell(); rBooks();
+  var clr = {pending:"#f59e0b", confirmed:"#22c55e", done:"#9ca3af"};
+  var lbl = {pending:"Väntar", confirmed:"✅ Bekräftad", done:"Avslutad"};
+  document.getElementById("modalbody").innerHTML =
+    '<div class="mrow"><span class="mico">👤</span><div><div class="mlbl">Kund</div><div class="mval">' + b.name + '</div></div></div>' +
+    '<div class="mrow"><span class="mico">📞</span><div><div class="mlbl">Telefon</div><div class="mval" style="color:#22c55e;font-size:16px;font-weight:700">' + b.phone + '</div></div></div>' +
+    (b.email ? '<div class="mrow"><span class="mico">📧</span><div><div class="mlbl">E-post</div><div class="mval">' + b.email + '</div></div></div>' : "") +
+    '<div class="mrow"><span class="mico">🚘</span><div><div class="mlbl">Reg.nr</div><div class="mval">' + b.reg + '</div></div></div>' +
+    (b.car ? '<div class="mrow"><span class="mico">🔑</span><div><div class="mlbl">Bil</div><div class="mval">' + b.car + '</div></div></div>' : "") +
+    (b.date ? '<div class="mrow"><span class="mico">📅</span><div><div class="mlbl">Datum</div><div class="mval">' + b.date + '</div></div></div>' : "") +
+    (b.desc ? '<div class="mrow"><span class="mico">📝</span><div><div class="mlbl">Ärende</div><div class="mval">' + b.desc + '</div></div></div>' : "") +
+    '<div class="mrow"><span class="mico">🔔</span><div><div class="mlbl">Status</div><div class="mval" style="color:' + clr[b.status] + '">' + lbl[b.status] + '</div></div></div>';
+
+  var ftr = document.getElementById("modalftr");
+  ftr.innerHTML = "";
+
+  var callA = document.createElement("a");
+  callA.href = "tel:" + b.phone.replace(/[^0-9+]/g, "");
+  callA.className = "bcall";
+  callA.style.flex = "1";
+  callA.textContent = "📞 Ring " + b.phone;
+  ftr.appendChild(callA);
+
+  if(b.status !== "confirmed") {
+    var cfmB = document.createElement("button");
+    cfmB.className = "bok";
+    cfmB.textContent = "✓ Bekräfta";
+    cfmB.addEventListener("click", function(){
+      D.bookings[modIdx].status = "confirmed";
+      save(); document.getElementById("modal").style.display = "none"; modIdx = null; rBooks(); uBell();
+    });
+    ftr.appendChild(cfmB);
+  }
+
+  var delB = document.createElement("button");
+  delB.className = "btndel";
+  delB.style.cssText = "width:100%;padding:10px;margin-top:4px";
+  delB.textContent = "🗑️ Ta bort bokning";
+  delB.addEventListener("click", function(){
+    if(!confirm("Ta bort?")) return;
+    D.bookings.splice(modIdx, 1);
+    save(); document.getElementById("modal").style.display = "none"; modIdx = null; rBooks(); uStats(); uBell();
+  });
+  ftr.appendChild(delB);
+
+  document.getElementById("modal").style.display = "flex";
 }
 
-function uStats(){cl("s1").textContent=D.bookings.length;cl("s2").textContent=D.cars.length;var done=D.jobs.filter(function(j){return j.status==="done"});cl("s3").textContent=done.length;cl("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr"}
+function uBell() {
+  var n = D.bookings.filter(function(b){ return b.isNew; });
+  if(unlocked) {
+    document.getElementById("notifbtn").style.display = "block";
+    document.getElementById("nbadge2").style.display = n.length ? "inline" : "none";
+    if(n.length) document.getElementById("nbadge2").textContent = n.length;
+  }
+  var nb = document.getElementById("nbadge");
+  nb.style.display = n.length ? "inline" : "none";
+  if(n.length) nb.textContent = n.length + " ny" + (n.length > 1 ? "a" : "");
+}
+
+function rBooks() {
+  var el = document.getElementById("blist");
+  if(!D.bookings.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;padding:2rem">Inga bokningar ännu</p>'; return; }
+  var clr = {pending:"#f59e0b", confirmed:"#22c55e", done:"#9ca3af"};
+  var lbl = {pending:"Väntar", confirmed:"Bekräftad", done:"Avslutad"};
+  el.innerHTML = "";
+  D.bookings.slice().reverse().forEach(function(b, ri) {
+    var i = D.bookings.length - 1 - ri;
+    var div = document.createElement("div");
+    div.className = "bi" + (b.isNew ? " isnew" : "");
+    div.innerHTML =
+      '<div class="bdot" style="background:' + clr[b.status] + '"></div>' +
+      '<div class="binf"><div class="bname">' + (b.isNew ? '<span class="badge bnew" style="margin-right:5px">NY</span>' : '') + b.name + ' · ' + b.reg + (b.car ? ' (' + b.car + ')' : '') + '</div>' +
+      '<div class="bdet">' + b.phone + (b.date ? " · " + b.date : "") + (b.desc ? " · " + b.desc.substring(0, 30) + (b.desc.length > 30 ? "..." : "") : "") + '</div>' +
+      '<div style="margin-top:4px"><span class="badge ' + (b.status === "confirmed" ? "bdone" : "bwait") + '">' + lbl[b.status] + '</span></div>' +
+      '</div><div class="barr">›</div>';
+    div.addEventListener("click", function(){ openModal(i); });
+    el.appendChild(div);
+  });
+}
+
+function delCar(reg) {
+  if(!confirm("Radera " + reg + "?")) return;
+  D.cars = D.cars.filter(function(c){ return c.reg !== reg; });
+  D.jobs = D.jobs.filter(function(j){ return j.reg !== reg; });
+  save(); rCars(); rHist(); uStats();
+}
+
+function rCars() {
+  var el = document.getElementById("clist");
+  if(!D.cars.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;padding:2rem">Inga bilar</p>'; return; }
+  el.innerHTML = "";
+  D.cars.forEach(function(c) {
+    var jobs = D.jobs.filter(function(j){ return j.reg === c.reg; });
+    var last = jobs.length ? jobs[jobs.length-1] : null;
+    var div = document.createElement("div");
+    div.className = "acard";
+    div.innerHTML =
+      '<div class="acard-hdr">' +
+      '<div><div class="creg">' + c.reg + '</div><div class="cmake">' + c.make + (c.model?" "+c.model:"") + (c.year?" · "+c.year:"") + '</div></div>' +
+      '<div style="text-align:right"><div style="font-size:13px;color:#888">' + c.owner + '<br>' + c.phone + '</div></div>' +
+      '</div>' +
+      '<div class="acard-body">' +
+      '<div class="cgrd">' +
+      '<div><span class="cl">Färg</span><span class="cv">' + (c.color||"—") + '</span></div>' +
+      '<div><span class="cl">Drivmedel</span><span class="cv">' + (c.fuel||"—") + '</span></div>' +
+      '<div><span class="cl">Miltal</span><span class="cv">' + (c.mileage?Number(c.mileage).toLocaleString("sv")+" mil":"—") + '</span></div>' +
+      '<div><span class="cl">E-post</span><span class="cv" style="font-size:11px">' + (c.email||"—") + '</span></div>' +
+      '<div><span class="cl">Jobb</span><span class="cv">' + jobs.length + ' st</span></div>' +
+      '<div><span class="cl">Senaste</span><span class="cv">' + (last?last.date:"—") + '</span></div>' +
+      '</div>' +
+      (c.notes ? '<div style="margin-top:8px;font-size:12px;color:#888;background:#f9f9f9;padding:8px;border-radius:4px">📝 ' + c.notes + '</div>' : '') +
+      '</div>';
+    var delBtn = document.createElement("button");
+    delBtn.className = "btndel";
+    delBtn.textContent = "🗑️ Radera";
+    delBtn.style.marginTop = "6px";
+    delBtn.addEventListener("click", function(){ delCar(c.reg); });
+    div.querySelector(".acard-hdr div:last-child").appendChild(delBtn);
+    el.appendChild(div);
+  });
+}
+
+function delJob(id) {
+  if(!confirm("Radera jobb?")) return;
+  D.jobs = D.jobs.filter(function(j){ return j.id !== id; });
+  save(); rHist(); uStats();
+}
+
+function rHist() {
+  var el = document.getElementById("hlist");
+  if(!D.jobs.length) { el.innerHTML = '<p style="text-align:center;color:#aaa;padding:2rem">Inga jobb</p>'; return; }
+  var byR = {};
+  D.jobs.forEach(function(j){ if(!byR[j.reg]) byR[j.reg]=[]; byR[j.reg].push(j); });
+  var bc = {done:"bdone", progress:"bprog", pending:"bwait"};
+  var bl = {done:"Utfört", progress:"Pågående", pending:"Väntar"};
+  el.innerHTML = "";
+  Object.keys(byR).forEach(function(reg) {
+    var car = D.cars.find(function(c){ return c.reg === reg; });
+    var div = document.createElement("div");
+    div.className = "acard";
+    var bodyHTML = '<div class="acard-hdr"><div><div class="creg">' + reg + '</div><div class="cmake">' + (car ? car.make+(car.model?" "+car.model:"") : "Okänd") + '</div></div></div><div class="acard-body">';
+    byR[reg].forEach(function(j) {
+      bodyHTML +=
+        '<div class="jrow">' +
+        '<div class="jdate">' + j.date + '</div>' +
+        '<div class="jinfo">' +
+        '<div class="jdesc"><span class="catbadge">' + catL(j.cat) + '</span>' + j.desc + '</div>' +
+        '<div class="jmeta">' + (j.mech?"👤 "+j.mech+" ":"") + (j.mileage?"📍 "+Number(j.mileage).toLocaleString("sv")+" mil ":"") + '<span class="badge ' + bc[j.status] + '">' + bl[j.status] + '</span></div>' +
+        (j.notes ? '<div style="font-size:11px;color:#aaa;margin-top:2px">📝 ' + j.notes + '</div>' : '') +
+        '</div>' +
+        '<div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">' +
+        '<div class="jprice">' + j.price.toLocaleString("sv") + ' kr</div>' +
+        '<button class="btndel" data-jid="' + j.id + '">🗑️</button>' +
+        '</div></div>';
+    });
+    bodyHTML += '</div>';
+    div.innerHTML = bodyHTML;
+    div.querySelectorAll("button[data-jid]").forEach(function(btn) {
+      btn.addEventListener("click", function(){ delJob(parseInt(btn.getAttribute("data-jid"))); });
+    });
+    el.appendChild(div);
+  });
+}
+
+function fillRC() {
+  var cs = document.getElementById("rcar");
+  cs.innerHTML = '<option value="">-- Välj bil --</option>';
+  D.cars.forEach(function(c){ cs.innerHTML += '<option value="' + c.reg + '">' + c.reg + " · " + c.make + (c.model?" "+c.model:"") + '</option>'; });
+  document.getElementById("rjob").innerHTML = '<option value="">-- Välj jobb --</option>';
+}
+function fillRJ() {
+  var reg = document.getElementById("rcar").value;
+  var rj = document.getElementById("rjob");
+  rj.innerHTML = '<option value="">-- Välj jobb --</option>';
+  D.jobs.filter(function(j){ return j.reg === reg; }).forEach(function(j){
+    rj.innerHTML += '<option value="' + j.id + '">' + j.date + " · " + catL(j.cat) + " · " + j.desc + '</option>';
+  });
+}
+function genRec() {
+  var reg = document.getElementById("rcar").value;
+  var jid = parseInt(document.getElementById("rjob").value);
+  if(!reg || !jid) { alert("Välj bil och jobb"); return; }
+  var car = D.cars.find(function(c){ return c.reg === reg; });
+  var job = D.jobs.find(function(j){ return j.id === jid; });
+  if(!car || !job) return;
+  var moms = Math.round(job.price*.25), ex = job.price-moms;
+  var kv = "KV-" + job.id + "-" + Date.now().toString().slice(-4);
+  var dag = new Date().toLocaleDateString("sv-SE");
+  document.getElementById("rout").innerHTML =
+    '<div class="rec"><div class="rectop"><div><div class="reco">🐺 RBwolf Bilverkstad</div><div style="font-size:11px;color:#aaa">073-933 44 46</div></div><div style="margin-left:auto;text-align:right;font-size:12px;color:#aaa"><strong style="color:#111">' + kv + '</strong><br>' + dag + '</div></div>' +
+    '<div class="recrow"><span class="reclbl">Kund</span><span>' + car.owner + '</span></div>' +
+    (car.phone ? '<div class="recrow"><span class="reclbl">Tel</span><span>' + car.phone + '</span></div>' : '') +
+    '<div class="recrow"><span class="reclbl">Reg.nr</span><span>' + reg + '</span></div>' +
+    '<div class="recrow"><span class="reclbl">Fordon</span><span>' + car.make + (car.model?" "+car.model:"") + (car.year?" ("+car.year+")":"") + '</span></div>' +
+    '<div class="recrow"><span class="reclbl">Kategori</span><span>' + catL(job.cat) + '</span></div>' +
+    '<div class="recrow"><span class="reclbl">Arbete</span><span>' + job.desc + '</span></div>' +
+    (job.mech ? '<div class="recrow"><span class="reclbl">Mekaniker</span><span>' + job.mech + '</span></div>' : '') +
+    '<div class="recrow"><span class="reclbl">Exkl. moms</span><span>' + ex.toLocaleString("sv") + ' kr</span></div>' +
+    '<div class="recrow"><span class="reclbl">Moms 25%</span><span>' + moms.toLocaleString("sv") + ' kr</span></div>' +
+    '<div class="recrow tot"><span>Totalt</span><span>' + job.price.toLocaleString("sv") + ' kr</span></div>' +
+    '<div class="recmeta">RBwolf Bilverkstad · Ugnsvägen 4A, 295 39 Bromölla · 073-933 44 46</div></div>';
+}
+
+// Fix addjob button
+document.getElementById("addjobbtn").addEventListener("click", function(){
+  var f = document.getElementById("addjobform");
+  f.style.display = f.style.display === "none" ? "block" : "none";
+  if(f.style.display === "block") { selCat = ""; bCats(); }
+});
+
+function uStats() {
+  document.getElementById("s1").textContent = D.bookings.length;
+  document.getElementById("s2").textContent = D.cars.length;
+  var done = D.jobs.filter(function(j){ return j.status === "done"; });
+  document.getElementById("s3").textContent = done.length;
+  document.getElementById("s4").textContent = done.reduce(function(s,j){ return s+j.price; }, 0).toLocaleString("sv") + " kr";
+}
 uStats();
 </script>
 
