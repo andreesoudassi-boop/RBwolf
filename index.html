@@ -28,7 +28,7 @@ nav{background:rgba(10,10,10,.95);padding:0 1.5rem;display:flex;align-items:cent
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,59,59,.4)}50%{box-shadow:0 0 0 6px rgba(255,59,59,0)}}
 
 /* HERO */
-.hero{min-height:100vh;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 1.5rem 4rem;position:relative;overflow:hidden}
+.hero{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem 3rem;position:relative;overflow:hidden}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,214,0,.07) 0%,transparent 60%);pointer-events:none}
 .hero-lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(255,214,0,.02) 80px,rgba(255,214,0,.02) 81px);pointer-events:none}
 .hero-logo-wrap{position:relative;margin-bottom:2rem;display:inline-block}
@@ -359,6 +359,7 @@ textarea.fi{height:90px;resize:vertical}
           <button class="tab" id="tab-c">🚗 Bilar</button>
           <button class="tab" id="tab-h">🔧 Historik</button>
           <button class="tab" id="tab-r">🧾 Kvitton</button>
+          <button class="tab" id="tab-insp">🚗 Besiktning</button>
         </div>
         <button class="btn-logout" id="logoutbtn">🔒 Logga ut</button>
       </div>
@@ -390,6 +391,7 @@ textarea.fi{height:90px;resize:vertical}
         <div class="divider">Ägare</div>
         <div class="fc2"><div><label class="fl">Namn</label><input class="fi" id="cown" placeholder="Anna Andersson"></div><div><label class="fl">Telefon</label><input class="fi" id="ctel" placeholder="070-123 45 67"></div></div>
         <label class="fl">E-post</label><input class="fi" id="cemail" type="email" placeholder="anna@epost.se">
+        <label class="fl">Nästa besiktning (datum)</label><input class="fi" type="date" id="cinsp">
         <label class="fl">Anteckningar</label><textarea class="fi" id="cnotes" placeholder="Extra info..."></textarea>
         <button class="btn-gold" id="savecarbtn" style="margin-top:14px">Spara bil</button>
       </div>
@@ -425,20 +427,62 @@ textarea.fi{height:90px;resize:vertical}
       </div>
       <div id="rout" style="margin-top:1.5rem"></div>
     </div>
+    <div id="tc-insp" class="tc">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <strong style="font-size:15px;color:#fff">Besiktningspåminnelser</strong>
+      </div>
+      <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.15);border-radius:10px;padding:1rem 1.25rem;margin-bottom:16px;font-size:13px;color:#aa8800;line-height:1.6">
+        <strong style="color:var(--gold);display:block;margin-bottom:3px">Automatisk påminnelse</strong>
+        Bilar vars besiktning går ut inom 60 dagar visas här med ägarens kontaktinfo.
+      </div>
+      <div id="insp-list"></div>
+    </div>
   </div>
 </div>
 <script>
+// localStorage mode
 
 var PW="Ahmad_rbwolf",unlocked=false,selCat="",popId=null,modIdx=null;
 var CATS=[{id:"service",e:"Service"},{id:"brakes",e:"Bromsar"},{id:"engine",e:"Motor"},{id:"tires",e:"Back"},{id:"electrical",e:"El"},{id:"gearbox",e:"Vaxellada"},{id:"steering",e:"Styrning"},{id:"inspection",e:"Besiktning"},{id:"suspension",e:"Fjadring"},{id:"other",e:"Ovrigt"}];
-var D={bookings:[],cars:[],jobs:[],nid:1};
+var D={bookings:{},cars:{},jobs:{}};
 
-function save(){try{localStorage.setItem("rbw7",JSON.stringify(D));var t=document.getElementById("toast");t.style.display="block";clearTimeout(window._tt);window._tt=setTimeout(function(){t.style.display="none"},2000)}catch(e){}}
-function load(){try{var s=localStorage.getItem("rbw7");if(s)D=JSON.parse(s)}catch(e){}}
-load();
-
+function showToast(){var t=document.getElementById("toast");t.style.display="block";clearTimeout(window._tt);window._tt=setTimeout(function(){t.style.display="none"},2000)}
 function catL(id){var c=CATS.find(function(x){return x.id===id});return c?c.e:"Ovrigt"}
 function G(id){return document.getElementById(id)}
+
+function saveData(){try{localStorage.setItem("rbw8",JSON.stringify(D));showToast()}catch(e){}}
+function loadData(){try{var s=localStorage.getItem("rbw8");if(s){var p=JSON.parse(s);D.bookings=p.bookings||{};D.cars=p.cars||{};D.jobs=p.jobs||{}}}catch(e){}}
+
+function fbSet(path,data){
+  var parts=path.split("/");
+  if(parts.length===1){D[parts[0]]=data}
+  else if(parts.length===2){if(!D[parts[0]])D[parts[0]]={};D[parts[0]][parts[1]]=data}
+  else if(parts.length===3){if(!D[parts[0]])D[parts[0]]={};if(!D[parts[0]][parts[1]])D[parts[0]][parts[1]]={};D[parts[0]][parts[1]][parts[2]]=data}
+  saveData();
+  if(unlocked){uStats();uBell();rBooks();rCars();rHist()}
+  return {then:function(cb){if(cb)cb();return this}};
+}
+function fbPush(path,data){
+  if(!D[path])D[path]={};
+  var key=Date.now().toString();
+  D[path][key]=data;
+  saveData();
+  if(unlocked){uStats();rHist()}
+  return {then:function(cb){if(cb)cb();return this}};
+}
+function fbRemove(path){
+  var parts=path.split("/");
+  if(parts.length===1)delete D[parts[0]];
+  else if(parts.length===2){if(D[parts[0]])delete D[parts[0]][parts[1]]}
+  saveData();
+  if(unlocked){uStats();uBell();rBooks();rCars();rHist()}
+  return {then:function(cb){if(cb)cb();return this}};
+}
+
+function loadAll(){
+  loadData();
+  uStats();uBell();
+}
 
 function showPage(p){
   document.querySelectorAll(".page").forEach(function(e){e.style.display="none";e.classList.remove("active")});
@@ -463,9 +507,11 @@ function showTab(t){
   if(t==="c")rCars();
   if(t==="h"){rHist();bCats()}
   if(t==="b")rBooks();
+  if(t==="insp")rInsp();
 }
 
 window.addEventListener("load",function(){
+  loadAll();
   G("logobtn").addEventListener("click",function(){showPage("home")});
   G("nb-home").addEventListener("click",function(){showPage("home")});
   G("nb-book").addEventListener("click",function(){showPage("book")});
@@ -478,6 +524,7 @@ window.addEventListener("load",function(){
   G("tab-c").addEventListener("click",function(){showTab("c")});
   G("tab-h").addEventListener("click",function(){showTab("h")});
   G("tab-r").addEventListener("click",function(){showTab("r")});
+  G("tab-insp").addEventListener("click",function(){showTab("insp")});
   G("logoutbtn").addEventListener("click",function(){unlocked=false;G("notifbtn").style.display="none";showPage("home")});
   G("loginbtn").addEventListener("click",function(){
     if(G("pw").value===PW){unlocked=true;G("lock").style.display="none";showAdmin()}
@@ -488,19 +535,20 @@ window.addEventListener("load",function(){
   G("skippopup").addEventListener("click",function(){G("popup").style.display="none";popId=null});
   G("cfmpopup").addEventListener("click",function(){
     if(!popId)return;
-    var idx=D.bookings.findIndex(function(b){return b.id===popId});
-    if(idx>=0){D.bookings[idx].status="confirmed";D.bookings[idx].isNew=false}
-    save();G("popup").style.display="none";popId=null;uBell();rBooks();
+    fbSet("bookings/"+popId+"/status","confirmed");
+    fbSet("bookings/"+popId+"/isNew",false);
+    G("popup").style.display="none";popId=null;
   });
   G("closemodal").addEventListener("click",function(){G("modal").style.display="none";modIdx=null});
   G("subbookbtn").addEventListener("click",function(){
     var n=G("bn").value.trim(),p=G("bp").value.trim(),r=G("br").value.trim().toUpperCase();
     if(!n||!p||!r){alert("Fyll i namn, telefon och reg.nr");return}
     var b={id:Date.now(),name:n,phone:p,email:G("be").value,reg:r,car:G("bc").value,date:G("bd").value,desc:G("bdesc").value,status:"pending",isNew:true};
-    D.bookings.push(b);save();
-    G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
-    G("bform").style.display="none";G("bokOk").style.display="block";
-    uStats();uBell();if(unlocked)showPopup(b);
+    fbSet("bookings/"+b.id,b).then(function(){
+      showToast();
+      G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
+      G("bform").style.display="none";G("bokOk").style.display="block";
+    });
   });
   G("newbookbtn").addEventListener("click",function(){
     G("bform").style.display="block";G("bokOk").style.display="none";
@@ -509,20 +557,25 @@ window.addEventListener("load",function(){
   G("addcarbtn").addEventListener("click",function(){var f=G("addcarform");f.style.display=f.style.display==="none"?"block":"none"});
   G("savecarbtn").addEventListener("click",function(){
     var r=G("creg").value.trim().toUpperCase(),m=G("cmake").value.trim();
-    if(!r||!m){alert("Reg.nr och märke krävs");return}
-    D.cars.push({reg:r,make:m,model:G("cmod").value,year:G("cyr").value,color:G("ccol").value,fuel:G("cfuel").value,mileage:G("cmil").value,owner:G("cown").value,phone:G("ctel").value,email:G("cemail").value,notes:G("cnotes").value});
-    ["creg","cmake","cmod","cyr","ccol","cmil","cown","ctel","cemail","cnotes"].forEach(function(id){G(id).value=""});
-    G("cfuel").value="";G("addcarform").style.display="none";
-    save();rCars();uStats();
+    if(!r||!m){alert("Reg.nr och marke kravs");return}
+    var car={reg:r,make:m,model:G("cmod").value,year:G("cyr").value,color:G("ccol").value,fuel:G("cfuel").value,mileage:G("cmil").value,owner:G("cown").value,phone:G("ctel").value,email:G("cemail").value,insp:G("cinsp").value,notes:G("cnotes").value};
+    fbSet("cars/"+r,car).then(function(){
+      showToast();
+      ["creg","cmake","cmod","cyr","ccol","cmil","cown","ctel","cemail","cnotes","cinsp"].forEach(function(id){G(id).value=""});
+      G("cfuel").value="";G("addcarform").style.display="none";
+    });
   });
   G("addjobbtn").addEventListener("click",function(){var f=G("addjobform");f.style.display=f.style.display==="none"?"block":"none";if(f.style.display==="block"){selCat="";bCats()}});
   G("savejobbtn").addEventListener("click",function(){
     var r=G("jreg").value.trim().toUpperCase(),d=G("jdesc").value.trim();
-    if(!r||!d){alert("Reg.nr och beskrivning krävs");return}
-    if(!selCat){alert("Välj kategori");return}
-    D.jobs.push({id:D.nid++,reg:r,cat:selCat,date:G("jdat").value,desc:d,price:parseInt(G("jpris").value)||0,mileage:G("jmil").value,mech:G("jmek").value,status:G("jstat").value,notes:G("jnotes").value});
-    ["jreg","jdat","jdesc","jpris","jmil","jmek","jnotes"].forEach(function(id){G(id).value=""});
-    selCat="";G("addjobform").style.display="none";save();rHist();uStats();
+    if(!r||!d){alert("Reg.nr och beskrivning kravs");return}
+    if(!selCat){alert("Valj kategori");return}
+    var job={reg:r,cat:selCat,date:G("jdat").value,desc:d,price:parseInt(G("jpris").value)||0,mileage:G("jmil").value,mech:G("jmek").value,status:G("jstat").value,notes:G("jnotes").value,ts:Date.now()};
+    fbPush("jobs",job).then(function(){
+      showToast();
+      ["jreg","jdat","jdesc","jpris","jmil","jmek","jnotes"].forEach(function(id){G(id).value=""});
+      selCat="";G("addjobform").style.display="none";
+    });
   });
   G("genrecbtn").addEventListener("click",genRec);
   G("printbtn").addEventListener("click",function(){window.print()});
@@ -541,59 +594,76 @@ function bCats(){
 }
 
 function uBell(){
-  var n=D.bookings.filter(function(b){return b.isNew});
+  var items=D.bookings?Object.values(D.bookings):[];
+  var n=items.filter(function(b){return b.isNew});
   if(unlocked){G("notifbtn").style.display="block";G("ndot").style.display=n.length?"block":"none"}
   var nb=G("nbadge");nb.style.display=n.length?"inline":"none";if(n.length)nb.textContent=n.length+" ny";
 }
 
 function showPopup(b){
   popId=b.id;G("callbtn").href="tel:"+b.phone.replace(/[^0-9+]/g,"");
-  G("popbody").innerHTML="<p><b>Kund:</b> "+b.name+"</p><p><b>Telefon:</b> "+b.phone+"</p><p><b>Bil:</b> "+b.reg+(b.car?" - "+b.car:"")+"</p>"+(b.date?"<p><b>Datum:</b> "+b.date+"</p>":"")+(b.desc?"<p><b>Ärende:</b> "+b.desc+"</p>":"");
+  G("popbody").innerHTML="<p><b style='color:#FFD600'>Kund:</b> <span style='color:#fff'>"+b.name+"</span></p><p><b style='color:#FFD600'>Telefon:</b> <span style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</span></p><p><b style='color:#FFD600'>Bil:</b> <span style='color:#fff'>"+b.reg+(b.car?" - "+b.car:"")+"</span></p>"+(b.date?"<p><b style='color:#FFD600'>Datum:</b> <span style='color:#fff'>"+b.date+"</span></p>":"")+(b.desc?"<p><b style='color:#FFD600'>Arende:</b> <span style='color:#fff'>"+b.desc+"</span></p>":"");
   G("popup").style.display="flex";
 }
 
-function openModal(idx){
-  modIdx=idx;var b=D.bookings[idx];b.isNew=false;save();uBell();rBooks();
-  var statusMap={pending:"Väntar",confirmed:"Bekräftad",done:"Avslutad"};
-  G("modalbody").innerHTML="<div class='mrow'><div><div class='mlbl'>Kund</div><div class='mval'>"+b.name+"</div></div></div><div class='mrow'><div><div class='mlbl'>Telefon</div><div class='mval' style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</div></div></div>"+(b.email?"<div class='mrow'><div><div class='mlbl'>E-post</div><div class='mval'>"+b.email+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Reg.nr</div><div class='mval'>"+b.reg+"</div></div></div>"+(b.car?"<div class='mrow'><div><div class='mlbl'>Bil</div><div class='mval'>"+b.car+"</div></div></div>":"")+(b.date?"<div class='mrow'><div><div class='mlbl'>Datum</div><div class='mval'>"+b.date+"</div></div></div>":"")+(b.desc?"<div class='mrow'><div><div class='mlbl'>Ärende</div><div class='mval'>"+b.desc+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Status</div><div class='mval'>"+statusMap[b.status]+"</div></div></div>";
+function openModal(key){
+  modIdx=key;
+  var b=D.bookings[key];
+  fbSet("bookings/"+key+"/isNew",false);
+  var statusMap={pending:"Vantar",confirmed:"Bekraftad",done:"Avslutad"};
+  G("modalbody").innerHTML="<div class='mrow'><div><div class='mlbl'>Kund</div><div class='mval'>"+b.name+"</div></div></div><div class='mrow'><div><div class='mlbl'>Telefon</div><div class='mval' style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</div></div></div>"+(b.email?"<div class='mrow'><div><div class='mlbl'>E-post</div><div class='mval'>"+b.email+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Reg.nr</div><div class='mval'>"+b.reg+"</div></div></div>"+(b.car?"<div class='mrow'><div><div class='mlbl'>Bil</div><div class='mval'>"+b.car+"</div></div></div>":"")+(b.date?"<div class='mrow'><div><div class='mlbl'>Datum</div><div class='mval'>"+b.date+"</div></div></div>":"")+(b.desc?"<div class='mrow'><div><div class='mlbl'>Arende</div><div class='mval'>"+b.desc+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Status</div><div class='mval'>"+statusMap[b.status]+"</div></div></div>";
   var ftr=G("modalftr");ftr.innerHTML="";
   var ca=document.createElement("a");ca.href="tel:"+b.phone.replace(/[^0-9+]/g,"");ca.className="btn-call";ca.style.flex="1";ca.textContent="Ring "+b.phone;ftr.appendChild(ca);
-  if(b.status!=="confirmed"){var cb=document.createElement("button");cb.className="btn-ok";cb.textContent="Bekräfta";cb.addEventListener("click",function(){D.bookings[modIdx].status="confirmed";save();G("modal").style.display="none";modIdx=null;rBooks();uBell()});ftr.appendChild(cb)}
-  var db=document.createElement("button");db.className="btn-del";db.style.cssText="width:100%;padding:10px;margin-top:4px";db.textContent="Ta bort bokning";db.addEventListener("click",function(){if(!confirm("Ta bort?"))return;D.bookings.splice(modIdx,1);save();G("modal").style.display="none";modIdx=null;rBooks();uStats();uBell()});ftr.appendChild(db);
+  if(b.status!=="confirmed"){
+    var cb=document.createElement("button");cb.className="btn-ok";cb.textContent="Bekrafta";
+    cb.addEventListener("click",function(){fbSet("bookings/"+key+"/status","confirmed");G("modal").style.display="none";modIdx=null});
+    ftr.appendChild(cb);
+  }
+  var db=document.createElement("button");db.className="btn-del";db.style.cssText="width:100%;padding:10px;margin-top:4px";db.textContent="Ta bort bokning";
+  db.addEventListener("click",function(){if(!confirm("Ta bort?"))return;fbRemove("bookings/"+key);G("modal").style.display="none";modIdx=null});
+  ftr.appendChild(db);
   G("modal").style.display="flex";
 }
 
 function rBooks(){
   var el=G("blist");
-  if(!D.bookings.length){el.innerHTML="<div class='empty'>Inga bokningar ännu</div>";return}
+  var items=D.bookings?Object.entries(D.bookings):[];
+  if(!items.length){el.innerHTML="<div class='empty'>Inga bokningar annu</div>";return}
   var clr={pending:"#f59e0b",confirmed:"#22c55e",done:"#9ca3af"};
-  var lbl={pending:"Väntar",confirmed:"Bekräftad",done:"Avslutad"};
+  var lbl={pending:"Vantar",confirmed:"Bekraftad",done:"Avslutad"};
   el.innerHTML="";
-  D.bookings.slice().reverse().forEach(function(b,ri){
-    var i=D.bookings.length-1-ri;
-    var div=document.createElement("div");
-    div.className="bi"+(b.isNew?" isnew":"");
+  items.reverse().forEach(function(entry){
+    var key=entry[0],b=entry[1];
+    var div=document.createElement("div");div.className="bi"+(b.isNew?" isnew":"");
     var dot=document.createElement("div");dot.className="bdot";dot.style.background=clr[b.status]||"#ccc";div.appendChild(dot);
     var inf=document.createElement("div");inf.className="binf";
     var nm=document.createElement("div");nm.className="bname";nm.textContent=b.name+" - "+b.reg+(b.car?" ("+b.car+")":"");inf.appendChild(nm);
     var dt=document.createElement("div");dt.className="bdet";dt.textContent=b.phone+(b.date?" - "+b.date:"")+(b.desc?" - "+b.desc.substring(0,25):"");inf.appendChild(dt);
-    var bdg=document.createElement("span");bdg.className="badge "+(b.status==="confirmed"?"bdone":"bwait");bdg.textContent=lbl[b.status];
+    var bdg=document.createElement("span");bdg.className="badge "+(b.status==="confirmed"?"bdone":"bwait");bdg.textContent=lbl[b.status]||b.status;
     var bdgw=document.createElement("div");bdgw.style.marginTop="4px";bdgw.appendChild(bdg);inf.appendChild(bdgw);
     div.appendChild(inf);
     var arr=document.createElement("div");arr.className="barr";arr.textContent=">";div.appendChild(arr);
-    div.addEventListener("click",function(){openModal(i)});
+    div.addEventListener("click",function(){openModal(key)});
     el.appendChild(div);
+    if(b.isNew&&unlocked)showPopup(b);
   });
 }
 
-function delCar(reg){if(!confirm("Radera "+reg+"?"))return;D.cars=D.cars.filter(function(c){return c.reg!==reg});D.jobs=D.jobs.filter(function(j){return j.reg!==reg});save();rCars();rHist();uStats()}
+function delCar(reg){
+  if(!confirm("Radera "+reg+"?"))return;
+  fbRemove("cars/"+reg);
+  var items=D.jobs?Object.entries(D.jobs):[];
+  items.forEach(function(e){if(e[1].reg===reg)fbRemove("jobs/"+e[0])});
+}
 
 function rCars(){
   var el=G("clist");
-  if(!D.cars.length){el.innerHTML="<div class='empty'>Inga bilar</div>";return}
+  var cars=D.cars?Object.values(D.cars):[];
+  if(!cars.length){el.innerHTML="<div class='empty'>Inga bilar</div>";return}
+  var jobs=D.jobs?Object.values(D.jobs):[];
   el.innerHTML="";
-  D.cars.forEach(function(c){
-    var jobs=D.jobs.filter(function(j){return j.reg===c.reg}),last=jobs.length?jobs[jobs.length-1]:null;
+  cars.forEach(function(c){
+    var cjobs=jobs.filter(function(j){return j.reg===c.reg}),last=cjobs.length?cjobs[cjobs.length-1]:null;
     var div=document.createElement("div");div.className="acard";
     var hdr=document.createElement("div");hdr.className="acard-hdr";
     var info=document.createElement("div");
@@ -605,33 +675,40 @@ function rCars(){
     right.appendChild(db);hdr.appendChild(right);div.appendChild(hdr);
     var body=document.createElement("div");body.className="acard-body";
     var grid=document.createElement("div");grid.className="cgrd";
-    [{l:"Färg",v:c.color},{l:"Drivmedel",v:c.fuel},{l:"Miltal",v:c.mileage?(c.mileage+" mil"):""},{l:"E-post",v:c.email},{l:"Jobb",v:jobs.length+" st"},{l:"Senaste",v:last?last.date:""}].forEach(function(item){
+    [{l:"Farg",v:c.color},{l:"Drivmedel",v:c.fuel},{l:"Miltal",v:c.mileage?(c.mileage+" mil"):""},{l:"Besiktning",v:c.insp||""},{l:"Jobb",v:cjobs.length+" st"},{l:"Senaste",v:last?last.date:""}].forEach(function(item){
       var cell=document.createElement("div");
-      cell.innerHTML="<span style='color:#aaa;display:block;font-size:10px'>"+item.l+"</span><span style='font-weight:600;color:#333;font-size:12px'>"+(item.v||"-")+"</span>";
+      cell.innerHTML="<span style='color:#444;display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px'>"+item.l+"</span><span style='font-weight:600;color:#fff;font-size:12px'>"+(item.v||"-")+"</span>";
       grid.appendChild(cell);
     });
     body.appendChild(grid);
-    if(c.notes){var n=document.createElement("div");n.style.cssText="margin-top:8px;font-size:12px;color:#888;background:#f9f9f9;padding:8px;border-radius:5px";n.textContent=c.notes;body.appendChild(n)}
+    if(c.notes){var n=document.createElement("div");n.style.cssText="margin-top:8px;font-size:12px;color:#555;background:rgba(255,255,255,.04);padding:8px;border-radius:5px";n.textContent=c.notes;body.appendChild(n)}
     div.appendChild(body);el.appendChild(div);
   });
 }
 
-function delJob(id){if(!confirm("Radera jobb?"))return;D.jobs=D.jobs.filter(function(j){return j.id!==id});save();rHist();uStats()}
+function delJob(key){
+  if(!confirm("Radera jobb?"))return;
+  fbRemove("jobs/"+key);
+}
 
 function rHist(){
   var el=G("hlist");
-  if(!D.jobs.length){el.innerHTML="<div class='empty'>Inga jobb</div>";return}
-  var byR={};D.jobs.forEach(function(j){if(!byR[j.reg])byR[j.reg]=[];byR[j.reg].push(j)});
-  var bc={done:"bdone",progress:"bprog",pending:"bwait"},bl={done:"Utfört",progress:"Pågående",pending:"Väntar"};
+  var allJobs=D.jobs?Object.entries(D.jobs):[];
+  var cars=D.cars?Object.values(D.cars):[];
+  if(!allJobs.length){el.innerHTML="<div class='empty'>Inga jobb</div>";return}
+  var byR={};
+  allJobs.forEach(function(e){var j=e[1];if(!byR[j.reg])byR[j.reg]=[];byR[j.reg].push({key:e[0],job:j})});
+  var bc={done:"bdone",progress:"bprog",pending:"bwait"},bl={done:"Utfort",progress:"Pagaende",pending:"Vantar"};
   el.innerHTML="";
   Object.keys(byR).forEach(function(reg){
-    var car=D.cars.find(function(c){return c.reg===reg});
+    var car=cars.find(function(c){return c.reg===reg});
     var div=document.createElement("div");div.className="acard";
     var hdr=document.createElement("div");hdr.className="acard-hdr";
-    hdr.innerHTML="<div><div class='creg'>"+reg+"</div><div class='cmake'>"+(car?car.make+(car.model?" "+car.model:""):"Okänd")+"</div></div>";
+    hdr.innerHTML="<div><div class='creg'>"+reg+"</div><div class='cmake'>"+(car?car.make+(car.model?" "+car.model:""):"Okand")+"</div></div>";
     div.appendChild(hdr);
     var body=document.createElement("div");body.className="acard-body";
-    byR[reg].forEach(function(j){
+    byR[reg].forEach(function(item){
+      var j=item.job,key=item.key;
       var row=document.createElement("div");row.className="jrow";
       var date=document.createElement("div");date.className="jdate";date.textContent=j.date;row.appendChild(date);
       var info=document.createElement("div");info.className="jinfo";
@@ -642,33 +719,81 @@ function rHist(){
       meta.textContent=(j.mech?j.mech+" ":"")+(j.mileage?j.mileage+" mil ":"");
       var bdg=document.createElement("span");bdg.className="badge "+(bc[j.status]||"bwait");bdg.textContent=bl[j.status]||j.status;
       meta.appendChild(bdg);info.appendChild(meta);
-      if(j.notes){var n=document.createElement("div");n.style.cssText="font-size:11px;color:#aaa;margin-top:2px";n.textContent=j.notes;info.appendChild(n)}
+      if(j.notes){var n=document.createElement("div");n.style.cssText="font-size:11px;color:#444;margin-top:2px";n.textContent=j.notes;info.appendChild(n)}
       row.appendChild(info);
       var right=document.createElement("div");right.style.cssText="display:flex;flex-direction:column;align-items:flex-end;gap:4px";
       var price=document.createElement("div");price.className="jprice";price.textContent=j.price.toLocaleString("sv")+" kr";right.appendChild(price);
       var db=document.createElement("button");db.className="btn-del";db.textContent="Radera";
-      db.addEventListener("click",(function(jid){return function(){delJob(jid)}})(j.id));
+      db.addEventListener("click",(function(k){return function(){delJob(k)}})(key));
       right.appendChild(db);row.appendChild(right);body.appendChild(row);
     });
     div.appendChild(body);el.appendChild(div);
   });
 }
 
-function fillRC(){var cs=G("rcar");cs.innerHTML="<option value=''>Välj bil</option>";D.cars.forEach(function(c){cs.innerHTML+="<option value='"+c.reg+"'>"+c.reg+" - "+c.make+(c.model?" "+c.model:"")+"</option>"});G("rjob").innerHTML="<option value=''>Välj jobb</option>"}
-function fillRJ(){var reg=G("rcar").value,rj=G("rjob");rj.innerHTML="<option value=''>Välj jobb</option>";D.jobs.filter(function(j){return j.reg===reg}).forEach(function(j){rj.innerHTML+="<option value='"+j.id+"'>"+j.date+" - "+catL(j.cat)+" - "+j.desc+"</option>"})}
+function rInsp(){
+  var el=G("insp-list");
+  var cars=D.cars?Object.values(D.cars):[];
+  if(!cars.length){el.innerHTML="<div class='empty'>Inga bilar registrerade</div>";return}
+  var today=new Date();
+  var withInsp=cars.filter(function(c){return c.insp});
+  if(!withInsp.length){el.innerHTML="<div class='empty'>Inga bilar med besiktningsdatum<br><span style='font-size:12px;display:block;margin-top:6px'>Lagg till besiktningsdatum under Bilar</span></div>";return}
+  withInsp.sort(function(a,b){return new Date(a.insp)-new Date(b.insp)});
+  el.innerHTML="";
+  withInsp.forEach(function(c){
+    var d=new Date(c.insp);
+    var diff=Math.round((d-today)/(1000*60*60*24));
+    var color=diff<0?"#f87171":diff<30?"#fb923c":diff<60?"#eab308":"#22c55e";
+    var status=diff<0?"FORFALLEN":"OM "+diff+" DAGAR";
+    var div=document.createElement("div");div.className="acard";
+    div.style.borderColor=diff<60?"rgba(234,179,8,.3)":"";
+    div.innerHTML="<div class='acard-hdr'><div><div class='creg'>"+c.reg+"</div><div class='cmake'>"+c.make+(c.model?" "+c.model:"")+(c.year?" - "+c.year:"")+"</div></div><div style='text-align:right'><div style='font-size:13px;font-weight:700;color:"+color+"'>"+status+"</div><div style='font-size:12px;color:#444;margin-top:3px'>"+c.insp+"</div></div></div><div class='acard-body'><div style='display:grid;grid-template-columns:1fr 1fr;gap:10px'><div><span style='color:#444;display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px'>Agare</span><span style='color:#fff;font-weight:600;font-size:13px'>"+c.owner+"</span></div><div><span style='color:#444;display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px'>Telefon</span><a href='tel:"+c.phone.replace(/[^0-9+]/g,"")+"' style='color:#FFD600;font-weight:700;font-size:14px;text-decoration:none'>"+c.phone+"</a></div></div></div>";
+    el.appendChild(div);
+  });
+}
+
+function fillRC(){
+  var cs=G("rcar");
+  var cars=D.cars?Object.values(D.cars):[];
+  cs.innerHTML="<option value=''>Valj bil</option>";
+  cars.forEach(function(c){cs.innerHTML+="<option value='"+c.reg+"'>"+c.reg+" - "+c.make+(c.model?" "+c.model:"")+"</option>"});
+  G("rjob").innerHTML="<option value=''>Valj jobb</option>";
+}
+
+function fillRJ(){
+  var reg=G("rcar").value;
+  var rj=G("rjob");
+  var jobs=D.jobs?Object.entries(D.jobs):[];
+  rj.innerHTML="<option value=''>Valj jobb</option>";
+  jobs.filter(function(e){return e[1].reg===reg}).forEach(function(e){
+    rj.innerHTML+="<option value='"+e[0]+"'>"+e[1].date+" - "+catL(e[1].cat)+" - "+e[1].desc+"</option>"
+  });
+}
 
 function genRec(){
-  var reg=G("rcar").value,jid=parseInt(G("rjob").value);
-  if(!reg||!jid){alert("Välj bil och jobb");return}
-  var car=D.cars.find(function(c){return c.reg===reg}),job=D.jobs.find(function(j){return j.id===jid});
+  var reg=G("rcar").value,jkey=G("rjob").value;
+  if(!reg||!jkey){alert("Valj bil och jobb");return}
+  var cars=D.cars?Object.values(D.cars):[];
+  var car=cars.find(function(c){return c.reg===reg});
+  var job=D.jobs?D.jobs[jkey]:null;
   if(!car||!job)return;
-  var moms=Math.round(job.price*.25),ex=job.price-moms,kv="KV-"+job.id+"-"+Date.now().toString().slice(-4),dag=new Date().toLocaleDateString("sv-SE");
+  var moms=Math.round(job.price*.25),ex=job.price-moms;
+  var kv="KV-"+Date.now().toString().slice(-6),dag=new Date().toLocaleDateString("sv-SE");
+  var LOGO=document.querySelector(".logo-img").src;
   var rout=G("rout");rout.innerHTML="";
   var box=document.createElement("div");box.className="rec-box";
-  box.innerHTML="<div class='rec-top'><img src='data:image/jpeg;base64,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'><div><div class='rec-co'>RBwolf Bilverkstad</div><div style='font-size:11px;color:#aaa'>073-933 44 46</div></div><div style='margin-left:auto;text-align:right;font-size:12px;color:#aaa'><strong style='color:#111'>"+kv+"</strong><br>"+dag+"</div></div><div class='rec-row'><span class='rec-lbl'>Kund</span><span>"+car.owner+"</span></div>"+(car.phone?"<div class='rec-row'><span class='rec-lbl'>Tel</span><span>"+car.phone+"</span></div>":"")+"<div class='rec-row'><span class='rec-lbl'>Reg.nr</span><span>"+reg+"</span></div><div class='rec-row'><span class='rec-lbl'>Fordon</span><span>"+car.make+(car.model?" "+car.model:"")+(car.year?" ("+car.year+")":"")+"</span></div><div class='rec-row'><span class='rec-lbl'>Kategori</span><span>"+catL(job.cat)+"</span></div><div class='rec-row'><span class='rec-lbl'>Arbete</span><span>"+job.desc+"</span></div>"+(job.mech?"<div class='rec-row'><span class='rec-lbl'>Mekaniker</span><span>"+job.mech+"</span></div>":"")+"<div class='rec-row'><span class='rec-lbl'>Exkl. moms</span><span>"+ex.toLocaleString("sv")+" kr</span></div><div class='rec-row'><span class='rec-lbl'>Moms 25%</span><span>"+moms.toLocaleString("sv")+" kr</span></div><div class='rec-row tot'><span>Totalt</span><span>"+job.price.toLocaleString("sv")+" kr</span></div><div class='rec-meta'>RBwolf Bilverkstad - Ugnsvägen 4A, 295 39 Bromölla - 073-933 44 46</div>";
+  box.innerHTML="<div class='rec-top'><img src='"+LOGO+"'><div><div class='rec-co'>RBwolf Bilverkstad</div><div style='font-size:11px;color:#444'>073-933 44 46</div></div><div style='margin-left:auto;text-align:right;font-size:12px;color:#444'><strong style='color:#fff'>"+kv+"</strong><br>"+dag+"</div></div><div class='rec-row'><span class='rec-lbl'>Kund</span><span>"+car.owner+"</span></div>"+(car.phone?"<div class='rec-row'><span class='rec-lbl'>Tel</span><span>"+car.phone+"</span></div>":"")+"<div class='rec-row'><span class='rec-lbl'>Reg.nr</span><span>"+reg+"</span></div><div class='rec-row'><span class='rec-lbl'>Fordon</span><span>"+car.make+(car.model?" "+car.model:"")+(car.year?" ("+car.year+")":"")+"</span></div><div class='rec-row'><span class='rec-lbl'>Kategori</span><span>"+catL(job.cat)+"</span></div><div class='rec-row'><span class='rec-lbl'>Arbete</span><span>"+job.desc+"</span></div>"+(job.mech?"<div class='rec-row'><span class='rec-lbl'>Mekaniker</span><span>"+job.mech+"</span></div>":"")+"<div class='rec-row'><span class='rec-lbl'>Exkl. moms</span><span>"+ex.toLocaleString("sv")+" kr</span></div><div class='rec-row'><span class='rec-lbl'>Moms 25%</span><span>"+moms.toLocaleString("sv")+" kr</span></div><div class='rec-row tot'><span>Totalt</span><span>"+job.price.toLocaleString("sv")+" kr</span></div><div class='rec-meta'>RBwolf Bilverkstad - Ugnsvägen 4A, 295 39 Bromölla - 073-933 44 46</div>";
   rout.appendChild(box);
 }
 
-function uStats(){G("s1").textContent=D.bookings.length;G("s2").textContent=D.cars.length;var done=D.jobs.filter(function(j){return j.status==="done"});G("s3").textContent=done.length;G("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr"}
-uStats();
+function uStats(){
+  var bookings=D.bookings?Object.values(D.bookings):[];
+  var cars=D.cars?Object.values(D.cars):[];
+  var jobs=D.jobs?Object.values(D.jobs):[];
+  G("s1").textContent=bookings.length;
+  G("s2").textContent=cars.length;
+  var done=jobs.filter(function(j){return j.status==="done"});
+  G("s3").textContent=done.length;
+  G("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr";
+}
 </script></body></html>
