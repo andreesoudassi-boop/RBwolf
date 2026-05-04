@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="sv">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RBwolf Bilverkstad</title>
-
 <style>
 .page{display:none;min-height:100vh}
 .page.active{display:block}
@@ -16,12 +14,9 @@ nav{background:#111;padding:0 1.25rem;display:flex;align-items:center;justify-co
 .logo-img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #FFD600}
 .logo-text{font-family:'Arial Black',sans-serif;font-size:22px;color:#FFD600;letter-spacing:2px}
 .nav-links{display:flex;gap:4px;align-items:center}
-.nbtn{background:none;border:none;color:#888;font-family:Arial,sans-serif;font-size:13px;font-weight:600;padding:7px 13px;cursor:pointer;border-radius:4px;text-transform:uppercase}
+.nbtn{background:none;border:none;color:#888;font-size:13px;font-weight:600;padding:7px 13px;cursor:pointer;border-radius:4px;text-transform:uppercase}
 .nbtn.act{color:#FFD600;background:rgba(255,214,0,.1)}
-.notifbtn{background:none;border:none;cursor:pointer;padding:8px;display:none;position:relative}
-.notifbtn svg{width:20px;height:20px;fill:#888}
-.ndot{position:absolute;top:4px;right:4px;width:9px;height:9px;background:#ff3b3b;border-radius:50%;display:none;border:2px solid #111}
-.hero{background:#111;padding:5rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden}
+.hero{background:#111;padding:5rem 1.5rem 4rem;text-align:center}
 .hero-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;margin:0 auto 1.5rem;display:block;border:3px solid rgba(255,214,0,.5)}
 .hero-tag{display:inline-block;background:rgba(255,214,0,.1);color:#FFD600;font-size:11px;font-weight:700;letter-spacing:3px;padding:4px 14px;border-radius:20px;margin-bottom:1.25rem;border:1px solid rgba(255,214,0,.2)}
 .hero h1{font-family:'Arial Black',sans-serif;font-size:clamp(60px,14vw,100px);color:#fff;line-height:.95;letter-spacing:2px}
@@ -33,8 +28,8 @@ nav{background:#111;padding:0 1.25rem;display:flex;align-items:center;justify-co
 .hi{text-align:center;padding:1.25rem .5rem}
 .hi-num{font-family:'Arial Black',sans-serif;font-size:22px;color:#FFD600}
 .hi-lbl{font-size:10px;color:#555;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:2px}
-.btn-gold{background:#FFD600;color:#111;border:none;padding:12px 26px;font-family:Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase}
-.btn-out{background:none;color:#FFD600;border:2px solid rgba(255,214,0,.5);padding:11px 24px;font-family:Arial,sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase}
+.btn-gold{background:#FFD600;color:#111;border:none;padding:12px 26px;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase}
+.btn-out{background:none;color:#FFD600;border:2px solid rgba(255,214,0,.5);padding:11px 24px;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase}
 .svc-sec{padding:4rem 1.5rem;background:#fff}
 .sec-inner{max-width:860px;margin:0 auto}
 .eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;color:#FFD600;text-transform:uppercase;margin-bottom:.4rem}
@@ -43,7 +38,7 @@ nav{background:#111;padding:0 1.25rem;display:flex;align-items:center;justify-co
 .svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2px}
 .svc{background:#111;padding:1.5rem}
 .svc-ico{font-size:22px;display:block;margin-bottom:.75rem}
-.svc h3{font-family:'Arial Black',sans-serif;font-size:19px;color:#fff;letter-spacing:1px;margin-bottom:.4rem}
+.svc h3{font-family:'Arial Black',sans-serif;font-size:16px;color:#fff;margin-bottom:.4rem}
 .svc p{font-size:12px;color:#666;line-height:1.6}
 .contact-sec{background:#111;padding:4rem 1.5rem}
 .contact-inner{max-width:860px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
@@ -57,65 +52,56 @@ nav{background:#111;padding:0 1.25rem;display:flex;align-items:center;justify-co
 .binner{padding:1.75rem}
 .bhdr{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid #f0f0f0}
 .bnum{width:30px;height:30px;background:#111;color:#FFD600;display:flex;align-items:center;justify-content:center;font-family:'Arial Black',sans-serif;font-size:17px;border-radius:4px}
-.bttl{font-family:'Arial Black',sans-serif;font-size:21px;letter-spacing:1px}
-.notice{background:#fffbea;border:1px solid #ffe066;border-radius:7px;padding:.875rem 1rem;margin-bottom:1.25rem;display:flex;gap:8px}
-.n-ico{font-size:17px;flex-shrink:0;margin-top:1px;color:#cc9900}
-.n-txt{font-size:13px;color:#665500;line-height:1.5}
-.n-txt strong{display:block;font-weight:700;color:#443700;margin-bottom:2px}
+.bttl{font-family:'Arial Black',sans-serif;font-size:18px;letter-spacing:1px}
+.notice{background:#fffbea;border:1px solid #ffe066;border-radius:7px;padding:.875rem 1rem;margin-bottom:1.25rem;font-size:13px;color:#665500}
 .fl{display:block;font-size:11px;font-weight:700;color:#777;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;margin-top:12px}
-.fi{width:100%;padding:10px 12px;border:1.5px solid #e5e5e5;border-radius:6px;font-family:Arial,sans-serif;font-size:14px;color:#111;background:#fff;outline:none}
+.fi{width:100%;padding:10px 12px;border:1.5px solid #e5e5e5;border-radius:6px;font-size:14px;color:#111;background:#fff;outline:none}
 .fi:focus{border-color:#FFD600}
 textarea.fi{height:82px;resize:vertical}
 .ok-wrap{text-align:center;padding:2.5rem 1.5rem}
-.ok-wrap h3{font-family:'Arial Black',sans-serif;font-size:26px;letter-spacing:1px;margin:.75rem 0}
+.ok-wrap h3{font-family:'Arial Black',sans-serif;font-size:22px;margin:.75rem 0}
 .lock{position:fixed;inset:0;background:#111;display:flex;align-items:center;justify-content:center;z-index:999}
 .lockbox{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;padding:2.25rem;width:90%;max-width:320px;text-align:center}
 .lock-logo{width:70px;height:70px;border-radius:50%;object-fit:cover;border:2px solid #FFD600;margin:0 auto 1rem;display:block}
-.lock-ttl{font-family:'Arial Black',sans-serif;font-size:26px;color:#FFD600;letter-spacing:3px;margin-bottom:.3rem}
+.lock-ttl{font-family:'Arial Black',sans-serif;font-size:22px;color:#FFD600;margin-bottom:.3rem}
 .lock-sub{font-size:12px;color:#555;margin-bottom:1.25rem}
-.lock-input{width:100%;padding:12px;background:#111;border:1.5px solid #2a2a2a;border-radius:6px;color:#fff;font-family:Arial,sans-serif;font-size:15px;outline:none;text-align:center;letter-spacing:2px}
+.lock-input{width:100%;padding:12px;background:#111;border:1.5px solid #2a2a2a;border-radius:6px;color:#fff;font-size:15px;outline:none;text-align:center;letter-spacing:2px}
 .lock-input:focus{border-color:#FFD600}
 .lock-err{color:#ff4444;font-size:12px;margin-top:6px;display:none}
 .popup{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:998;display:flex;align-items:center;justify-content:center;padding:1rem}
 .popbox{background:#fff;border-radius:14px;width:100%;max-width:380px;overflow:hidden}
 .pop-hdr{background:#111;padding:1.1rem 1.25rem;display:flex;align-items:center;gap:8px}
-.pop-ttl{font-family:'Arial Black',sans-serif;font-size:20px;color:#FFD600;letter-spacing:2px;flex:1}
+.pop-ttl{font-family:'Arial Black',sans-serif;font-size:16px;color:#FFD600;flex:1}
 .pop-close{background:none;border:none;color:#666;font-size:20px;cursor:pointer}
-.pop-body{padding:1.25rem;display:flex;flex-direction:column;gap:10px}
-.prow{display:flex;gap:10px}
-.pico{font-size:16px;flex-shrink:0;margin-top:2px}
-.plbl{font-size:10px;color:#aaa;font-weight:700;text-transform:uppercase;margin-bottom:2px}
-.pval{font-size:14px;font-weight:600;color:#111}
+.pop-body{padding:1.25rem}
 .pop-ftr{padding:.875rem 1.25rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap}
-.btn-call{background:#22c55e;color:#fff;border:none;padding:11px 14px;border-radius:7px;flex:1;font-weight:700;cursor:pointer;text-decoration:none;display:block;text-align:center;font-size:13px;font-family:Arial,sans-serif}
-.btn-ok{background:#FFD600;color:#111;border:none;padding:11px 14px;border-radius:7px;flex:1;font-weight:700;cursor:pointer;font-size:13px;font-family:Arial,sans-serif}
-.btn-skip{background:none;border:1px solid #e5e5e5;color:#888;padding:9px;border-radius:7px;width:100%;margin-top:3px;cursor:pointer;font-size:13px;font-family:Arial,sans-serif}
+.btn-call{background:#22c55e;color:#fff;border:none;padding:11px 14px;border-radius:7px;flex:1;font-weight:700;cursor:pointer;text-decoration:none;display:block;text-align:center;font-size:13px}
+.btn-ok{background:#FFD600;color:#111;border:none;padding:11px 14px;border-radius:7px;flex:1;font-weight:700;cursor:pointer;font-size:13px}
+.btn-skip{background:none;border:1px solid #e5e5e5;color:#888;padding:9px;border-radius:7px;width:100%;margin-top:3px;cursor:pointer;font-size:13px}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:997;display:flex;align-items:center;justify-content:center;padding:1rem}
 .modbox{background:#fff;border-radius:14px;width:100%;max-width:380px;overflow:hidden;max-height:90vh;overflow-y:auto}
 .mod-hdr{background:#111;padding:1.1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0}
-.mod-ttl{font-family:'Arial Black',sans-serif;font-size:20px;color:#FFD600;letter-spacing:2px}
+.mod-ttl{font-family:'Arial Black',sans-serif;font-size:16px;color:#FFD600}
 .mod-close{background:none;border:none;color:#666;font-size:22px;cursor:pointer}
 .mod-body{padding:1.25rem}
 .mod-ftr{padding:.875rem 1.25rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap}
 .adm-wrap{padding:1.5rem;background:#f5f5f0}
 .adm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px}
-.adm-ttl{font-family:'Arial Black',sans-serif;font-size:26px;letter-spacing:2px}
+.adm-ttl{font-family:'Arial Black',sans-serif;font-size:22px;letter-spacing:2px}
 .tabs{display:flex;gap:3px;background:#111;border-radius:7px;padding:4px;flex-wrap:wrap}
-.tab{padding:7px 12px;font-family:Arial,sans-serif;font-size:11px;font-weight:700;color:#666;border:none;background:none;cursor:pointer;border-radius:5px;text-transform:uppercase;letter-spacing:.5px}
+.tab{padding:7px 12px;font-size:11px;font-weight:700;color:#666;border:none;background:none;cursor:pointer;border-radius:5px;text-transform:uppercase}
 .tab.act{background:#FFD600;color:#111}
 .tc{display:none}.tc.act{display:block}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.25rem}
 .stat{background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:.875rem;text-align:center}
-.sn{font-family:'Arial Black',sans-serif;font-size:26px;color:#111}
+.sn{font-family:'Arial Black',sans-serif;font-size:24px;color:#111}
 .sl{font-size:10px;color:#888;text-transform:uppercase;font-weight:700;margin-top:2px}
 .acard{background:#fff;border:1px solid #e5e5e5;border-radius:8px;margin-bottom:10px;overflow:hidden}
 .acard-hdr{padding:.875rem 1rem;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid #f0f0f0;flex-wrap:wrap;gap:6px}
 .acard-body{padding:.875rem 1rem}
-.creg{font-family:'Arial Black',sans-serif;font-size:20px;letter-spacing:2px;color:#111}
+.creg{font-family:'Arial Black',sans-serif;font-size:18px;letter-spacing:2px;color:#111}
 .cmake{font-size:12px;color:#888;margin-top:2px}
 .cgrd{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid #f5f5f5;font-size:11px}
-.cl{color:#aaa;display:block}
-.cv{font-weight:600;color:#333;font-size:12px;margin-top:1px}
 .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700}
 .bdone{background:#dcfce7;color:#166534}
 .bprog{background:#dbeafe;color:#1e40af}
@@ -129,7 +115,6 @@ textarea.fi{height:82px;resize:vertical}
 .jmeta{font-size:11px;color:#aaa}
 .jprice{font-size:13px;color:#22c55e;font-weight:700}
 .addf{background:#f9f9f9;border:1px dashed #ddd;border-radius:8px;padding:1rem;margin-top:10px}
-.addf-ttl{font-size:10px;font-weight:700;text-transform:uppercase;color:#aaa;margin-bottom:8px;letter-spacing:1px}
 .fc2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .fc3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .catg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px}
@@ -141,38 +126,39 @@ textarea.fi{height:82px;resize:vertical}
 .bdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .binf{flex:1}
 .bname{font-size:14px;font-weight:700;color:#111}
-.bdet{font-size:12px;color:#888;margin-top:2px;line-height:1.4}
+.bdet{font-size:12px;color:#888;margin-top:2px}
 .barr{color:#ddd;font-size:18px}
 .btn-del{background:#fee2e2;color:#991b1b;border:none;padding:5px 9px;border-radius:5px;cursor:pointer;font-size:11px;font-weight:700}
-.btn-logout{background:none;border:1px solid #333;color:#666;font-family:Arial,sans-serif;font-size:11px;font-weight:700;padding:6px 12px;cursor:pointer;border-radius:5px;text-transform:uppercase}
+.btn-logout{background:none;border:1px solid #333;color:#666;font-size:11px;font-weight:700;padding:6px 12px;cursor:pointer;border-radius:5px;text-transform:uppercase}
 .rec-box{background:#fff;border:1px solid #e5e5e5;border-radius:8px;max-width:440px;padding:1.75rem}
 .rec-top{display:flex;align-items:center;gap:10px;margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:2px solid #111}
 .rec-top img{width:38px;height:38px;border-radius:50%;object-fit:cover}
-.rec-co{font-family:'Arial Black',sans-serif;font-size:19px;letter-spacing:2px;color:#111}
+.rec-co{font-family:'Arial Black',sans-serif;font-size:16px;letter-spacing:1px;color:#111}
 .rec-row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid #f5f5f5}
 .rec-row.tot{font-weight:700;font-size:14px;border:none;border-top:2px solid #111;margin-top:6px;padding-top:8px}
 .rec-lbl{color:#888}
 .rec-meta{font-size:11px;color:#aaa;margin-top:1rem;text-align:center;line-height:2}
 .toast{position:fixed;bottom:20px;right:20px;background:#22c55e;color:#fff;padding:10px 18px;border-radius:20px;font-weight:700;display:none;z-index:500;font-size:13px}
-.divider{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin:10px 0 6px;padding-bottom:5px;border-bottom:1px solid #e5e5e5}
-.empty{text-align:center;color:#aaa;font-size:14px;padding:2rem}
 .mrow{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5;align-items:flex-start}
 .mrow:last-child{border-bottom:none}
-.mico{font-size:17px;flex-shrink:0}
 .mlbl{font-size:10px;color:#aaa;font-weight:700;text-transform:uppercase;margin-bottom:2px}
 .mval{font-size:14px;font-weight:500;color:#111}
-@media(max-width:600px){.hero h1{font-size:64px}.contact-inner{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.fc2{grid-template-columns:1fr}.fc3{grid-template-columns:1fr 1fr}.tabs{gap:2px}.tab{padding:6px 8px;font-size:10px}.svc-grid{grid-template-columns:1fr 1fr}}
+.notifbtn{background:none;border:none;cursor:pointer;padding:8px;display:none;position:relative}
+.notifbtn svg{width:20px;height:20px;fill:#aaa}
+.ndot{position:absolute;top:4px;right:4px;width:9px;height:9px;background:#ff3b3b;border-radius:50%;display:none;border:2px solid #111}
+.divider{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin:10px 0 6px;padding-bottom:5px;border-bottom:1px solid #e5e5e5}
+.empty{text-align:center;color:#aaa;font-size:14px;padding:2rem}
+@media(max-width:600px){.hero h1{font-size:64px}.contact-inner{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.fc2{grid-template-columns:1fr}.fc3{grid-template-columns:1fr 1fr}.svc-grid{grid-template-columns:1fr 1fr}}
 </style>
-
 </head>
 <body>
 <div id="toast" class="toast">Sparat!</div>
 <div id="lock" class="lock" style="display:none">
   <div class="lockbox">
-    <img id="lock-logo" class="lock-logo" alt="RBwolf">
+    <img id="lock-logo" class="lock-logo" src="logo.jpg" alt="RBwolf">
     <div class="lock-ttl">Admin</div>
     <div class="lock-sub">Ange lösenord</div>
-    <input class="lock-input" type="password" id="pw" placeholder="••••••••••">
+    <input class="lock-input" type="password" id="pw" placeholder="Lösenord">
     <div class="lock-err" id="pwerr">Fel lösenord</div>
     <button class="btn-gold" id="loginbtn" style="width:100%;margin-top:14px;padding:13px">Logga in</button>
   </div>
@@ -197,7 +183,7 @@ textarea.fi{height:82px;resize:vertical}
 </div>
 <nav>
   <div class="logo-wrap" id="logobtn">
-    <img id="nav-logo" class="logo-img" alt="RBwolf">
+    <img id="nav-logo" class="logo-img" src="logo.jpg" alt="RBwolf">
     <span class="logo-text">RBwolf</span>
   </div>
   <div class="nav-links">
@@ -213,9 +199,9 @@ textarea.fi{height:82px;resize:vertical}
 <div id="pg-home" class="page active">
   <div class="hero">
     <div class="hero-tag">Bilverkstad i Bromölla</div>
-    <img id="hero-logo" class="hero-logo" alt="RBwolf">
+    <img class="hero-logo" src="logo.jpg" alt="RBwolf">
     <h1>RB<span>WOLF</span></h1>
-    <div class="hero-sub">Service · Reparationer · Felsökning</div>
+    <div class="hero-sub">Service - Reparationer - Felsökning</div>
     <p>Vi tar hand om din bil som om det vore vår egen.</p>
     <div class="hero-btns">
       <button class="btn-gold" id="herobookbtn">Boka tid</button>
@@ -223,22 +209,22 @@ textarea.fi{height:82px;resize:vertical}
     </div>
   </div>
   <div class="hours-bar">
-    <div class="hi"><div class="hi-num">09-18</div><div class="hi-lbl">Man-Fre</div></div>
-    <div class="hi"><div class="hi-num">10-16</div><div class="hi-lbl">Lordag</div></div>
-    <div class="hi"><div class="hi-num">Stangt</div><div class="hi-lbl">Sondag</div></div>
+    <div class="hi"><div class="hi-num">09-18</div><div class="hi-lbl">Mån-Fre</div></div>
+    <div class="hi"><div class="hi-num">10-16</div><div class="hi-lbl">Lördag</div></div>
+    <div class="hi"><div class="hi-num">Stängt</div><div class="hi-lbl">Söndag</div></div>
   </div>
   <div class="svc-sec">
     <div class="sec-inner">
-      <div class="eyebrow">Vad vi gor</div>
-      <div class="big-ttl">Vara tjanster</div>
-      <div class="sub-txt">Allt fran enklare service till komplexa reparationer.</div>
+      <div class="eyebrow">Vad vi gör</div>
+      <div class="big-ttl">Våra tjänster</div>
+      <div class="sub-txt">Allt från enklare service till komplexa reparationer.</div>
       <div class="svc-grid">
-        <div class="svc"><span class="svc-ico">⚙️</span><h3>Service och Olja</h3><p>Oljebyte, filter och vatskor.</p></div>
+        <div class="svc"><span class="svc-ico">⚙️</span><h3>Service och Olja</h3><p>Oljebyte, filter och vätskor.</p></div>
         <div class="svc"><span class="svc-ico">🔧</span><h3>Reparationer</h3><p>Motor, bromsar och styrning.</p></div>
-        <div class="svc"><span class="svc-ico">🔍</span><h3>Felsokning</h3><p>Modern diagnos.</p></div>
-        <div class="svc"><span class="svc-ico">🛞</span><h3>Back och Hjul</h3><p>Sasonsbyte och balansering.</p></div>
+        <div class="svc"><span class="svc-ico">🔍</span><h3>Felsökning</h3><p>Modern diagnos.</p></div>
+        <div class="svc"><span class="svc-ico">🛞</span><h3>Däck och Hjul</h3><p>Säsongsbyte och balansering.</p></div>
         <div class="svc"><span class="svc-ico">💡</span><h3>El och Belysning</h3><p>Lampbyte, elsystem, batteri.</p></div>
-        <div class="svc"><span class="svc-ico">🚗</span><h3>Besiktning</h3><p>Forberedelse och anmarkningar.</p></div>
+        <div class="svc"><span class="svc-ico">🚗</span><h3>Besiktning</h3><p>Förberedelse och anmärkningar.</p></div>
       </div>
     </div>
   </div>
@@ -247,13 +233,13 @@ textarea.fi{height:82px;resize:vertical}
       <div>
         <div class="eyebrow">Kontakt</div>
         <div class="big-ttl" style="color:#fff">Hitta oss</div>
-        <p style="color:#555;font-size:14px;line-height:1.8;margin-top:.75rem;margin-bottom:1.5rem">Valkommen in eller boka tid nedan.</p>
+        <p style="color:#555;font-size:14px;line-height:1.8;margin-top:.75rem;margin-bottom:1.5rem">Välkommen in eller boka tid nedan.</p>
         <button class="btn-gold" id="contactbookbtn">Boka tid nu</button>
       </div>
       <div class="contact-items">
         <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-lbl">Telefon</div><div class="ci-val">073-933 44 46</div></div></div>
         <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-lbl">Adress</div><div class="ci-val">Ugnsvägen 4A, 295 39 Bromölla</div></div></div>
-        <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-lbl">Öppettider</div><div class="ci-val">Mån–Fre 09–18, Lör 10–16, Sön Stängt</div></div></div>
+        <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-lbl">Öppettider</div><div class="ci-val">Mån-Fre 09-18, Lör 10-16, Sön Stängt</div></div></div>
       </div>
     </div>
   </div>
@@ -264,21 +250,21 @@ textarea.fi{height:82px;resize:vertical}
     <div id="bform" class="bcard">
       <div class="binner">
         <div class="bhdr"><div class="bnum">1</div><div class="bttl">Dina uppgifter</div></div>
-        <div class="notice"><div class="n-ico">📞</div><div class="n-txt"><strong>Vi ringer dig!</strong>En mekaniker ringer upp för att bekräfta. Ring direkt: 073-933 44 46</div></div>
+        <div class="notice">Vi ringer dig! En mekaniker ringer upp för att bekräfta. Ring direkt: 073-933 44 46</div>
         <label class="fl">Namn</label><input class="fi" type="text" id="bn" placeholder="Anna Andersson">
         <label class="fl">Telefon</label><input class="fi" type="tel" id="bp" placeholder="070-123 45 67">
         <label class="fl">E-post</label><input class="fi" type="email" id="be" placeholder="din@epost.se">
         <label class="fl">Registreringsnummer</label><input class="fi" type="text" id="br" placeholder="ABC123" style="text-transform:uppercase">
-        <label class="fl">Bilmarke och modell</label><input class="fi" type="text" id="bc" placeholder="Volvo V70 2018">
-        <label class="fl">Onskat datum</label><input class="fi" type="date" id="bd">
-        <label class="fl">Beskriv arendet</label><textarea class="fi" id="bdesc" placeholder="Vad behover din bil?"></textarea>
-        <button class="btn-gold" id="subbookbtn" style="width:100%;padding:14px;margin-top:14px">Skicka bokningsforfragning</button>
+        <label class="fl">Bilmärke och modell</label><input class="fi" type="text" id="bc" placeholder="Volvo V70 2018">
+        <label class="fl">Önskat datum</label><input class="fi" type="date" id="bd">
+        <label class="fl">Beskriv ärendet</label><textarea class="fi" id="bdesc" placeholder="Vad behöver din bil?"></textarea>
+        <button class="btn-gold" id="subbookbtn" style="width:100%;padding:14px;margin-top:14px">Skicka bokningsförfrågan</button>
       </div>
     </div>
     <div id="bokOk" class="bcard" style="display:none">
       <div class="ok-wrap">
         <div style="font-size:48px">✅</div>
-        <h3>Forfragning skickad!</h3>
+        <h3>Förfrågan skickad!</h3>
         <p style="color:#888">Vi ringer upp dig inom kort.</p>
         <div id="bconf" style="margin-top:1rem;padding:.875rem;background:#f9f9f9;border-radius:7px;font-size:13px;color:#888;text-align:left;line-height:1.9"></div>
         <button class="btn-gold" id="newbookbtn" style="margin-top:1.25rem">Ny bokning</button>
@@ -303,8 +289,8 @@ textarea.fi{height:82px;resize:vertical}
     <div class="stats">
       <div class="stat"><div class="sn" id="s1">0</div><div class="sl">Bokningar</div></div>
       <div class="stat"><div class="sn" id="s2">0</div><div class="sl">Bilar</div></div>
-      <div class="stat"><div class="sn" id="s3">0</div><div class="sl">Utforda</div></div>
-      <div class="stat"><div class="sn" id="s4">0 kr</div><div class="sl">Intakt</div></div>
+      <div class="stat"><div class="sn" id="s3">0</div><div class="sl">Utförda</div></div>
+      <div class="stat"><div class="sn" id="s4">0 kr</div><div class="sl">Intäkt</div></div>
     </div>
     <div id="tc-b" class="tc act">
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
@@ -319,12 +305,12 @@ textarea.fi{height:82px;resize:vertical}
         <button class="btn-gold" id="addcarbtn" style="font-size:11px;padding:6px 12px">Ny bil</button>
       </div>
       <div id="addcarform" class="addf" style="display:none;margin-bottom:12px">
-        <div class="addf-ttl">Ny bil</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#aaa;margin-bottom:8px">Ny bil</div>
         <div class="divider">Fordon</div>
-        <div class="fc2"><div><label class="fl">Reg.nr</label><input class="fi" id="creg" placeholder="ABC123" style="text-transform:uppercase"></div><div><label class="fl">Marke</label><input class="fi" id="cmake" placeholder="Volvo"></div></div>
-        <div class="fc2"><div><label class="fl">Modell</label><input class="fi" id="cmod" placeholder="V70"></div><div><label class="fl">Ar</label><input class="fi" id="cyr" type="number" placeholder="2018"></div></div>
-        <div class="fc3"><div><label class="fl">Farg</label><input class="fi" id="ccol" placeholder="Svart"></div><div><label class="fl">Drivmedel</label><select class="fi" id="cfuel"><option value="">Valj...</option><option>Bensin</option><option>Diesel</option><option>El</option><option>Hybrid</option><option>Gas</option></select></div><div><label class="fl">Miltal</label><input class="fi" id="cmil" type="number" placeholder="15000"></div></div>
-        <div class="divider">Agare</div>
+        <div class="fc2"><div><label class="fl">Reg.nr</label><input class="fi" id="creg" placeholder="ABC123" style="text-transform:uppercase"></div><div><label class="fl">Märke</label><input class="fi" id="cmake" placeholder="Volvo"></div></div>
+        <div class="fc2"><div><label class="fl">Modell</label><input class="fi" id="cmod" placeholder="V70"></div><div><label class="fl">År</label><input class="fi" id="cyr" type="number" placeholder="2018"></div></div>
+        <div class="fc3"><div><label class="fl">Färg</label><input class="fi" id="ccol" placeholder="Svart"></div><div><label class="fl">Drivmedel</label><select class="fi" id="cfuel"><option value="">Välj</option><option>Bensin</option><option>Diesel</option><option>El</option><option>Hybrid</option><option>Gas</option></select></div><div><label class="fl">Miltal</label><input class="fi" id="cmil" type="number" placeholder="15000"></div></div>
+        <div class="divider">Ägare</div>
         <div class="fc2"><div><label class="fl">Namn</label><input class="fi" id="cown" placeholder="Anna Andersson"></div><div><label class="fl">Telefon</label><input class="fi" id="ctel" placeholder="070-123 45 67"></div></div>
         <label class="fl">E-post</label><input class="fi" id="cemail" type="email" placeholder="anna@epost.se">
         <label class="fl">Anteckningar</label><textarea class="fi" id="cnotes" placeholder="Extra info..."></textarea>
@@ -338,13 +324,13 @@ textarea.fi{height:82px;resize:vertical}
         <button class="btn-gold" id="addjobbtn" style="font-size:11px;padding:6px 12px">Nytt jobb</button>
       </div>
       <div id="addjobform" class="addf" style="display:none;margin-bottom:12px">
-        <div class="addf-ttl">Kategori</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#aaa;margin-bottom:8px">Kategori</div>
         <div class="catg" id="catg"></div>
         <div class="fc2"><div><label class="fl">Reg.nr</label><input class="fi" id="jreg" placeholder="ABC123" style="text-transform:uppercase"></div><div><label class="fl">Datum</label><input class="fi" id="jdat" type="date"></div></div>
         <label class="fl">Beskrivning</label><input class="fi" id="jdesc" placeholder="Beskriv jobbet">
         <div class="fc2"><div><label class="fl">Pris kr</label><input class="fi" id="jpris" type="number" placeholder="1500"></div><div><label class="fl">Miltal</label><input class="fi" id="jmil" type="number" placeholder="15200"></div></div>
         <label class="fl">Mekaniker</label><input class="fi" id="jmek" placeholder="Ahmad">
-        <label class="fl">Status</label><select class="fi" id="jstat"><option value="done">Utfort</option><option value="progress">Pagaende</option><option value="pending">Vantar</option></select>
+        <label class="fl">Status</label><select class="fi" id="jstat"><option value="done">Utfört</option><option value="progress">Pågående</option><option value="pending">Väntar</option></select>
         <label class="fl">Anteckningar</label><textarea class="fi" id="jnotes" placeholder="Extra info..."></textarea>
         <button class="btn-gold" id="savejobbtn" style="margin-top:12px;width:100%">Spara jobb</button>
       </div>
@@ -365,625 +351,248 @@ textarea.fi{height:82px;resize:vertical}
   </div>
 </div>
 <script>
-var PW = "Ahmad_rbwolf";
-var unlocked = false;
-var selCat = "";
-var popId = null;
-var modIdx = null;
-var LOGO = "logo.jpg";
+var PW="Ahmad_rbwolf",unlocked=false,selCat="",popId=null,modIdx=null;
+var CATS=[{id:"service",e:"Service"},{id:"brakes",e:"Bromsar"},{id:"engine",e:"Motor"},{id:"tires",e:"Back"},{id:"electrical",e:"El"},{id:"gearbox",e:"Vaxellada"},{id:"steering",e:"Styrning"},{id:"inspection",e:"Besiktning"},{id:"suspension",e:"Fjadring"},{id:"other",e:"Ovrigt"}];
+var D={bookings:[],cars:[],jobs:[],nid:1};
 
-var CATS = [
-{id:“service”,e:“Service”},
-{id:“brakes”,e:“Bromsar”},
-{id:“engine”,e:“Motor”},
-{id:“tires”,e:“Back”},
-{id:“electrical”,e:“El”},
-{id:“gearbox”,e:“Vaxellada”},
-{id:“steering”,e:“Styrning”},
-{id:“inspection”,e:“Besiktning”},
-{id:“suspension”,e:“Fjadring”},
-{id:“other”,e:“Ovrigt”}
-];
-
-var D = {bookings:[], cars:[], jobs:[], nid:1};
-
-function save() {
-try {
-localStorage.setItem(“rbw6”, JSON.stringify(D));
-var t = document.getElementById(“toast”);
-t.style.display = “block”;
-clearTimeout(window._tt);
-window._tt = setTimeout(function(){ t.style.display = “none”; }, 2000);
-} catch(e) {}
-}
-
-function load() {
-try {
-var s = localStorage.getItem(“rbw6”);
-if(s) D = JSON.parse(s);
-} catch(e) {}
-}
-
+function save(){try{localStorage.setItem("rbw7",JSON.stringify(D));var t=document.getElementById("toast");t.style.display="block";clearTimeout(window._tt);window._tt=setTimeout(function(){t.style.display="none"},2000)}catch(e){}}
+function load(){try{var s=localStorage.getItem("rbw7");if(s)D=JSON.parse(s)}catch(e){}}
 load();
 
-// Set logos
-document.getElementById(“nav-logo”).src = LOGO;
-document.getElementById(“hero-logo”).src = LOGO;
-document.getElementById(“lock-logo”).src = LOGO;
+function catL(id){var c=CATS.find(function(x){return x.id===id});return c?c.e:"Ovrigt"}
+function G(id){return document.getElementById(id)}
 
-function catL(id) {
-var c = CATS.find(function(x){ return x.id === id; });
-return c ? c.e : “Ovrigt”;
+function showPage(p){
+  document.querySelectorAll(".page").forEach(function(e){e.style.display="none";e.classList.remove("active")});
+  G("pg-"+p).style.display="block";
+  G("pg-"+p).classList.add("active");
+  document.querySelectorAll(".nbtn").forEach(function(b){b.classList.remove("act")});
+  if(G("nb-"+p))G("nb-"+p).classList.add("act");
 }
 
-function G(id) { return document.getElementById(id); }
+function showAdmin(){
+  if(!unlocked){G("lock").style.display="flex";G("pw").value="";G("pwerr").style.display="none";setTimeout(function(){G("pw").focus()},100);return}
+  showPage("admin");
+  uStats();rCars();rHist();rBooks();fillRC();bCats();uBell();
+}
 
-function showPage(p) {
-document.querySelectorAll(”.page”).forEach(function(e){
-e.style.display = “none”;
-e.classList.remove(“active”);
+function showTab(t){
+  document.querySelectorAll(".tc").forEach(function(e){e.classList.remove("act")});
+  document.querySelectorAll(".tab").forEach(function(b){b.classList.remove("act")});
+  G("tc-"+t).classList.add("act");
+  G("tab-"+t).classList.add("act");
+  if(t==="r")fillRC();
+  if(t==="c")rCars();
+  if(t==="h"){rHist();bCats()}
+  if(t==="b")rBooks();
+}
+
+window.addEventListener("load",function(){
+  G("logobtn").addEventListener("click",function(){showPage("home")});
+  G("nb-home").addEventListener("click",function(){showPage("home")});
+  G("nb-book").addEventListener("click",function(){showPage("book")});
+  G("nb-admin").addEventListener("click",function(){showAdmin()});
+  G("notifbtn").addEventListener("click",function(){showAdmin()});
+  G("herobookbtn").addEventListener("click",function(){showPage("book")});
+  G("herocontactbtn").addEventListener("click",function(){G("kontakt").scrollIntoView({behavior:"smooth"})});
+  G("contactbookbtn").addEventListener("click",function(){showPage("book")});
+  G("tab-b").addEventListener("click",function(){showTab("b")});
+  G("tab-c").addEventListener("click",function(){showTab("c")});
+  G("tab-h").addEventListener("click",function(){showTab("h")});
+  G("tab-r").addEventListener("click",function(){showTab("r")});
+  G("logoutbtn").addEventListener("click",function(){unlocked=false;G("notifbtn").style.display="none";showPage("home")});
+  G("loginbtn").addEventListener("click",function(){
+    if(G("pw").value===PW){unlocked=true;G("lock").style.display="none";showAdmin()}
+    else{G("pwerr").style.display="block";G("pw").value=""}
+  });
+  G("pw").addEventListener("keydown",function(e){if(e.key==="Enter")G("loginbtn").click()});
+  G("closepopup").addEventListener("click",function(){G("popup").style.display="none";popId=null});
+  G("skippopup").addEventListener("click",function(){G("popup").style.display="none";popId=null});
+  G("cfmpopup").addEventListener("click",function(){
+    if(!popId)return;
+    var idx=D.bookings.findIndex(function(b){return b.id===popId});
+    if(idx>=0){D.bookings[idx].status="confirmed";D.bookings[idx].isNew=false}
+    save();G("popup").style.display="none";popId=null;uBell();rBooks();
+  });
+  G("closemodal").addEventListener("click",function(){G("modal").style.display="none";modIdx=null});
+  G("subbookbtn").addEventListener("click",function(){
+    var n=G("bn").value.trim(),p=G("bp").value.trim(),r=G("br").value.trim().toUpperCase();
+    if(!n||!p||!r){alert("Fyll i namn, telefon och reg.nr");return}
+    var b={id:Date.now(),name:n,phone:p,email:G("be").value,reg:r,car:G("bc").value,date:G("bd").value,desc:G("bdesc").value,status:"pending",isNew:true};
+    D.bookings.push(b);save();
+    G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")")+" - "+(b.date||"Datum ej angivet");
+    G("bform").style.display="none";G("bokOk").style.display="block";
+    uStats();uBell();if(unlocked)showPopup(b);
+  });
+  G("newbookbtn").addEventListener("click",function(){
+    G("bform").style.display="block";G("bokOk").style.display="none";
+    ["bn","bp","be","br","bc","bd","bdesc"].forEach(function(i){G(i).value=""});
+  });
+  G("addcarbtn").addEventListener("click",function(){var f=G("addcarform");f.style.display=f.style.display==="none"?"block":"none"});
+  G("savecarbtn").addEventListener("click",function(){
+    var r=G("creg").value.trim().toUpperCase(),m=G("cmake").value.trim();
+    if(!r||!m){alert("Reg.nr och märke krävs");return}
+    D.cars.push({reg:r,make:m,model:G("cmod").value,year:G("cyr").value,color:G("ccol").value,fuel:G("cfuel").value,mileage:G("cmil").value,owner:G("cown").value,phone:G("ctel").value,email:G("cemail").value,notes:G("cnotes").value});
+    ["creg","cmake","cmod","cyr","ccol","cmil","cown","ctel","cemail","cnotes"].forEach(function(id){G(id).value=""});
+    G("cfuel").value="";G("addcarform").style.display="none";
+    save();rCars();uStats();
+  });
+  G("addjobbtn").addEventListener("click",function(){var f=G("addjobform");f.style.display=f.style.display==="none"?"block":"none";if(f.style.display==="block"){selCat="";bCats()}});
+  G("savejobbtn").addEventListener("click",function(){
+    var r=G("jreg").value.trim().toUpperCase(),d=G("jdesc").value.trim();
+    if(!r||!d){alert("Reg.nr och beskrivning krävs");return}
+    if(!selCat){alert("Välj kategori");return}
+    D.jobs.push({id:D.nid++,reg:r,cat:selCat,date:G("jdat").value,desc:d,price:parseInt(G("jpris").value)||0,mileage:G("jmil").value,mech:G("jmek").value,status:G("jstat").value,notes:G("jnotes").value});
+    ["jreg","jdat","jdesc","jpris","jmil","jmek","jnotes"].forEach(function(id){G(id).value=""});
+    selCat="";G("addjobform").style.display="none";save();rHist();uStats();
+  });
+  G("genrecbtn").addEventListener("click",genRec);
+  G("printbtn").addEventListener("click",function(){window.print()});
+  G("rcar").addEventListener("change",fillRJ);
 });
-var pg = G(“pg-” + p);
-pg.style.display = “block”;
-pg.classList.add(“active”);
-document.querySelectorAll(”.nbtn”).forEach(function(b){ b.classList.remove(“act”); });
-var nb = G(“nb-” + p);
-if(nb) nb.classList.add(“act”);
+
+function bCats(){
+  var g=G("catg");g.innerHTML="";
+  CATS.forEach(function(c){
+    var btn=document.createElement("div");
+    btn.className="catbtn"+(selCat===c.id?" sel":"");
+    btn.textContent=c.e;
+    btn.addEventListener("click",function(){selCat=c.id;document.querySelectorAll(".catbtn").forEach(function(b){b.classList.remove("sel")});btn.classList.add("sel")});
+    g.appendChild(btn);
+  });
 }
 
-function showAdmin() {
-if(!unlocked) {
-G(“lock”).style.display = “flex”;
-G(“pw”).value = “”;
-G(“pwerr”).style.display = “none”;
-setTimeout(function(){ G(“pw”).focus(); }, 100);
-return;
-}
-showPage(“admin”);
-uStats(); rCars(); rHist(); rBooks(); fillRC(); bCats(); uBell();
+function uBell(){
+  var n=D.bookings.filter(function(b){return b.isNew});
+  if(unlocked){G("notifbtn").style.display="block";G("ndot").style.display=n.length?"block":"none"}
+  var nb=G("nbadge");nb.style.display=n.length?"inline":"none";if(n.length)nb.textContent=n.length+" ny";
 }
 
-function showTab(t) {
-document.querySelectorAll(”.tc”).forEach(function(e){ e.classList.remove(“act”); });
-document.querySelectorAll(”.tab”).forEach(function(b){ b.classList.remove(“act”); });
-G(“tc-” + t).classList.add(“act”);
-G(“tab-” + t).classList.add(“act”);
-if(t === “r”) fillRC();
-if(t === “c”) rCars();
-if(t === “h”) { rHist(); bCats(); }
-if(t === “b”) rBooks();
+function showPopup(b){
+  popId=b.id;G("callbtn").href="tel:"+b.phone.replace(/[^0-9+]/g,"");
+  G("popbody").innerHTML="<p><b>Kund:</b> "+b.name+"</p><p><b>Telefon:</b> "+b.phone+"</p><p><b>Bil:</b> "+b.reg+(b.car?" - "+b.car:"")+"</p>"+(b.date?"<p><b>Datum:</b> "+b.date+"</p>":"")+(b.desc?"<p><b>Ärende:</b> "+b.desc+"</p>":"");
+  G("popup").style.display="flex";
 }
 
-// All event listeners
-G(“logobtn”).addEventListener(“click”, function(){ showPage(“home”); });
-G(“nb-home”).addEventListener(“click”, function(){ showPage(“home”); });
-G(“nb-book”).addEventListener(“click”, function(){ showPage(“book”); });
-G(“nb-admin”).addEventListener(“click”, function(){ showAdmin(); });
-G(“notifbtn”).addEventListener(“click”, function(){ showAdmin(); });
-G(“herobookbtn”).addEventListener(“click”, function(){ showPage(“book”); });
-G(“herocontactbtn”).addEventListener(“click”, function(){ G(“kontakt”).scrollIntoView({behavior:“smooth”}); });
-G(“contactbookbtn”).addEventListener(“click”, function(){ showPage(“book”); });
-G(“tab-b”).addEventListener(“click”, function(){ showTab(“b”); });
-G(“tab-c”).addEventListener(“click”, function(){ showTab(“c”); });
-G(“tab-h”).addEventListener(“click”, function(){ showTab(“h”); });
-G(“tab-r”).addEventListener(“click”, function(){ showTab(“r”); });
-G(“logoutbtn”).addEventListener(“click”, function(){
-unlocked = false;
-G(“notifbtn”).style.display = “none”;
-showPage(“home”);
-});
-G(“loginbtn”).addEventListener(“click”, function(){
-if(G(“pw”).value === PW) {
-unlocked = true;
-G(“lock”).style.display = “none”;
-showAdmin();
-} else {
-G(“pwerr”).style.display = “block”;
-G(“pw”).value = “”;
-}
-});
-G(“pw”).addEventListener(“keydown”, function(e){ if(e.key === “Enter”) G(“loginbtn”).click(); });
-G(“closepopup”).addEventListener(“click”, function(){ G(“popup”).style.display = “none”; popId = null; });
-G(“skippopup”).addEventListener(“click”, function(){ G(“popup”).style.display = “none”; popId = null; });
-G(“cfmpopup”).addEventListener(“click”, function(){
-if(!popId) return;
-var idx = D.bookings.findIndex(function(b){ return b.id === popId; });
-if(idx >= 0) {
-D.bookings[idx].status = “confirmed”;
-D.bookings[idx].isNew = false;
-}
-save();
-G(“popup”).style.display = “none”;
-popId = null;
-uBell();
-rBooks();
-});
-G(“closemodal”).addEventListener(“click”, function(){ G(“modal”).style.display = “none”; modIdx = null; });
-G(“subbookbtn”).addEventListener(“click”, function(){
-var n = G(“bn”).value.trim();
-var p = G(“bp”).value.trim();
-var r = G(“br”).value.trim().toUpperCase();
-if(!n || !p || !r) { alert(“Fyll i namn, telefon och reg.nr”); return; }
-var carVal = G(“bc”).value;
-var dateVal = G(“bd”).value;
-var descVal = G(“bdesc”).value;
-var b = {id:Date.now(), name:n, phone:p, email:G(“be”).value, reg:r, car:carVal, date:dateVal, desc:descVal, status:“pending”, isNew:true};
-D.bookings.push(b);
-save();
-var confText = n + “ - “ + r;
-if(carVal) confText += “ (” + carVal + “)”;
-confText += “ - “ + (dateVal || “Datum ej angivet”);
-G(“bconf”).textContent = confText;
-G(“bform”).style.display = “none”;
-G(“bokOk”).style.display = “block”;
-uStats();
-uBell();
-if(unlocked) showPopup(b);
-});
-G(“newbookbtn”).addEventListener(“click”, function(){
-G(“bform”).style.display = “block”;
-G(“bokOk”).style.display = “none”;
-[“bn”,“bp”,“be”,“br”,“bc”,“bd”,“bdesc”].forEach(function(i){ G(i).value = “”; });
-});
-G(“addcarbtn”).addEventListener(“click”, function(){
-var f = G(“addcarform”);
-f.style.display = f.style.display === “none” ? “block” : “none”;
-});
-G(“savecarbtn”).addEventListener(“click”, function(){
-var r = G(“creg”).value.trim().toUpperCase();
-var m = G(“cmake”).value.trim();
-if(!r || !m) { alert(“Reg.nr och marke kravs”); return; }
-D.cars.push({
-reg:r, make:m, model:G(“cmod”).value, year:G(“cyr”).value,
-color:G(“ccol”).value, fuel:G(“cfuel”).value, mileage:G(“cmil”).value,
-owner:G(“cown”).value, phone:G(“ctel”).value, email:G(“cemail”).value,
-notes:G(“cnotes”).value
-});
-[“creg”,“cmake”,“cmod”,“cyr”,“ccol”,“cmil”,“cown”,“ctel”,“cemail”,“cnotes”].forEach(function(id){ G(id).value = “”; });
-G(“cfuel”).value = “”;
-G(“addcarform”).style.display = “none”;
-save(); rCars(); uStats();
-});
-G(“addjobbtn”).addEventListener(“click”, function(){
-var f = G(“addjobform”);
-f.style.display = f.style.display === “none” ? “block” : “none”;
-if(f.style.display === “block”) { selCat = “”; bCats(); }
-});
-G(“savejobbtn”).addEventListener(“click”, function(){
-var r = G(“jreg”).value.trim().toUpperCase();
-var d = G(“jdesc”).value.trim();
-if(!r || !d) { alert(“Reg.nr och beskrivning kravs”); return; }
-if(!selCat) { alert(“Valj kategori”); return; }
-D.jobs.push({
-id:D.nid++, reg:r, cat:selCat, date:G(“jdat”).value, desc:d,
-price:parseInt(G(“jpris”).value)||0, mileage:G(“jmil”).value,
-mech:G(“jmek”).value, status:G(“jstat”).value, notes:G(“jnotes”).value
-});
-[“jreg”,“jdat”,“jdesc”,“jpris”,“jmil”,“jmek”,“jnotes”].forEach(function(id){ G(id).value = “”; });
-selCat = “”;
-G(“addjobform”).style.display = “none”;
-save(); rHist(); uStats();
-});
-G(“genrecbtn”).addEventListener(“click”, genRec);
-G(“printbtn”).addEventListener(“click”, function(){ window.print(); });
-G(“rcar”).addEventListener(“change”, fillRJ);
-
-function bCats() {
-var g = G(“catg”);
-g.innerHTML = “”;
-CATS.forEach(function(c) {
-var btn = document.createElement(“div”);
-btn.className = “catbtn” + (selCat === c.id ? “ sel” : “”);
-btn.textContent = c.e;
-btn.addEventListener(“click”, function(){
-selCat = c.id;
-document.querySelectorAll(”.catbtn”).forEach(function(b){ b.classList.remove(“sel”); });
-btn.classList.add(“sel”);
-});
-g.appendChild(btn);
-});
+function openModal(idx){
+  modIdx=idx;var b=D.bookings[idx];b.isNew=false;save();uBell();rBooks();
+  var statusMap={pending:"Väntar",confirmed:"Bekräftad",done:"Avslutad"};
+  G("modalbody").innerHTML="<div class='mrow'><div><div class='mlbl'>Kund</div><div class='mval'>"+b.name+"</div></div></div><div class='mrow'><div><div class='mlbl'>Telefon</div><div class='mval' style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</div></div></div>"+(b.email?"<div class='mrow'><div><div class='mlbl'>E-post</div><div class='mval'>"+b.email+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Reg.nr</div><div class='mval'>"+b.reg+"</div></div></div>"+(b.car?"<div class='mrow'><div><div class='mlbl'>Bil</div><div class='mval'>"+b.car+"</div></div></div>":"")+(b.date?"<div class='mrow'><div><div class='mlbl'>Datum</div><div class='mval'>"+b.date+"</div></div></div>":"")+(b.desc?"<div class='mrow'><div><div class='mlbl'>Ärende</div><div class='mval'>"+b.desc+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Status</div><div class='mval'>"+statusMap[b.status]+"</div></div></div>";
+  var ftr=G("modalftr");ftr.innerHTML="";
+  var ca=document.createElement("a");ca.href="tel:"+b.phone.replace(/[^0-9+]/g,"");ca.className="btn-call";ca.style.flex="1";ca.textContent="Ring "+b.phone;ftr.appendChild(ca);
+  if(b.status!=="confirmed"){var cb=document.createElement("button");cb.className="btn-ok";cb.textContent="Bekräfta";cb.addEventListener("click",function(){D.bookings[modIdx].status="confirmed";save();G("modal").style.display="none";modIdx=null;rBooks();uBell()});ftr.appendChild(cb)}
+  var db=document.createElement("button");db.className="btn-del";db.style.cssText="width:100%;padding:10px;margin-top:4px";db.textContent="Ta bort bokning";db.addEventListener("click",function(){if(!confirm("Ta bort?"))return;D.bookings.splice(modIdx,1);save();G("modal").style.display="none";modIdx=null;rBooks();uStats();uBell()});ftr.appendChild(db);
+  G("modal").style.display="flex";
 }
 
-function uBell() {
-var n = D.bookings.filter(function(b){ return b.isNew; });
-if(unlocked) {
-G(“notifbtn”).style.display = “block”;
-G(“ndot”).style.display = n.length ? “block” : “none”;
-}
-var nb = G(“nbadge”);
-nb.style.display = n.length ? “inline” : “none”;
-if(n.length) nb.textContent = n.length + “ ny”;
-}
-
-function showPopup(b) {
-popId = b.id;
-G(“callbtn”).href = “tel:” + b.phone.replace(/[^0-9+]/g, “”);
-var html = “”;
-html += makeRow(“Kund”, b.name);
-html += makeRow(“Telefon”, b.phone);
-html += makeRow(“Bil”, b.reg + (b.car ? “ - “ + b.car : “”));
-if(b.date) html += makeRow(“Datum”, b.date);
-if(b.desc) html += makeRow(“Arende”, b.desc);
-G(“popbody”).innerHTML = html;
-G(“popup”).style.display = “flex”;
-}
-
-function makeRow(lbl, val) {
-return ‘<div class="prow"><div><div class="plbl">’ + lbl + ‘</div><div class="pval">’ + val + ‘</div></div></div>’;
+function rBooks(){
+  var el=G("blist");
+  if(!D.bookings.length){el.innerHTML="<div class='empty'>Inga bokningar ännu</div>";return}
+  var clr={pending:"#f59e0b",confirmed:"#22c55e",done:"#9ca3af"};
+  var lbl={pending:"Väntar",confirmed:"Bekräftad",done:"Avslutad"};
+  el.innerHTML="";
+  D.bookings.slice().reverse().forEach(function(b,ri){
+    var i=D.bookings.length-1-ri;
+    var div=document.createElement("div");
+    div.className="bi"+(b.isNew?" isnew":"");
+    var dot=document.createElement("div");dot.className="bdot";dot.style.background=clr[b.status]||"#ccc";div.appendChild(dot);
+    var inf=document.createElement("div");inf.className="binf";
+    var nm=document.createElement("div");nm.className="bname";nm.textContent=b.name+" - "+b.reg+(b.car?" ("+b.car+")":"");inf.appendChild(nm);
+    var dt=document.createElement("div");dt.className="bdet";dt.textContent=b.phone+(b.date?" - "+b.date:"")+(b.desc?" - "+b.desc.substring(0,25):"");inf.appendChild(dt);
+    var bdg=document.createElement("span");bdg.className="badge "+(b.status==="confirmed"?"bdone":"bwait");bdg.textContent=lbl[b.status];
+    var bdgw=document.createElement("div");bdgw.style.marginTop="4px";bdgw.appendChild(bdg);inf.appendChild(bdgw);
+    div.appendChild(inf);
+    var arr=document.createElement("div");arr.className="barr";arr.textContent=">";div.appendChild(arr);
+    div.addEventListener("click",function(){openModal(i)});
+    el.appendChild(div);
+  });
 }
 
-function openModal(idx) {
-modIdx = idx;
-var b = D.bookings[idx];
-b.isNew = false;
-save(); uBell(); rBooks();
-var html = “”;
-html += makeModRow(“Kund”, b.name);
-html += makeModRow(“Telefon”, b.phone);
-if(b.email) html += makeModRow(“E-post”, b.email);
-html += makeModRow(“Reg.nr”, b.reg);
-if(b.car) html += makeModRow(“Bil”, b.car);
-if(b.date) html += makeModRow(“Datum”, b.date);
-if(b.desc) html += makeModRow(“Arende”, b.desc);
-var statusMap = {pending:“Vantar”, confirmed:“Bekraftad”, done:“Avslutad”};
-html += makeModRow(“Status”, statusMap[b.status] || b.status);
-G(“modalbody”).innerHTML = html;
+function delCar(reg){if(!confirm("Radera "+reg+"?"))return;D.cars=D.cars.filter(function(c){return c.reg!==reg});D.jobs=D.jobs.filter(function(j){return j.reg!==reg});save();rCars();rHist();uStats()}
 
-var ftr = G(“modalftr”);
-ftr.innerHTML = “”;
-
-var ca = document.createElement(“a”);
-ca.href = “tel:” + b.phone.replace(/[^0-9+]/g, “”);
-ca.className = “btn-call”;
-ca.style.flex = “1”;
-ca.textContent = “Ring “ + b.phone;
-ftr.appendChild(ca);
-
-if(b.status !== “confirmed”) {
-var cb = document.createElement(“button”);
-cb.className = “btn-ok”;
-cb.textContent = “Bekrafta”;
-cb.addEventListener(“click”, function(){
-D.bookings[modIdx].status = “confirmed”;
-save();
-G(“modal”).style.display = “none”;
-modIdx = null;
-rBooks(); uBell();
-});
-ftr.appendChild(cb);
+function rCars(){
+  var el=G("clist");
+  if(!D.cars.length){el.innerHTML="<div class='empty'>Inga bilar</div>";return}
+  el.innerHTML="";
+  D.cars.forEach(function(c){
+    var jobs=D.jobs.filter(function(j){return j.reg===c.reg}),last=jobs.length?jobs[jobs.length-1]:null;
+    var div=document.createElement("div");div.className="acard";
+    var hdr=document.createElement("div");hdr.className="acard-hdr";
+    var info=document.createElement("div");
+    info.innerHTML="<div class='creg'>"+c.reg+"</div><div class='cmake'>"+c.make+(c.model?" "+c.model:"")+(c.year?" - "+c.year:"")+"</div>";
+    hdr.appendChild(info);
+    var right=document.createElement("div");right.style.textAlign="right";
+    right.innerHTML="<div style='font-size:13px;color:#888'>"+c.owner+"<br>"+c.phone+"</div>";
+    var db=document.createElement("button");db.className="btn-del";db.style.marginTop="6px";db.textContent="Radera";db.addEventListener("click",function(){delCar(c.reg)});
+    right.appendChild(db);hdr.appendChild(right);div.appendChild(hdr);
+    var body=document.createElement("div");body.className="acard-body";
+    var grid=document.createElement("div");grid.className="cgrd";
+    [{l:"Färg",v:c.color},{l:"Drivmedel",v:c.fuel},{l:"Miltal",v:c.mileage?(c.mileage+" mil"):""},{l:"E-post",v:c.email},{l:"Jobb",v:jobs.length+" st"},{l:"Senaste",v:last?last.date:""}].forEach(function(item){
+      var cell=document.createElement("div");
+      cell.innerHTML="<span style='color:#aaa;display:block;font-size:10px'>"+item.l+"</span><span style='font-weight:600;color:#333;font-size:12px'>"+(item.v||"-")+"</span>";
+      grid.appendChild(cell);
+    });
+    body.appendChild(grid);
+    if(c.notes){var n=document.createElement("div");n.style.cssText="margin-top:8px;font-size:12px;color:#888;background:#f9f9f9;padding:8px;border-radius:5px";n.textContent=c.notes;body.appendChild(n)}
+    div.appendChild(body);el.appendChild(div);
+  });
 }
 
-var db = document.createElement(“button”);
-db.className = “btn-del”;
-db.style.cssText = “width:100%;padding:10px;margin-top:4px”;
-db.textContent = “Ta bort bokning”;
-db.addEventListener(“click”, function(){
-if(!confirm(“Ta bort?”)) return;
-D.bookings.splice(modIdx, 1);
-save();
-G(“modal”).style.display = “none”;
-modIdx = null;
-rBooks(); uStats(); uBell();
-});
-ftr.appendChild(db);
+function delJob(id){if(!confirm("Radera jobb?"))return;D.jobs=D.jobs.filter(function(j){return j.id!==id});save();rHist();uStats()}
 
-G(“modal”).style.display = “flex”;
+function rHist(){
+  var el=G("hlist");
+  if(!D.jobs.length){el.innerHTML="<div class='empty'>Inga jobb</div>";return}
+  var byR={};D.jobs.forEach(function(j){if(!byR[j.reg])byR[j.reg]=[];byR[j.reg].push(j)});
+  var bc={done:"bdone",progress:"bprog",pending:"bwait"},bl={done:"Utfört",progress:"Pågående",pending:"Väntar"};
+  el.innerHTML="";
+  Object.keys(byR).forEach(function(reg){
+    var car=D.cars.find(function(c){return c.reg===reg});
+    var div=document.createElement("div");div.className="acard";
+    var hdr=document.createElement("div");hdr.className="acard-hdr";
+    hdr.innerHTML="<div><div class='creg'>"+reg+"</div><div class='cmake'>"+(car?car.make+(car.model?" "+car.model:""):"Okänd")+"</div></div>";
+    div.appendChild(hdr);
+    var body=document.createElement("div");body.className="acard-body";
+    byR[reg].forEach(function(j){
+      var row=document.createElement("div");row.className="jrow";
+      var date=document.createElement("div");date.className="jdate";date.textContent=j.date;row.appendChild(date);
+      var info=document.createElement("div");info.className="jinfo";
+      var desc=document.createElement("div");desc.className="jdesc";
+      var cat=document.createElement("span");cat.className="catbadge";cat.textContent=catL(j.cat);
+      desc.appendChild(cat);desc.appendChild(document.createTextNode(j.desc));info.appendChild(desc);
+      var meta=document.createElement("div");meta.className="jmeta";
+      meta.textContent=(j.mech?j.mech+" ":"")+(j.mileage?j.mileage+" mil ":"");
+      var bdg=document.createElement("span");bdg.className="badge "+(bc[j.status]||"bwait");bdg.textContent=bl[j.status]||j.status;
+      meta.appendChild(bdg);info.appendChild(meta);
+      if(j.notes){var n=document.createElement("div");n.style.cssText="font-size:11px;color:#aaa;margin-top:2px";n.textContent=j.notes;info.appendChild(n)}
+      row.appendChild(info);
+      var right=document.createElement("div");right.style.cssText="display:flex;flex-direction:column;align-items:flex-end;gap:4px";
+      var price=document.createElement("div");price.className="jprice";price.textContent=j.price.toLocaleString("sv")+" kr";right.appendChild(price);
+      var db=document.createElement("button");db.className="btn-del";db.textContent="Radera";
+      db.addEventListener("click",(function(jid){return function(){delJob(jid)}})(j.id));
+      right.appendChild(db);row.appendChild(right);body.appendChild(row);
+    });
+    div.appendChild(body);el.appendChild(div);
+  });
 }
 
-function makeModRow(lbl, val) {
-return ‘<div class="mrow"><div><div class="mlbl">’ + lbl + ‘</div><div class="mval">’ + val + ‘</div></div></div>’;
+function fillRC(){var cs=G("rcar");cs.innerHTML="<option value=''>Välj bil</option>";D.cars.forEach(function(c){cs.innerHTML+="<option value='"+c.reg+"'>"+c.reg+" - "+c.make+(c.model?" "+c.model:"")+"</option>"});G("rjob").innerHTML="<option value=''>Välj jobb</option>"}
+function fillRJ(){var reg=G("rcar").value,rj=G("rjob");rj.innerHTML="<option value=''>Välj jobb</option>";D.jobs.filter(function(j){return j.reg===reg}).forEach(function(j){rj.innerHTML+="<option value='"+j.id+"'>"+j.date+" - "+catL(j.cat)+" - "+j.desc+"</option>"})}
+
+function genRec(){
+  var reg=G("rcar").value,jid=parseInt(G("rjob").value);
+  if(!reg||!jid){alert("Välj bil och jobb");return}
+  var car=D.cars.find(function(c){return c.reg===reg}),job=D.jobs.find(function(j){return j.id===jid});
+  if(!car||!job)return;
+  var moms=Math.round(job.price*.25),ex=job.price-moms,kv="KV-"+job.id+"-"+Date.now().toString().slice(-4),dag=new Date().toLocaleDateString("sv-SE");
+  var rout=G("rout");rout.innerHTML="";
+  var box=document.createElement("div");box.className="rec-box";
+  box.innerHTML="<div class='rec-top'><img src='logo.jpg'><div><div class='rec-co'>RBwolf Bilverkstad</div><div style='font-size:11px;color:#aaa'>073-933 44 46</div></div><div style='margin-left:auto;text-align:right;font-size:12px;color:#aaa'><strong style='color:#111'>"+kv+"</strong><br>"+dag+"</div></div><div class='rec-row'><span class='rec-lbl'>Kund</span><span>"+car.owner+"</span></div>"+(car.phone?"<div class='rec-row'><span class='rec-lbl'>Tel</span><span>"+car.phone+"</span></div>":"")+"<div class='rec-row'><span class='rec-lbl'>Reg.nr</span><span>"+reg+"</span></div><div class='rec-row'><span class='rec-lbl'>Fordon</span><span>"+car.make+(car.model?" "+car.model:"")+(car.year?" ("+car.year+")")+"</span></div><div class='rec-row'><span class='rec-lbl'>Kategori</span><span>"+catL(job.cat)+"</span></div><div class='rec-row'><span class='rec-lbl'>Arbete</span><span>"+job.desc+"</span></div>"+(job.mech?"<div class='rec-row'><span class='rec-lbl'>Mekaniker</span><span>"+job.mech+"</span></div>":"")+"<div class='rec-row'><span class='rec-lbl'>Exkl. moms</span><span>"+ex.toLocaleString("sv")+" kr</span></div><div class='rec-row'><span class='rec-lbl'>Moms 25%</span><span>"+moms.toLocaleString("sv")+" kr</span></div><div class='rec-row tot'><span>Totalt</span><span>"+job.price.toLocaleString("sv")+" kr</span></div><div class='rec-meta'>RBwolf Bilverkstad - Ugnsvägen 4A, 295 39 Bromölla - 073-933 44 46</div>";
+  rout.appendChild(box);
 }
 
-function rBooks() {
-var el = G(“blist”);
-if(!D.bookings.length) {
-el.innerHTML = ‘<div class="empty">Inga bokningar annu</div>’;
-return;
-}
-el.innerHTML = “”;
-var clr = {pending:”#f59e0b”, confirmed:”#22c55e”, done:”#9ca3af”};
-var lbl = {pending:“Vantar”, confirmed:“Bekraftad”, done:“Avslutad”};
-D.bookings.slice().reverse().forEach(function(b, ri) {
-var i = D.bookings.length - 1 - ri;
-var div = document.createElement(“div”);
-div.className = “bi” + (b.isNew ? “ isnew” : “”);
-
-```
-var dot = document.createElement("div");
-dot.className = "bdot";
-dot.style.background = clr[b.status] || "#ccc";
-div.appendChild(dot);
-
-var inf = document.createElement("div");
-inf.className = "binf";
-
-var name = document.createElement("div");
-name.className = "bname";
-name.textContent = b.name + " - " + b.reg + (b.car ? " (" + b.car + ")" : "");
-inf.appendChild(name);
-
-var det = document.createElement("div");
-det.className = "bdet";
-det.textContent = b.phone + (b.date ? " - " + b.date : "") + (b.desc ? " - " + b.desc.substring(0,30) : "");
-inf.appendChild(det);
-
-var bdg = document.createElement("div");
-bdg.style.marginTop = "4px";
-var sp = document.createElement("span");
-sp.className = "badge " + (b.status === "confirmed" ? "bdone" : "bwait");
-sp.textContent = lbl[b.status] || b.status;
-bdg.appendChild(sp);
-inf.appendChild(bdg);
-
-div.appendChild(inf);
-
-var arr = document.createElement("div");
-arr.className = "barr";
-arr.textContent = ">";
-div.appendChild(arr);
-
-div.addEventListener("click", function(){ openModal(i); });
-el.appendChild(div);
-```
-
-});
-}
-
-function delCar(reg) {
-if(!confirm(“Radera “ + reg + “?”)) return;
-D.cars = D.cars.filter(function(c){ return c.reg !== reg; });
-D.jobs = D.jobs.filter(function(j){ return j.reg !== reg; });
-save(); rCars(); rHist(); uStats();
-}
-
-function rCars() {
-var el = G(“clist”);
-if(!D.cars.length) { el.innerHTML = ‘<div class="empty">Inga bilar</div>’; return; }
-el.innerHTML = “”;
-D.cars.forEach(function(c) {
-var jobs = D.jobs.filter(function(j){ return j.reg === c.reg; });
-var last = jobs.length ? jobs[jobs.length-1] : null;
-var div = document.createElement(“div”);
-div.className = “acard”;
-
-```
-var hdr = document.createElement("div");
-hdr.className = "acard-hdr";
-
-var info = document.createElement("div");
-var reg = document.createElement("div");
-reg.className = "creg";
-reg.textContent = c.reg;
-info.appendChild(reg);
-var make = document.createElement("div");
-make.className = "cmake";
-make.textContent = c.make + (c.model ? " " + c.model : "") + (c.year ? " - " + c.year : "");
-info.appendChild(make);
-hdr.appendChild(info);
-
-var right = document.createElement("div");
-right.style.textAlign = "right";
-var owner = document.createElement("div");
-owner.style.cssText = "font-size:13px;color:#888";
-owner.textContent = c.owner + " " + c.phone;
-right.appendChild(owner);
-var delBtn = document.createElement("button");
-delBtn.className = "btn-del";
-delBtn.style.marginTop = "6px";
-delBtn.textContent = "Radera";
-delBtn.addEventListener("click", function(){ delCar(c.reg); });
-right.appendChild(delBtn);
-hdr.appendChild(right);
-
-div.appendChild(hdr);
-
-var body = document.createElement("div");
-body.className = "acard-body";
-var grid = document.createElement("div");
-grid.className = "cgrd";
-var items = [
-  ["Farg", c.color || "-"],
-  ["Drivmedel", c.fuel || "-"],
-  ["Miltal", c.mileage ? c.mileage + " mil" : "-"],
-  ["E-post", c.email || "-"],
-  ["Jobb", jobs.length + " st"],
-  ["Senaste", last ? last.date : "-"]
-];
-items.forEach(function(item) {
-  var cell = document.createElement("div");
-  cell.innerHTML = '<span class="cl">' + item[0] + '</span><span class="cv">' + item[1] + '</span>';
-  grid.appendChild(cell);
-});
-body.appendChild(grid);
-if(c.notes) {
-  var notes = document.createElement("div");
-  notes.style.cssText = "margin-top:8px;font-size:12px;color:#888;background:#f9f9f9;padding:8px;border-radius:5px";
-  notes.textContent = c.notes;
-  body.appendChild(notes);
-}
-div.appendChild(body);
-el.appendChild(div);
-```
-
-});
-}
-
-function delJob(id) {
-if(!confirm(“Radera jobb?”)) return;
-D.jobs = D.jobs.filter(function(j){ return j.id !== id; });
-save(); rHist(); uStats();
-}
-
-function rHist() {
-var el = G(“hlist”);
-if(!D.jobs.length) { el.innerHTML = ‘<div class="empty">Inga jobb</div>’; return; }
-var byR = {};
-D.jobs.forEach(function(j){ if(!byR[j.reg]) byR[j.reg]=[]; byR[j.reg].push(j); });
-var bc = {done:“bdone”, progress:“bprog”, pending:“bwait”};
-var bl = {done:“Utfort”, progress:“Pagaende”, pending:“Vantar”};
-el.innerHTML = “”;
-Object.keys(byR).forEach(function(reg) {
-var car = D.cars.find(function(c){ return c.reg === reg; });
-var div = document.createElement(“div”);
-div.className = “acard”;
-
-```
-var hdr = document.createElement("div");
-hdr.className = "acard-hdr";
-var regDiv = document.createElement("div");
-regDiv.innerHTML = '<div class="creg">' + reg + '</div><div class="cmake">' + (car ? car.make + (car.model ? " "+car.model : "") : "Okand") + '</div>';
-hdr.appendChild(regDiv);
-div.appendChild(hdr);
-
-var body = document.createElement("div");
-body.className = "acard-body";
-byR[reg].forEach(function(j) {
-  var row = document.createElement("div");
-  row.className = "jrow";
-
-  var date = document.createElement("div");
-  date.className = "jdate";
-  date.textContent = j.date;
-  row.appendChild(date);
-
-  var info = document.createElement("div");
-  info.className = "jinfo";
-  var desc = document.createElement("div");
-  desc.className = "jdesc";
-  var catSpan = document.createElement("span");
-  catSpan.className = "catbadge";
-  catSpan.textContent = catL(j.cat);
-  desc.appendChild(catSpan);
-  desc.appendChild(document.createTextNode(j.desc));
-  info.appendChild(desc);
-  var meta = document.createElement("div");
-  meta.className = "jmeta";
-  meta.textContent = (j.mech ? j.mech + " " : "") + (j.mileage ? j.mileage + " mil " : "");
-  var bdg = document.createElement("span");
-  bdg.className = "badge " + (bc[j.status] || "bwait");
-  bdg.textContent = bl[j.status] || j.status;
-  meta.appendChild(bdg);
-  info.appendChild(meta);
-  if(j.notes) {
-    var n = document.createElement("div");
-    n.style.cssText = "font-size:11px;color:#aaa;margin-top:2px";
-    n.textContent = j.notes;
-    info.appendChild(n);
-  }
-  row.appendChild(info);
-
-  var right = document.createElement("div");
-  right.style.cssText = "display:flex;flex-direction:column;align-items:flex-end;gap:4px";
-  var price = document.createElement("div");
-  price.className = "jprice";
-  price.textContent = j.price.toLocaleString("sv") + " kr";
-  right.appendChild(price);
-  var delBtn = document.createElement("button");
-  delBtn.className = "btn-del";
-  delBtn.textContent = "Radera";
-  delBtn.addEventListener("click", (function(jid){ return function(){ delJob(jid); }; })(j.id));
-  right.appendChild(delBtn);
-  row.appendChild(right);
-
-  body.appendChild(row);
-});
-div.appendChild(body);
-el.appendChild(div);
-```
-
-});
-}
-
-function fillRC() {
-var cs = G(“rcar”);
-cs.innerHTML = ‘<option value="">Valj bil</option>’;
-D.cars.forEach(function(c){
-cs.innerHTML += ‘<option value="' + c.reg + '">’ + c.reg + “ - “ + c.make + (c.model ? “ “+c.model : “”) + ‘</option>’;
-});
-G(“rjob”).innerHTML = ‘<option value="">Valj jobb</option>’;
-}
-
-function fillRJ() {
-var reg = G(“rcar”).value;
-var rj = G(“rjob”);
-rj.innerHTML = ‘<option value="">Valj jobb</option>’;
-D.jobs.filter(function(j){ return j.reg === reg; }).forEach(function(j){
-rj.innerHTML += ‘<option value="' + j.id + '">’ + j.date + “ - “ + catL(j.cat) + “ - “ + j.desc + ‘</option>’;
-});
-}
-
-function genRec() {
-var reg = G(“rcar”).value;
-var jid = parseInt(G(“rjob”).value);
-if(!reg || !jid) { alert(“Valj bil och jobb”); return; }
-var car = D.cars.find(function(c){ return c.reg === reg; });
-var job = D.jobs.find(function(j){ return j.id === jid; });
-if(!car || !job) return;
-var moms = Math.round(job.price * 0.25);
-var ex = job.price - moms;
-var kv = “KV-” + job.id + “-” + Date.now().toString().slice(-4);
-var dag = new Date().toLocaleDateString(“sv-SE”);
-
-var box = document.createElement(“div”);
-box.className = “rec-box”;
-
-var top = document.createElement(“div”);
-top.className = “rec-top”;
-var img = document.createElement(“img”);
-img.src = LOGO;
-img.style.cssText = “width:38px;height:38px;border-radius:50%;object-fit:cover”;
-top.appendChild(img);
-var co = document.createElement(“div”);
-co.innerHTML = ‘<div class="rec-co">RBwolf Bilverkstad</div><div style="font-size:11px;color:#aaa">073-933 44 46</div>’;
-top.appendChild(co);
-var kvDiv = document.createElement(“div”);
-kvDiv.style.cssText = “margin-left:auto;text-align:right;font-size:12px;color:#aaa”;
-kvDiv.innerHTML = ‘<strong style="color:#111">’ + kv + ‘</strong><br>’ + dag;
-top.appendChild(kvDiv);
-box.appendChild(top);
-
-var rows = [
-[“Kund”, car.owner],
-[“Telefon”, car.phone],
-[“Reg.nr”, reg],
-[“Fordon”, car.make + (car.model ? “ “+car.model : “”) + (car.year ? “ (”+car.year+”)” : “”)],
-[“Kategori”, catL(job.cat)],
-[“Arbete”, job.desc],
-[“Mekaniker”, job.mech],
-[“Exkl. moms”, ex.toLocaleString(“sv”) + “ kr”],
-[“Moms 25%”, moms.toLocaleString(“sv”) + “ kr”]
-];
-rows.forEach(function(r) {
-if(!r[1]) return;
-var row = document.createElement(“div”);
-row.className = “rec-row”;
-row.innerHTML = ‘<span class="rec-lbl">’ + r[0] + ‘</span><span>’ + r[1] + ‘</span>’;
-box.appendChild(row);
-});
-var tot = document.createElement(“div”);
-tot.className = “rec-row tot”;
-tot.innerHTML = ‘<span>Totalt</span><span>’ + job.price.toLocaleString(“sv”) + ’ kr</span>’;
-box.appendChild(tot);
-var meta = document.createElement(“div”);
-meta.className = “rec-meta”;
-meta.textContent = “RBwolf Bilverkstad - Ugnsvägen 4A, 295 39 Bromölla - 073-933 44 46”;
-box.appendChild(meta);
-
-var rout = G(“rout”);
-rout.innerHTML = “”;
-rout.appendChild(box);
-}
-
-function uStats() {
-G(“s1”).textContent = D.bookings.length;
-G(“s2”).textContent = D.cars.length;
-var done = D.jobs.filter(function(j){ return j.status === “done”; });
-G(“s3”).textContent = done.length;
-G(“s4”).textContent = done.reduce(function(s,j){ return s+j.price; }, 0).toLocaleString(“sv”) + “ kr”;
-}
-
+function uStats(){G("s1").textContent=D.bookings.length;G("s2").textContent=D.cars.length;var done=D.jobs.filter(function(j){return j.status==="done"});G("s3").textContent=done.length;G("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr"}
 uStats();
 </script>
-
 </body>
 </html>
