@@ -3,183 +3,238 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RBwolf Bilverkstad</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<title>RBwolf Bilverkstad – Bromölla</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+:root{--gold:#FFD600;--gold2:#FFA500;--black:#0a0a0a;--dark:#111;--card:#161616}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',Arial,sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}
 .page{display:none;min-height:100vh}
 .page.active{display:block}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Barlow',Arial,sans-serif;background:#fff;color:#111}
-nav{background:#111;padding:0 1.25rem;display:flex;align-items:center;justify-content:space-between;height:62px;position:sticky;top:0;z-index:100;box-shadow:0 2px 0 rgba(255,214,0,.15)}
-.logo-wrap{display:flex;align-items:center;gap:10px;cursor:pointer}
-.logo-img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid #FFD600}
-.logo-text{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:24px;color:#FFD600;letter-spacing:3px}
-.nav-links{display:flex;gap:4px;align-items:center}
-.nbtn{background:none;border:none;color:#888;font-size:12px;font-weight:700;padding:7px 12px;cursor:pointer;border-radius:4px;text-transform:uppercase;letter-spacing:.5px;font-family:'Barlow',Arial,sans-serif}
-.nbtn.act{color:#FFD600;background:rgba(255,214,0,.1)}
+
+/* NAV */
+nav{background:rgba(10,10,10,.95);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,214,0,.1);backdrop-filter:blur(10px)}
+.logo-wrap{display:flex;align-items:center;gap:12px;cursor:pointer}
+.logo-img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);box-shadow:0 0 15px rgba(255,214,0,.3)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);letter-spacing:3px;text-shadow:0 0 20px rgba(255,214,0,.4)}
+.nav-links{display:flex;gap:2px;align-items:center}
+.nbtn{background:none;border:none;color:#666;font-size:12px;font-weight:700;padding:8px 14px;cursor:pointer;border-radius:4px;text-transform:uppercase;letter-spacing:1px;font-family:'Barlow',sans-serif;transition:all .2s}
+.nbtn:hover,.nbtn.act{color:var(--gold);background:rgba(255,214,0,.08)}
 .notifbtn{background:none;border:none;cursor:pointer;padding:8px;display:none;position:relative}
-.notifbtn svg{width:20px;height:20px;fill:#888}
-.ndot{position:absolute;top:4px;right:4px;width:9px;height:9px;background:#ff3b3b;border-radius:50%;display:none;border:2px solid #111}
-.hero{background:#111;padding:5rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0,rgba(255,214,0,.07),transparent 70%)}
-.hero-logo{width:130px;height:130px;border-radius:50%;object-fit:cover;margin:0 auto 1.5rem;display:block;border:3px solid rgba(255,214,0,.5);position:relative;z-index:1;box-shadow:0 0 40px rgba(255,214,0,.1)}
-.hero-tag{display:inline-block;background:rgba(255,214,0,.1);color:#FFD600;font-size:11px;font-weight:700;letter-spacing:3px;padding:5px 16px;border-radius:20px;margin-bottom:1.5rem;border:1px solid rgba(255,214,0,.2);position:relative;z-index:1}
-.hero h1{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:clamp(64px,15vw,108px);color:#fff;line-height:.9;letter-spacing:2px;position:relative;z-index:1}
-.hero h1 span{color:#FFD600}
-.hero-sub{color:rgba(255,214,0,.5);font-size:11px;font-weight:700;letter-spacing:6px;text-transform:uppercase;margin-top:.75rem;position:relative;z-index:1}
-.hero p{color:#666;font-size:15px;margin-top:1rem;max-width:400px;margin-inline:auto;line-height:1.8;position:relative;z-index:1}
-.hero-btns{display:flex;gap:12px;justify-content:center;margin-top:2rem;flex-wrap:wrap;position:relative;z-index:1}
-.hours-bar{background:#0a0a0a;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,214,0,.1)}
-.hi{text-align:center;padding:1.25rem .5rem}
-.hi-num{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:24px;color:#FFD600}
-.hi-lbl{font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:2px}
-.btn-gold{background:#FFD600;color:#111;border:none;padding:13px 28px;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase;font-family:'Barlow',Arial,sans-serif;transition:background .2s}
-.btn-gold:hover{background:#ffe033}
-.btn-out{background:none;color:#FFD600;border:2px solid rgba(255,214,0,.4);padding:11px 26px;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border-radius:3px;text-transform:uppercase;font-family:'Barlow',Arial,sans-serif;transition:border-color .2s}
-.btn-out:hover{border-color:#FFD600}
-.svc-sec{padding:4rem 1.5rem;background:#fff}
-.sec-inner{max-width:880px;margin:0 auto}
-.eyebrow{font-size:10px;font-weight:700;letter-spacing:4px;color:#FFD600;text-transform:uppercase;margin-bottom:.5rem}
-.big-ttl{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:42px;color:#111;letter-spacing:2px;margin-bottom:.5rem;line-height:1}
-.sub-txt{color:#888;font-size:14px;line-height:1.7;margin-bottom:2.5rem}
-.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:3px}
-.svc{background:#111;padding:1.5rem;position:relative;overflow:hidden}
-.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:#FFD600;transform:scaleX(0);transition:transform .3s}
+.notifbtn svg{width:20px;height:20px;fill:#666;transition:fill .2s}
+.notifbtn:hover svg{fill:var(--gold)}
+.ndot{position:absolute;top:4px;right:4px;width:9px;height:9px;background:#ff3b3b;border-radius:50%;display:none;border:2px solid #0a0a0a;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,59,59,.4)}50%{box-shadow:0 0 0 6px rgba(255,59,59,0)}}
+
+/* HERO */
+.hero{min-height:100vh;background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 1.5rem 4rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,214,0,.07) 0%,transparent 60%);pointer-events:none}
+.hero-lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(255,214,0,.02) 80px,rgba(255,214,0,.02) 81px);pointer-events:none}
+.hero-logo-wrap{position:relative;margin-bottom:2rem;display:inline-block}
+.hero-logo{width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 0 0 8px rgba(255,214,0,.08),0 0 60px rgba(255,214,0,.2);position:relative;z-index:1;animation:logoFloat 4s ease-in-out infinite}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-ring{position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(255,214,0,.15);animation:ringPulse 3s ease-in-out infinite}
+.hero-ring2{position:absolute;inset:-40px;border-radius:50%;border:1px solid rgba(255,214,0,.07);animation:ringPulse 3s ease-in-out infinite .5s}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.5}}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,214,0,.08);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:3px;padding:6px 18px;border-radius:20px;margin-bottom:1.5rem;border:1px solid rgba(255,214,0,.2);text-transform:uppercase}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,16vw,120px);color:#fff;line-height:.9;letter-spacing:2px;position:relative;z-index:1;text-shadow:0 0 80px rgba(255,214,0,.1)}
+.hero h1 .gold{color:var(--gold);text-shadow:0 0 30px rgba(255,214,0,.5)}
+.hero-sub{color:rgba(255,214,0,.5);font-size:11px;font-weight:700;letter-spacing:6px;text-transform:uppercase;margin-top:1rem;position:relative;z-index:1}
+.hero p{color:#555;font-size:16px;margin-top:1.25rem;max-width:380px;margin-inline:auto;line-height:1.9;position:relative;z-index:1}
+.hero-btns{display:flex;gap:14px;justify-content:center;margin-top:2.5rem;flex-wrap:wrap;position:relative;z-index:1}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:#333;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;animation:scrollBounce 2s ease-in-out infinite}
+@keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.hero-scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,214,0,.4),transparent)}
+
+/* HOURS */
+.hours-bar{background:#111;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,214,0,.1);border-bottom:1px solid rgba(255,214,0,.05)}
+.hi{text-align:center;padding:1.5rem .5rem;position:relative}
+.hi:not(:last-child)::after{content:'';position:absolute;right:0;top:25%;height:50%;width:1px;background:rgba(255,214,0,.1)}
+.hi-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold)}
+.hi-lbl{font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:3px}
+
+/* BUTTONS */
+.btn-gold{background:linear-gradient(135deg,#FFD600,#FFA500);color:#000;border:none;padding:14px 30px;font-weight:700;font-size:13px;letter-spacing:1.5px;cursor:pointer;border-radius:4px;text-transform:uppercase;font-family:'Barlow',sans-serif;transition:all .3s;box-shadow:0 4px 20px rgba(255,214,0,.25)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,214,0,.4)}
+.btn-out{background:none;color:var(--gold);border:1.5px solid rgba(255,214,0,.4);padding:13px 28px;font-weight:700;font-size:13px;letter-spacing:1.5px;cursor:pointer;border-radius:4px;text-transform:uppercase;font-family:'Barlow',sans-serif;transition:all .3s}
+.btn-out:hover{border-color:var(--gold);background:rgba(255,214,0,.06);transform:translateY(-2px)}
+
+/* SERVICES */
+.svc-sec{padding:6rem 1.5rem;background:#0a0a0a}
+.sec-inner{max-width:920px;margin:0 auto}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem;opacity:.8}
+.big-ttl{font-family:'Bebas Neue',sans-serif;font-size:48px;color:#fff;letter-spacing:2px;margin-bottom:.5rem;line-height:1}
+.sub-txt{color:#444;font-size:14px;line-height:1.8;margin-bottom:3rem}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:1px;background:rgba(255,214,0,.05)}
+.svc{background:#111;padding:2rem 1.5rem;position:relative;overflow:hidden;transition:all .3s;cursor:default}
+.svc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,214,0,.03),transparent);opacity:0;transition:opacity .3s}
+.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));transform:scaleX(0);transition:transform .4s}
+.svc:hover::before{opacity:1}
 .svc:hover::after{transform:scaleX(1)}
-.svc-ico{font-size:22px;display:block;margin-bottom:.75rem}
-.svc h3{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:18px;color:#fff;letter-spacing:1px;margin-bottom:.4rem}
-.svc p{font-size:12px;color:#666;line-height:1.6}
-.contact-sec{background:#111;padding:4rem 1.5rem}
-.contact-inner{max-width:880px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
-.contact-items{display:flex;flex-direction:column;gap:1.25rem;margin-top:1rem}
-.ci{display:flex;gap:12px;align-items:flex-start}
-.ci-icon{width:38px;height:38px;background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.ci-lbl{font-size:10px;color:#444;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px}
-.ci-val{font-size:14px;color:#888;line-height:1.7}
-.book-wrap{background:#f5f5f0;padding:3rem 1rem}
-.bcard{background:#fff;border:1px solid #e8e8e8;border-radius:12px;max-width:540px;margin:0 auto;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.06)}
-.binner{padding:2rem}
-.bhdr{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid #f0f0f0}
-.bnum{width:32px;height:32px;background:#111;color:#FFD600;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue','Arial Black',sans-serif;font-size:18px;border-radius:5px;flex-shrink:0}
-.bttl{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:22px;letter-spacing:1px}
-.notice{background:#fffbea;border:1px solid #ffe066;border-radius:8px;padding:1rem 1.1rem;margin-bottom:1.5rem;font-size:13px;color:#665500;line-height:1.6}
-.fl{display:block;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;margin-top:14px}
-.fi{width:100%;padding:11px 13px;border:1.5px solid #e8e8e8;border-radius:7px;font-size:14px;color:#111;background:#fff;outline:none;font-family:'Barlow',Arial,sans-serif}
-.fi:focus{border-color:#FFD600;box-shadow:0 0 0 3px rgba(255,214,0,.1)}
-textarea.fi{height:84px;resize:vertical}
-.ok-wrap{text-align:center;padding:2.5rem 1.5rem}
-.ok-wrap h3{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:28px;letter-spacing:1px;margin:.75rem 0}
-.lock{position:fixed;inset:0;background:#111;display:flex;align-items:center;justify-content:center;z-index:999}
-.lockbox{background:#191919;border:1px solid #2a2a2a;border-radius:16px;padding:2.5rem;width:90%;max-width:320px;text-align:center}
-.lock-logo{width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #FFD600;margin:0 auto 1.25rem;display:block}
-.lock-ttl{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:28px;color:#FFD600;letter-spacing:3px;margin-bottom:.3rem}
-.lock-sub{font-size:12px;color:#555;margin-bottom:1.25rem}
-.lock-input{width:100%;padding:12px;background:#111;border:1.5px solid #2a2a2a;border-radius:7px;color:#fff;font-size:15px;outline:none;text-align:center;letter-spacing:3px}
-.lock-input:focus{border-color:#FFD600}
-.lock-err{color:#ff4444;font-size:12px;margin-top:6px;display:none}
-.popup{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:998;display:flex;align-items:center;justify-content:center;padding:1rem}
-.popbox{background:#fff;border-radius:16px;width:100%;max-width:380px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.pop-hdr{background:#111;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:8px}
-.pop-ttl{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:20px;color:#FFD600;flex:1;letter-spacing:2px}
-.pop-close{background:none;border:none;color:#666;font-size:20px;cursor:pointer;line-height:1}
+.svc:hover{background:#141414;transform:translateY(-2px)}
+.svc-ico{font-size:26px;display:block;margin-bottom:1rem;filter:grayscale(0)}
+.svc h3{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;margin-bottom:.5rem}
+.svc p{font-size:12px;color:#555;line-height:1.7}
+
+/* CONTACT */
+.contact-sec{background:#0d0d0d;padding:6rem 1.5rem;border-top:1px solid rgba(255,214,0,.05)}
+.contact-inner{max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-items{display:flex;flex-direction:column;gap:1.5rem;margin-top:1.25rem}
+.ci{display:flex;gap:14px;align-items:flex-start}
+.ci-icon{width:44px;height:44px;background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;transition:all .3s}
+.ci:hover .ci-icon{background:rgba(255,214,0,.12);border-color:rgba(255,214,0,.3)}
+.ci-lbl{font-size:10px;color:#444;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.ci-val{font-size:14px;color:#777;line-height:1.8}
+
+/* BOOKING */
+.book-wrap{background:#0a0a0a;padding:4rem 1rem;min-height:100vh}
+.bcard{background:#111;border:1px solid rgba(255,214,0,.1);border-radius:16px;max-width:560px;margin:0 auto;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.binner{padding:2.5rem}
+.bhdr{display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.bnum{width:34px;height:34px;background:linear-gradient(135deg,#FFD600,#FFA500);color:#000;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:19px;border-radius:6px;flex-shrink:0;font-weight:900}
+.bttl{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:#fff}
+.notice{background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.15);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.75rem;font-size:13px;color:#aa8800;line-height:1.7}
+.notice strong{color:var(--gold);display:block;margin-bottom:3px}
+.fl{display:block;font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;margin-top:16px}
+.fi{width:100%;padding:12px 14px;border:1.5px solid rgba(255,255,255,.08);border-radius:8px;font-size:14px;color:#fff;background:rgba(255,255,255,.04);outline:none;font-family:'Barlow',sans-serif;transition:all .2s}
+.fi:focus{border-color:var(--gold);background:rgba(255,214,0,.04);box-shadow:0 0 0 3px rgba(255,214,0,.08)}
+.fi option{background:#1a1a1a;color:#fff}
+textarea.fi{height:90px;resize:vertical}
+.ok-wrap{text-align:center;padding:3rem 2rem}
+.ok-wrap h3{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;margin:.75rem 0;color:#fff}
+.ok-wrap p{color:#555;font-size:15px;line-height:1.7}
+
+/* LOCK */
+.lock{position:fixed;inset:0;background:#0a0a0a;display:flex;align-items:center;justify-content:center;z-index:999}
+.lockbox{background:#111;border:1px solid rgba(255,214,0,.15);border-radius:20px;padding:2.75rem;width:90%;max-width:340px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.8)}
+.lock-logo{width:76px;height:76px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);margin:0 auto 1.25rem;display:block;box-shadow:0 0 30px rgba(255,214,0,.2)}
+.lock-ttl{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--gold);letter-spacing:4px;margin-bottom:.4rem}
+.lock-sub{font-size:12px;color:#444;margin-bottom:1.5rem}
+.lock-input{width:100%;padding:13px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:8px;color:#fff;font-size:15px;outline:none;text-align:center;letter-spacing:3px;transition:all .2s}
+.lock-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,214,0,.08)}
+.lock-err{color:#ff4444;font-size:12px;margin-top:8px;display:none}
+
+/* POPUPS */
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:998;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.popbox{background:#111;border:1px solid rgba(255,214,0,.15);border-radius:18px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7)}
+.pop-hdr{background:#0d0d0d;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,214,0,.1)}
+.pop-ttl{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);flex:1;letter-spacing:3px}
+.pop-close{background:none;border:none;color:#444;font-size:20px;cursor:pointer;transition:color .2s;line-height:1}
+.pop-close:hover{color:#fff}
 .pop-body{padding:1.5rem;display:flex;flex-direction:column;gap:12px}
 .pop-row{display:flex;gap:10px}
-.pop-lbl{font-size:10px;color:#aaa;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
-.pop-val{font-size:15px;font-weight:600;color:#111}
-.pop-ftr{padding:1rem 1.5rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid #f0f0f0}
-.btn-call{background:#22c55e;color:#fff;border:none;padding:12px 16px;border-radius:8px;flex:1;font-weight:700;cursor:pointer;text-decoration:none;display:block;text-align:center;font-size:13px;font-family:'Barlow',Arial,sans-serif}
-.btn-ok{background:#FFD600;color:#111;border:none;padding:12px 16px;border-radius:8px;flex:1;font-weight:700;cursor:pointer;font-size:13px;font-family:'Barlow',Arial,sans-serif}
-.btn-skip{background:none;border:1.5px solid #e8e8e8;color:#888;padding:10px;border-radius:8px;width:100%;margin-top:4px;cursor:pointer;font-size:13px;font-family:'Barlow',Arial,sans-serif}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:997;display:flex;align-items:center;justify-content:center;padding:1rem}
-.modbox{background:#fff;border-radius:16px;width:100%;max-width:380px;overflow:hidden;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.2)}
-.mod-hdr{background:#111;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0}
-.mod-ttl{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:20px;color:#FFD600;letter-spacing:2px}
-.mod-close{background:none;border:none;color:#666;font-size:22px;cursor:pointer;line-height:1}
+.pop-ico{font-size:17px;flex-shrink:0;margin-top:2px}
+.pop-lbl{font-size:10px;color:#444;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.pop-val{font-size:15px;font-weight:600;color:#fff}
+.pop-ftr{padding:1.25rem 1.5rem;background:#0d0d0d;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.05)}
+.btn-call{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:12px 16px;border-radius:8px;flex:1;font-weight:700;cursor:pointer;text-decoration:none;display:block;text-align:center;font-size:13px;font-family:'Barlow',sans-serif;transition:all .2s}
+.btn-call:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(34,197,94,.3)}
+.btn-ok{background:linear-gradient(135deg,#FFD600,#FFA500);color:#000;border:none;padding:12px 16px;border-radius:8px;flex:1;font-weight:700;cursor:pointer;font-size:13px;font-family:'Barlow',sans-serif;transition:all .2s}
+.btn-ok:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,214,0,.3)}
+.btn-skip{background:none;border:1px solid rgba(255,255,255,.08);color:#444;padding:10px;border-radius:8px;width:100%;margin-top:4px;cursor:pointer;font-size:13px;font-family:'Barlow',sans-serif;transition:all .2s}
+.btn-skip:hover{border-color:rgba(255,255,255,.15);color:#666}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:997;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.modbox{background:#111;border:1px solid rgba(255,214,0,.1);border-radius:18px;width:100%;max-width:400px;overflow:hidden;max-height:90vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.7)}
+.mod-hdr{background:#0d0d0d;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;border-bottom:1px solid rgba(255,214,0,.1)}
+.mod-ttl{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:3px}
+.mod-close{background:none;border:none;color:#444;font-size:22px;cursor:pointer;transition:color .2s;line-height:1}
+.mod-close:hover{color:#fff}
 .mod-body{padding:1.5rem}
-.mod-ftr{padding:1rem 1.5rem;background:#f9f9f9;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid #f0f0f0}
-.adm-wrap{padding:1.5rem;background:#f5f5f0;min-height:100vh}
-.adm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:10px}
-.adm-ttl{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:28px;letter-spacing:2px}
-.tabs{display:flex;gap:3px;background:#111;border-radius:8px;padding:4px;flex-wrap:wrap}
-.tab{padding:7px 13px;font-size:11px;font-weight:700;color:#555;border:none;background:none;cursor:pointer;border-radius:5px;text-transform:uppercase;letter-spacing:.5px;font-family:'Barlow',Arial,sans-serif}
-.tab.act{background:#FFD600;color:#111}
+.mod-ftr{padding:1.25rem 1.5rem;background:#0d0d0d;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.05)}
+
+/* ADMIN */
+.adm-wrap{padding:1.75rem;background:#0d0d0d;min-height:100vh}
+.adm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:12px}
+.adm-ttl{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:3px;color:#fff}
+.tabs{display:flex;gap:3px;background:#111;border-radius:10px;padding:4px;flex-wrap:wrap;border:1px solid rgba(255,255,255,.06)}
+.tab{padding:8px 14px;font-size:11px;font-weight:700;color:#444;border:none;background:none;cursor:pointer;border-radius:7px;text-transform:uppercase;letter-spacing:.5px;font-family:'Barlow',sans-serif;transition:all .2s}
+.tab.act{background:linear-gradient(135deg,#FFD600,#FFA500);color:#000}
 .tc{display:none}.tc.act{display:block}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.25rem}
-.stat{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:1rem;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-.sn{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:28px;color:#111}
-.sl{font-size:10px;color:#aaa;text-transform:uppercase;font-weight:700;margin-top:2px;letter-spacing:.5px}
-.acard{background:#fff;border:1px solid #e8e8e8;border-radius:10px;margin-bottom:10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-.acard-hdr{padding:.875rem 1rem;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid #f5f5f5;flex-wrap:wrap;gap:6px}
-.acard-body{padding:.875rem 1rem}
-.creg{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:20px;letter-spacing:3px;color:#111}
-.cmake{font-size:12px;color:#aaa;margin-top:2px}
-.cgrd{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid #f5f5f5;font-size:11px}
-.badge{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
-.bdone{background:#dcfce7;color:#166534}
-.bprog{background:#dbeafe;color:#1e40af}
-.bwait{background:#fef9c3;color:#854d0e}
-.bnew{background:#fee2e2;color:#991b1b}
-.catbadge{background:#111;color:#FFD600;padding:2px 8px;border-radius:20px;font-size:10px;font-weight:700;margin-right:5px;display:inline-block}
-.jrow{display:flex;gap:8px;padding:10px 0;border-top:1px solid #f5f5f5;flex-wrap:wrap}
-.jdate{font-size:11px;color:#aaa;min-width:68px;margin-top:2px;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.stat{background:#111;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:1.1rem;text-align:center;transition:all .2s}
+.stat:hover{border-color:rgba(255,214,0,.2)}
+.sn{font-family:'Bebas Neue',sans-serif;font-size:30px;color:#fff}
+.sl{font-size:10px;color:#444;text-transform:uppercase;font-weight:700;margin-top:3px;letter-spacing:.5px}
+.acard{background:#111;border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.acard:hover{border-color:rgba(255,214,0,.15)}
+.acard-hdr{padding:1rem 1.1rem;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.04);flex-wrap:wrap;gap:6px}
+.acard-body{padding:1rem 1.1rem}
+.creg{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#fff}
+.cmake{font-size:12px;color:#444;margin-top:2px}
+.cgrd{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.04);font-size:11px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.bdone{background:rgba(34,197,94,.15);color:#22c55e}
+.bprog{background:rgba(59,130,246,.15);color:#60a5fa}
+.bwait{background:rgba(234,179,8,.15);color:#eab308}
+.bnew{background:rgba(239,68,68,.15);color:#f87171}
+.catbadge{background:rgba(255,214,0,.1);color:var(--gold);padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;margin-right:5px;display:inline-block;border:1px solid rgba(255,214,0,.2)}
+.jrow{display:flex;gap:10px;padding:10px 0;border-top:1px solid rgba(255,255,255,.04);flex-wrap:wrap}
+.jdate{font-size:11px;color:#444;min-width:68px;margin-top:2px;font-weight:600}
 .jinfo{flex:1}
-.jdesc{font-size:13px;font-weight:600;margin-bottom:4px;color:#111}
-.jmeta{font-size:11px;color:#aaa;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.jdesc{font-size:13px;font-weight:600;margin-bottom:4px;color:#fff}
+.jmeta{font-size:11px;color:#444;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .jprice{font-size:13px;color:#22c55e;font-weight:700}
-.addf{background:#f9f9f9;border:1.5px dashed #e0e0e0;border-radius:10px;padding:1.1rem;margin-top:10px}
+.addf{background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.08);border-radius:12px;padding:1.25rem;margin-top:12px}
 .fc2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .fc3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
 .catg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
-.catbtn{background:#fff;border:1.5px solid #e8e8e8;border-radius:8px;padding:10px 4px;text-align:center;cursor:pointer;font-size:11px;font-weight:700;color:#333;transition:all .15s}
-.catbtn.sel{border-color:#FFD600;background:#fffbea}
-.bi{background:#fff;border:1px solid #e8e8e8;border-radius:10px;padding:.875rem 1rem;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-.bi:hover{border-color:#FFD600;transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,214,0,.1)}
-.bi.isnew{border-color:#fca5a5;background:#fff9f9}
+.catbtn{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:8px;padding:10px 4px;text-align:center;cursor:pointer;font-size:11px;font-weight:700;color:#666;transition:all .2s}
+.catbtn:hover{border-color:rgba(255,214,0,.3);color:#fff}
+.catbtn.sel{border-color:var(--gold);background:rgba(255,214,0,.08);color:var(--gold)}
+.bi{background:#111;border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:1rem 1.1rem;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s}
+.bi:hover{border-color:rgba(255,214,0,.2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.bi.isnew{border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.04)}
 .bdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
 .binf{flex:1}
-.bname{font-size:14px;font-weight:700;color:#111}
-.bdet{font-size:12px;color:#aaa;margin-top:3px;line-height:1.5}
-.barr{color:#ddd;font-size:20px;font-weight:300}
-.btn-del{background:#fee2e2;color:#991b1b;border:none;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:'Barlow',Arial,sans-serif}
-.btn-logout{background:none;border:1.5px solid #333;color:#666;font-size:11px;font-weight:700;padding:7px 14px;cursor:pointer;border-radius:6px;text-transform:uppercase;font-family:'Barlow',Arial,sans-serif;letter-spacing:.5px}
-.rec-box{background:#fff;border:1px solid #e8e8e8;border-radius:10px;max-width:440px;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,.06)}
-.rec-top{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid #111}
-.rec-top img{width:40px;height:40px;border-radius:50%;object-fit:cover}
-.rec-co{font-family:'Bebas Neue','Arial Black',sans-serif;font-size:18px;letter-spacing:2px;color:#111}
-.rec-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid #f5f5f5}
-.rec-row.tot{font-weight:700;font-size:15px;border:none;border-top:2px solid #111;margin-top:8px;padding-top:10px}
-.rec-lbl{color:#aaa}
-.rec-meta{font-size:11px;color:#aaa;margin-top:1.25rem;text-align:center;line-height:2}
-.toast{position:fixed;bottom:24px;right:24px;background:#22c55e;color:#fff;padding:10px 20px;border-radius:20px;font-weight:700;display:none;z-index:500;font-size:13px;box-shadow:0 4px 15px rgba(34,197,94,.3)}
-.mrow{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid #f5f5f5;align-items:flex-start}
+.bname{font-size:14px;font-weight:700;color:#fff}
+.bdet{font-size:12px;color:#444;margin-top:3px;line-height:1.5}
+.barr{color:#333;font-size:20px}
+.btn-del{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2);padding:6px 10px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:'Barlow',sans-serif;transition:all .2s}
+.btn-del:hover{background:rgba(239,68,68,.2)}
+.btn-logout{background:none;border:1px solid rgba(255,255,255,.1);color:#444;font-size:11px;font-weight:700;padding:7px 14px;cursor:pointer;border-radius:6px;text-transform:uppercase;font-family:'Barlow',sans-serif;letter-spacing:.5px;transition:all .2s}
+.btn-logout:hover{border-color:rgba(239,68,68,.4);color:#f87171}
+.rec-box{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:12px;max-width:440px;padding:2rem;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.rec-top{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:2px solid rgba(255,214,0,.2)}
+.rec-top img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,214,0,.3)}
+.rec-co{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff}
+.rec-row{display:flex;justify-content:space-between;padding:7px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04)}
+.rec-row.tot{font-weight:700;font-size:15px;border:none;border-top:2px solid rgba(255,214,0,.2);margin-top:8px;padding-top:10px;color:#fff}
+.rec-lbl{color:#444}
+.rec-meta{font-size:11px;color:#444;margin-top:1.25rem;text-align:center;line-height:2}
+.toast{position:fixed;bottom:24px;right:24px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;padding:12px 22px;border-radius:20px;font-weight:700;display:none;z-index:500;font-size:13px;box-shadow:0 8px 24px rgba(34,197,94,.3)}
+.mrow{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);align-items:flex-start}
 .mrow:last-child{border-bottom:none}
-.mlbl{font-size:10px;color:#aaa;font-weight:700;text-transform:uppercase;margin-bottom:2px;letter-spacing:.5px}
-.mval{font-size:14px;font-weight:500;color:#111}
-.divider{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#aaa;margin:12px 0 8px;padding-bottom:6px;border-bottom:1px solid #e8e8e8}
-.empty{text-align:center;color:#aaa;font-size:14px;padding:2.5rem;line-height:1.8}
-@media(max-width:600px){.hero h1{font-size:68px}.contact-inner{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.fc2{grid-template-columns:1fr}.fc3{grid-template-columns:1fr 1fr}.svc-grid{grid-template-columns:1fr 1fr}.tabs{gap:2px}.tab{padding:6px 9px;font-size:10px}}
+.mlbl{font-size:10px;color:#444;font-weight:700;text-transform:uppercase;margin-bottom:2px;letter-spacing:.5px}
+.mval{font-size:14px;font-weight:500;color:#fff}
+.divider{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#333;margin:14px 0 10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.06)}
+.empty{text-align:center;color:#333;font-size:14px;padding:3rem;line-height:1.8}
+.sec-ttl-light{color:#fff}
+@media(max-width:600px){.hero h1{font-size:72px}.hero-logo{width:110px;height:110px}.contact-inner{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.fc2{grid-template-columns:1fr}.fc3{grid-template-columns:1fr 1fr}.svc-grid{grid-template-columns:1fr 1fr}.tabs{gap:2px}.tab{padding:6px 9px;font-size:10px}}
 </style>
 </head>
 <body>
 <div id="toast" class="toast">Sparat!</div>
 <div id="lock" class="lock" style="display:none">
   <div class="lockbox">
-    <img id="lock-logo" class="lock-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCABkAGQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzOiiikAtFJS0AFTtayrZx3WMxuxTI7Ec8/X+lRIjOcIpY+1atlfC2RI5oRNbTII54j3weCPQjtUSbWxUVfcygrFSwB2g4J9KSumj02CFJQrNNpt0B84HzwkdCfp6/UHFY+p6Vc6c480B4X/1cy/dcf0PtSjVjJ2G4NK5RoooqyQpaSigBaKKKAGUUUUxBS0lLQBat44tpLK0jDk4OFX8akjjY5IUeU54Dnr7imfetlVPug4H+0epJq1BksibsyMu+R+4HYCsmzVI1rK8eFQuduOpB5/Gty0urGeAwXclsUfgo5A3fhXPWmwx7+i5+UDvWmj27xtFPGssbdUYfyNcdRJs6Fsc/4l0uDTb4fY3L20w3Jk5K+oz3rHr0BbGwv7A2UgYxg5jP8cZ9j3rkNW0e50uUiTEkWeJU6c9M+h9jXRRrJ+63qYVKbWq2M6iiiugyFooooAZRRVxI4YyFfIb1K5obsCVyoKlEIA3TNsHp/Efwq+jWwOGl6dghqyqQyEKplwT/AAR4z+NQ5+Rah5mbbOnmrECdpyAW9T/+qp0V4ZmL9CNhPpxwavXsOnwW+2JHklP0P481QS7zGRIAzR+v8a9wahPm1SKty6M1YQTb2xH3fuk+hI4/kaZcTvBc+UIyzdh7etR2kyWrBT89nNgc/wAOa0ZVSQuH+aa1G4N3dOv+fcVk9Hqap6FK21tVOTIEPo64/UVmalqL3Usm1m2OQWG44Yjvio9UjWO9fZja4DqR3B71UreFOK95GEpy2YUUlLWhAtFJRQA0datiWRT+6kVl9Cf6GqlSQwyTttiXceuMih26gm+heS5vBwqKfpirRuLoBcMu0/eBZcgfnWU9pOkZkaP5B1YEED8qWO1uHjEkaZTOM7gP61m4x30NFKRcUGRi245yFwWwGOe1UpSokbGDyQOamiivldoEVgxGSpwDj1GaiitZ5Q7RqCE+8Qw4pqy6ibb6E8jsLaG2HMhxken+c1b+3AT3MwPyrEIwfU81mQwzSLI0XRBlzuAwKfFZ3EsSuFCxk/KzuEBPtk0nGPUFJ9CKWQyFc/wqFH0FR1PNaXEEwhmiKO2MBsYP0PSkubWe0l8q4jKPjO0kZq010IaZDRVuPTbuSFZkiBjboxdQD+ZqGeCW2lMUy7XABIyD1+lCknomFmiOiiimA2ruk/8AH8v0NUqmtbg20vmKoY4wMmlJXTQ4uzTLoAtbGWSNvNWYlMgYC9etEIjOjN5pYL5vVQCar280gS4CRK0RG50Zug9qWGdjavALcSIvzt8xyPeoaf4lpouTytFcWVwjA24G1D3x3zUkMaWmpSvJ/q5XCIOx3cn8un41m3ckzCJZFVECZjVegBptxdyXHl7+PLGBj+dLkbQ+dJlp4fsiPA/HmzBCf9hT/wDXH5UuuE/2gU6IiKEHYDFVLu6ku5Q8gAIUKAKka8E0aLcwiVkGFfcVbHofWmotNNktq1kXmbf4bgMvLRz7YyeuM8j/AD6UzxIc6w5/2F/lVW6nm81IZohGsHAhHAX/AD61LLqYmuBcS2cLSjHJLdunGcVKi07+v4jbTVizthbw3bieRkXz2wVTdzz7isq42ee4jctGpwhPcdqmkvWewW0Ma7VbeGyc57/zqrVwi1e5MmmFFFFWSNooopiLdiTtuAACxj4B7nIqUrE0s21Ix+4yQOiv7Vn0VLjrcpS0saYCF4N67gLcDjBIOewPUjPSlhS3HmkpHKyy/MFKgFfbPQfSsulpcnmPn8i47JHYR7YoizMwLEAkDIxTrpofLV4Uj3ThTsCj5McEfiao0U+UXMa0kcXn3fkJCZVZSitgjbjnGeKS3Ft9lLtAjtvbzFDKNo7Yz0HuKyqKnk03Hz+QtFJS1oQFFFFIY2iiimIKKKKACloooAKKKKACiiigApaKKACiiigZ/9k=" alt="RBwolf">
+    <img class="lock-logo" src="data:image/jpeg;base64,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" alt="RBwolf">
     <div class="lock-ttl">Admin</div>
-    <div class="lock-sub">Ange lösenord</div>
-    <input class="lock-input" type="password" id="pw" placeholder="Lösenord">
-    <div class="lock-err" id="pwerr">Fel lösenord</div>
-    <button class="btn-gold" id="loginbtn" style="width:100%;margin-top:14px;padding:13px">Logga in</button>
+    <div class="lock-sub">Ange lösenord för att fortsätta</div>
+    <input class="lock-input" type="password" id="pw" placeholder="••••••••••">
+    <div class="lock-err" id="pwerr">Fel lösenord — försök igen</div>
+    <button class="btn-gold" id="loginbtn" style="width:100%;margin-top:16px;padding:14px">Logga in</button>
   </div>
 </div>
 <div id="popup" class="popup" style="display:none">
   <div class="popbox">
-    <div class="pop-hdr"><span style="font-size:20px">🔔</span><span class="pop-ttl">NY BOKNING</span><button class="pop-close" id="closepopup">✕</button></div>
+    <div class="pop-hdr"><span style="font-size:22px">🔔</span><span class="pop-ttl">NY BOKNING</span><button class="pop-close" id="closepopup">✕</button></div>
     <div class="pop-body" id="popbody"></div>
     <div class="pop-ftr">
       <a id="callbtn" href="#" class="btn-call">📞 Ring kunden</a>
       <button class="btn-ok" id="cfmpopup">✓ Bekräfta</button>
-      <button class="btn-skip" id="skippopup">Stäng</button>
+      <button class="btn-skip" id="skippopup">Stäng — visa senare</button>
     </div>
   </div>
 </div>
@@ -192,7 +247,7 @@ textarea.fi{height:84px;resize:vertical}
 </div>
 <nav>
   <div class="logo-wrap" id="logobtn">
-    <img id="nav-logo" class="logo-img" src="data:image/jpeg;base64,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" alt="RBwolf">
+    <img class="logo-img" src="data:image/jpeg;base64,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" alt="RBwolf">
     <span class="logo-text">RBwolf</span>
   </div>
   <div class="nav-links">
@@ -207,33 +262,43 @@ textarea.fi{height:84px;resize:vertical}
 </nav>
 <div id="pg-home" class="page active">
   <div class="hero">
-    <div class="hero-tag">Bilverkstad i Bromölla</div>
-    <img class="hero-logo" src="data:image/jpeg;base64,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" alt="RBwolf">
-    <h1>RB<span>WOLF</span></h1>
+    <div class="hero-bg"></div>
+    <div class="hero-lines"></div>
+    <div class="hero-tag">⭐ Bilverkstad i Bromölla sedan 2010</div>
+    <div class="hero-logo-wrap">
+      <div class="hero-ring"></div>
+      <div class="hero-ring2"></div>
+      <img class="hero-logo" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCABkAGQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzOiiikAtFJS0AFTtayrZx3WMxuxTI7Ec8/X+lRIjOcIpY+1atlfC2RI5oRNbTII54j3weCPQjtUSbWxUVfcygrFSwB2g4J9KSumj02CFJQrNNpt0B84HzwkdCfp6/UHFY+p6Vc6c480B4X/1cy/dcf0PtSjVjJ2G4NK5RoooqyQpaSigBaKKKAGUUUUxBS0lLQBat44tpLK0jDk4OFX8akjjY5IUeU54Dnr7imfetlVPug4H+0epJq1BksibsyMu+R+4HYCsmzVI1rK8eFQuduOpB5/Gty0urGeAwXclsUfgo5A3fhXPWmwx7+i5+UDvWmj27xtFPGssbdUYfyNcdRJs6Fsc/4l0uDTb4fY3L20w3Jk5K+oz3rHr0BbGwv7A2UgYxg5jP8cZ9j3rkNW0e50uUiTEkWeJU6c9M+h9jXRRrJ+63qYVKbWq2M6iiiugyFooooAZRRVxI4YyFfIb1K5obsCVyoKlEIA3TNsHp/Efwq+jWwOGl6dghqyqQyEKplwT/AAR4z+NQ5+Rah5mbbOnmrECdpyAW9T/+qp0V4ZmL9CNhPpxwavXsOnwW+2JHklP0P481QS7zGRIAzR+v8a9wahPm1SKty6M1YQTb2xH3fuk+hI4/kaZcTvBc+UIyzdh7etR2kyWrBT89nNgc/wAOa0ZVSQuH+aa1G4N3dOv+fcVk9Hqap6FK21tVOTIEPo64/UVmalqL3Usm1m2OQWG44Yjvio9UjWO9fZja4DqR3B71UreFOK95GEpy2YUUlLWhAtFJRQA0datiWRT+6kVl9Cf6GqlSQwyTttiXceuMih26gm+heS5vBwqKfpirRuLoBcMu0/eBZcgfnWU9pOkZkaP5B1YEED8qWO1uHjEkaZTOM7gP61m4x30NFKRcUGRi245yFwWwGOe1UpSokbGDyQOamiivldoEVgxGSpwDj1GaiitZ5Q7RqCE+8Qw4pqy6ibb6E8jsLaG2HMhxken+c1b+3AT3MwPyrEIwfU81mQwzSLI0XRBlzuAwKfFZ3EsSuFCxk/KzuEBPtk0nGPUFJ9CKWQyFc/wqFH0FR1PNaXEEwhmiKO2MBsYP0PSkubWe0l8q4jKPjO0kZq010IaZDRVuPTbuSFZkiBjboxdQD+ZqGeCW2lMUy7XABIyD1+lCknomFmiOiiimA2ruk/8AH8v0NUqmtbg20vmKoY4wMmlJXTQ4uzTLoAtbGWSNvNWYlMgYC9etEIjOjN5pYL5vVQCar280gS4CRK0RG50Zug9qWGdjavALcSIvzt8xyPeoaf4lpouTytFcWVwjA24G1D3x3zUkMaWmpSvJ/q5XCIOx3cn8un41m3ckzCJZFVECZjVegBptxdyXHl7+PLGBj+dLkbQ+dJlp4fsiPA/HmzBCf9hT/wDXH5UuuE/2gU6IiKEHYDFVLu6ku5Q8gAIUKAKka8E0aLcwiVkGFfcVbHofWmotNNktq1kXmbf4bgMvLRz7YyeuM8j/AD6UzxIc6w5/2F/lVW6nm81IZohGsHAhHAX/AD61LLqYmuBcS2cLSjHJLdunGcVKi07+v4jbTVizthbw3bieRkXz2wVTdzz7isq42ee4jctGpwhPcdqmkvWewW0Ma7VbeGyc57/zqrVwi1e5MmmFFFFWSNooopiLdiTtuAACxj4B7nIqUrE0s21Ix+4yQOiv7Vn0VLjrcpS0saYCF4N67gLcDjBIOewPUjPSlhS3HmkpHKyy/MFKgFfbPQfSsulpcnmPn8i47JHYR7YoizMwLEAkDIxTrpofLV4Uj3ThTsCj5McEfiao0U+UXMa0kcXn3fkJCZVZSitgjbjnGeKS3Ft9lLtAjtvbzFDKNo7Yz0HuKyqKnk03Hz+QtFJS1oQFFFFIY2iiimIKKKKACloooAKKKKACiiigApaKKACiiigZ/9k=" alt="RBwolf">
+    </div>
+    <h1>RB<span class="gold">WOLF</span></h1>
     <div class="hero-sub">Service · Reparationer · Felsökning</div>
-    <p>Vi tar hand om din bil som om det vore vår egen.</p>
+    <p>Professionell bilservice med personlig touch. Vi tar hand om din bil som om det vore vår egen.</p>
     <div class="hero-btns">
-      <button class="btn-gold" id="herobookbtn">Boka tid</button>
+      <button class="btn-gold" id="herobookbtn">Boka tid nu</button>
       <button class="btn-out" id="herocontactbtn">Kontakt</button>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scrolla</span>
     </div>
   </div>
   <div class="hours-bar">
-    <div class="hi"><div class="hi-num">09-18</div><div class="hi-lbl">Mån-Fre</div></div>
-    <div class="hi"><div class="hi-num">10-16</div><div class="hi-lbl">Lördag</div></div>
+    <div class="hi"><div class="hi-num">09–18</div><div class="hi-lbl">Mån–Fre</div></div>
+    <div class="hi"><div class="hi-num">10–16</div><div class="hi-lbl">Lördag</div></div>
     <div class="hi"><div class="hi-num">Stängt</div><div class="hi-lbl">Söndag</div></div>
   </div>
   <div class="svc-sec">
     <div class="sec-inner">
       <div class="eyebrow">Vad vi gör</div>
-      <div class="big-ttl">Våra tjänster</div>
-      <div class="sub-txt">Allt från enklare service till komplexa reparationer.</div>
+      <div class="big-ttl sec-ttl-light">Våra tjänster</div>
+      <div class="sub-txt">Allt från enklare service till komplexa reparationer — vi fixar det mesta.</div>
       <div class="svc-grid">
-        <div class="svc"><span class="svc-ico">⚙️</span><h3>Service och Olja</h3><p>Oljebyte, filter och vätskor.</p></div>
-        <div class="svc"><span class="svc-ico">🔧</span><h3>Reparationer</h3><p>Motor, bromsar och styrning.</p></div>
-        <div class="svc"><span class="svc-ico">🔍</span><h3>Felsökning</h3><p>Modern diagnos.</p></div>
-        <div class="svc"><span class="svc-ico">🛞</span><h3>Däck och Hjul</h3><p>Säsongsbyte och balansering.</p></div>
-        <div class="svc"><span class="svc-ico">💡</span><h3>El och Belysning</h3><p>Lampbyte, elsystem, batteri.</p></div>
-        <div class="svc"><span class="svc-ico">🚗</span><h3>Besiktning</h3><p>Förberedelse och anmärkningar.</p></div>
+        <div class="svc"><span class="svc-ico">⚙️</span><h3>Service & Olja</h3><p>Oljebyte, filter och kontroll av alla vätskor.</p></div>
+        <div class="svc"><span class="svc-ico">🔧</span><h3>Reparationer</h3><p>Motor, bromsar, växellåda och styrning.</p></div>
+        <div class="svc"><span class="svc-ico">🔍</span><h3>Felsökning</h3><p>Modern diagnos — vi hittar felet snabbt.</p></div>
+        <div class="svc"><span class="svc-ico">🛞</span><h3>Däck & Hjul</h3><p>Säsongsbyte och balansering.</p></div>
+        <div class="svc"><span class="svc-ico">💡</span><h3>El & Belysning</h3><p>Lampbyte, elsystem och batteri.</p></div>
+        <div class="svc"><span class="svc-ico">🚗</span><h3>Besiktning</h3><p>Vi förbereder och fixar anmärkningar.</p></div>
       </div>
     </div>
   </div>
@@ -241,42 +306,45 @@ textarea.fi{height:84px;resize:vertical}
     <div class="contact-inner">
       <div>
         <div class="eyebrow">Kontakt</div>
-        <div class="big-ttl" style="color:#fff">Hitta oss</div>
-        <p style="color:#555;font-size:14px;line-height:1.8;margin-top:.75rem;margin-bottom:1.5rem">Välkommen in eller boka tid nedan.</p>
-        <button class="btn-gold" id="contactbookbtn">Boka tid nu</button>
+        <div class="big-ttl sec-ttl-light">Hitta oss</div>
+        <p style="color:#444;font-size:14px;line-height:1.9;margin-top:.75rem;margin-bottom:2rem">Välkommen in utan bokning under öppettiderna, eller boka din tid nedan — vi ringer upp dig!</p>
+        <button class="btn-gold" id="contactbookbtn">Boka tid nu →</button>
       </div>
       <div class="contact-items">
         <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-lbl">Telefon</div><div class="ci-val">073-933 44 46</div></div></div>
         <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-lbl">Adress</div><div class="ci-val">Ugnsvägen 4A<br>295 39 Bromölla</div></div></div>
-        <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-lbl">Öppettider</div><div class="ci-val">Mån-Fre 09-18<br>Lördag 10-16<br>Söndag Stängt</div></div></div>
+        <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-lbl">Öppettider</div><div class="ci-val">Mån–Fre 09:00–18:00<br>Lördag 10:00–16:00<br>Söndag Stängt</div></div></div>
       </div>
     </div>
   </div>
 </div>
 <div id="pg-book" class="page">
   <div class="book-wrap">
-    <div style="text-align:center;margin-bottom:1.5rem"><div class="eyebrow">Bokningssystem</div><div class="big-ttl">Boka tid</div></div>
+    <div style="text-align:center;margin-bottom:2rem;padding-top:1rem">
+      <div class="eyebrow">Bokningssystem</div>
+      <div class="big-ttl sec-ttl-light">Boka tid</div>
+    </div>
     <div id="bform" class="bcard">
       <div class="binner">
         <div class="bhdr"><div class="bnum">1</div><div class="bttl">Dina uppgifter</div></div>
-        <div class="notice"><strong style="display:block;margin-bottom:3px">Vi ringer dig!</strong>En mekaniker ringer upp för att bekräfta. Ring direkt: <strong>073-933 44 46</strong></div>
+        <div class="notice"><strong>Vi ringer dig!</strong>En mekaniker ringer upp för att bekräfta. Ring direkt: 073-933 44 46</div>
         <label class="fl">Namn</label><input class="fi" type="text" id="bn" placeholder="Anna Andersson">
         <label class="fl">Telefon</label><input class="fi" type="tel" id="bp" placeholder="070-123 45 67">
         <label class="fl">E-post</label><input class="fi" type="email" id="be" placeholder="din@epost.se">
         <label class="fl">Registreringsnummer</label><input class="fi" type="text" id="br" placeholder="ABC123" style="text-transform:uppercase">
         <label class="fl">Bilmärke och modell</label><input class="fi" type="text" id="bc" placeholder="Volvo V70 2018">
         <label class="fl">Önskat datum</label><input class="fi" type="date" id="bd">
-        <label class="fl">Beskriv ärendet</label><textarea class="fi" id="bdesc" placeholder="Vad behöver din bil?"></textarea>
-        <button class="btn-gold" id="subbookbtn" style="width:100%;padding:14px;margin-top:16px;font-size:14px">Skicka bokningsförfrågan →</button>
+        <label class="fl">Beskriv ärendet</label><textarea class="fi" id="bdesc" placeholder="Vad behöver din bil hjälp med?"></textarea>
+        <button class="btn-gold" id="subbookbtn" style="width:100%;padding:15px;margin-top:20px;font-size:14px">Skicka bokningsförfrågan →</button>
       </div>
     </div>
     <div id="bokOk" class="bcard" style="display:none">
       <div class="ok-wrap">
-        <div style="font-size:52px">✅</div>
+        <div style="font-size:56px">✅</div>
         <h3>Förfrågan skickad!</h3>
-        <p style="color:#888;font-size:15px">Vi ringer upp dig inom kort för att bekräfta tid.</p>
-        <div id="bconf" style="margin-top:1rem;padding:1rem;background:#f9f9f9;border-radius:8px;font-size:13px;color:#888;text-align:left;line-height:1.9;border:1px solid #f0f0f0"></div>
-        <button class="btn-gold" id="newbookbtn" style="margin-top:1.5rem">Ny bokning</button>
+        <p>Vi ringer upp dig inom kort för att bekräfta tid och gå igenom jobbet.</p>
+        <div id="bconf" style="margin-top:1.25rem;padding:1rem 1.25rem;background:rgba(255,255,255,.04);border-radius:10px;font-size:13px;color:#555;text-align:left;line-height:1.9;border:1px solid rgba(255,255,255,.06)"></div>
+        <button class="btn-gold" id="newbookbtn" style="margin-top:1.75rem">Ny bokning</button>
       </div>
     </div>
   </div>
@@ -302,19 +370,19 @@ textarea.fi{height:84px;resize:vertical}
       <div class="stat"><div class="sn" id="s4">0 kr</div><div class="sl">Intäkt</div></div>
     </div>
     <div id="tc-b" class="tc act">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
-        <strong style="font-size:15px">Bokningar</strong>
-        <span id="nbadge" style="display:none;background:#dc2626;color:#fff;font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700"></span>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <strong style="font-size:15px;color:#fff">Bokningar</strong>
+        <span id="nbadge" style="display:none;background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.2);font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700"></span>
       </div>
       <div id="blist"></div>
     </div>
     <div id="tc-c" class="tc">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-        <strong style="font-size:15px">Bilar</strong>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <strong style="font-size:15px;color:#fff">Bilar</strong>
         <button class="btn-gold" id="addcarbtn" style="font-size:11px;padding:7px 14px">+ Ny bil</button>
       </div>
       <div id="addcarform" class="addf" style="display:none;margin-bottom:14px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#aaa;margin-bottom:10px;letter-spacing:1px">Ny bil</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#333;margin-bottom:10px;letter-spacing:1px">Lägg till bil</div>
         <div class="divider">Fordon</div>
         <div class="fc2"><div><label class="fl">Reg.nr</label><input class="fi" id="creg" placeholder="ABC123" style="text-transform:uppercase"></div><div><label class="fl">Märke</label><input class="fi" id="cmake" placeholder="Volvo"></div></div>
         <div class="fc2"><div><label class="fl">Modell</label><input class="fi" id="cmod" placeholder="V70"></div><div><label class="fl">År</label><input class="fi" id="cyr" type="number" placeholder="2018"></div></div>
@@ -328,12 +396,12 @@ textarea.fi{height:84px;resize:vertical}
       <div id="clist"></div>
     </div>
     <div id="tc-h" class="tc">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-        <strong style="font-size:15px">Jobbhistorik</strong>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <strong style="font-size:15px;color:#fff">Jobbhistorik</strong>
         <button class="btn-gold" id="addjobbtn" style="font-size:11px;padding:7px 14px">+ Nytt jobb</button>
       </div>
       <div id="addjobform" class="addf" style="display:none;margin-bottom:14px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#aaa;margin-bottom:10px;letter-spacing:1px">Kategori</div>
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#333;margin-bottom:10px;letter-spacing:1px">Välj kategori</div>
         <div class="catg" id="catg"></div>
         <div class="fc2"><div><label class="fl">Reg.nr</label><input class="fi" id="jreg" placeholder="ABC123" style="text-transform:uppercase"></div><div><label class="fl">Datum</label><input class="fi" id="jdat" type="date"></div></div>
         <label class="fl">Beskrivning</label><input class="fi" id="jdesc" placeholder="Beskriv jobbet">
@@ -346,7 +414,7 @@ textarea.fi{height:84px;resize:vertical}
       <div id="hlist"></div>
     </div>
     <div id="tc-r" class="tc">
-      <strong style="display:block;margin-bottom:12px;font-size:15px">Generera kvitto</strong>
+      <strong style="display:block;margin-bottom:14px;font-size:15px;color:#fff">Generera kvitto</strong>
       <div class="fc2" style="margin-bottom:12px">
         <div><label class="fl">Bil</label><select class="fi" id="rcar"></select></div>
         <div><label class="fl">Jobb</label><select class="fi" id="rjob"></select></div>
@@ -603,6 +671,4 @@ function genRec(){
 
 function uStats(){G("s1").textContent=D.bookings.length;G("s2").textContent=D.cars.length;var done=D.jobs.filter(function(j){return j.status==="done"});G("s3").textContent=done.length;G("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr"}
 uStats();
-</script>
-</body>
-</html>
+</script></body></html>
