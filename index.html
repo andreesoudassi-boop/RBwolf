@@ -214,6 +214,7 @@ textarea.fi{height:90px;resize:vertical}
 .sec-ttl-light{color:#fff}
 @media(max-width:600px){.hero h1{font-size:72px}.hero-logo{width:110px;height:110px}.contact-inner{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.fc2{grid-template-columns:1fr}.fc3{grid-template-columns:1fr 1fr}.svc-grid{grid-template-columns:1fr 1fr}.tabs{gap:2px}.tab{padding:6px 9px;font-size:10px}}
 </style>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
 <div id="toast" class="toast">Sparat!</div>
@@ -313,7 +314,50 @@ textarea.fi{height:90px;resize:vertical}
       </div>
     </div>
   </div>
-  <div id="kontakt" class="contact-sec">
+  <div style="background:#0d0d0d;padding:4rem 1.5rem;border-top:1px solid rgba(255,214,0,.05)">
+  <div style="max-width:880px;margin:0 auto">
+    <div class="eyebrow">Kampanjer</div>
+    <div class="big-ttl sec-ttl-light" style="margin-bottom:2rem">Erbjudanden</div>
+    <div style="display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:12px">
+
+      <!-- Oljebyte kort -->
+      <div style="background:#0a0a0a;border:1.5px solid #8B6914;border-radius:12px;padding:1.75rem;text-align:center;position:relative;overflow:hidden;min-width:300px;max-width:300px;scroll-snap-align:start;flex-shrink:0">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0,rgba(255,214,0,.05),transparent 70%);pointer-events:none"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+          <svg width="52" height="62" viewBox="0 0 52 62" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26 2C26 2 4 26 4 38C4 50.15 13.85 60 26 60C38.15 60 48 50.15 48 38C48 26 26 2 26 2Z" fill="url(#goldGrad)" stroke="#8B6914" stroke-width="1.5"/><path d="M16 42C16 42 14 36 18 30" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="goldGrad" x1="26" y1="2" x2="26" y2="60" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#C9A227"/><stop offset="100%" stop-color="#8B6914"/></linearGradient></defs></svg>
+          <img src="data:image/jpeg;base64,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" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid #8B6914">
+        </div>
+        <div style="font-family:'Bebas Neue','Arial Black',sans-serif;font-size:clamp(28px,6vw,36px);color:#C9A227;line-height:1.1;margin-bottom:.5rem">Oljebyte för alla bilmodeller!</div>
+        <div style="color:#C9A227;font-size:14px;font-weight:600;margin-bottom:.25rem">Byt motorolja + oljefilter</div>
+        <div style="color:#C9A227;font-size:14px;font-weight:600;margin-bottom:1.25rem">för endast <span style="font-size:36px;font-weight:900;font-family:'Bebas Neue','Arial Black',sans-serif">1299</span> kr!</div>
+        <div style="border-top:1px solid rgba(201,162,39,.2);padding-top:1rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.6rem;text-align:left">
+          <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">🔧 Inklusive nollställning av service-lampa</div>
+          <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">📖 Stämpel i serviceboken ingår</div>
+        </div>
+        <button class="btn-gold" id="erbjudande-book-btn" style="width:100%;padding:13px;font-size:13px">Boka oljebyte nu →</button>
+      </div>
+
+      <!-- Däckbyte kort -->
+      <div style="background:#0a0a0a;border:1.5px solid #8B6914;border-radius:12px;padding:1.75rem;text-align:center;position:relative;overflow:hidden;min-width:300px;max-width:300px;scroll-snap-align:start;flex-shrink:0">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0,rgba(255,214,0,.05),transparent 70%);pointer-events:none"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="26" stroke="url(#tireGrad)" stroke-width="3" fill="none"/><circle cx="28" cy="28" r="16" stroke="url(#tireGrad)" stroke-width="3" fill="none"/><circle cx="28" cy="28" r="5" fill="url(#tireGrad)"/><line x1="28" y1="2" x2="28" y2="12" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round"/><line x1="28" y1="44" x2="28" y2="54" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round"/><line x1="2" y1="28" x2="12" y2="28" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round"/><line x1="44" y1="28" x2="54" y2="28" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round"/><defs><linearGradient id="tireGrad" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FFD700"/><stop offset="100%" stop-color="#8B6914"/></linearGradient></defs></svg>
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCABkAGQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzOiiikAtFJS0AFTtayrZx3WMxuxTI7Ec8/X+lRIjOcIpY+1atlfC2RI5oRNbTII54j3weCPQjtUSbWxUVfcygrFSwB2g4J9KSumj02CFJQrNNpt0B84HzwkdCfp6/UHFY+p6Vc6c480B4X/1cy/dcf0PtSjVjJ2G4NK5RoooqyQpaSigBaKKKAGUUUUxBS0lLQBat44tpLK0jDk4OFX8akjjY5IUeU54Dnr7imfetlVPug4H+0epJq1BksibsyMu+R+4HYCsmzVI1rK8eFQuduOpB5/Gty0urGeAwXclsUfgo5A3fhXPWmwx7+i5+UDvWmj27xtFPGssbdUYfyNcdRJs6Fsc/4l0uDTb4fY3L20w3Jk5K+oz3rHr0BbGwv7A2UgYxg5jP8cZ9j3rkNW0e50uUiTEkWeJU6c9M+h9jXRRrJ+63qYVKbWq2M6iiiugyFooooAZRRVxI4YyFfIb1K5obsCVyoKlEIA3TNsHp/Efwq+jWwOGl6dghqyqQyEKplwT/AAR4z+NQ5+Rah5mbbOnmrECdpyAW9T/+qp0V4ZmL9CNhPpxwavXsOnwW+2JHklP0P481QS7zGRIAzR+v8a9wahPm1SKty6M1YQTb2xH3fuk+hI4/kaZcTvBc+UIyzdh7etR2kyWrBT89nNgc/wAOa0ZVSQuH+aa1G4N3dOv+fcVk9Hqap6FK21tVOTIEPo64/UVmalqL3Usm1m2OQWG44Yjvio9UjWO9fZja4DqR3B71UreFOK95GEpy2YUUlLWhAtFJRQA0datiWRT+6kVl9Cf6GqlSQwyTttiXceuMih26gm+heS5vBwqKfpirRuLoBcMu0/eBZcgfnWU9pOkZkaP5B1YEED8qWO1uHjEkaZTOM7gP61m4x30NFKRcUGRi245yFwWwGOe1UpSokbGDyQOamiivldoEVgxGSpwDj1GaiitZ5Q7RqCE+8Qw4pqy6ibb6E8jsLaG2HMhxken+c1b+3AT3MwPyrEIwfU81mQwzSLI0XRBlzuAwKfFZ3EsSuFCxk/KzuEBPtk0nGPUFJ9CKWQyFc/wqFH0FR1PNaXEEwhmiKO2MBsYP0PSkubWe0l8q4jKPjO0kZq010IaZDRVuPTbuSFZkiBjboxdQD+ZqGeCW2lMUy7XABIyD1+lCknomFmiOiiimA2ruk/8AH8v0NUqmtbg20vmKoY4wMmlJXTQ4uzTLoAtbGWSNvNWYlMgYC9etEIjOjN5pYL5vVQCar280gS4CRK0RG50Zug9qWGdjavALcSIvzt8xyPeoaf4lpouTytFcWVwjA24G1D3x3zUkMaWmpSvJ/q5XCIOx3cn8un41m3ckzCJZFVECZjVegBptxdyXHl7+PLGBj+dLkbQ+dJlp4fsiPA/HmzBCf9hT/wDXH5UuuE/2gU6IiKEHYDFVLu6ku5Q8gAIUKAKka8E0aLcwiVkGFfcVbHofWmotNNktq1kXmbf4bgMvLRz7YyeuM8j/AD6UzxIc6w5/2F/lVW6nm81IZohGsHAhHAX/AD61LLqYmuBcS2cLSjHJLdunGcVKi07+v4jbTVizthbw3bieRkXz2wVTdzz7isq42ee4jctGpwhPcdqmkvWewW0Ma7VbeGyc57/zqrVwi1e5MmmFFFFWSNooopiLdiTtuAACxj4B7nIqUrE0s21Ix+4yQOiv7Vn0VLjrcpS0saYCF4N67gLcDjBIOewPUjPSlhS3HmkpHKyy/MFKgFfbPQfSsulpcnmPn8i47JHYR7YoizMwLEAkDIxTrpofLV4Uj3ThTsCj5McEfiao0U+UXMa0kcXn3fkJCZVZSitgjbjnGeKS3Ft9lLtAjtvbzFDKNo7Yz0HuKyqKnk03Hz+QtFJS1oQFFFFIY2iiimIKKKKACloooAKKKKACiiigApaKKACiiigZ/9k=" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid #8B6914">
+        </div>
+        <div style="font-family:'Bebas Neue','Arial Black',sans-serif;font-size:clamp(28px,6vw,36px);color:#C9A227;line-height:1.1;margin-bottom:.5rem">Däckbyte för alla bilmodeller!</div>
+        <div style="color:#C9A227;font-size:14px;font-weight:600;margin-bottom:.25rem">Däckbyte + balansering</div>
+        <div style="color:#C9A227;font-size:14px;font-weight:600;margin-bottom:1.25rem">för endast <span style="font-size:36px;font-weight:900;font-family:'Bebas Neue','Arial Black',sans-serif">600</span> kr!</div>
+        <div style="border-top:1px solid rgba(201,162,39,.2);padding-top:1rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.6rem;text-align:left">
+          <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">🛞 Säsongsbyte sommar/vinter</div>
+          <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">⚖️ Balansering ingår</div>
+        </div>
+        <button class="btn-gold" id="dack-book-btn" style="width:100%;padding:13px;font-size:13px">Boka däckbyte nu →</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div id="kontakt" class="contact-sec">
     <div class="contact-inner">
       <div>
         <div class="eyebrow">Kontakt</div>
@@ -346,6 +390,7 @@ textarea.fi{height:90px;resize:vertical}
         <label class="fl">Registreringsnummer</label><input class="fi" type="text" id="br" placeholder="ABC123" style="text-transform:uppercase">
         <label class="fl">Bilmärke och modell</label><input class="fi" type="text" id="bc" placeholder="Volvo V70 2018">
         <label class="fl">Önskat datum</label><input class="fi" type="date" id="bd">
+        <label class="fl">Önskad tid</label><input class="fi" type="time" id="bt">
         <label class="fl">Beskriv ärendet</label><textarea class="fi" id="bdesc" placeholder="Vad behöver din bil hjälp med?"></textarea>
         <label class="fl">Leverans</label>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
@@ -477,7 +522,7 @@ var firebaseConfig={apiKey:"AIzaSyDZKkeY0QhRlv0FhmChJ968ryq50EDy6_c",authDomain:
 if(!firebase.apps.length){firebase.initializeApp(firebaseConfig);}
 
 var PW="Ahmad_rbwolf",unlocked=false,selCat="",popId=null,modIdx=null;
-var CATS=[{id:"service",e:"Service"},{id:"brakes",e:"Bromsar"},{id:"engine",e:"Motor"},{id:"tires",e:"Back"},{id:"electrical",e:"El"},{id:"gearbox",e:"Vaxellada"},{id:"steering",e:"Styrning"},{id:"inspection",e:"Besiktning"},{id:"suspension",e:"Fjadring"},{id:"other",e:"Ovrigt"}];
+var CATS=[{id:"service",e:"Service"},{id:"brakes",e:"Bromsar"},{id:"engine",e:"Motor"},{id:"tires",e:"Dackbyte"},{id:"electrical",e:"El"},{id:"gearbox",e:"Vaxellada"},{id:"steering",e:"Styrning"},{id:"inspection",e:"Besiktning"},{id:"suspension",e:"Fjadring"},{id:"other",e:"Ovrigt"}];
 var D={bookings:{},cars:{},jobs:{}};
 
 function showToast(){var t=document.getElementById("toast");t.style.display="block";clearTimeout(window._tt);window._tt=setTimeout(function(){t.style.display="none"},2000)}
@@ -562,6 +607,7 @@ function pickOpt(val){
   }
 }
 window.addEventListener("load",function(){
+  try{emailjs.init("8I4fjO7HkfSQgBUG7")}catch(e){}
   try{if(localStorage.getItem("rbw_auth")==="1")unlocked=true}catch(e){}
   loadAll();
   if(unlocked){showPage("admin");uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}
@@ -573,6 +619,8 @@ window.addEventListener("load",function(){
   G("herobookbtn").addEventListener("click",function(){showPage("book")});
   G("herocontactbtn").addEventListener("click",function(){G("kontakt").scrollIntoView({behavior:"smooth"})});
   G("contactbookbtn").addEventListener("click",function(){showPage("book")});
+  G("erbjudande-book-btn").addEventListener("click",function(){showPage("book")});
+  G("dack-book-btn").addEventListener("click",function(){showPage("book")});
   G("pickup-cta-btn").addEventListener("click",function(){showPage("book");setTimeout(function(){pickOpt("pickup")},100)});
   G("tab-b").addEventListener("click",function(){showTab("b")});
   G("tab-c").addEventListener("click",function(){showTab("c")});
@@ -597,7 +645,7 @@ window.addEventListener("load",function(){
   G("subbookbtn").addEventListener("click",function(){
     var n=G("bn").value.trim(),p=G("bp").value.trim(),r=G("br").value.trim().toUpperCase();
     if(!n||!p||!r){alert("Fyll i namn, telefon och reg.nr");return}
-    var delivery=G("b-delivery").value;var address=G("b-address")?G("b-address").value:"";var b={id:Date.now(),name:n,phone:p,email:G("be").value,reg:r,car:G("bc").value,date:G("bd").value,desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",isNew:true};
+    var delivery=G("b-delivery").value;var address=G("b-address")?G("b-address").value:"";var b={id:Date.now(),name:n,phone:p,email:G("be").value,reg:r,car:G("bc").value,date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",isNew:true};
     fbSet("bookings/"+b.id,b).then(function(){
       showToast();
       G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
@@ -606,7 +654,7 @@ window.addEventListener("load",function(){
   });
   G("newbookbtn").addEventListener("click",function(){
     G("bform").style.display="block";G("bokOk").style.display="none";
-    ["bn","bp","be","br","bc","bd","bdesc"].forEach(function(i){G(i).value=""});
+    ["bn","bp","be","br","bc","bd","bt","bdesc"].forEach(function(i){if(G(i))G(i).value=""});
   });
   G("addcarbtn").addEventListener("click",function(){var f=G("addcarform");f.style.display=f.style.display==="none"?"block":"none"});
   G("savecarbtn").addEventListener("click",function(){
@@ -656,7 +704,7 @@ function uBell(){
 
 function showPopup(b){
   popId=b.id;G("callbtn").href="tel:"+b.phone.replace(/[^0-9+]/g,"");
-  G("popbody").innerHTML="<p><b style='color:#FFD600'>Kund:</b> <span style='color:#fff'>"+b.name+"</span></p><p><b style='color:#FFD600'>Telefon:</b> <span style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</span></p><p><b style='color:#FFD600'>Bil:</b> <span style='color:#fff'>"+b.reg+(b.car?" - "+b.car:"")+"</span></p>"+(b.date?"<p><b style='color:#FFD600'>Datum:</b> <span style='color:#fff'>"+b.date+"</span></p>":"")+(b.desc?"<p><b style='color:#FFD600'>Arende:</b> <span style='color:#fff'>"+b.desc+"</span></p>":"");
+  G("popbody").innerHTML="<p><b style='color:#FFD600'>Kund:</b> <span style='color:#fff'>"+b.name+"</span></p><p><b style='color:#FFD600'>Telefon:</b> <span style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</span></p><p><b style='color:#FFD600'>Bil:</b> <span style='color:#fff'>"+b.reg+(b.car?" - "+b.car:"")+"</span></p>"+(b.date?"<p><b style='color:#FFD600'>Datum:</b> <span style='color:#fff'>"+b.date+(b.time?" kl "+b.time:"")+"</span></p>":"")+(b.desc?"<p><b style='color:#FFD600'>Arende:</b> <span style='color:#fff'>"+b.desc+"</span></p>":"");
   G("popup").style.display="flex";
 }
 
@@ -665,7 +713,7 @@ function openModal(key){
   var b=D.bookings[key];
   fbSet("bookings/"+key+"/isNew",false);
   var statusMap={pending:"Vantar",confirmed:"Bekraftad",done:"Avslutad"};
-  G("modalbody").innerHTML="<div class='mrow'><div><div class='mlbl'>Kund</div><div class='mval'>"+b.name+"</div></div></div><div class='mrow'><div><div class='mlbl'>Telefon</div><div class='mval' style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</div></div></div>"+(b.email?"<div class='mrow'><div><div class='mlbl'>E-post</div><div class='mval'>"+b.email+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Reg.nr</div><div class='mval'>"+b.reg+"</div></div></div>"+(b.car?"<div class='mrow'><div><div class='mlbl'>Bil</div><div class='mval'>"+b.car+"</div></div></div>":"")+(b.date?"<div class='mrow'><div><div class='mlbl'>Datum</div><div class='mval'>"+b.date+"</div></div></div>":"")+(b.desc?"<div class='mrow'><div><div class='mlbl'>Arende</div><div class='mval'>"+b.desc+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Status</div><div class='mval'>"+statusMap[b.status]+"</div></div></div>";
+  G("modalbody").innerHTML="<div class='mrow'><div><div class='mlbl'>Kund</div><div class='mval'>"+b.name+"</div></div></div><div class='mrow'><div><div class='mlbl'>Telefon</div><div class='mval' style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</div></div></div>"+(b.email?"<div class='mrow'><div><div class='mlbl'>E-post</div><div class='mval'>"+b.email+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Reg.nr</div><div class='mval'>"+b.reg+"</div></div></div>"+(b.car?"<div class='mrow'><div><div class='mlbl'>Bil</div><div class='mval'>"+b.car+"</div></div></div>":"")+(b.date?"<div class='mrow'><div><div class='mlbl'>Datum och tid</div><div class='mval'>"+b.date+(b.time?" kl "+b.time:"")+"</div></div></div>":"")+(b.desc?"<div class='mrow'><div><div class='mlbl'>Arende</div><div class='mval'>"+b.desc+"</div></div></div>":"")+(b.delivery==="pickup"?"<div class='mrow'><div><div class='mlbl'>Leverans</div><div class='mval' style='color:#22c55e'>🚗 Hämtning</div></div></div>"+(b.address?"<div class='mrow'><div><div class='mlbl'>Hämtningsadress</div><div class='mval' style='color:#FFD600;font-weight:700'>📍 "+b.address+"</div></div></div>":""):"<div class='mrow'><div><div class='mlbl'>Leverans</div><div class='mval'>🏁 Lämnar in själv</div></div></div>")+"<div class='mrow'><div><div class='mlbl'>Status</div><div class='mval'>"+statusMap[b.status]+"</div></div></div>";
   var ftr=G("modalftr");ftr.innerHTML="";
   var ca=document.createElement("a");ca.href="tel:"+b.phone.replace(/[^0-9+]/g,"");ca.className="btn-call";ca.style.flex="1";ca.textContent="Ring "+b.phone;ftr.appendChild(ca);
   if(b.status!=="confirmed"){
