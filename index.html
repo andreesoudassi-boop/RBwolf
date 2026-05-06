@@ -683,6 +683,23 @@ window.addEventListener("load",function(){
       showToast();
       G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
       G("bform").style.display="none";G("bokOk").style.display="block";
+      if(b.email){
+        emailjs.send("service_18463g5","template_fbcfzng",{
+          customer_name:b.name,
+          email:b.email,
+          customer_email:b.email,
+          reg:b.reg,
+          car:b.car||"Ej angivet",
+          date:b.date||"Ej angivet",
+          time:b.time||"Ej angivet",
+          desc:b.desc||"Ej angivet",
+          delivery:b.delivery==="pickup"?"Hamtning - "+b.address:"Lamnar in sjalv"
+        }).then(function(){
+          console.log("Mail skickat!");
+        },function(err){
+          console.log("Mail fel:",err);
+        });
+      }
     });
   });
   G("newbookbtn").addEventListener("click",function(){
