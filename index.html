@@ -802,44 +802,50 @@ window.addEventListener("load",function(){
       G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
       G("bform").style.display="none";G("bokOk").style.display="block";
       
-emailjs.send("service_xs7d5ok","template_fbcfzng",{
-          customer_name:b.name,
-          customer_email:b.email || "Ingen e-post",
-          email:b.email || "Ingen e-post",
-          reg:b.reg,
-          phone:b.phone,
-          car:b.car || "Ej angivet",
-          date:b.date || "Ej angivet",
-          time:b.time || "Ej angivet",
-          desc:b.desc || "Ej angivet",
-          delivery:b.delivery==="pickup"
-            ? "Hämtning - " + b.address
-            : "Lämnar in själv"
-        }).then(function(){
-          console.log("Kundmail skickat!");
-        });
 
-        emailjs.send("service_xs7d5ok","template_fbcfzng",{
-          customer_name:b.name,
-          customer_email:b.email || "Ingen e-post",
-          phone:b.phone,
-          reg:b.reg,
-          car:b.car || "Ej angivet",
-          date:b.date || "Ej angivet",
-          time:b.time || "Ej angivet",
-          desc:b.desc || "Ej angivet",
-          delivery:b.delivery==="pickup"
-            ? "Hämtning - " + b.address
-            : "Lämnar in själv"
-        }).then(function(){
-          console.log("Verkstadsmail skickat!");
-          btn.innerHTML = "✅ Skickad!";
-        }).catch(function(err){
-          console.log("Mail fel:", err);
-          btn.disabled=false;
-          btn.innerHTML=oldText;
-          alert("EmailJS fel - kontrollera templates");
-        });
+emailjs.send("service_xs7d5ok","template_fbcfzng",{
+customer_name:b.name,
+customer_email:b.email || "Ingen e-post",
+email:b.email || "Ingen e-post",
+to_email:b.email || "Ingen e-post",
+phone:b.phone,
+reg:b.reg,
+car:b.car || "Ej angivet",
+date:b.date || "Ej angivet",
+time:b.time || "Ej angivet",
+desc:b.desc || "Ej angivet",
+delivery:b.delivery==="pickup"
+? "Hämtning - " + b.address
+: "Lämnar in själv"
+}).then(function(){
+console.log("Kundmail skickat!");
+
+return emailjs.send("service_xs7d5ok","template_fbcfzng",{
+customer_name:b.name,
+customer_email:b.email || "Ingen e-post",
+email:b.email || "Ingen e-post",
+to_email:"Rb-wolf@hotmail.com",
+phone:b.phone,
+reg:b.reg,
+car:b.car || "Ej angivet",
+date:b.date || "Ej angivet",
+time:b.time || "Ej angivet",
+desc:b.desc || "Ej angivet",
+delivery:b.delivery==="pickup"
+? "Hämtning - " + b.address
+: "Lämnar in själv"
+});
+
+}).then(function(){
+console.log("Verkstadsmail skickat!");
+btn.innerHTML = "✅ Skickad!";
+}).catch(function(err){
+console.log("Mail fel:", err);
+btn.disabled=false;
+btn.innerHTML=oldText;
+alert("EmailJS fel");
+});
+
 
     });
   });
