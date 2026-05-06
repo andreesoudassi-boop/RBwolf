@@ -639,7 +639,9 @@ function pickOpt(val){
   }
 }
 window.addEventListener("load",function(){
-  emailjs.init("8I4fjO7HkfSQgBUG7");
+  emailjs.init({
+    publicKey: "8I4fjO7HkfSQgBUG7",
+  });
   try{if(localStorage.getItem("rbw_auth")==="1")unlocked=true}catch(e){}
   loadAll();
   if(unlocked){showPage("admin");uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}
@@ -687,23 +689,26 @@ window.addEventListener("load",function(){
       showToast();
       G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
       G("bform").style.display="none";G("bokOk").style.display="block";
-      if(b.email){
-        emailjs.send("service_18463g5","template_fbcfzng",{
+      emailjs.send("service_18463g5","template_fbcfzng",{
           customer_name:b.name,
-          email:b.email,
-          customer_email:b.email,
+          customer_email:b.email || "Ingen e-post",
+          email:b.email || "Ingen e-post",
           reg:b.reg,
-          car:b.car||"Ej angivet",
-          date:b.date||"Ej angivet",
-          time:b.time||"Ej angivet",
-          desc:b.desc||"Ej angivet",
-          delivery:b.delivery==="pickup"?"Hamtning - "+b.address:"Lamnar in sjalv"
+          car:b.car || "Ej angivet",
+          date:b.date || "Ej angivet",
+          time:b.time || "Ej angivet",
+          desc:b.desc || "Ej angivet",
+          delivery:b.delivery==="pickup"
+            ? "Hämtning - " + b.address
+            : "Lämnar in själv",
+          to_email:"Rb-wolf@hotmail.com"
         }).then(function(){
           console.log("Mail skickat!");
-        },function(err){
-          console.log("Mail fel:",err);
+          alert("Bokning skickad!");
+        }).catch(function(err){
+          console.log("Mail fel:", err);
+          alert("EmailJS fel - kontrollera template i EmailJS");
         });
-      }
     });
   });
   G("newbookbtn").addEventListener("click",function(){
@@ -953,4 +958,5 @@ function uStats(){
   G("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr";
 }
 
-</script></body></html>
+</script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</body></html>
