@@ -214,7 +214,6 @@ textarea.fi{height:90px;resize:vertical}
 .sec-ttl-light{color:#fff}
 @media(max-width:600px){.hero h1{font-size:72px}.hero-logo{width:110px;height:110px}.contact-inner{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.fc2{grid-template-columns:1fr}.fc3{grid-template-columns:1fr 1fr}.svc-grid{grid-template-columns:1fr 1fr}.tabs{gap:2px}.tab{padding:6px 9px;font-size:10px}}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body>
 <div id="toast" class="toast">Sparat!</div>
@@ -514,6 +513,7 @@ textarea.fi{height:90px;resize:vertical}
     </div>
   </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
@@ -607,7 +607,7 @@ function pickOpt(val){
   }
 }
 window.addEventListener("load",function(){
-  try{emailjs.init("8I4fjO7HkfSQgBUG7")}catch(e){}
+  emailjs.init("8I4fjO7HkfSQgBUG7");
   try{if(localStorage.getItem("rbw_auth")==="1")unlocked=true}catch(e){}
   loadAll();
   if(unlocked){showPage("admin");uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}
