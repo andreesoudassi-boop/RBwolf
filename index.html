@@ -660,6 +660,7 @@ window.addEventListener("load",function(){
   G("tab-r").addEventListener("click",function(){showTab("r")});
   G("tab-insp").addEventListener("click",function(){showTab("insp")});
   G("logoutbtn").addEventListener("click",function(){unlocked=false;try{localStorage.removeItem("rbw_auth")}catch(e){}G("notifbtn").style.display="none";showPage("home")});
+  G("cancelbtn").addEventListener("click",function(){G("lock").style.display="none";});
   G("loginbtn").addEventListener("click",function(){
     if(G("pw").value===PW){unlocked=true;try{localStorage.setItem("rbw_auth","1")}catch(e){}G("lock").style.display="none";showAdmin()}
     else{G("pwerr").style.display="block";G("pw").value=""}
