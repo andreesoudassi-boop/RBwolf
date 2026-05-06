@@ -494,6 +494,28 @@ pointer-events:none;
     </div>
   </div>
 </div>
+
+<div style="background:#0d0d0d;padding:4rem 1.5rem;border-top:1px solid rgba(255,214,0,.08);border-bottom:1px solid rgba(255,214,0,.08)">
+  <div style="max-width:700px;margin:0 auto">
+    <div class="eyebrow">Bilstatus</div>
+    <div class="big-ttl sec-ttl-light">Följ din bil live</div>
+
+    <div style="margin-top:2rem;background:rgba(255,255,255,.03);padding:1.5rem;border-radius:16px;border:1px solid rgba(255,255,255,.06)">
+      <input id="status-reg" class="fi" placeholder="Skriv registreringsnummer..." style="margin-bottom:1rem;text-transform:uppercase">
+
+      <button class="btn-gold" onclick="checkCarStatus()" style="width:100%">
+        Kontrollera status
+      </button>
+
+      <div id="status-result" style="display:none;margin-top:1.5rem;padding:1.25rem;border-radius:14px;background:rgba(255,255,255,.03)">
+        <div id="status-icon" style="font-size:44px;margin-bottom:10px">🟡</div>
+        <div id="status-text" style="font-size:22px;font-weight:800;color:#fff"></div>
+        <div id="status-updated" style="margin-top:8px;color:#777;font-size:13px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="kontakt" class="contact-sec">
     <div class="contact-inner">
       <div>
@@ -586,6 +608,12 @@ pointer-events:none;
     <div id="tc-b" class="tc act">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
         <strong style="font-size:15px;color:#fff">Bokningar</strong>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+<button class="btn-gold" onclick="quickSetStatus('waiting')" style="padding:10px 14px;font-size:12px">🔴 Väntar</button>
+<button class="btn-gold" onclick="quickSetStatus('working')" style="padding:10px 14px;font-size:12px">🟡 Påbörjad</button>
+<button class="btn-gold" onclick="quickSetStatus('done')" style="padding:10px 14px;font-size:12px">🟢 Klar</button>
+</div>
+
         <span id="nbadge" style="display:none;background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.2);font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700"></span>
       </div>
       <div id="blist"></div>
@@ -1115,6 +1143,65 @@ document.querySelectorAll(".svc,.stat,.acard,.contact-sec,.bcard").forEach(el=>{
 el.classList.add("fade-up");
 observer.observe(el);
 });
+</script>
+
+
+<script>
+window.carStatuses = {
+  "ABC123":{
+    status:"working",
+    updated:"Uppdaterad nyss"
+  },
+  "XYZ789":{
+    status:"done",
+    updated:"Klar för hämtning"
+  }
+};
+
+function checkCarStatus(){
+  const reg = document.getElementById("status-reg").value.trim().toUpperCase();
+  const result = document.getElementById("status-result");
+  const icon = document.getElementById("status-icon");
+  const text = document.getElementById("status-text");
+  const updated = document.getElementById("status-updated");
+
+  if(!reg){
+    alert("Skriv registreringsnummer");
+    return;
+  }
+
+  const data = window.carStatuses[reg];
+
+  result.style.display = "block";
+
+  if(!data){
+    icon.innerHTML = "⚪";
+    text.innerHTML = "Ingen aktiv bokning hittades";
+    updated.innerHTML = "";
+    return;
+  }
+
+  if(data.status === "waiting"){
+    icon.innerHTML = "🔴";
+    text.innerHTML = "Din bil väntar på service";
+  }
+
+  if(data.status === "working"){
+    icon.innerHTML = "🟡";
+    text.innerHTML = "Din bil är under arbete";
+  }
+
+  if(data.status === "done"){
+    icon.innerHTML = "🟢";
+    text.innerHTML = "Din bil är klar för hämtning";
+  }
+
+  updated.innerHTML = data.updated;
+}
+
+function quickSetStatus(status){
+  alert("Bilstatus ändrad till: " + status);
+}
 </script>
 
 </body></html>
