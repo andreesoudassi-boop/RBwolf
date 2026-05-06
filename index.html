@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RBwolf Bilverkstad – Bromölla</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#FFD600;--gold2:#FFA500;--black:#0a0a0a;--dark:#111;--card:#161616}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Barlow',Arial,sans-serif;background:#0a0a0a;color:#fff;overflow-x:hidden}
+.page{display:none;min-height:100vh}
+.page.active{display:block}
+
+/* NAV */
+nav{background:rgba(10,10,10,.95);padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;height:66px;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,214,0,.1);backdrop-filter:blur(10px)}
+.logo-wrap{display:flex;align-items:center;gap:12px;cursor:pointer}
+.logo-img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);box-shadow:0 0 15px rgba(255,214,0,.3)}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--gold);letter-spacing:3px;text-shadow:0 0 20px rgba(255,214,0,.4)}
+.nav-links{display:flex;gap:2px;align-items:center}
+.nbtn{background:none;border:none;color:#666;font-size:12px;font-weight:700;padding:8px 14px;cursor:pointer;border-radius:4px;text-transform:uppercase;letter-spacing:1px;font-family:'Barlow',sans-serif;transition:all .2s}
+.nbtn:hover,.nbtn.act{color:var(--gold);background:rgba(255,214,0,.08)}
+.notifbtn{background:none;border:none;cursor:pointer;padding:8px;display:none;position:relative}
+.notifbtn svg{width:20px;height:20px;fill:#666;transition:fill .2s}
+.notifbtn:hover svg{fill:var(--gold)}
+.ndot{position:absolute;top:4px;right:4px;width:9px;height:9px;background:#ff3b3b;border-radius:50%;display:none;border:2px solid #0a0a0a;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(255,59,59,.4)}50%{box-shadow:0 0 0 6px rgba(255,59,59,0)}}
+
+/* HERO */
+.hero{background:#0a0a0a;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:3rem 1.5rem 3rem;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,214,0,.07) 0%,transparent 60%);pointer-events:none}
+.hero-lines{position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 80px,rgba(255,214,0,.02) 80px,rgba(255,214,0,.02) 81px);pointer-events:none}
+.hero-logo-wrap{position:relative;margin-bottom:2rem;display:inline-block}
+.hero-logo{width:140px;height:140px;border-radius:50%;object-fit:cover;border:3px solid var(--gold);box-shadow:0 0 0 8px rgba(255,214,0,.08),0 0 60px rgba(255,214,0,.2);position:relative;z-index:1;animation:logoFloat 4s ease-in-out infinite}
+@keyframes logoFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-ring{position:absolute;inset:-20px;border-radius:50%;border:1px solid rgba(255,214,0,.15);animation:ringPulse 3s ease-in-out infinite}
+.hero-ring2{position:absolute;inset:-40px;border-radius:50%;border:1px solid rgba(255,214,0,.07);animation:ringPulse 3s ease-in-out infinite .5s}
+@keyframes ringPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.5}}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(255,214,0,.08);color:var(--gold);font-size:11px;font-weight:700;letter-spacing:3px;padding:6px 18px;border-radius:20px;margin-bottom:1.5rem;border:1px solid rgba(255,214,0,.2);text-transform:uppercase}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,16vw,120px);color:#fff;line-height:.9;letter-spacing:2px;position:relative;z-index:1;text-shadow:0 0 80px rgba(255,214,0,.1)}
+.hero h1 .gold{color:var(--gold);text-shadow:0 0 30px rgba(255,214,0,.5)}
+.hero-sub{color:rgba(255,214,0,.5);font-size:11px;font-weight:700;letter-spacing:6px;text-transform:uppercase;margin-top:1rem;position:relative;z-index:1}
+.hero p{color:#555;font-size:16px;margin-top:1.25rem;max-width:380px;margin-inline:auto;line-height:1.9;position:relative;z-index:1}
+.hero-btns{display:flex;gap:14px;justify-content:center;margin-top:2.5rem;flex-wrap:wrap;position:relative;z-index:1}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:#333;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;animation:scrollBounce 2s ease-in-out infinite}
+@keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(6px)}}
+.hero-scroll-line{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,214,0,.4),transparent)}
+
+/* HOURS */
+.hours-bar{background:#111;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid rgba(255,214,0,.1);border-bottom:1px solid rgba(255,214,0,.05)}
+.hi{text-align:center;padding:1.5rem .5rem;position:relative}
+.hi:not(:last-child)::after{content:'';position:absolute;right:0;top:25%;height:50%;width:1px;background:rgba(255,214,0,.1)}
+.hi-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--gold)}
+.hi-lbl{font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-top:3px}
+
+/* BUTTONS */
+.btn-gold{background:linear-gradient(135deg,#FFD600,#FFA500);color:#000;border:none;padding:14px 30px;font-weight:700;font-size:13px;letter-spacing:1.5px;cursor:pointer;border-radius:4px;text-transform:uppercase;font-family:'Barlow',sans-serif;transition:all .3s;box-shadow:0 4px 20px rgba(255,214,0,.25)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,214,0,.4)}
+.btn-out{background:none;color:var(--gold);border:1.5px solid rgba(255,214,0,.4);padding:13px 28px;font-weight:700;font-size:13px;letter-spacing:1.5px;cursor:pointer;border-radius:4px;text-transform:uppercase;font-family:'Barlow',sans-serif;transition:all .3s}
+.btn-out:hover{border-color:var(--gold);background:rgba(255,214,0,.06);transform:translateY(-2px)}
+
+/* SERVICES */
+.svc-sec{padding:6rem 1.5rem;background:#0a0a0a}
+.sec-inner{max-width:920px;margin:0 auto}
+.eyebrow{font-size:10px;font-weight:700;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:.75rem;opacity:.8}
+.big-ttl{font-family:'Bebas Neue',sans-serif;font-size:48px;color:#fff;letter-spacing:2px;margin-bottom:.5rem;line-height:1}
+.sub-txt{color:#444;font-size:14px;line-height:1.8;margin-bottom:3rem}
+.svc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:1px;background:rgba(255,214,0,.05)}
+.svc{background:#111;padding:2rem 1.5rem;position:relative;overflow:hidden;transition:all .3s;cursor:default}
+.svc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,214,0,.03),transparent);opacity:0;transition:opacity .3s}
+.svc::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));transform:scaleX(0);transition:transform .4s}
+.svc:hover::before{opacity:1}
+.svc:hover::after{transform:scaleX(1)}
+.svc:hover{background:#141414;transform:translateY(-2px)}
+.svc-ico{font-size:26px;display:block;margin-bottom:1rem;filter:grayscale(0)}
+.svc h3{font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;letter-spacing:1px;margin-bottom:.5rem}
+.svc p{font-size:12px;color:#555;line-height:1.7}
+
+/* CONTACT */
+.contact-sec{background:#0d0d0d;padding:6rem 1.5rem;border-top:1px solid rgba(255,214,0,.05)}
+.contact-inner{max-width:920px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-items{display:flex;flex-direction:column;gap:1.5rem;margin-top:1.25rem}
+.ci{display:flex;gap:14px;align-items:flex-start}
+.ci-icon{width:44px;height:44px;background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;transition:all .3s}
+.ci:hover .ci-icon{background:rgba(255,214,0,.12);border-color:rgba(255,214,0,.3)}
+.ci-lbl{font-size:10px;color:#444;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.ci-val{font-size:14px;color:#777;line-height:1.8}
+
+/* BOOKING */
+.book-wrap{background:#0a0a0a;padding:4rem 1rem;min-height:100vh}
+.bcard{background:#111;border:1px solid rgba(255,214,0,.1);border-radius:16px;max-width:560px;margin:0 auto;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.binner{padding:2.5rem}
+.bhdr{display:flex;align-items:center;gap:12px;margin-bottom:1.75rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(255,255,255,.06)}
+.bnum{width:34px;height:34px;background:linear-gradient(135deg,#FFD600,#FFA500);color:#000;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:19px;border-radius:6px;flex-shrink:0;font-weight:900}
+.bttl{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:#fff}
+.notice{background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.15);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.75rem;font-size:13px;color:#aa8800;line-height:1.7}
+.notice strong{color:var(--gold);display:block;margin-bottom:3px}
+.fl{display:block;font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;margin-top:16px}
+.fi{width:100%;padding:12px 14px;border:1.5px solid rgba(255,255,255,.08);border-radius:8px;font-size:14px;color:#fff;background:rgba(255,255,255,.04);outline:none;font-family:'Barlow',sans-serif;transition:all .2s}
+.fi:focus{border-color:var(--gold);background:rgba(255,214,0,.04);box-shadow:0 0 0 3px rgba(255,214,0,.08)}
+.fi option{background:#1a1a1a;color:#fff}
+textarea.fi{height:90px;resize:vertical}
+.ok-wrap{text-align:center;padding:3rem 2rem}
+.ok-wrap h3{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;margin:.75rem 0;color:#fff}
+.ok-wrap p{color:#555;font-size:15px;line-height:1.7}
+
+/* LOCK */
+.lock{position:fixed;inset:0;background:#0a0a0a;display:flex;align-items:center;justify-content:center;z-index:999}
+.lockbox{background:#111;border:1px solid rgba(255,214,0,.15);border-radius:20px;padding:2.75rem;width:90%;max-width:340px;text-align:center;box-shadow:0 30px 80px rgba(0,0,0,.8)}
+.lock-logo{width:76px;height:76px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);margin:0 auto 1.25rem;display:block;box-shadow:0 0 30px rgba(255,214,0,.2)}
+.lock-ttl{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--gold);letter-spacing:4px;margin-bottom:.4rem}
+.lock-sub{font-size:12px;color:#444;margin-bottom:1.5rem}
+.lock-input{width:100%;padding:13px;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:8px;color:#fff;font-size:15px;outline:none;text-align:center;letter-spacing:3px;transition:all .2s}
+.lock-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,214,0,.08)}
+.lock-err{color:#ff4444;font-size:12px;margin-top:8px;display:none}
+
+/* POPUPS */
+.popup{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:998;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.popbox{background:#111;border:1px solid rgba(255,214,0,.15);border-radius:18px;width:100%;max-width:400px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.7)}
+.pop-hdr{background:#0d0d0d;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,214,0,.1)}
+.pop-ttl{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);flex:1;letter-spacing:3px}
+.pop-close{background:none;border:none;color:#444;font-size:20px;cursor:pointer;transition:color .2s;line-height:1}
+.pop-close:hover{color:#fff}
+.pop-body{padding:1.5rem;display:flex;flex-direction:column;gap:12px}
+.pop-row{display:flex;gap:10px}
+.pop-ico{font-size:17px;flex-shrink:0;margin-top:2px}
+.pop-lbl{font-size:10px;color:#444;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:2px}
+.pop-val{font-size:15px;font-weight:600;color:#fff}
+.pop-ftr{padding:1.25rem 1.5rem;background:#0d0d0d;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.05)}
+.btn-call{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;padding:12px 16px;border-radius:8px;flex:1;font-weight:700;cursor:pointer;text-decoration:none;display:block;text-align:center;font-size:13px;font-family:'Barlow',sans-serif;transition:all .2s}
+.btn-call:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(34,197,94,.3)}
+.btn-ok{background:linear-gradient(135deg,#FFD600,#FFA500);color:#000;border:none;padding:12px 16px;border-radius:8px;flex:1;font-weight:700;cursor:pointer;font-size:13px;font-family:'Barlow',sans-serif;transition:all .2s}
+.btn-ok:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(255,214,0,.3)}
+.btn-skip{background:none;border:1px solid rgba(255,255,255,.08);color:#444;padding:10px;border-radius:8px;width:100%;margin-top:4px;cursor:pointer;font-size:13px;font-family:'Barlow',sans-serif;transition:all .2s}
+.btn-skip:hover{border-color:rgba(255,255,255,.15);color:#666}
+
+/* MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:997;display:flex;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
+.modbox{background:#111;border:1px solid rgba(255,214,0,.1);border-radius:18px;width:100%;max-width:400px;overflow:hidden;max-height:90vh;overflow-y:auto;box-shadow:0 30px 80px rgba(0,0,0,.7)}
+.mod-hdr{background:#0d0d0d;padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;border-bottom:1px solid rgba(255,214,0,.1)}
+.mod-ttl{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--gold);letter-spacing:3px}
+.mod-close{background:none;border:none;color:#444;font-size:22px;cursor:pointer;transition:color .2s;line-height:1}
+.mod-close:hover{color:#fff}
+.mod-body{padding:1.5rem}
+.mod-ftr{padding:1.25rem 1.5rem;background:#0d0d0d;display:flex;gap:8px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.05)}
+
+/* ADMIN */
+.adm-wrap{padding:1.75rem;background:#0d0d0d;min-height:100vh}
+.adm-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:12px}
+.adm-ttl{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:3px;color:#fff}
+.tabs{display:flex;gap:3px;background:#111;border-radius:10px;padding:4px;flex-wrap:nowrap;border:1px solid rgba(255,255,255,.06);overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:calc(100vw - 140px)}
+.tab{padding:8px 14px;font-size:11px;font-weight:700;color:#444;border:none;background:none;cursor:pointer;border-radius:7px;text-transform:uppercase;letter-spacing:.5px;font-family:'Barlow',sans-serif;transition:all .2s}
+.tab.act{background:linear-gradient(135deg,#FFD600,#FFA500);color:#000}
+.tc{display:none}.tc.act{display:block}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.stat{background:#111;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:1.1rem;text-align:center;transition:all .2s}
+.stat:hover{border-color:rgba(255,214,0,.2)}
+.sn{font-family:'Bebas Neue',sans-serif;font-size:30px;color:#fff}
+.sl{font-size:10px;color:#444;text-transform:uppercase;font-weight:700;margin-top:3px;letter-spacing:.5px}
+.acard{background:#111;border:1px solid rgba(255,255,255,.06);border-radius:12px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.acard:hover{border-color:rgba(255,214,0,.15)}
+.acard-hdr{padding:1rem 1.1rem;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.04);flex-wrap:wrap;gap:6px}
+.acard-body{padding:1rem 1.1rem}
+.creg{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#fff}
+.cmake{font-size:12px;color:#444;margin-top:2px}
+.cgrd{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.04);font-size:11px}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+.bdone{background:rgba(34,197,94,.15);color:#22c55e}
+.bprog{background:rgba(59,130,246,.15);color:#60a5fa}
+.bwait{background:rgba(234,179,8,.15);color:#eab308}
+.bnew{background:rgba(239,68,68,.15);color:#f87171}
+.catbadge{background:rgba(255,214,0,.1);color:var(--gold);padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;margin-right:5px;display:inline-block;border:1px solid rgba(255,214,0,.2)}
+.jrow{display:flex;gap:10px;padding:10px 0;border-top:1px solid rgba(255,255,255,.04);flex-wrap:wrap}
+.jdate{font-size:11px;color:#444;min-width:68px;margin-top:2px;font-weight:600}
+.jinfo{flex:1}
+.jdesc{font-size:13px;font-weight:600;margin-bottom:4px;color:#fff}
+.jmeta{font-size:11px;color:#444;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.jprice{font-size:13px;color:#22c55e;font-weight:700}
+.addf{background:rgba(255,255,255,.03);border:1.5px dashed rgba(255,255,255,.08);border-radius:12px;padding:1.25rem;margin-top:12px}
+.fc2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fc3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.catg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:12px}
+.catbtn{background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.08);border-radius:8px;padding:10px 4px;text-align:center;cursor:pointer;font-size:11px;font-weight:700;color:#666;transition:all .2s}
+.catbtn:hover{border-color:rgba(255,214,0,.3);color:#fff}
+.catbtn.sel{border-color:var(--gold);background:rgba(255,214,0,.08);color:var(--gold)}
+.bi{background:#111;border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:1rem 1.1rem;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .2s}
+.bi:hover{border-color:rgba(255,214,0,.2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.bi.isnew{border-color:rgba(239,68,68,.3);background:rgba(239,68,68,.04)}
+.bdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.binf{flex:1}
+.bname{font-size:14px;font-weight:700;color:#fff}
+.bdet{font-size:12px;color:#444;margin-top:3px;line-height:1.5}
+.barr{color:#333;font-size:20px}
+.btn-del{background:rgba(239,68,68,.1);color:#f87171;border:1px solid rgba(239,68,68,.2);padding:6px 10px;border-radius:6px;cursor:pointer;font-size:11px;font-weight:700;font-family:'Barlow',sans-serif;transition:all .2s}
+.btn-del:hover{background:rgba(239,68,68,.2)}
+.btn-logout{background:none;border:1px solid rgba(255,255,255,.1);color:#444;font-size:11px;font-weight:700;padding:7px 14px;cursor:pointer;border-radius:6px;text-transform:uppercase;font-family:'Barlow',sans-serif;letter-spacing:.5px;transition:all .2s}
+.btn-logout:hover{border-color:rgba(239,68,68,.4);color:#f87171}
+.rec-box{background:#111;border:1px solid rgba(255,255,255,.08);border-radius:12px;max-width:440px;padding:2rem;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.rec-top{display:flex;align-items:center;gap:12px;margin-bottom:1.5rem;padding-bottom:1.25rem;border-bottom:2px solid rgba(255,214,0,.2)}
+.rec-top img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,214,0,.3)}
+.rec-co{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:#fff}
+.rec-row{display:flex;justify-content:space-between;padding:7px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04)}
+.rec-row.tot{font-weight:700;font-size:15px;border:none;border-top:2px solid rgba(255,214,0,.2);margin-top:8px;padding-top:10px;color:#fff}
+.rec-lbl{color:#444}
+.rec-meta{font-size:11px;color:#444;margin-top:1.25rem;text-align:center;line-height:2}
+.toast{position:fixed;bottom:24px;right:24px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;padding:12px 22px;border-radius:20px;font-weight:700;display:none;z-index:500;font-size:13px;box-shadow:0 8px 24px rgba(34,197,94,.3)}
+.mrow{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.04);align-items:flex-start}
+.mrow:last-child{border-bottom:none}
+.mlbl{font-size:10px;color:#444;font-weight:700;text-transform:uppercase;margin-bottom:2px;letter-spacing:.5px}
+.mval{font-size:14px;font-weight:500;color:#fff}
+.divider{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#333;margin:14px 0 10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.06)}
+.empty{text-align:center;color:#333;font-size:14px;padding:3rem;line-height:1.8}
+.sec-ttl-light{color:#fff}
+@media(max-width:600px){.hero h1{font-size:72px}.hero-logo{width:110px;height:110px}.contact-inner{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.fc2{grid-template-columns:1fr}.fc3{grid-template-columns:1fr 1fr}.svc-grid{grid-template-columns:1fr 1fr}.tabs{gap:2px}.tab{padding:6px 9px;font-size:10px}}
+</style>
+</head>
+<body>
+<div id="toast" class="toast">Sparat!</div>
+<div id="lock" class="lock" style="display:none">
+  <div class="lockbox">
+    <img class="lock-logo" src="data:image/jpeg;base64,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" alt="RBwolf">
+    <div class="lock-ttl">Admin</div>
+    <div class="lock-sub">Ange lösenord för att fortsätta</div>
+    <input class="lock-input" type="password" id="pw" placeholder="••••••••••">
+    <div class="lock-err" id="pwerr">Fel lösenord — försök igen</div>
+    <button class="btn-gold" id="loginbtn" style="width:100%;margin-top:16px;padding:14px">Logga in</button>
+  </div>
+</div>
+<div id="popup" class="popup" style="display:none">
+  <div class="popbox">
+    <div class="pop-hdr"><span style="font-size:22px">🔔</span><span class="pop-ttl">NY BOKNING</span><button class="pop-close" id="closepopup">✕</button></div>
+    <div class="pop-body" id="popbody"></div>
+    <div class="pop-ftr">
+      <a id="callbtn" href="#" class="btn-call">📞 Ring kunden</a>
+      <button class="btn-ok" id="cfmpopup">✓ Bekräfta</button>
+      <button class="btn-skip" id="skippopup">Stäng — visa senare</button>
+    </div>
+  </div>
+</div>
+<div id="modal" class="modal" style="display:none">
+  <div class="modbox">
+    <div class="mod-hdr"><span class="mod-ttl">Bokning</span><button class="mod-close" id="closemodal">✕</button></div>
+    <div class="mod-body" id="modalbody"></div>
+    <div class="mod-ftr" id="modalftr"></div>
+  </div>
+</div>
+<nav>
+  <div class="logo-wrap" id="logobtn">
+    <img class="logo-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCABkAGQDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzOiiikAtFJS0AFTtayrZx3WMxuxTI7Ec8/X+lRIjOcIpY+1atlfC2RI5oRNbTII54j3weCPQjtUSbWxUVfcygrFSwB2g4J9KSumj02CFJQrNNpt0B84HzwkdCfp6/UHFY+p6Vc6c480B4X/1cy/dcf0PtSjVjJ2G4NK5RoooqyQpaSigBaKKKAGUUUUxBS0lLQBat44tpLK0jDk4OFX8akjjY5IUeU54Dnr7imfetlVPug4H+0epJq1BksibsyMu+R+4HYCsmzVI1rK8eFQuduOpB5/Gty0urGeAwXclsUfgo5A3fhXPWmwx7+i5+UDvWmj27xtFPGssbdUYfyNcdRJs6Fsc/4l0uDTb4fY3L20w3Jk5K+oz3rHr0BbGwv7A2UgYxg5jP8cZ9j3rkNW0e50uUiTEkWeJU6c9M+h9jXRRrJ+63qYVKbWq2M6iiiugyFooooAZRRVxI4YyFfIb1K5obsCVyoKlEIA3TNsHp/Efwq+jWwOGl6dghqyqQyEKplwT/AAR4z+NQ5+Rah5mbbOnmrECdpyAW9T/+qp0V4ZmL9CNhPpxwavXsOnwW+2JHklP0P481QS7zGRIAzR+v8a9wahPm1SKty6M1YQTb2xH3fuk+hI4/kaZcTvBc+UIyzdh7etR2kyWrBT89nNgc/wAOa0ZVSQuH+aa1G4N3dOv+fcVk9Hqap6FK21tVOTIEPo64/UVmalqL3Usm1m2OQWG44Yjvio9UjWO9fZja4DqR3B71UreFOK95GEpy2YUUlLWhAtFJRQA0datiWRT+6kVl9Cf6GqlSQwyTttiXceuMih26gm+heS5vBwqKfpirRuLoBcMu0/eBZcgfnWU9pOkZkaP5B1YEED8qWO1uHjEkaZTOM7gP61m4x30NFKRcUGRi245yFwWwGOe1UpSokbGDyQOamiivldoEVgxGSpwDj1GaiitZ5Q7RqCE+8Qw4pqy6ibb6E8jsLaG2HMhxken+c1b+3AT3MwPyrEIwfU81mQwzSLI0XRBlzuAwKfFZ3EsSuFCxk/KzuEBPtk0nGPUFJ9CKWQyFc/wqFH0FR1PNaXEEwhmiKO2MBsYP0PSkubWe0l8q4jKPjO0kZq010IaZDRVuPTbuSFZkiBjboxdQD+ZqGeCW2lMUy7XABIyD1+lCknomFmiOiiimA2ruk/8AH8v0NUqmtbg20vmKoY4wMmlJXTQ4uzTLoAtbGWSNvNWYlMgYC9etEIjOjN5pYL5vVQCar280gS4CRK0RG50Zug9qWGdjavALcSIvzt8xyPeoaf4lpouTytFcWVwjA24G1D3x3zUkMaWmpSvJ/q5XCIOx3cn8un41m3ckzCJZFVECZjVegBptxdyXHl7+PLGBj+dLkbQ+dJlp4fsiPA/HmzBCf9hT/wDXH5UuuE/2gU6IiKEHYDFVLu6ku5Q8gAIUKAKka8E0aLcwiVkGFfcVbHofWmotNNktq1kXmbf4bgMvLRz7YyeuM8j/AD6UzxIc6w5/2F/lVW6nm81IZohGsHAhHAX/AD61LLqYmuBcS2cLSjHJLdunGcVKi07+v4jbTVizthbw3bieRkXz2wVTdzz7isq42ee4jctGpwhPcdqmkvWewW0Ma7VbeGyc57/zqrVwi1e5MmmFFFFWSNooopiLdiTtuAACxj4B7nIqUrE0s21Ix+4yQOiv7Vn0VLjrcpS0saYCF4N67gLcDjBIOewPUjPSlhS3HmkpHKyy/MFKgFfbPQfSsulpcnmPn8i47JHYR7YoizMwLEAkDIxTrpofLV4Uj3ThTsCj5McEfiao0U+UXMa0kcXn3fkJCZVZSitgjbjnGeKS3Ft9lLtAjtvbzFDKNo7Yz0HuKyqKnk03Hz+QtFJS1oQFFFFIY2iiimIKKKKACloooAKKKKACiiigApaKKACiiigZ/9k=" alt="RBwolf">
+    <span class="logo-text">RBwolf</span>
+  </div>
+  <div class="nav-links">
+    <button class="nbtn act" id="nb-home">Start</button>
+    <button class="nbtn" id="nb-book">Boka</button>
+    <button class="nbtn" id="nb-admin">Admin</button>
+    <button class="notifbtn" id="notifbtn">
+      <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+      <div class="ndot" id="ndot"></div>
+    </button>
+  </div>
+</nav>
+<div id="pg-home" class="page active">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-lines"></div>
+    <div class="hero-tag">⭐ Bilverkstad i Bromölla sedan 2010</div>
+    <div class="hero-logo-wrap">
+      <div class="hero-ring"></div>
+      <div class="hero-ring2"></div>
+      <img class="hero-logo" src="data:image/jpeg;base64,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" alt="RBwolf">
+    </div>
+    <h1>RB<span class="gold">WOLF</span></h1>
+    <div class="hero-sub">Service · Reparationer · Felsökning</div>
+    <p>Professionell bilservice med personlig touch. Vi tar hand om din bil som om det vore vår egen.</p>
+    <div class="hero-btns">
+      <button class="btn-gold" id="herobookbtn">Boka tid nu</button>
+      <button class="btn-out" id="herocontactbtn">Kontakt</button>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>Scrolla</span>
+    </div>
+  </div>
+  <div class="hours-bar">
+    <div class="hi"><div class="hi-num">09–18</div><div class="hi-lbl">Mån–Fre</div></div>
+    <div class="hi"><div class="hi-num">10–16</div><div class="hi-lbl">Lördag</div></div>
+    <div class="hi"><div class="hi-num">Stängt</div><div class="hi-lbl">Söndag</div></div>
+  </div>
+  <div style="background:linear-gradient(135deg,#1a1200,#0a0a0a);border-top:1px solid rgba(255,214,0,.1);border-bottom:1px solid rgba(255,214,0,.1);padding:2rem 1.5rem;text-align:center">
+  <div style="max-width:600px;margin:0 auto">
+    <div style="display:inline-flex;align-items:center;gap:8px;background:rgba(255,214,0,.1);border:1px solid rgba(255,214,0,.2);border-radius:20px;padding:5px 16px;margin-bottom:1rem">
+      <span style="font-size:14px">🚗</span>
+      <span style="font-size:11px;font-weight:700;color:#FFD600;letter-spacing:2px;text-transform:uppercase">Ny tjänst</span>
+    </div>
+    <h2 style="font-family:'Bebas Neue','Arial Black',sans-serif;font-size:clamp(28px,6vw,42px);color:#fff;letter-spacing:2px;margin-bottom:.75rem">VI HÄMTAR DIN BIL</h2>
+    <p style="color:#666;font-size:15px;line-height:1.8;max-width:420px;margin:0 auto 1.5rem">Boka tid som vanligt — välj hämtning så kommer vi till dig. Smidigare kan det inte bli!</p>
+    <button class="btn-gold" id="pickup-cta-btn" style="font-size:14px;padding:14px 32px">Boka hämtning nu →</button>
+  </div>
+</div>
+<div class="svc-sec">
+    <div class="sec-inner">
+      <div class="eyebrow">Vad vi gör</div>
+      <div class="big-ttl sec-ttl-light">Våra tjänster</div>
+      <div class="sub-txt">Allt från enklare service till komplexa reparationer — vi fixar det mesta.</div>
+      <div class="svc-grid">
+        <div class="svc"><span class="svc-ico">⚙️</span><h3>Service & Olja</h3><p>Oljebyte, filter och kontroll av alla vätskor.</p></div>
+        <div class="svc"><span class="svc-ico">🔧</span><h3>Reparationer</h3><p>Motor, bromsar, växellåda och styrning.</p></div>
+        <div class="svc"><span class="svc-ico">🔍</span><h3>Felsökning</h3><p>Modern diagnos — vi hittar felet snabbt.</p></div>
+        <div class="svc"><span class="svc-ico">🛞</span><h3>Däck & Hjul</h3><p>Säsongsbyte och balansering.</p></div>
+        <div class="svc"><span class="svc-ico">💡</span><h3>El & Belysning</h3><p>Lampbyte, elsystem och batteri.</p></div>
+        <div class="svc"><span class="svc-ico">🚗</span><h3>Besiktning</h3><p>Vi förbereder och fixar anmärkningar.</p></div>
+      </div>
+    </div>
+  </div>
+  <div style="background:#111;padding:4rem 1.5rem;border-top:1px solid rgba(255,214,0,.05);text-align:center">
+  <div style="max-width:880px;margin:0 auto">
+    <div class="eyebrow">Vad våra kunder säger</div>
+    <div class="big-ttl sec-ttl-light" style="margin-bottom:.5rem">Recensioner</div>
+    <div style="display:flex;justify-content:center;gap:4px;margin-bottom:.5rem">
+      <span style="color:#FFD600;font-size:28px">★★★★★</span>
+    </div>
+    <div style="color:#555;font-size:13px;margin-bottom:2rem">5.0 · Baserat på Google recensioner</div>
+    <div style="display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:12px;justify-content:center;flex-wrap:wrap">
+      <div style="background:#0a0a0a;border:1px solid rgba(255,214,0,.1);border-radius:12px;padding:1.5rem;min-width:260px;max-width:280px;text-align:left;scroll-snap-align:start;flex-shrink:0">
+        <div style="display:flex;gap:3px;margin-bottom:.75rem"><span style="color:#FFD600;font-size:16px">★★★★★</span></div>
+        <p style="color:#888;font-size:13px;line-height:1.7;margin-bottom:1rem">"Fantastisk service! Snabb och professionell. Rekommenderar varmt!"</p>
+        <div style="font-size:12px;font-weight:700;color:#FFD600">— Google recension</div>
+      </div>
+      <div style="background:#0a0a0a;border:1px solid rgba(255,214,0,.1);border-radius:12px;padding:1.5rem;min-width:260px;max-width:280px;text-align:left;scroll-snap-align:start;flex-shrink:0">
+        <div style="display:flex;gap:3px;margin-bottom:.75rem"><span style="color:#FFD600;font-size:16px">★★★★★</span></div>
+        <p style="color:#888;font-size:13px;line-height:1.7;margin-bottom:1rem">"Bästa verkstaden i Bromölla! Ärliga priser och kunnig personal."</p>
+        <div style="font-size:12px;font-weight:700;color:#FFD600">— Google recension</div>
+      </div>
+      <div style="background:#0a0a0a;border:1px solid rgba(255,214,0,.1);border-radius:12px;padding:1.5rem;min-width:260px;max-width:280px;text-align:left;scroll-snap-align:start;flex-shrink:0">
+        <div style="display:flex;gap:3px;margin-bottom:.75rem"><span style="color:#FFD600;font-size:16px">★★★★★</span></div>
+        <p style="color:#888;font-size:13px;line-height:1.7;margin-bottom:1rem">"Löste problemet direkt, inga krångel. Kommer definitivt tillbaka!"</p>
+        <div style="font-size:12px;font-weight:700;color:#FFD600">— Google recension</div>
+      </div>
+    </div>
+    <a href="https://g.page/r/rbwolf" target="_blank" style="display:inline-flex;align-items:center;gap:8px;margin-top:1.5rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#888;text-decoration:none;padding:10px 20px;border-radius:20px;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Lämna en recension på Google
+    </a>
+  </div>
+</div>
+<div style="background:#0d0d0d;padding:4rem 1.5rem;border-top:1px solid rgba(255,214,0,.05)">
+  <div style="max-width:880px;margin:0 auto">
+    <div class="eyebrow">Kampanjer</div>
+    <div class="big-ttl sec-ttl-light" style="margin-bottom:2rem">Erbjudanden</div>
+    <div style="display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:12px">
+
+      <!-- Oljebyte kort -->
+      <div style="background:#0a0a0a;border:1.5px solid #8B6914;border-radius:12px;padding:1.75rem;text-align:center;position:relative;overflow:hidden;min-width:300px;max-width:300px;scroll-snap-align:start;flex-shrink:0">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0,rgba(255,214,0,.05),transparent 70%);pointer-events:none"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+          <svg width="52" height="62" viewBox="0 0 52 62" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M26 2C26 2 4 26 4 38C4 50.15 13.85 60 26 60C38.15 60 48 50.15 48 38C48 26 26 2 26 2Z" fill="url(#goldGrad)" stroke="#8B6914" stroke-width="1.5"/><path d="M16 42C16 42 14 36 18 30" stroke="rgba(255,255,255,0.3)" stroke-width="2" stroke-linecap="round"/><defs><linearGradient id="goldGrad" x1="26" y1="2" x2="26" y2="60" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FFD700"/><stop offset="50%" stop-color="#C9A227"/><stop offset="100%" stop-color="#8B6914"/></linearGradient></defs></svg>
+          <img src="data:image/jpeg;base64,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" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid #8B6914">
+        </div>
+        <div style="font-family:'Bebas Neue','Arial Black',sans-serif;font-size:clamp(28px,6vw,36px);color:#C9A227;line-height:1.1;margin-bottom:.5rem">Oljebyte för alla bilmodeller!</div>
+        <div style="color:#C9A227;font-size:14px;font-weight:600;margin-bottom:.25rem">Byt motorolja + oljefilter</div>
+        <div style="color:#C9A227;font-size:14px;font-weight:600;margin-bottom:1.25rem">för endast <span style="font-size:36px;font-weight:900;font-family:'Bebas Neue','Arial Black',sans-serif">1299</span> kr!</div>
+        <div style="border-top:1px solid rgba(201,162,39,.2);padding-top:1rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.6rem;text-align:left">
+          <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">🔧 Inklusive nollställning av service-lampa</div>
+          <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">📖 Stämpel i serviceboken ingår</div>
+        </div>
+        <button class="btn-gold" id="erbjudande-book-btn" style="width:100%;padding:13px;font-size:13px">Boka oljebyte nu →</button>
+      </div>
+
+      <!-- Däckbyte kort -->
+      <div style="background:#0a0a0a;border:1.5px solid #8B6914;border-radius:12px;padding:1.75rem;text-align:center;position:relative;overflow:hidden;min-width:300px;max-width:300px;scroll-snap-align:start;flex-shrink:0">
+        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0,rgba(255,214,0,.05),transparent 70%);pointer-events:none"></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="26" stroke="url(#tireGrad)" stroke-width="3" fill="none"/><circle cx="28" cy="28" r="16" stroke="url(#tireGrad)" stroke-width="3" fill="none"/><circle cx="28" cy="28" r="5" fill="url(#tireGrad)"/><line x1="28" y1="2" x2="28" y2="12" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round"/><line x1="28" y1="44" x2="28" y2="54" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round"/><line x1="2" y1="28" x2="12" y2="28" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round"/><line x1="44" y1="28" x2="54" y2="28" stroke="#C9A227" stroke-width="2.5" stroke-linecap="round"/><defs><linearGradient id="tireGrad" x1="0" y1="0" x2="56" y2="56" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FFD700"/><stop offset="100%" stop-color="#8B6914"/></linearGradient></defs></svg>
+          <img src="data:image/jpeg;base64,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" style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid #8B6914">
+        </div>
+        <div style="font-family:'Bebas Neue','Arial Black',sans-serif;font-size:clamp(28px,6vw,36px);color:#C9A227;line-height:1.1;margin-bottom:.5rem">Däckbyte för alla bilmodeller!</div>
+        <div style="color:#C9A227;font-size:14px;font-weight:600;margin-bottom:.25rem">Däckbyte + balansering</div>
+        <div style="color:#C9A227;font-size:14px;font-weight:600;margin-bottom:1.25rem">för endast <span style="font-size:36px;font-weight:900;font-family:'Bebas Neue','Arial Black',sans-serif">600</span> kr!</div>
+        <div style="border-top:1px solid rgba(201,162,39,.2);padding-top:1rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.6rem;text-align:left">
+          <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">🛞 Säsongsbyte sommar/vinter</div>
+          <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">⚖️ Balansering ingår</div>
+        </div>
+        <button class="btn-gold" id="dack-book-btn" style="width:100%;padding:13px;font-size:13px">Boka däckbyte nu →</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div id="kontakt" class="contact-sec">
+    <div class="contact-inner">
+      <div>
+        <div class="eyebrow">Kontakt</div>
+        <div class="big-ttl sec-ttl-light">Hitta oss</div>
+        <p style="color:#444;font-size:14px;line-height:1.9;margin-top:.75rem;margin-bottom:2rem">Välkommen in utan bokning under öppettiderna, eller boka din tid nedan — vi ringer upp dig!</p>
+        <button class="btn-gold" id="contactbookbtn">Boka tid nu →</button>
+      </div>
+      <div class="contact-items">
+        <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-lbl">Telefon</div><div class="ci-val"><a href="tel:0739334446" style="color:#aaa;text-decoration:none">073-933 44 46</a></div></div></div>
+        <div class="ci"><div class="ci-icon">📍</div><div><div class="ci-lbl">Adress</div><a href="https://www.google.com/maps/search/?api=1&query=Ugnsvägen+4A,+295+39+Bromölla" target="_blank" style="color:#aaa;text-decoration:none" class="ci-val">Ugnsvägen 4A<br>295 39 Bromölla<br><span style="color:#FFD600;font-size:11px;font-weight:700;letter-spacing:1px">📍 Öppna i Google Maps →</span></a></div></div>
+        <div class="ci"><div class="ci-icon">✉️</div><div><div class="ci-lbl">E-post</div><div class="ci-val"><a href="mailto:Rb-wolf@hotmail.com" style="color:#aaa;text-decoration:none">Rb-wolf@hotmail.com</a></div></div></div>
+        <div class="ci"><div class="ci-icon">🕐</div><div><div class="ci-lbl">Öppettider</div><div class="ci-val">Mån–Fre 09:00–18:00<br>Lördag 10:00–16:00<br>Söndag Stängt</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="pg-book" class="page">
+  <div class="book-wrap">
+    <div style="text-align:center;margin-bottom:2rem;padding-top:1rem">
+      <div class="eyebrow">Bokningssystem</div>
+      <div class="big-ttl sec-ttl-light">Boka tid</div>
+    </div>
+    <div id="bform" class="bcard">
+      <div class="binner">
+        <div class="bhdr"><div class="bnum">1</div><div class="bttl">Dina uppgifter</div></div>
+        <div class="notice"><strong>Vi ringer dig!</strong>En mekaniker ringer upp för att bekräfta. Ring direkt: 073-933 44 46</div>
+        <label class="fl">Namn</label><input class="fi" type="text" id="bn" placeholder="Anna Andersson" autocomplete="off">
+        <label class="fl">Telefon</label><input class="fi" type="text" id="bp" placeholder="070-123 45 67" autocomplete="off">
+        <label class="fl">E-post</label><input class="fi" type="text" id="be" placeholder="din@epost.se" autocomplete="off">
+        <label class="fl">Registreringsnummer</label><input class="fi" type="text" id="br" placeholder="ABC123" style="text-transform:uppercase" autocomplete="off">
+        <label class="fl">Bilmärke och modell</label><input class="fi" type="text" id="bc" placeholder="Volvo V70 2018">
+        <label class="fl">Önskat datum</label><input class="fi" type="date" id="bd">
+        <label class="fl">Önskad tid</label><input class="fi" type="time" id="bt">
+        <label class="fl">Beskriv ärendet</label><textarea class="fi" id="bdesc" placeholder="Vad behöver din bil hjälp med?"></textarea>
+        <label class="fl">Leverans</label>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
+          <div id="opt-dropoff" id="opt-dropoff-btn" style="border:1.5px solid rgba(255,214,0,.4);border-radius:8px;padding:12px;text-align:center;cursor:pointer;background:rgba(255,214,0,.08)">
+            <div style="font-size:22px;margin-bottom:4px">🏁</div>
+            <div style="font-size:12px;font-weight:700;color:#FFD600">Lämna in</div>
+            <div style="font-size:11px;color:#555;margin-top:2px">Jag kör till verkstaden</div>
+          </div>
+          <div id="opt-pickup" id="opt-pickup-btn" style="border:1.5px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center;cursor:pointer">
+            <div style="font-size:22px;margin-bottom:4px">🚗</div>
+            <div style="font-size:12px;font-weight:700;color:#888">Hämtning</div>
+            <div style="font-size:11px;color:#555;margin-top:2px">Verkstaden hämtar bilen</div>
+          </div>
+        </div>
+        <input type="hidden" id="b-delivery" value="dropoff">
+        <div id="pickup-address-wrap" style="display:none">
+          <label class="fl">Din adress för hämtning</label>
+          <input class="fi" type="text" id="b-address" placeholder="Storgatan 1, Bromölla">
+        </div>
+        <button class="btn-gold" id="subbookbtn" style="width:100%;padding:15px;margin-top:20px;font-size:14px">Skicka bokningsförfrågan →</button>
+      </div>
+    </div>
+    <div id="bokOk" class="bcard" style="display:none">
+      <div class="ok-wrap">
+        <div style="font-size:56px">✅</div>
+        <h3>Förfrågan skickad!</h3>
+        <p>Vi ringer upp dig inom kort för att bekräfta tid och gå igenom jobbet.</p>
+        <div id="bconf" style="margin-top:1.25rem;padding:1rem 1.25rem;background:rgba(255,255,255,.04);border-radius:10px;font-size:13px;color:#555;text-align:left;line-height:1.9;border:1px solid rgba(255,255,255,.06)"></div>
+        <button class="btn-gold" id="newbookbtn" style="margin-top:1.75rem">Ny bokning</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="pg-admin" class="page">
+  <div class="adm-wrap">
+    <div style="margin-bottom:1rem"><button onclick="showPage('home');document.querySelectorAll('.nbtn').forEach(function(b){b.classList.remove('act')});document.getElementById('nb-home').classList.add('act')" style="background:none;border:1px solid rgba(255,255,255,.1);color:#666;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;font-family:Barlow,sans-serif;text-transform:uppercase;letter-spacing:.5px">← Tillbaka till startsidan</button></div>
+<div class="adm-top">
+      <div class="adm-ttl">Administration</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <div class="tabs">
+          <button class="tab act" id="tab-b">📋 Bokningar</button>
+          <button class="tab" id="tab-c">🚗 Bilar</button>
+          <button class="tab" id="tab-h">🔧 Historik</button>
+          <button class="tab" id="tab-r">🧾 Kvitton</button>
+          <button class="tab" id="tab-insp">🚗 Besiktning</button>
+        </div>
+        <button class="btn-logout" id="logoutbtn">🔒 Logga ut</button>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="sn" id="s1">0</div><div class="sl">Bokningar</div></div>
+      <div class="stat"><div class="sn" id="s2">0</div><div class="sl">Bilar</div></div>
+      <div class="stat"><div class="sn" id="s3">0</div><div class="sl">Utförda</div></div>
+      <div class="stat"><div class="sn" id="s4">0 kr</div><div class="sl">Intäkt</div></div>
+    </div>
+    <div id="tc-b" class="tc act">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+        <strong style="font-size:15px;color:#fff">Bokningar</strong>
+        <span id="nbadge" style="display:none;background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.2);font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700"></span>
+      </div>
+      <div id="blist"></div>
+    </div>
+    <div id="tc-c" class="tc">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <strong style="font-size:15px;color:#fff">Bilar</strong>
+        <button class="btn-gold" id="addcarbtn" style="font-size:11px;padding:7px 14px">+ Ny bil</button>
+      </div>
+      <div id="addcarform" class="addf" style="display:none;margin-bottom:14px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#333;margin-bottom:10px;letter-spacing:1px">Lägg till bil</div>
+        <div class="divider">Fordon</div>
+        <div class="fc2"><div><label class="fl">Reg.nr</label><input class="fi" id="creg" placeholder="ABC123" style="text-transform:uppercase"></div><div><label class="fl">Märke</label><input class="fi" id="cmake" placeholder="Volvo"></div></div>
+        <div class="fc2"><div><label class="fl">Modell</label><input class="fi" id="cmod" placeholder="V70"></div><div><label class="fl">År</label><input class="fi" id="cyr" type="number" placeholder="2018"></div></div>
+        <div class="fc3"><div><label class="fl">Färg</label><input class="fi" id="ccol" placeholder="Svart"></div><div><label class="fl">Drivmedel</label><select class="fi" id="cfuel"><option value="">Välj</option><option>Bensin</option><option>Diesel</option><option>El</option><option>Hybrid</option><option>Gas</option></select></div><div><label class="fl">Miltal</label><input class="fi" id="cmil" type="number" placeholder="15000"></div></div>
+        <div class="divider">Ägare</div>
+        <div class="fc2"><div><label class="fl">Namn</label><input class="fi" id="cown" placeholder="Anna Andersson"></div><div><label class="fl">Telefon</label><input class="fi" id="ctel" placeholder="070-123 45 67"></div></div>
+        <label class="fl">E-post</label><input class="fi" id="cemail" type="email" placeholder="anna@epost.se">
+        <label class="fl">Nästa besiktning (datum)</label><input class="fi" type="date" id="cinsp">
+        <label class="fl">Anteckningar</label><textarea class="fi" id="cnotes" placeholder="Extra info..."></textarea>
+        <button class="btn-gold" id="savecarbtn" style="margin-top:14px">Spara bil</button>
+      </div>
+      <div id="clist"></div>
+    </div>
+    <div id="tc-h" class="tc">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <strong style="font-size:15px;color:#fff">Jobbhistorik</strong>
+        <button class="btn-gold" id="addjobbtn" style="font-size:11px;padding:7px 14px">+ Nytt jobb</button>
+      </div>
+      <div id="addjobform" class="addf" style="display:none;margin-bottom:14px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#333;margin-bottom:10px;letter-spacing:1px">Välj kategori</div>
+        <div class="catg" id="catg"></div>
+        <div class="fc2"><div><label class="fl">Reg.nr</label><input class="fi" id="jreg" placeholder="ABC123" style="text-transform:uppercase"></div><div><label class="fl">Datum</label><input class="fi" id="jdat" type="date"></div></div>
+        <label class="fl">Beskrivning</label><input class="fi" id="jdesc" placeholder="Beskriv jobbet">
+        <div class="fc2"><div><label class="fl">Pris kr</label><input class="fi" id="jpris" type="number" placeholder="1500"></div><div><label class="fl">Miltal</label><input class="fi" id="jmil" type="number" placeholder="15200"></div></div>
+        <label class="fl">Mekaniker</label><input class="fi" id="jmek" placeholder="Ahmad">
+        <label class="fl">Status</label><select class="fi" id="jstat"><option value="done">Utfört</option><option value="progress">Pågående</option><option value="pending">Väntar</option></select>
+        <label class="fl">Anteckningar</label><textarea class="fi" id="jnotes" placeholder="Extra info..."></textarea>
+        <button class="btn-gold" id="savejobbtn" style="margin-top:14px;width:100%">Spara jobb</button>
+      </div>
+      <div id="hlist"></div>
+    </div>
+    <div id="tc-r" class="tc">
+      <strong style="display:block;margin-bottom:14px;font-size:15px;color:#fff">Generera kvitto</strong>
+      <div class="fc2" style="margin-bottom:12px">
+        <div><label class="fl">Bil</label><select class="fi" id="rcar"></select></div>
+        <div><label class="fl">Jobb</label><select class="fi" id="rjob"></select></div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-gold" id="genrecbtn" style="flex:1;padding:12px">Generera kvitto</button>
+        <button class="btn-logout" id="printbtn" style="padding:12px 16px">🖨️</button>
+      </div>
+      <div id="rout" style="margin-top:1.5rem"></div>
+    </div>
+    <div id="tc-insp" class="tc">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+        <strong style="font-size:15px;color:#fff">Besiktningspåminnelser</strong>
+      </div>
+      <div style="background:rgba(255,214,0,.06);border:1px solid rgba(255,214,0,.15);border-radius:10px;padding:1rem 1.25rem;margin-bottom:16px;font-size:13px;color:#aa8800;line-height:1.6">
+        <strong style="color:var(--gold);display:block;margin-bottom:3px">Automatisk påminnelse</strong>
+        Bilar vars besiktning går ut inom 60 dagar visas här med ägarens kontaktinfo.
+      </div>
+      <div id="insp-list"></div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+
+var firebaseConfig={apiKey:"AIzaSyDZKkeY0QhRlv0FhmChJ968ryq50EDy6_c",authDomain:"rbwolf-2aaaa.firebaseapp.com",databaseURL:"https://rbwolf-2aaaa-default-rtdb.europe-west1.firebasedatabase.app",projectId:"rbwolf-2aaaa",storageBucket:"rbwolf-2aaaa.firebasestorage.app",messagingSenderId:"672592251642",appId:"1:672592251642:web:82745de3714ee887b15743"};
+if(!firebase.apps.length){firebase.initializeApp(firebaseConfig);}
+
+var PW="Ahmad_rbwolf",unlocked=false,selCat="",popId=null,modIdx=null;
+var CATS=[{id:"service",e:"Service"},{id:"brakes",e:"Bromsar"},{id:"engine",e:"Motor"},{id:"tires",e:"Dackbyte"},{id:"electrical",e:"El"},{id:"gearbox",e:"Vaxellada"},{id:"steering",e:"Styrning"},{id:"inspection",e:"Besiktning"},{id:"suspension",e:"Fjadring"},{id:"other",e:"Ovrigt"}];
+var D={bookings:{},cars:{},jobs:{}};
+
+function showToast(){var t=document.getElementById("toast");t.style.display="block";clearTimeout(window._tt);window._tt=setTimeout(function(){t.style.display="none"},2000)}
+function catL(id){var c=CATS.find(function(x){return x.id===id});return c?c.e:"Ovrigt"}
+function G(id){return document.getElementById(id)}
+
+function fbSet(path,data){
+  return firebase.database().ref(path).set(data);
+}
+function fbPush(path,data){
+  return firebase.database().ref(path).push(data);
+}
+function fbRemove(path){
+  return firebase.database().ref(path).remove();
+}
+
+function loadAll(){
+  firebase.database().ref("bookings").on("value",function(snap){
+    D.bookings=snap.val()||{};
+    if(unlocked){rBooks();uBell()}
+    uStats();
+  });
+  firebase.database().ref("cars").on("value",function(snap){
+    D.cars=snap.val()||{};
+    if(unlocked)rCars();
+    uStats();
+  });
+  firebase.database().ref("jobs").on("value",function(snap){
+    D.jobs=snap.val()||{};
+    if(unlocked)rHist();
+    uStats();
+  });
+}
+
+function showPage(p){
+  document.querySelectorAll(".page").forEach(function(e){e.style.display="none";e.classList.remove("active")});
+  G("pg-"+p).style.display="block";
+  G("pg-"+p).classList.add("active");
+  document.querySelectorAll(".nbtn").forEach(function(b){b.classList.remove("act")});
+  if(G("nb-"+p))G("nb-"+p).classList.add("act");
+}
+
+function showAdmin(){
+  if(!unlocked){G("lock").style.display="flex";G("pw").value="";G("pwerr").style.display="none";setTimeout(function(){G("pw").focus()},100);return}
+  showPage("admin");
+  uStats();rCars();rHist();rBooks();fillRC();bCats();uBell();
+}
+
+function showTab(t){
+  document.querySelectorAll(".tc").forEach(function(e){e.classList.remove("act")});
+  document.querySelectorAll(".tab").forEach(function(b){b.classList.remove("act")});
+  G("tc-"+t).classList.add("act");
+  G("tab-"+t).classList.add("act");
+  if(t==="r")fillRC();
+  if(t==="c")rCars();
+  if(t==="h"){rHist();bCats()}
+  if(t==="b")rBooks();
+  if(t==="insp")rInsp();
+}
+
+function pickOpt(val){
+  document.getElementById("b-delivery").value=val;
+  var drop=document.getElementById("opt-dropoff");
+  var pick=document.getElementById("opt-pickup");
+  var addrWrap=document.getElementById("pickup-address-wrap");
+  if(val==="pickup"){
+    pick.style.border="1.5px solid rgba(255,214,0,.4)";
+    pick.style.background="rgba(255,214,0,.08)";
+    pick.querySelector("div:nth-child(2)").style.color="#FFD600";
+    drop.style.border="1.5px solid rgba(255,255,255,.08)";
+    drop.style.background="";
+    drop.querySelector("div:nth-child(2)").style.color="#888";
+    addrWrap.style.display="block";
+  } else {
+    drop.style.border="1.5px solid rgba(255,214,0,.4)";
+    drop.style.background="rgba(255,214,0,.08)";
+    drop.querySelector("div:nth-child(2)").style.color="#FFD600";
+    pick.style.border="1.5px solid rgba(255,255,255,.08)";
+    pick.style.background="";
+    pick.querySelector("div:nth-child(2)").style.color="#888";
+    addrWrap.style.display="none";
+  }
+}
+window.addEventListener("load",function(){
+  emailjs.init("8I4fjO7HkfSQgBUG7");
+  try{if(localStorage.getItem("rbw_auth")==="1")unlocked=true}catch(e){}
+  loadAll();
+  if(unlocked){showPage("admin");uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}
+  G("logobtn").addEventListener("click",function(){showPage("home")});
+  G("nb-home").addEventListener("click",function(){showPage("home")});
+  G("nb-book").addEventListener("click",function(){showPage("book")});
+  G("nb-admin").addEventListener("click",function(){showAdmin()});
+  G("notifbtn").addEventListener("click",function(){showAdmin()});
+  G("herobookbtn").addEventListener("click",function(){showPage("book")});
+  G("herocontactbtn").addEventListener("click",function(){G("kontakt").scrollIntoView({behavior:"smooth"})});
+  G("contactbookbtn").addEventListener("click",function(){showPage("book")});
+  G("erbjudande-book-btn").addEventListener("click",function(){showPage("book")});
+  G("dack-book-btn").addEventListener("click",function(){showPage("book")});
+  G("pickup-cta-btn").addEventListener("click",function(){showPage("book");setTimeout(function(){pickOpt("pickup")},100)});
+  G("tab-b").addEventListener("click",function(){showTab("b")});
+  G("tab-c").addEventListener("click",function(){showTab("c")});
+  G("tab-h").addEventListener("click",function(){showTab("h")});
+  G("tab-r").addEventListener("click",function(){showTab("r")});
+  G("tab-insp").addEventListener("click",function(){showTab("insp")});
+  G("logoutbtn").addEventListener("click",function(){unlocked=false;try{localStorage.removeItem("rbw_auth")}catch(e){}G("notifbtn").style.display="none";showPage("home")});
+  G("cancelbtn").addEventListener("click",function(){G("lock").style.display="none";});
+  var odBtn=G("opt-dropoff-btn");if(odBtn)odBtn.addEventListener("click",function(){pickOpt("dropoff")});
+  var opBtn=G("opt-pickup-btn");if(opBtn)opBtn.addEventListener("click",function(){pickOpt("pickup")});
+  G("loginbtn").addEventListener("click",function(){
+    if(G("pw").value===PW){unlocked=true;try{localStorage.setItem("rbw_auth","1")}catch(e){}G("lock").style.display="none";showAdmin()}
+    else{G("pwerr").style.display="block";G("pw").value=""}
+  });
+  G("pw").addEventListener("keydown",function(e){if(e.key==="Enter")G("loginbtn").click()});
+  G("closepopup").addEventListener("click",function(){G("popup").style.display="none";popId=null});
+  G("skippopup").addEventListener("click",function(){G("popup").style.display="none";popId=null});
+  G("cfmpopup").addEventListener("click",function(){
+    if(!popId)return;
+    fbSet("bookings/"+popId+"/status","confirmed");
+    fbSet("bookings/"+popId+"/isNew",false);
+    G("popup").style.display="none";popId=null;
+  });
+  G("closemodal").addEventListener("click",function(){G("modal").style.display="none";modIdx=null});
+  G("subbookbtn").addEventListener("click",function(){
+    var n=G("bn").value.trim(),p=G("bp").value.trim(),r=G("br").value.trim().toUpperCase();
+    if(!n||!p||!r){alert("Fyll i namn, telefon och reg.nr");return}
+    var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var b={id:Date.now(),name:n,phone:p,email:G("be").value,reg:r,car:G("bc").value,date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",isNew:true};
+    fbSet("bookings/"+b.id,b).then(function(){
+      showToast();
+      G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
+      G("bform").style.display="none";G("bokOk").style.display="block";
+      if(b.email){
+        emailjs.send("service_18463g5","template_fbcfzng",{
+          customer_name:b.name,
+          email:b.email,
+          customer_email:b.email,
+          reg:b.reg,
+          car:b.car||"Ej angivet",
+          date:b.date||"Ej angivet",
+          time:b.time||"Ej angivet",
+          desc:b.desc||"Ej angivet",
+          delivery:b.delivery==="pickup"?"Hamtning - "+b.address:"Lamnar in sjalv"
+        }).then(function(){
+          console.log("Mail skickat!");
+        },function(err){
+          console.log("Mail fel:",err);
+        });
+      }
+    });
+  });
+  G("newbookbtn").addEventListener("click",function(){
+    G("bform").style.display="block";G("bokOk").style.display="none";
+    ["bn","bp","be","br","bc","bd","bt","bdesc"].forEach(function(i){if(G(i))G(i).value=""});
+  });
+  G("addcarbtn").addEventListener("click",function(){var f=G("addcarform");f.style.display=f.style.display==="none"?"block":"none"});
+  G("savecarbtn").addEventListener("click",function(){
+    var r=G("creg").value.trim().toUpperCase(),m=G("cmake").value.trim();
+    if(!r||!m){alert("Reg.nr och marke kravs");return}
+    var car={reg:r,make:m,model:G("cmod").value,year:G("cyr").value,color:G("ccol").value,fuel:G("cfuel").value,mileage:G("cmil").value,owner:G("cown").value,phone:G("ctel").value,email:G("cemail").value,insp:G("cinsp").value,notes:G("cnotes").value};
+    fbSet("cars/"+r,car).then(function(){
+      showToast();
+      ["creg","cmake","cmod","cyr","ccol","cmil","cown","ctel","cemail","cnotes","cinsp"].forEach(function(id){G(id).value=""});
+      G("cfuel").value="";G("addcarform").style.display="none";
+    });
+  });
+  G("addjobbtn").addEventListener("click",function(){var f=G("addjobform");f.style.display=f.style.display==="none"?"block":"none";if(f.style.display==="block"){selCat="";bCats()}});
+  G("savejobbtn").addEventListener("click",function(){
+    var r=G("jreg").value.trim().toUpperCase(),d=G("jdesc").value.trim();
+    if(!r||!d){alert("Reg.nr och beskrivning kravs");return}
+    if(!selCat){alert("Valj kategori");return}
+    var job={reg:r,cat:selCat,date:G("jdat").value,desc:d,price:parseInt(G("jpris").value)||0,mileage:G("jmil").value,mech:G("jmek").value,status:G("jstat").value,notes:G("jnotes").value,ts:Date.now()};
+    fbPush("jobs",job).then(function(){
+      showToast();
+      ["jreg","jdat","jdesc","jpris","jmil","jmek","jnotes"].forEach(function(id){G(id).value=""});
+      selCat="";G("addjobform").style.display="none";
+    });
+  });
+  G("genrecbtn").addEventListener("click",genRec);
+  G("printbtn").addEventListener("click",function(){window.print()});
+  G("rcar").addEventListener("change",fillRJ);
+});
+
+function bCats(){
+  var g=G("catg");g.innerHTML="";
+  CATS.forEach(function(c){
+    var btn=document.createElement("div");
+    btn.className="catbtn"+(selCat===c.id?" sel":"");
+    btn.textContent=c.e;
+    btn.addEventListener("click",function(){selCat=c.id;document.querySelectorAll(".catbtn").forEach(function(b){b.classList.remove("sel")});btn.classList.add("sel")});
+    g.appendChild(btn);
+  });
+}
+
+function uBell(){
+  var items=D.bookings?Object.values(D.bookings):[];
+  var n=items.filter(function(b){return b.isNew});
+  if(unlocked){G("notifbtn").style.display="block";G("ndot").style.display=n.length?"block":"none"}
+  var nb=G("nbadge");nb.style.display=n.length?"inline":"none";if(n.length)nb.textContent=n.length+" ny";
+}
+
+function showPopup(b){
+  popId=b.id;G("callbtn").href="tel:"+b.phone.replace(/[^0-9+]/g,"");
+  G("popbody").innerHTML="<p><b style='color:#FFD600'>Kund:</b> <span style='color:#fff'>"+b.name+"</span></p><p><b style='color:#FFD600'>Telefon:</b> <span style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</span></p><p><b style='color:#FFD600'>Bil:</b> <span style='color:#fff'>"+b.reg+(b.car?" - "+b.car:"")+"</span></p>"+(b.date?"<p><b style='color:#FFD600'>Datum:</b> <span style='color:#fff'>"+b.date+(b.time?" kl "+b.time:"")+"</span></p>":"")+(b.desc?"<p><b style='color:#FFD600'>Arende:</b> <span style='color:#fff'>"+b.desc+"</span></p>":"");
+  G("popup").style.display="flex";
+}
+
+function openModal(key){
+  modIdx=key;
+  var b=D.bookings[key];
+  fbSet("bookings/"+key+"/isNew",false);
+  var statusMap={pending:"Vantar",confirmed:"Bekraftad",done:"Avslutad"};
+  G("modalbody").innerHTML="<div class='mrow'><div><div class='mlbl'>Kund</div><div class='mval'>"+b.name+"</div></div></div><div class='mrow'><div><div class='mlbl'>Telefon</div><div class='mval' style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</div></div></div>"+(b.email?"<div class='mrow'><div><div class='mlbl'>E-post</div><div class='mval'>"+b.email+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Reg.nr</div><div class='mval'>"+b.reg+"</div></div></div>"+(b.car?"<div class='mrow'><div><div class='mlbl'>Bil</div><div class='mval'>"+b.car+"</div></div></div>":"")+(b.date?"<div class='mrow'><div><div class='mlbl'>Datum och tid</div><div class='mval'>"+b.date+(b.time?" kl "+b.time:"")+"</div></div></div>":"")+(b.desc?"<div class='mrow'><div><div class='mlbl'>Arende</div><div class='mval'>"+b.desc+"</div></div></div>":"")+(b.delivery==="pickup"?"<div class='mrow'><div><div class='mlbl'>Leverans</div><div class='mval' style='color:#22c55e'>🚗 Hämtning</div></div></div>"+(b.address?"<div class='mrow'><div><div class='mlbl'>Hämtningsadress</div><div class='mval' style='color:#FFD600;font-weight:700'>📍 "+b.address+"</div></div></div>":""):"<div class='mrow'><div><div class='mlbl'>Leverans</div><div class='mval'>🏁 Lämnar in själv</div></div></div>")+"<div class='mrow'><div><div class='mlbl'>Status</div><div class='mval'>"+statusMap[b.status]+"</div></div></div>";
+  var ftr=G("modalftr");ftr.innerHTML="";
+  var ca=document.createElement("a");ca.href="tel:"+b.phone.replace(/[^0-9+]/g,"");ca.className="btn-call";ca.style.flex="1";ca.textContent="Ring "+b.phone;ftr.appendChild(ca);
+  if(b.status!=="confirmed"){
+    var cb=document.createElement("button");cb.className="btn-ok";cb.textContent="Bekrafta";
+    cb.addEventListener("click",function(){fbSet("bookings/"+key+"/status","confirmed");G("modal").style.display="none";modIdx=null});
+    ftr.appendChild(cb);
+  }
+  var db=document.createElement("button");db.className="btn-del";db.style.cssText="width:100%;padding:10px;margin-top:4px";db.textContent="Ta bort bokning";
+  db.addEventListener("click",function(){if(!confirm("Ta bort?"))return;fbRemove("bookings/"+key);G("modal").style.display="none";modIdx=null});
+  ftr.appendChild(db);
+  G("modal").style.display="flex";
+}
+
+function rBooks(){
+  var el=G("blist");
+  var items=D.bookings?Object.entries(D.bookings):[];
+  if(!items.length){el.innerHTML="<div class='empty'>Inga bokningar annu</div>";return}
+  var clr={pending:"#f59e0b",confirmed:"#22c55e",done:"#9ca3af"};
+  var lbl={pending:"Vantar",confirmed:"Bekraftad",done:"Avslutad"};
+  el.innerHTML="";
+  items.reverse().forEach(function(entry){
+    var key=entry[0],b=entry[1];
+    var div=document.createElement("div");div.className="bi"+(b.isNew?" isnew":"");
+    var dot=document.createElement("div");dot.className="bdot";dot.style.background=clr[b.status]||"#ccc";div.appendChild(dot);
+    var inf=document.createElement("div");inf.className="binf";
+    var nm=document.createElement("div");nm.className="bname";nm.textContent=b.name+" - "+b.reg+(b.car?" ("+b.car+")":"");inf.appendChild(nm);
+    var dt=document.createElement("div");dt.className="bdet";dt.textContent=b.phone+(b.date?" - "+b.date:"")+(b.desc?" - "+b.desc.substring(0,25):"");inf.appendChild(dt);
+    var bdg=document.createElement("span");bdg.className="badge "+(b.status==="confirmed"?"bdone":"bwait");bdg.textContent=lbl[b.status]||b.status;
+    var bdgw=document.createElement("div");bdgw.style.marginTop="4px";bdgw.appendChild(bdg);inf.appendChild(bdgw);
+    div.appendChild(inf);
+    var arr=document.createElement("div");arr.className="barr";arr.textContent=">";div.appendChild(arr);
+    div.addEventListener("click",function(){openModal(key)});
+    el.appendChild(div);
+    if(b.isNew&&unlocked)showPopup(b);
+  });
+}
+
+function delCar(reg){
+  if(!confirm("Radera "+reg+"?"))return;
+  fbRemove("cars/"+reg);
+  var items=D.jobs?Object.entries(D.jobs):[];
+  items.forEach(function(e){if(e[1].reg===reg)fbRemove("jobs/"+e[0])});
+}
+
+function rCars(){
+  var el=G("clist");
+  var cars=D.cars?Object.values(D.cars):[];
+  if(!cars.length){el.innerHTML="<div class='empty'>Inga bilar</div>";return}
+  var jobs=D.jobs?Object.values(D.jobs):[];
+  el.innerHTML="";
+  cars.forEach(function(c){
+    var cjobs=jobs.filter(function(j){return j.reg===c.reg}),last=cjobs.length?cjobs[cjobs.length-1]:null;
+    var div=document.createElement("div");div.className="acard";
+    var hdr=document.createElement("div");hdr.className="acard-hdr";
+    var info=document.createElement("div");
+    info.innerHTML="<div class='creg'>"+c.reg+"</div><div class='cmake'>"+c.make+(c.model?" "+c.model:"")+(c.year?" - "+c.year:"")+"</div>";
+    hdr.appendChild(info);
+    var right=document.createElement("div");right.style.textAlign="right";
+    right.innerHTML="<div style='font-size:13px;color:#888'>"+c.owner+"<br>"+c.phone+"</div>";
+    var db=document.createElement("button");db.className="btn-del";db.style.marginTop="6px";db.textContent="Radera";db.addEventListener("click",function(){delCar(c.reg)});
+    right.appendChild(db);hdr.appendChild(right);div.appendChild(hdr);
+    var body=document.createElement("div");body.className="acard-body";
+    var grid=document.createElement("div");grid.className="cgrd";
+    [{l:"Farg",v:c.color},{l:"Drivmedel",v:c.fuel},{l:"Miltal",v:c.mileage?(c.mileage+" mil"):""},{l:"Besiktning",v:c.insp||""},{l:"Jobb",v:cjobs.length+" st"},{l:"Senaste",v:last?last.date:""}].forEach(function(item){
+      var cell=document.createElement("div");
+      cell.innerHTML="<span style='color:#444;display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px'>"+item.l+"</span><span style='font-weight:600;color:#fff;font-size:12px'>"+(item.v||"-")+"</span>";
+      grid.appendChild(cell);
+    });
+    body.appendChild(grid);
+    if(c.notes){var n=document.createElement("div");n.style.cssText="margin-top:8px;font-size:12px;color:#555;background:rgba(255,255,255,.04);padding:8px;border-radius:5px";n.textContent=c.notes;body.appendChild(n)}
+    div.appendChild(body);el.appendChild(div);
+  });
+}
+
+function delJob(key){
+  if(!confirm("Radera jobb?"))return;
+  fbRemove("jobs/"+key);
+}
+
+function rHist(){
+  var el=G("hlist");
+  var allJobs=D.jobs?Object.entries(D.jobs):[];
+  var cars=D.cars?Object.values(D.cars):[];
+  if(!allJobs.length){el.innerHTML="<div class='empty'>Inga jobb</div>";return}
+  var byR={};
+  allJobs.forEach(function(e){var j=e[1];if(!byR[j.reg])byR[j.reg]=[];byR[j.reg].push({key:e[0],job:j})});
+  var bc={done:"bdone",progress:"bprog",pending:"bwait"},bl={done:"Utfort",progress:"Pagaende",pending:"Vantar"};
+  el.innerHTML="";
+  Object.keys(byR).forEach(function(reg){
+    var car=cars.find(function(c){return c.reg===reg});
+    var div=document.createElement("div");div.className="acard";
+    var hdr=document.createElement("div");hdr.className="acard-hdr";
+    hdr.innerHTML="<div><div class='creg'>"+reg+"</div><div class='cmake'>"+(car?car.make+(car.model?" "+car.model:""):"Okand")+"</div></div>";
+    div.appendChild(hdr);
+    var body=document.createElement("div");body.className="acard-body";
+    byR[reg].forEach(function(item){
+      var j=item.job,key=item.key;
+      var row=document.createElement("div");row.className="jrow";
+      var date=document.createElement("div");date.className="jdate";date.textContent=j.date;row.appendChild(date);
+      var info=document.createElement("div");info.className="jinfo";
+      var desc=document.createElement("div");desc.className="jdesc";
+      var cat=document.createElement("span");cat.className="catbadge";cat.textContent=catL(j.cat);
+      desc.appendChild(cat);desc.appendChild(document.createTextNode(j.desc));info.appendChild(desc);
+      var meta=document.createElement("div");meta.className="jmeta";
+      meta.textContent=(j.mech?j.mech+" ":"")+(j.mileage?j.mileage+" mil ":"");
+      var bdg=document.createElement("span");bdg.className="badge "+(bc[j.status]||"bwait");bdg.textContent=bl[j.status]||j.status;
+      meta.appendChild(bdg);info.appendChild(meta);
+      if(j.notes){var n=document.createElement("div");n.style.cssText="font-size:11px;color:#444;margin-top:2px";n.textContent=j.notes;info.appendChild(n)}
+      row.appendChild(info);
+      var right=document.createElement("div");right.style.cssText="display:flex;flex-direction:column;align-items:flex-end;gap:4px";
+      var price=document.createElement("div");price.className="jprice";price.textContent=j.price.toLocaleString("sv")+" kr";right.appendChild(price);
+      var db=document.createElement("button");db.className="btn-del";db.textContent="Radera";
+      db.addEventListener("click",(function(k){return function(){delJob(k)}})(key));
+      right.appendChild(db);row.appendChild(right);body.appendChild(row);
+    });
+    div.appendChild(body);el.appendChild(div);
+  });
+}
+
+function rInsp(){
+  var el=G("insp-list");
+  var cars=D.cars?Object.values(D.cars):[];
+  if(!cars.length){el.innerHTML="<div class='empty'>Inga bilar registrerade</div>";return}
+  var today=new Date();
+  var withInsp=cars.filter(function(c){return c.insp});
+  if(!withInsp.length){el.innerHTML="<div class='empty'>Inga bilar med besiktningsdatum<br><span style='font-size:12px;display:block;margin-top:6px'>Lagg till besiktningsdatum under Bilar</span></div>";return}
+  withInsp.sort(function(a,b){return new Date(a.insp)-new Date(b.insp)});
+  el.innerHTML="";
+  withInsp.forEach(function(c){
+    var d=new Date(c.insp);
+    var diff=Math.round((d-today)/(1000*60*60*24));
+    var color=diff<0?"#f87171":diff<30?"#fb923c":diff<60?"#eab308":"#22c55e";
+    var status=diff<0?"FORFALLEN":"OM "+diff+" DAGAR";
+    var div=document.createElement("div");div.className="acard";
+    div.style.borderColor=diff<60?"rgba(234,179,8,.3)":"";
+    div.innerHTML="<div class='acard-hdr'><div><div class='creg'>"+c.reg+"</div><div class='cmake'>"+c.make+(c.model?" "+c.model:"")+(c.year?" - "+c.year:"")+"</div></div><div style='text-align:right'><div style='font-size:13px;font-weight:700;color:"+color+"'>"+status+"</div><div style='font-size:12px;color:#444;margin-top:3px'>"+c.insp+"</div></div></div><div class='acard-body'><div style='display:grid;grid-template-columns:1fr 1fr;gap:10px'><div><span style='color:#444;display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px'>Agare</span><span style='color:#fff;font-weight:600;font-size:13px'>"+c.owner+"</span></div><div><span style='color:#444;display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px'>Telefon</span><a href='tel:"+c.phone.replace(/[^0-9+]/g,"")+"' style='color:#FFD600;font-weight:700;font-size:14px;text-decoration:none'>"+c.phone+"</a></div></div></div>";
+    el.appendChild(div);
+  });
+}
+
+function fillRC(){
+  var cs=G("rcar");
+  var cars=D.cars?Object.values(D.cars):[];
+  cs.innerHTML="<option value=''>Valj bil</option>";
+  cars.forEach(function(c){cs.innerHTML+="<option value='"+c.reg+"'>"+c.reg+" - "+c.make+(c.model?" "+c.model:"")+"</option>"});
+  G("rjob").innerHTML="<option value=''>Valj jobb</option>";
+}
+
+function fillRJ(){
+  var reg=G("rcar").value;
+  var rj=G("rjob");
+  var jobs=D.jobs?Object.entries(D.jobs):[];
+  rj.innerHTML="<option value=''>Valj jobb</option>";
+  jobs.filter(function(e){return e[1].reg===reg}).forEach(function(e){
+    rj.innerHTML+="<option value='"+e[0]+"'>"+e[1].date+" - "+catL(e[1].cat)+" - "+e[1].desc+"</option>"
+  });
+}
+
+function genRec(){
+  var reg=G("rcar").value,jkey=G("rjob").value;
+  if(!reg||!jkey){alert("Valj bil och jobb");return}
+  var cars=D.cars?Object.values(D.cars):[];
+  var car=cars.find(function(c){return c.reg===reg});
+  var job=D.jobs?D.jobs[jkey]:null;
+  if(!car||!job)return;
+  var moms=Math.round(job.price*.25),ex=job.price-moms;
+  var kv="KV-"+Date.now().toString().slice(-6),dag=new Date().toLocaleDateString("sv-SE");
+  var LOGO=document.querySelector(".logo-img").src;
+  var rout=G("rout");rout.innerHTML="";
+  var box=document.createElement("div");box.className="rec-box";
+  box.innerHTML="<div class='rec-top'><img src='"+LOGO+"'><div><div class='rec-co'>RBwolf Bilverkstad</div><div style='font-size:11px;color:#444'>073-933 44 46</div></div><div style='margin-left:auto;text-align:right;font-size:12px;color:#444'><strong style='color:#fff'>"+kv+"</strong><br>"+dag+"</div></div><div class='rec-row'><span class='rec-lbl'>Kund</span><span>"+car.owner+"</span></div>"+(car.phone?"<div class='rec-row'><span class='rec-lbl'>Tel</span><span>"+car.phone+"</span></div>":"")+"<div class='rec-row'><span class='rec-lbl'>Reg.nr</span><span>"+reg+"</span></div><div class='rec-row'><span class='rec-lbl'>Fordon</span><span>"+car.make+(car.model?" "+car.model:"")+(car.year?" ("+car.year+")":"")+"</span></div><div class='rec-row'><span class='rec-lbl'>Kategori</span><span>"+catL(job.cat)+"</span></div><div class='rec-row'><span class='rec-lbl'>Arbete</span><span>"+job.desc+"</span></div>"+(job.mech?"<div class='rec-row'><span class='rec-lbl'>Mekaniker</span><span>"+job.mech+"</span></div>":"")+"<div class='rec-row'><span class='rec-lbl'>Exkl. moms</span><span>"+ex.toLocaleString("sv")+" kr</span></div><div class='rec-row'><span class='rec-lbl'>Moms 25%</span><span>"+moms.toLocaleString("sv")+" kr</span></div><div class='rec-row tot'><span>Totalt</span><span>"+job.price.toLocaleString("sv")+" kr</span></div><div class='rec-meta'>RBwolf Bilverkstad - Ugnsvägen 4A, 295 39 Bromölla - 073-933 44 46</div>";
+  rout.appendChild(box);
+}
+
+function uStats(){
+  var bookings=D.bookings?Object.values(D.bookings):[];
+  var cars=D.cars?Object.values(D.cars):[];
+  var jobs=D.jobs?Object.values(D.jobs):[];
+  G("s1").textContent=bookings.length;
+  G("s2").textContent=cars.length;
+  var done=jobs.filter(function(j){return j.status==="done"});
+  G("s3").textContent=done.length;
+  G("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr";
+}
+
+</script></body></html>
