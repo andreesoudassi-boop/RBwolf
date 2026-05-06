@@ -424,12 +424,12 @@ textarea.fi{height:90px;resize:vertical}
         <label class="fl">Beskriv ärendet</label><textarea class="fi" id="bdesc" placeholder="Vad behöver din bil hjälp med?"></textarea>
         <label class="fl">Leverans</label>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px">
-          <div id="opt-dropoff" onclick="pickOpt('dropoff')" style="border:1.5px solid rgba(255,214,0,.4);border-radius:8px;padding:12px;text-align:center;cursor:pointer;background:rgba(255,214,0,.08)">
+          <div id="opt-dropoff" id="opt-dropoff-btn" style="border:1.5px solid rgba(255,214,0,.4);border-radius:8px;padding:12px;text-align:center;cursor:pointer;background:rgba(255,214,0,.08)">
             <div style="font-size:22px;margin-bottom:4px">🏁</div>
             <div style="font-size:12px;font-weight:700;color:#FFD600">Lämna in</div>
             <div style="font-size:11px;color:#555;margin-top:2px">Jag kör till verkstaden</div>
           </div>
-          <div id="opt-pickup" onclick="pickOpt('pickup')" style="border:1.5px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center;cursor:pointer">
+          <div id="opt-pickup" id="opt-pickup-btn" style="border:1.5px solid rgba(255,255,255,.08);border-radius:8px;padding:12px;text-align:center;cursor:pointer">
             <div style="font-size:22px;margin-bottom:4px">🚗</div>
             <div style="font-size:12px;font-weight:700;color:#888">Hämtning</div>
             <div style="font-size:11px;color:#555;margin-top:2px">Verkstaden hämtar bilen</div>
@@ -661,6 +661,8 @@ window.addEventListener("load",function(){
   G("tab-insp").addEventListener("click",function(){showTab("insp")});
   G("logoutbtn").addEventListener("click",function(){unlocked=false;try{localStorage.removeItem("rbw_auth")}catch(e){}G("notifbtn").style.display="none";showPage("home")});
   G("cancelbtn").addEventListener("click",function(){G("lock").style.display="none";});
+  var odBtn=G("opt-dropoff-btn");if(odBtn)odBtn.addEventListener("click",function(){pickOpt("dropoff")});
+  var opBtn=G("opt-pickup-btn");if(opBtn)opBtn.addEventListener("click",function(){pickOpt("pickup")});
   G("loginbtn").addEventListener("click",function(){
     if(G("pw").value===PW){unlocked=true;try{localStorage.setItem("rbw_auth","1")}catch(e){}G("lock").style.display="none";showAdmin()}
     else{G("pwerr").style.display="block";G("pw").value=""}
@@ -676,7 +678,6 @@ window.addEventListener("load",function(){
   });
   G("closemodal").addEventListener("click",function(){G("modal").style.display="none";modIdx=null});
   G("subbookbtn").addEventListener("click",function(){
-    alert("Knapp tryckt!");
     var n=G("bn").value.trim(),p=G("bp").value.trim(),r=G("br").value.trim().toUpperCase();
     if(!n||!p||!r){alert("Fyll i namn, telefon och reg.nr");return}
     var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var b={id:Date.now(),name:n,phone:p,email:G("be").value,reg:r,car:G("bc").value,date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",isNew:true};
