@@ -608,6 +608,26 @@ pointer-events:none;
     <div id="tc-b" class="tc act">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
         <strong style="font-size:15px;color:#fff">Bokningar</strong>
+
+<div id="status-admin-panel" style="margin-top:18px;background:rgba(255,255,255,.03);padding:16px;border-radius:14px;border:1px solid rgba(255,255,255,.06)">
+  <div style="font-size:14px;font-weight:700;margin-bottom:12px;color:#FFD600">
+    Bilstatus Admin
+  </div>
+
+  <select id="admin-reg-select" class="fi" style="margin-bottom:12px">
+    <option value="ABC123">ABC123</option>
+    <option value="XYZ789">XYZ789</option>
+  </select>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap">
+    <button class="btn-gold" onclick="updateCarStatus('waiting')">🔴 Väntar</button>
+    <button class="btn-gold" onclick="updateCarStatus('working')">🟡 Påbörjad</button>
+    <button class="btn-gold" onclick="updateCarStatus('done')">🟢 Klar</button>
+  </div>
+
+  <div id="admin-status-msg" style="margin-top:12px;font-size:13px;color:#999"></div>
+</div>
+
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
 <button class="btn-gold" onclick="quickSetStatus('waiting')" style="padding:10px 14px;font-size:12px">🔴 Väntar</button>
 <button class="btn-gold" onclick="quickSetStatus('working')" style="padding:10px 14px;font-size:12px">🟡 Påbörjad</button>
@@ -1199,9 +1219,35 @@ function checkCarStatus(){
   updated.innerHTML = data.updated;
 }
 
-function quickSetStatus(status){
-  alert("Bilstatus ändrad till: " + status);
+
+function updateCarStatus(status){
+  const reg = document.getElementById("admin-reg-select").value;
+  const msg = document.getElementById("admin-status-msg");
+
+  if(!window.carStatuses[reg]){
+    window.carStatuses[reg] = {};
+  }
+
+  window.carStatuses[reg].status = status;
+  window.carStatuses[reg].updated = "Uppdaterad precis nu";
+
+  let text = "";
+
+  if(status === "waiting"){
+    text = "🔴 Väntar";
+  }
+
+  if(status === "working"){
+    text = "🟡 Påbörjad";
+  }
+
+  if(status === "done"){
+    text = "🟢 Klar för hämtning";
+  }
+
+  msg.innerHTML = reg + " → " + text;
 }
+
 </script>
 
 </body></html>
