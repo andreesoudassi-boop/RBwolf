@@ -321,6 +321,8 @@ background:radial-gradient(circle at top,rgba(255,214,0,.12),transparent 40%);
 pointer-events:none;
 }
 </style>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 <div id="toast" class="toast">Sparat!</div>
@@ -700,450 +702,8 @@ pointer-events:none;
     </div>
   </div>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script>
-
-var firebaseConfig={apiKey:"AIzaSyDZKkeY0QhRlv0FhmChJ968ryq50EDy6_c",authDomain:"rbwolf-2aaaa.firebaseapp.com",databaseURL:"https://rbwolf-2aaaa-default-rtdb.europe-west1.firebasedatabase.app",projectId:"rbwolf-2aaaa",storageBucket:"rbwolf-2aaaa.firebasestorage.app",messagingSenderId:"672592251642",appId:"1:672592251642:web:82745de3714ee887b15743"};
-if(!firebase.apps.length){firebase.initializeApp(firebaseConfig);}
-
-var PW="Ahmad_rbwolf",unlocked=false,selCat="",popId=null,modIdx=null;
-var CATS=[{id:"service",e:"Service"},{id:"brakes",e:"Bromsar"},{id:"engine",e:"Motor"},{id:"tires",e:"Dackbyte"},{id:"electrical",e:"El"},{id:"gearbox",e:"Vaxellada"},{id:"steering",e:"Styrning"},{id:"inspection",e:"Besiktning"},{id:"suspension",e:"Fjadring"},{id:"other",e:"Ovrigt"}];
-var D={bookings:{},cars:{},jobs:{}};
-
-function showToast(){var t=document.getElementById("toast");t.style.display="block";clearTimeout(window._tt);window._tt=setTimeout(function(){t.style.display="none"},2000)}
-function catL(id){var c=CATS.find(function(x){return x.id===id});return c?c.e:"Ovrigt"}
-function G(id){return document.getElementById(id)}
-
-function fbSet(path,data){
-  return firebase.database().ref(path).set(data);
-}
-function fbPush(path,data){
-  return firebase.database().ref(path).push(data);
-}
-function fbRemove(path){
-  return firebase.database().ref(path).remove();
-}
-
-function loadAll(){
-  firebase.database().ref("bookings").on("value",function(snap){
-    D.bookings=snap.val()||{};
-    if(unlocked){rBooks();uBell()}
-    uStats();
-  });
-  firebase.database().ref("cars").on("value",function(snap){
-    D.cars=snap.val()||{};
-    if(unlocked)rCars();
-    uStats();
-  });
-  firebase.database().ref("jobs").on("value",function(snap){
-    D.jobs=snap.val()||{};
-    if(unlocked)rHist();
-    uStats();
-  });
-}
-
-function showPage(p){
-  document.querySelectorAll(".page").forEach(function(e){e.style.display="none";e.classList.remove("active")});
-  G("pg-"+p).style.display="block";
-  G("pg-"+p).classList.add("active");
-  document.querySelectorAll(".nbtn").forEach(function(b){b.classList.remove("act")});
-  if(G("nb-"+p))G("nb-"+p).classList.add("act");
-}
-
-function showAdmin(){
-  if(!unlocked){G("lock").style.display="flex";G("pw").value="";G("pwerr").style.display="none";setTimeout(function(){G("pw").focus()},100);return}
-  showPage("admin");
-  uStats();rCars();rHist();rBooks();fillRC();bCats();uBell();
-}
-
-function showTab(t){
-  document.querySelectorAll(".tc").forEach(function(e){e.classList.remove("act")});
-  document.querySelectorAll(".tab").forEach(function(b){b.classList.remove("act")});
-  G("tc-"+t).classList.add("act");
-  G("tab-"+t).classList.add("act");
-  if(t==="r")fillRC();
-  if(t==="c")rCars();
-  if(t==="h"){rHist();bCats()}
-  if(t==="b")rBooks();
-  if(t==="insp")rInsp();
-}
-
-function pickOpt(val){
-  document.getElementById("b-delivery").value=val;
-  var drop=document.getElementById("opt-dropoff");
-  var pick=document.getElementById("opt-pickup");
-  var addrWrap=document.getElementById("pickup-address-wrap");
-  if(val==="pickup"){
-    pick.style.border="1.5px solid rgba(255,214,0,.4)";
-    pick.style.background="rgba(255,214,0,.08)";
-    pick.querySelector("div:nth-child(2)").style.color="#FFD600";
-    drop.style.border="1.5px solid rgba(255,255,255,.08)";
-    drop.style.background="";
-    drop.querySelector("div:nth-child(2)").style.color="#888";
-    addrWrap.style.display="block";
-  } else {
-    drop.style.border="1.5px solid rgba(255,214,0,.4)";
-    drop.style.background="rgba(255,214,0,.08)";
-    drop.querySelector("div:nth-child(2)").style.color="#FFD600";
-    pick.style.border="1.5px solid rgba(255,255,255,.08)";
-    pick.style.background="";
-    pick.querySelector("div:nth-child(2)").style.color="#888";
-    addrWrap.style.display="none";
-  }
-}
-window.addEventListener("load",function(){
-  emailjs.init({
-    publicKey: "8I4fjO7HkfSQgBUG7",
-  });
-  try{if(localStorage.getItem("rbw_auth")==="1")unlocked=true}catch(e){}
-  loadAll();
-  if(unlocked){showPage("admin");uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}
-  G("logobtn").addEventListener("click",function(){showPage("home")});
-  G("nb-home").addEventListener("click",function(){showPage("home")});
-  G("nb-book").addEventListener("click",function(){showPage("book")});
-  G("nb-admin").addEventListener("click",function(){showAdmin()});
-  G("notifbtn").addEventListener("click",function(){showAdmin()});
-  G("herobookbtn").addEventListener("click",function(){showPage("book")});
-  G("herocontactbtn").addEventListener("click",function(){G("kontakt").scrollIntoView({behavior:"smooth"})});
-  G("contactbookbtn").addEventListener("click",function(){showPage("book")});
-  G("erbjudande-book-btn").addEventListener("click",function(){showPage("book")});
-  G("dack-book-btn").addEventListener("click",function(){showPage("book")});
-  G("pickup-cta-btn").addEventListener("click",function(){showPage("book");setTimeout(function(){pickOpt("pickup")},100)});
-  G("tab-b").addEventListener("click",function(){showTab("b")});
-  G("tab-c").addEventListener("click",function(){showTab("c")});
-  G("tab-h").addEventListener("click",function(){showTab("h")});
-  G("tab-r").addEventListener("click",function(){showTab("r")});
-  G("tab-insp").addEventListener("click",function(){showTab("insp")});
-  G("logoutbtn").addEventListener("click",function(){unlocked=false;try{localStorage.removeItem("rbw_auth")}catch(e){}G("notifbtn").style.display="none";showPage("home")});
-  if(G("cancelbtn")){
-    G("cancelbtn").addEventListener("click",function(){
-      G("lock").style.display="none";
-    });
-  }
-  G("loginbtn").addEventListener("click",function(){
-    if(G("pw").value===PW){unlocked=true;try{localStorage.setItem("rbw_auth","1")}catch(e){}G("lock").style.display="none";showAdmin()}
-    else{G("pwerr").style.display="block";G("pw").value=""}
-  });
-  G("pw").addEventListener("keydown",function(e){if(e.key==="Enter")G("loginbtn").click()});
-  G("closepopup").addEventListener("click",function(){G("popup").style.display="none";popId=null});
-  G("skippopup").addEventListener("click",function(){G("popup").style.display="none";popId=null});
-  G("cfmpopup").addEventListener("click",function(){
-    if(!popId)return;
-    fbSet("bookings/"+popId+"/status","confirmed");
-    fbSet("bookings/"+popId+"/isNew",false);
-    G("popup").style.display="none";popId=null;
-  });
-  G("closemodal").addEventListener("click",function(){G("modal").style.display="none";modIdx=null});
-  G("subbookbtn").addEventListener("click",function(){
-    const btn = G("subbookbtn");
-    const oldText = btn.innerHTML;
-    btn.disabled = true;
-    btn.innerHTML = "⏳ Skickar...";
-
-    var n=G("bn").value.trim(),p=G("bp").value.trim(),r=G("br").value.trim().toUpperCase();
-    if(!n||!p||!r){alert("Fyll i namn, telefon och reg.nr");return}
-    var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var b={id:Date.now(),name:n,phone:p,email:G("be").value,reg:r,car:G("bc").value,date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",isNew:true};
-    fbSet("bookings/"+b.id,b).then(function(){
-      showToast();
-      G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
-      G("bform").style.display="none";G("bokOk").style.display="block";
-      
 
 
-emailjs.send("service_xs7d5ok","template_fbcfzng",{
-to_email:b.email || "test@test.com",
-customer_name:b.name,
-customer_email:b.email || "Ingen e-post",
-phone:b.phone,
-reg:b.reg,
-car:b.car || "Ej angivet",
-date:b.date || "Ej angivet",
-time:b.time || "Ej angivet",
-desc:b.desc || "Ej angivet",
-delivery:b.delivery==="pickup"
-? "Hämtning - " + b.address
-: "Lämnar in själv"
-}).then(function(){
-
-return emailjs.send("service_xs7d5ok","template_fbcfzng",{
-to_email:"Rb-wolf@hotmail.com",
-customer_name:b.name,
-customer_email:b.email || "Ingen e-post",
-phone:b.phone,
-reg:b.reg,
-car:b.car || "Ej angivet",
-date:b.date || "Ej angivet",
-time:b.time || "Ej angivet",
-desc:b.desc || "Ej angivet",
-delivery:b.delivery==="pickup"
-? "Hämtning - " + b.address
-: "Lämnar in själv"
-});
-
-}).then(function(){
-btn.innerHTML = "✅ Skickad!";
-console.log("Alla mail skickade");
-}).catch(function(err){
-console.log("EmailJS error:", err);
-btn.disabled=false;
-btn.innerHTML=oldText;
-alert("EmailJS fel");
-});
-
-
-
-    });
-  });
-  G("newbookbtn").addEventListener("click",function(){
-    G("bform").style.display="block";G("bokOk").style.display="none";
-    ["bn","bp","be","br","bc","bd","bt","bdesc"].forEach(function(i){if(G(i))G(i).value=""});
-  });
-  G("addcarbtn").addEventListener("click",function(){var f=G("addcarform");f.style.display=f.style.display==="none"?"block":"none"});
-  G("savecarbtn").addEventListener("click",function(){
-    var r=G("creg").value.trim().toUpperCase(),m=G("cmake").value.trim();
-    if(!r||!m){alert("Reg.nr och marke kravs");return}
-    var car={reg:r,make:m,model:G("cmod").value,year:G("cyr").value,color:G("ccol").value,fuel:G("cfuel").value,mileage:G("cmil").value,owner:G("cown").value,phone:G("ctel").value,email:G("cemail").value,insp:G("cinsp").value,notes:G("cnotes").value};
-    fbSet("cars/"+r,car).then(function(){
-      showToast();
-      ["creg","cmake","cmod","cyr","ccol","cmil","cown","ctel","cemail","cnotes","cinsp"].forEach(function(id){G(id).value=""});
-      G("cfuel").value="";G("addcarform").style.display="none";
-    });
-  });
-  G("addjobbtn").addEventListener("click",function(){var f=G("addjobform");f.style.display=f.style.display==="none"?"block":"none";if(f.style.display==="block"){selCat="";bCats()}});
-  G("savejobbtn").addEventListener("click",function(){
-    var r=G("jreg").value.trim().toUpperCase(),d=G("jdesc").value.trim();
-    if(!r||!d){alert("Reg.nr och beskrivning kravs");return}
-    if(!selCat){alert("Valj kategori");return}
-    var job={reg:r,cat:selCat,date:G("jdat").value,desc:d,price:parseInt(G("jpris").value)||0,mileage:G("jmil").value,mech:G("jmek").value,status:G("jstat").value,notes:G("jnotes").value,ts:Date.now()};
-    fbPush("jobs",job).then(function(){
-      showToast();
-      ["jreg","jdat","jdesc","jpris","jmil","jmek","jnotes"].forEach(function(id){G(id).value=""});
-      selCat="";G("addjobform").style.display="none";
-    });
-  });
-  G("genrecbtn").addEventListener("click",genRec);
-  G("printbtn").addEventListener("click",function(){window.print()});
-  G("rcar").addEventListener("change",fillRJ);
-});
-
-function bCats(){
-  var g=G("catg");g.innerHTML="";
-  CATS.forEach(function(c){
-    var btn=document.createElement("div");
-    btn.className="catbtn"+(selCat===c.id?" sel":"");
-    btn.textContent=c.e;
-    btn.addEventListener("click",function(){selCat=c.id;document.querySelectorAll(".catbtn").forEach(function(b){b.classList.remove("sel")});btn.classList.add("sel")});
-    g.appendChild(btn);
-  });
-}
-
-function uBell(){
-  var items=D.bookings?Object.values(D.bookings):[];
-  var n=items.filter(function(b){return b.isNew});
-  if(unlocked){G("notifbtn").style.display="block";G("ndot").style.display=n.length?"block":"none"}
-  var nb=G("nbadge");nb.style.display=n.length?"inline":"none";if(n.length)nb.textContent=n.length+" ny";
-}
-
-function showPopup(b){
-  popId=b.id;G("callbtn").href="tel:"+b.phone.replace(/[^0-9+]/g,"");
-  G("popbody").innerHTML="<p><b style='color:#FFD600'>Kund:</b> <span style='color:#fff'>"+b.name+"</span></p><p><b style='color:#FFD600'>Telefon:</b> <span style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</span></p><p><b style='color:#FFD600'>Bil:</b> <span style='color:#fff'>"+b.reg+(b.car?" - "+b.car:"")+"</span></p>"+(b.date?"<p><b style='color:#FFD600'>Datum:</b> <span style='color:#fff'>"+b.date+(b.time?" kl "+b.time:"")+"</span></p>":"")+(b.desc?"<p><b style='color:#FFD600'>Arende:</b> <span style='color:#fff'>"+b.desc+"</span></p>":"");
-  G("popup").style.display="flex";
-}
-
-function openModal(key){
-  modIdx=key;
-  var b=D.bookings[key];
-  fbSet("bookings/"+key+"/isNew",false);
-  var statusMap={pending:"Vantar",confirmed:"Bekraftad",done:"Avslutad"};
-  G("modalbody").innerHTML="<div class='mrow'><div><div class='mlbl'>Kund</div><div class='mval'>"+b.name+"</div></div></div><div class='mrow'><div><div class='mlbl'>Telefon</div><div class='mval' style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</div></div></div>"+(b.email?"<div class='mrow'><div><div class='mlbl'>E-post</div><div class='mval'>"+b.email+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Reg.nr</div><div class='mval'>"+b.reg+"</div></div></div>"+(b.car?"<div class='mrow'><div><div class='mlbl'>Bil</div><div class='mval'>"+b.car+"</div></div></div>":"")+(b.date?"<div class='mrow'><div><div class='mlbl'>Datum och tid</div><div class='mval'>"+b.date+(b.time?" kl "+b.time:"")+"</div></div></div>":"")+(b.desc?"<div class='mrow'><div><div class='mlbl'>Arende</div><div class='mval'>"+b.desc+"</div></div></div>":"")+(b.delivery==="pickup"?"<div class='mrow'><div><div class='mlbl'>Leverans</div><div class='mval' style='color:#22c55e'>🚗 Hämtning</div></div></div>"+(b.address?"<div class='mrow'><div><div class='mlbl'>Hämtningsadress</div><div class='mval' style='color:#FFD600;font-weight:700'>📍 "+b.address+"</div></div></div>":""):"<div class='mrow'><div><div class='mlbl'>Leverans</div><div class='mval'>🏁 Lämnar in själv</div></div></div>")+"<div class='mrow'><div><div class='mlbl'>Status</div><div class='mval'>"+statusMap[b.status]+"</div></div></div>";
-  var ftr=G("modalftr");ftr.innerHTML="";
-  var ca=document.createElement("a");ca.href="tel:"+b.phone.replace(/[^0-9+]/g,"");ca.className="btn-call";ca.style.flex="1";ca.textContent="Ring "+b.phone;ftr.appendChild(ca);
-  if(b.status!=="confirmed"){
-    var cb=document.createElement("button");cb.className="btn-ok";cb.textContent="Bekrafta";
-    cb.addEventListener("click",function(){fbSet("bookings/"+key+"/status","confirmed");G("modal").style.display="none";modIdx=null});
-    ftr.appendChild(cb);
-  }
-  var db=document.createElement("button");db.className="btn-del";db.style.cssText="width:100%;padding:10px;margin-top:4px";db.textContent="Ta bort bokning";
-  db.addEventListener("click",function(){if(!confirm("Ta bort?"))return;fbRemove("bookings/"+key);G("modal").style.display="none";modIdx=null});
-  ftr.appendChild(db);
-  G("modal").style.display="flex";
-}
-
-function rBooks(){
-  var el=G("blist");
-  var items=D.bookings?Object.entries(D.bookings):[];
-  if(!items.length){el.innerHTML="<div class='empty'>Inga bokningar annu</div>";return}
-  var clr={pending:"#f59e0b",confirmed:"#22c55e",done:"#9ca3af"};
-  var lbl={pending:"Vantar",confirmed:"Bekraftad",done:"Avslutad"};
-  el.innerHTML="";
-  items.reverse().forEach(function(entry){
-    var key=entry[0],b=entry[1];
-    var div=document.createElement("div");div.className="bi"+(b.isNew?" isnew":"");
-    var dot=document.createElement("div");dot.className="bdot";dot.style.background=clr[b.status]||"#ccc";div.appendChild(dot);
-    var inf=document.createElement("div");inf.className="binf";
-    var nm=document.createElement("div");nm.className="bname";nm.textContent=b.name+" - "+b.reg+(b.car?" ("+b.car+")":"");inf.appendChild(nm);
-    var dt=document.createElement("div");dt.className="bdet";dt.textContent=b.phone+(b.date?" - "+b.date:"")+(b.desc?" - "+b.desc.substring(0,25):"");inf.appendChild(dt);
-    var bdg=document.createElement("span");bdg.className="badge "+(b.status==="confirmed"?"bdone":"bwait");bdg.textContent=lbl[b.status]||b.status;
-    var bdgw=document.createElement("div");bdgw.style.marginTop="4px";bdgw.appendChild(bdg);inf.appendChild(bdgw);
-    div.appendChild(inf);
-    var arr=document.createElement("div");arr.className="barr";arr.textContent=">";div.appendChild(arr);
-    div.addEventListener("click",function(){openModal(key)});
-    el.appendChild(div);
-    if(b.isNew&&unlocked)showPopup(b);
-  });
-}
-
-function delCar(reg){
-  if(!confirm("Radera "+reg+"?"))return;
-  fbRemove("cars/"+reg);
-  var items=D.jobs?Object.entries(D.jobs):[];
-  items.forEach(function(e){if(e[1].reg===reg)fbRemove("jobs/"+e[0])});
-}
-
-function rCars(){
-  var el=G("clist");
-  var cars=D.cars?Object.values(D.cars):[];
-  if(!cars.length){el.innerHTML="<div class='empty'>Inga bilar</div>";return}
-  var jobs=D.jobs?Object.values(D.jobs):[];
-  el.innerHTML="";
-  cars.forEach(function(c){
-    var cjobs=jobs.filter(function(j){return j.reg===c.reg}),last=cjobs.length?cjobs[cjobs.length-1]:null;
-    var div=document.createElement("div");div.className="acard";
-    var hdr=document.createElement("div");hdr.className="acard-hdr";
-    var info=document.createElement("div");
-    info.innerHTML="<div class='creg'>"+c.reg+"</div><div class='cmake'>"+c.make+(c.model?" "+c.model:"")+(c.year?" - "+c.year:"")+"</div>";
-    hdr.appendChild(info);
-    var right=document.createElement("div");right.style.textAlign="right";
-    right.innerHTML="<div style='font-size:13px;color:#888'>"+c.owner+"<br>"+c.phone+"</div>";
-    var db=document.createElement("button");db.className="btn-del";db.style.marginTop="6px";db.textContent="Radera";db.addEventListener("click",function(){delCar(c.reg)});
-    right.appendChild(db);hdr.appendChild(right);div.appendChild(hdr);
-    var body=document.createElement("div");body.className="acard-body";
-    var grid=document.createElement("div");grid.className="cgrd";
-    [{l:"Farg",v:c.color},{l:"Drivmedel",v:c.fuel},{l:"Miltal",v:c.mileage?(c.mileage+" mil"):""},{l:"Besiktning",v:c.insp||""},{l:"Jobb",v:cjobs.length+" st"},{l:"Senaste",v:last?last.date:""}].forEach(function(item){
-      var cell=document.createElement("div");
-      cell.innerHTML="<span style='color:#444;display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px'>"+item.l+"</span><span style='font-weight:600;color:#fff;font-size:12px'>"+(item.v||"-")+"</span>";
-      grid.appendChild(cell);
-    });
-    body.appendChild(grid);
-    if(c.notes){var n=document.createElement("div");n.style.cssText="margin-top:8px;font-size:12px;color:#555;background:rgba(255,255,255,.04);padding:8px;border-radius:5px";n.textContent=c.notes;body.appendChild(n)}
-    div.appendChild(body);el.appendChild(div);
-  });
-}
-
-function delJob(key){
-  if(!confirm("Radera jobb?"))return;
-  fbRemove("jobs/"+key);
-}
-
-function rHist(){
-  var el=G("hlist");
-  var allJobs=D.jobs?Object.entries(D.jobs):[];
-  var cars=D.cars?Object.values(D.cars):[];
-  if(!allJobs.length){el.innerHTML="<div class='empty'>Inga jobb</div>";return}
-  var byR={};
-  allJobs.forEach(function(e){var j=e[1];if(!byR[j.reg])byR[j.reg]=[];byR[j.reg].push({key:e[0],job:j})});
-  var bc={done:"bdone",progress:"bprog",pending:"bwait"},bl={done:"Utfort",progress:"Pagaende",pending:"Vantar"};
-  el.innerHTML="";
-  Object.keys(byR).forEach(function(reg){
-    var car=cars.find(function(c){return c.reg===reg});
-    var div=document.createElement("div");div.className="acard";
-    var hdr=document.createElement("div");hdr.className="acard-hdr";
-    hdr.innerHTML="<div><div class='creg'>"+reg+"</div><div class='cmake'>"+(car?car.make+(car.model?" "+car.model:""):"Okand")+"</div></div>";
-    div.appendChild(hdr);
-    var body=document.createElement("div");body.className="acard-body";
-    byR[reg].forEach(function(item){
-      var j=item.job,key=item.key;
-      var row=document.createElement("div");row.className="jrow";
-      var date=document.createElement("div");date.className="jdate";date.textContent=j.date;row.appendChild(date);
-      var info=document.createElement("div");info.className="jinfo";
-      var desc=document.createElement("div");desc.className="jdesc";
-      var cat=document.createElement("span");cat.className="catbadge";cat.textContent=catL(j.cat);
-      desc.appendChild(cat);desc.appendChild(document.createTextNode(j.desc));info.appendChild(desc);
-      var meta=document.createElement("div");meta.className="jmeta";
-      meta.textContent=(j.mech?j.mech+" ":"")+(j.mileage?j.mileage+" mil ":"");
-      var bdg=document.createElement("span");bdg.className="badge "+(bc[j.status]||"bwait");bdg.textContent=bl[j.status]||j.status;
-      meta.appendChild(bdg);info.appendChild(meta);
-      if(j.notes){var n=document.createElement("div");n.style.cssText="font-size:11px;color:#444;margin-top:2px";n.textContent=j.notes;info.appendChild(n)}
-      row.appendChild(info);
-      var right=document.createElement("div");right.style.cssText="display:flex;flex-direction:column;align-items:flex-end;gap:4px";
-      var price=document.createElement("div");price.className="jprice";price.textContent=j.price.toLocaleString("sv")+" kr";right.appendChild(price);
-      var db=document.createElement("button");db.className="btn-del";db.textContent="Radera";
-      db.addEventListener("click",(function(k){return function(){delJob(k)}})(key));
-      right.appendChild(db);row.appendChild(right);body.appendChild(row);
-    });
-    div.appendChild(body);el.appendChild(div);
-  });
-}
-
-function rInsp(){
-  var el=G("insp-list");
-  var cars=D.cars?Object.values(D.cars):[];
-  if(!cars.length){el.innerHTML="<div class='empty'>Inga bilar registrerade</div>";return}
-  var today=new Date();
-  var withInsp=cars.filter(function(c){return c.insp});
-  if(!withInsp.length){el.innerHTML="<div class='empty'>Inga bilar med besiktningsdatum<br><span style='font-size:12px;display:block;margin-top:6px'>Lagg till besiktningsdatum under Bilar</span></div>";return}
-  withInsp.sort(function(a,b){return new Date(a.insp)-new Date(b.insp)});
-  el.innerHTML="";
-  withInsp.forEach(function(c){
-    var d=new Date(c.insp);
-    var diff=Math.round((d-today)/(1000*60*60*24));
-    var color=diff<0?"#f87171":diff<30?"#fb923c":diff<60?"#eab308":"#22c55e";
-    var status=diff<0?"FORFALLEN":"OM "+diff+" DAGAR";
-    var div=document.createElement("div");div.className="acard";
-    div.style.borderColor=diff<60?"rgba(234,179,8,.3)":"";
-    div.innerHTML="<div class='acard-hdr'><div><div class='creg'>"+c.reg+"</div><div class='cmake'>"+c.make+(c.model?" "+c.model:"")+(c.year?" - "+c.year:"")+"</div></div><div style='text-align:right'><div style='font-size:13px;font-weight:700;color:"+color+"'>"+status+"</div><div style='font-size:12px;color:#444;margin-top:3px'>"+c.insp+"</div></div></div><div class='acard-body'><div style='display:grid;grid-template-columns:1fr 1fr;gap:10px'><div><span style='color:#444;display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px'>Agare</span><span style='color:#fff;font-weight:600;font-size:13px'>"+c.owner+"</span></div><div><span style='color:#444;display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px'>Telefon</span><a href='tel:"+c.phone.replace(/[^0-9+]/g,"")+"' style='color:#FFD600;font-weight:700;font-size:14px;text-decoration:none'>"+c.phone+"</a></div></div></div>";
-    el.appendChild(div);
-  });
-}
-
-function fillRC(){
-  var cs=G("rcar");
-  var cars=D.cars?Object.values(D.cars):[];
-  cs.innerHTML="<option value=''>Valj bil</option>";
-  cars.forEach(function(c){cs.innerHTML+="<option value='"+c.reg+"'>"+c.reg+" - "+c.make+(c.model?" "+c.model:"")+"</option>"});
-  G("rjob").innerHTML="<option value=''>Valj jobb</option>";
-}
-
-function fillRJ(){
-  var reg=G("rcar").value;
-  var rj=G("rjob");
-  var jobs=D.jobs?Object.entries(D.jobs):[];
-  rj.innerHTML="<option value=''>Valj jobb</option>";
-  jobs.filter(function(e){return e[1].reg===reg}).forEach(function(e){
-    rj.innerHTML+="<option value='"+e[0]+"'>"+e[1].date+" - "+catL(e[1].cat)+" - "+e[1].desc+"</option>"
-  });
-}
-
-function genRec(){
-  var reg=G("rcar").value,jkey=G("rjob").value;
-  if(!reg||!jkey){alert("Valj bil och jobb");return}
-  var cars=D.cars?Object.values(D.cars):[];
-  var car=cars.find(function(c){return c.reg===reg});
-  var job=D.jobs?D.jobs[jkey]:null;
-  if(!car||!job)return;
-  var moms=Math.round(job.price*.25),ex=job.price-moms;
-  var kv="KV-"+Date.now().toString().slice(-6),dag=new Date().toLocaleDateString("sv-SE");
-  var LOGO=document.querySelector(".logo-img").src;
-  var rout=G("rout");rout.innerHTML="";
-  var box=document.createElement("div");box.className="rec-box";
-  box.innerHTML="<div class='rec-top'><img src='"+LOGO+"'><div><div class='rec-co'>RBwolf Bilverkstad</div><div style='font-size:11px;color:#444'>073-933 44 46</div></div><div style='margin-left:auto;text-align:right;font-size:12px;color:#444'><strong style='color:#fff'>"+kv+"</strong><br>"+dag+"</div></div><div class='rec-row'><span class='rec-lbl'>Kund</span><span>"+car.owner+"</span></div>"+(car.phone?"<div class='rec-row'><span class='rec-lbl'>Tel</span><span>"+car.phone+"</span></div>":"")+"<div class='rec-row'><span class='rec-lbl'>Reg.nr</span><span>"+reg+"</span></div><div class='rec-row'><span class='rec-lbl'>Fordon</span><span>"+car.make+(car.model?" "+car.model:"")+(car.year?" ("+car.year+")":"")+"</span></div><div class='rec-row'><span class='rec-lbl'>Kategori</span><span>"+catL(job.cat)+"</span></div><div class='rec-row'><span class='rec-lbl'>Arbete</span><span>"+job.desc+"</span></div>"+(job.mech?"<div class='rec-row'><span class='rec-lbl'>Mekaniker</span><span>"+job.mech+"</span></div>":"")+"<div class='rec-row'><span class='rec-lbl'>Exkl. moms</span><span>"+ex.toLocaleString("sv")+" kr</span></div><div class='rec-row'><span class='rec-lbl'>Moms 25%</span><span>"+moms.toLocaleString("sv")+" kr</span></div><div class='rec-row tot'><span>Totalt</span><span>"+job.price.toLocaleString("sv")+" kr</span></div><div class='rec-meta'>RBwolf Bilverkstad - Ugnsvägen 4A, 295 39 Bromölla - 073-933 44 46</div>";
-  rout.appendChild(box);
-}
-
-function uStats(){
-  var bookings=D.bookings?Object.values(D.bookings):[];
-  var cars=D.cars?Object.values(D.cars):[];
-  var jobs=D.jobs?Object.values(D.jobs):[];
-  G("s1").textContent=bookings.length;
-  G("s2").textContent=cars.length;
-  var done=jobs.filter(function(j){return j.status==="done"});
-  G("s3").textContent=done.length;
-  G("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr";
-}
-
-</script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <div class="mobile-book-bar">
 <button onclick="showPage('book')">🚗 Boka tid nu</button>
@@ -1380,24 +940,49 @@ document.addEventListener("DOMContentLoaded", function(){
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", () => {
 
-  emailjs.init({
-    publicKey: "8I4fjO7HkfSQgBUG7"
-  });
+  emailjs.init("8I4fjO7HkfSQgBUG7");
 
   const form =
     document.querySelector("#booking-form") ||
     document.querySelector("form");
 
-  if(!form) return;
+  if(!form){
+    console.log("Ingen form hittades");
+    return;
+  }
 
-  form.addEventListener("submit", async function(e){
+  // force correct field names
+  const fields = [
+    ["name","name"],
+    ["email","email"],
+    ["reg","reg"],
+    ["car","car"],
+    ["date","date"],
+    ["time","time"],
+    ["desc","desc"]
+  ];
+
+  fields.forEach(f => {
+
+    const el =
+      document.getElementById(f[0]) ||
+      document.querySelector('[name="'+f[1]+'"]');
+
+    if(el){
+      el.name = f[1];
+    }
+
+  });
+
+  form.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
     const submitBtn =
-      form.querySelector('button[type="submit"]');
+      form.querySelector('button[type="submit"]') ||
+      form.querySelector("button");
 
     if(submitBtn){
       submitBtn.disabled = true;
@@ -1405,35 +990,53 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     const params = {
-      customer_name: document.querySelector('[name="name"]')?.value || "",
-      customer_email: document.querySelector('[name="email"]')?.value || "",
-      to_email: document.querySelector('[name="email"]')?.value || "",
-      reg: document.querySelector('[name="reg"]')?.value || "",
-      car: document.querySelector('[name="car"]')?.value || "",
-      date: document.querySelector('[name="date"]')?.value || "",
-      time: document.querySelector('[name="time"]')?.value || "",
-      desc: document.querySelector('[name="desc"]')?.value || ""
+
+      customer_name:
+        document.querySelector('[name="name"]')?.value || "",
+
+      customer_email:
+        document.querySelector('[name="email"]')?.value || "",
+
+      to_email:
+        document.querySelector('[name="email"]')?.value || "",
+
+      reg:
+        document.querySelector('[name="reg"]')?.value || "",
+
+      car:
+        document.querySelector('[name="car"]')?.value || "",
+
+      date:
+        document.querySelector('[name="date"]')?.value || "",
+
+      time:
+        document.querySelector('[name="time"]')?.value || "",
+
+      desc:
+        document.querySelector('[name="desc"]')?.value || ""
     };
+
+    console.log("SENDER:", params);
 
     try {
 
-      await emailjs.send(
+      const response = await emailjs.send(
         "service_8wmiuen",
         "template_fbcfzng",
         params
       );
 
-      alert("Bokning skickad 😎 Mail skickat!");
+      console.log(response);
+
+      alert("Bokning skickad 😎");
 
       form.reset();
 
     } catch(err){
 
-      console.log("EMAILJS ERROR:", err);
+      console.log(err);
 
-      alert(
-        "EmailJS fel: kontrollera att alla fält är ifyllda och att template är sparad."
-      );
+      alert("EMAILJS FEL: " + err.text);
 
     } finally {
 
