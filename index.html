@@ -1250,4 +1250,98 @@ function updateCarStatus(status){
 
 </script>
 
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "demo",
+  authDomain: "demo",
+  projectId: "demo",
+  storageBucket: "demo",
+  messagingSenderId: "demo",
+  appId: "demo"
+};
+
+try {
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  window.updateCarStatus = async function(status){
+    const reg = document.getElementById("admin-reg-select")?.value?.trim()?.toUpperCase();
+
+    if(!reg){
+      alert("Välj regnummer");
+      return;
+    }
+
+    await setDoc(doc(db, "carStatuses", reg), {
+      status: status,
+      updated: new Date().toLocaleString("sv-SE")
+    });
+
+    const msg = document.getElementById("admin-status-msg");
+
+    if(msg){
+      msg.innerHTML = reg + " uppdaterad";
+    }
+  };
+
+  window.checkCarStatus = async function(){
+    const reg = document.getElementById("status-reg")?.value?.trim()?.toUpperCase();
+
+    if(!reg){
+      alert("Skriv registreringsnummer");
+      return;
+    }
+
+    const snap = await getDoc(doc(db, "carStatuses", reg));
+
+    const result = document.getElementById("status-result");
+    const icon = document.getElementById("status-icon");
+    const text = document.getElementById("status-text");
+    const updated = document.getElementById("status-updated");
+
+    if(result){
+      result.style.display = "block";
+    }
+
+    if(!snap.exists()){
+      if(icon) icon.innerHTML = "⚪";
+      if(text) text.innerHTML = "Ingen aktiv bokning hittades";
+      if(updated) updated.innerHTML = "";
+      return;
+    }
+
+    const data = snap.data();
+
+    if(data.status === "waiting"){
+      icon.innerHTML = "🔴";
+      text.innerHTML = "Din bil väntar på service";
+    }
+
+    if(data.status === "working"){
+      icon.innerHTML = "🟡";
+      text.innerHTML = "Din bil är under arbete";
+    }
+
+    if(data.status === "done"){
+      icon.innerHTML = "🟢";
+      text.innerHTML = "Din bil är klar för hämtning";
+    }
+
+    updated.innerHTML = "Uppdaterad: " + data.updated;
+  };
+
+} catch(e){
+  console.log(e);
+}
+</script>
+
 </body></html>
