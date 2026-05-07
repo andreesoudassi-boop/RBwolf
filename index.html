@@ -1378,4 +1378,87 @@ document.addEventListener("DOMContentLoaded", function(){
 });
 </script>
 
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+  emailjs.init("8I4fjO7HkfSQgBUG7");
+
+  const bookingForm =
+    document.querySelector("#booking-form") ||
+    document.querySelector("form");
+
+  if(!bookingForm) return;
+
+  bookingForm.addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const customerEmail =
+      document.querySelector('[name="email"]')?.value ||
+      document.querySelector('#email')?.value ||
+      "";
+
+    const templateParams = {
+
+      customer_name:
+        document.querySelector('[name="name"]')?.value ||
+        document.querySelector('#name')?.value ||
+        "Kund",
+
+      customer_email: customerEmail,
+
+      to_email: customerEmail,
+
+      reg:
+        document.querySelector('[name="reg"]')?.value ||
+        document.querySelector('#reg')?.value ||
+        "",
+
+      car:
+        document.querySelector('[name="car"]')?.value ||
+        document.querySelector('#car')?.value ||
+        "Bil",
+
+      date:
+        document.querySelector('[name="date"]')?.value ||
+        document.querySelector('#date')?.value ||
+        "",
+
+      time:
+        document.querySelector('[name="time"]')?.value ||
+        document.querySelector('#time')?.value ||
+        "",
+
+      desc:
+        document.querySelector('[name="desc"]')?.value ||
+        document.querySelector('#desc')?.value ||
+        "Service"
+    };
+
+    emailjs.send(
+      "service_8wmiuen",
+      "template_fbcfzng",
+      templateParams
+    )
+    .then(function(){
+
+      alert("Bokning skickad 😎");
+
+      bookingForm.reset();
+
+    })
+    .catch(function(error){
+
+      console.log(error);
+
+      alert("EmailJS fel - kontrollera template");
+
+    });
+
+  });
+
+});
+</script>
+
 </body></html>
