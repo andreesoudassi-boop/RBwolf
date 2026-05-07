@@ -1052,4 +1052,73 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  // FIX ALL NAV BUTTONS
+  document.querySelectorAll("[data-page]").forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+      const page = btn.getAttribute("data-page");
+
+      document.querySelectorAll(".page").forEach(p => {
+        p.classList.remove("active");
+      });
+
+      const target = document.getElementById(page);
+
+      if(target){
+        target.classList.add("active");
+      }
+
+      document.querySelectorAll(".nbtn").forEach(n=>{
+        n.classList.remove("act");
+      });
+
+      btn.classList.add("act");
+
+    });
+
+  });
+
+  // FIX BOOK BUTTONS
+  const ids = [
+    "herobookbtn",
+    "pickup-cta-btn",
+    "erbjudande-book-btn",
+    "dack-book-btn",
+    "contactbookbtn"
+  ];
+
+  ids.forEach(id => {
+
+    const btn = document.getElementById(id);
+
+    if(btn){
+
+      btn.addEventListener("click", (e) => {
+
+        e.preventDefault();
+
+        const target =
+          document.getElementById("book") ||
+          document.querySelector("form");
+
+        if(target){
+          target.scrollIntoView({
+            behavior: "smooth"
+          });
+        }
+
+      });
+
+    }
+
+  });
+
+});
+</script>
+
 </body></html>
