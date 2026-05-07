@@ -1382,82 +1382,67 @@ document.addEventListener("DOMContentLoaded", function(){
 <script>
 document.addEventListener("DOMContentLoaded", function(){
 
-  emailjs.init("8I4fjO7HkfSQgBUG7");
+  emailjs.init({
+    publicKey: "8I4fjO7HkfSQgBUG7"
+  });
 
-  const bookingForm =
+  const form =
     document.querySelector("#booking-form") ||
     document.querySelector("form");
 
-  if(!bookingForm) return;
+  if(!form) return;
 
-  bookingForm.addEventListener("submit", function(e){
+  form.addEventListener("submit", async function(e){
 
     e.preventDefault();
 
-    const customerEmail =
-      document.querySelector('[name="email"]')?.value ||
-      document.querySelector('#email')?.value ||
-      "";
+    const submitBtn =
+      form.querySelector('button[type="submit"]');
+
+    if(submitBtn){
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Skickar...";
+    }
 
     const params = {
-      customer_name:
-        document.querySelector('[name="name"]')?.value ||
-        document.querySelector('#name')?.value ||
-        "Kund",
-
-      customer_email: customerEmail,
-
-      to_email: customerEmail,
-
-      reg:
-        document.querySelector('[name="reg"]')?.value ||
-        document.querySelector('#reg')?.value ||
-        "",
-
-      car:
-        document.querySelector('[name="car"]')?.value ||
-        document.querySelector('#car')?.value ||
-        "Bil",
-
-      date:
-        document.querySelector('[name="date"]')?.value ||
-        document.querySelector('#date')?.value ||
-        "",
-
-      time:
-        document.querySelector('[name="time"]')?.value ||
-        document.querySelector('#time')?.value ||
-        "",
-
-      desc:
-        document.querySelector('[name="desc"]')?.value ||
-        document.querySelector('#desc')?.value ||
-        "Service"
+      customer_name: document.querySelector('[name="name"]')?.value || "",
+      customer_email: document.querySelector('[name="email"]')?.value || "",
+      to_email: document.querySelector('[name="email"]')?.value || "",
+      reg: document.querySelector('[name="reg"]')?.value || "",
+      car: document.querySelector('[name="car"]')?.value || "",
+      date: document.querySelector('[name="date"]')?.value || "",
+      time: document.querySelector('[name="time"]')?.value || "",
+      desc: document.querySelector('[name="desc"]')?.value || ""
     };
 
-    emailjs.send(
-      "service_8wmiuen",
-      "template_fbcfzng",
-      params
-    )
-    .then(function(response){
+    try {
 
-      console.log("SUCCESS", response);
+      await emailjs.send(
+        "service_8wmiuen",
+        "template_fbcfzng",
+        params
+      );
 
       alert("Bokning skickad 😎 Mail skickat!");
 
-      bookingForm.reset();
+      form.reset();
 
-    })
-    .catch(function(error){
+    } catch(err){
 
-      console.log("EMAILJS ERROR:", error);
+      console.log("EMAILJS ERROR:", err);
 
       alert(
-        "EmailJS fel. Ändra 'To Email' i template till {{to_email}} och spara."
+        "EmailJS fel: kontrollera att alla fält är ifyllda och att template är sparad."
       );
 
-    });
+    } finally {
+
+      if(submitBtn){
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Boka";
+      }
+
+    }
 
   });
 
