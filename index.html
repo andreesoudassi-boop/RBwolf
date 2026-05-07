@@ -1289,24 +1289,73 @@ function checkCarStatus(){
   updated.innerHTML = "Uppdaterad: " + booking.updated;
 }
 
+
 document.addEventListener("DOMContentLoaded", function(){
 
   refreshAdminBookings();
 
-  const form = document.querySelector("form");
+  const bookingForm =
+    document.querySelector("#booking-form") ||
+    document.querySelector("form");
 
-  if(form){
-    form.addEventListener("submit", function(){
+  if(bookingForm){
+
+    bookingForm.addEventListener("submit", function(e){
+
+      e.preventDefault();
 
       const bookingData = {
-        name: document.querySelector('input[name="name"]')?.value || "",
-        reg: document.querySelector('input[name="reg"]')?.value || ""
+        name:
+          document.querySelector('input[name="name"]')?.value ||
+          document.querySelector('#name')?.value ||
+          "",
+
+        reg:
+          document.querySelector('input[name="reg"]')?.value ||
+          document.querySelector('#reg')?.value ||
+          ""
       };
 
       saveBookingToSystem(bookingData);
 
+      alert("Bokning skickad!");
+
+      if(window.emailjs){
+        console.log("EmailJS redo");
+      }
+
     });
+
   }
+
+});
+</script>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const buttons = [
+    "herobookbtn",
+    "pickup-cta-btn",
+    "erbjudande-book-btn",
+    "dack-book-btn",
+    "contactbookbtn"
+  ];
+
+  buttons.forEach(id => {
+    const btn = document.getElementById(id);
+
+    if(btn){
+      btn.addEventListener("click", () => {
+        const bookingSection = document.getElementById("book");
+        if(bookingSection){
+          bookingSection.scrollIntoView({behavior:"smooth"});
+        }
+      });
+    }
+  });
 
 });
 </script>
