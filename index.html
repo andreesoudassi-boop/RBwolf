@@ -1251,97 +1251,131 @@ function updateCarStatus(status){
 </script>
 
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+<script>
+window.bookings = JSON.parse(localStorage.getItem("rbwolf_bookings") || "[]");
 
-const firebaseConfig = {
-  apiKey: "demo",
-  authDomain: "demo",
-  projectId: "demo",
-  storageBucket: "demo",
-  messagingSenderId: "demo",
-  appId: "demo"
-};
+function saveBookingToSystem(data){
+  const reg = (data.reg || "").toUpperCase();
 
-try {
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  if(!reg) return;
 
-  window.updateCarStatus = async function(status){
-    const reg = document.getElementById("admin-reg-select")?.value?.trim()?.toUpperCase();
+  const exists = window.bookings.find(b => b.reg === reg);
 
-    if(!reg){
-      alert("Välj regnummer");
-      return;
-    }
-
-    await setDoc(doc(db, "carStatuses", reg), {
-      status: status,
+  if(!exists){
+    window.bookings.push({
+      reg: reg,
+      customer: data.name || "",
+      status: "waiting",
       updated: new Date().toLocaleString("sv-SE")
     });
 
-    const msg = document.getElementById("admin-status-msg");
-
-    if(msg){
-      msg.innerHTML = reg + " uppdaterad";
-    }
-  };
-
-  window.checkCarStatus = async function(){
-    const reg = document.getElementById("status-reg")?.value?.trim()?.toUpperCase();
-
-    if(!reg){
-      alert("Skriv registreringsnummer");
-      return;
-    }
-
-    const snap = await getDoc(doc(db, "carStatuses", reg));
-
-    const result = document.getElementById("status-result");
-    const icon = document.getElementById("status-icon");
-    const text = document.getElementById("status-text");
-    const updated = document.getElementById("status-updated");
-
-    if(result){
-      result.style.display = "block";
-    }
-
-    if(!snap.exists()){
-      if(icon) icon.innerHTML = "⚪";
-      if(text) text.innerHTML = "Ingen aktiv bokning hittades";
-      if(updated) updated.innerHTML = "";
-      return;
-    }
-
-    const data = snap.data();
-
-    if(data.status === "waiting"){
-      icon.innerHTML = "🔴";
-      text.innerHTML = "Din bil väntar på service";
-    }
-
-    if(data.status === "working"){
-      icon.innerHTML = "🟡";
-      text.innerHTML = "Din bil är under arbete";
-    }
-
-    if(data.status === "done"){
-      icon.innerHTML = "🟢";
-      text.innerHTML = "Din bil är klar för hämtning";
-    }
-
-    updated.innerHTML = "Uppdaterad: " + data.updated;
-  };
-
-} catch(e){
-  console.log(e);
+    localStorage.setItem("rbwolf_bookings", JSON.stringify(window.bookings));
+    refreshAdminBookings();
+  }
 }
+
+function refreshAdminBookings(){
+  const select = document.getElementById("admin-reg-select");
+
+  if(!select) return;
+
+  select.innerHTML = "";
+
+  window.bookings.forEach(b => {
+    const option = document.createElement("option");
+    option.value = b.reg;
+    option.textContent = b.reg + " - " + (b.customer || "Kund");
+    select.appendChild(option);
+  });
+}
+
+function updateCarStatus(status){
+  const reg = document.getElementById("admin-reg-select").value;
+  const msg = document.getElementById("admin-status-msg");
+
+  const booking = window.bookings.find(b => b.reg === reg);
+
+  if(!booking) return;
+
+  booking.status = status;
+  booking.updated = new Date().toLocaleString("sv-SE");
+
+  localStorage.setItem("rbwolf_bookings", JSON.stringify(window.bookings));
+
+  let text = "";
+
+  if(status === "waiting"){
+    text = "🔴 Väntar";
+  }
+
+  if(status === "working"){
+    text = "🟡 Påbörjad";
+  }
+
+  if(status === "done"){
+    text = "🟢 Klar";
+  }
+
+  msg.innerHTML = reg + " → " + text;
+}
+
+function checkCarStatus(){
+  const reg = document.getElementById("status-reg").value.trim().toUpperCase();
+
+  const result = document.getElementById("status-result");
+  const icon = document.getElementById("status-icon");
+  const text = document.getElementById("status-text");
+  const updated = document.getElementById("status-updated");
+
+  const booking = window.bookings.find(b => b.reg === reg);
+
+  result.style.display = "block";
+
+  if(!booking){
+    icon.innerHTML = "⚪";
+    text.innerHTML = "Ingen aktiv bokning hittades";
+    updated.innerHTML = "";
+    return;
+  }
+
+  if(booking.status === "waiting"){
+    icon.innerHTML = "🔴";
+    text.innerHTML = "Din bil väntar på service";
+  }
+
+  if(booking.status === "working"){
+    icon.innerHTML = "🟡";
+    text.innerHTML = "Din bil är under arbete";
+  }
+
+  if(booking.status === "done"){
+    icon.innerHTML = "🟢";
+    text.innerHTML = "Din bil är klar för hämtning";
+  }
+
+  updated.innerHTML = "Uppdaterad: " + booking.updated;
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+
+  refreshAdminBookings();
+
+  const form = document.querySelector("form");
+
+  if(form){
+    form.addEventListener("submit", function(){
+
+      const bookingData = {
+        name: document.querySelector('input[name="name"]')?.value || "",
+        reg: document.querySelector('input[name="reg"]')?.value || ""
+      };
+
+      saveBookingToSystem(bookingData);
+
+    });
+  }
+
+});
 </script>
 
 </body></html>
