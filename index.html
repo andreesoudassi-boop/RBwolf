@@ -331,23 +331,23 @@ pointer-events:none;
     <div class="lock-sub">Ange lösenord för att fortsätta</div>
     <input class="lock-input" type="password" id="pw" placeholder="••••••••••">
     <div class="lock-err" id="pwerr">Fel lösenord — försök igen</div>
-    <button class="btn-gold" id="loginbtn" style="width:100%;margin-top:16px;padding:14px">Logga in</button>
+    <button type="button" class="btn-gold" id="loginbtn" style="width:100%;margin-top:16px;padding:14px">Logga in</button>
   </div>
 </div>
 <div id="popup" class="popup" style="display:none">
   <div class="popbox">
-    <div class="pop-hdr"><span style="font-size:22px">🔔</span><span class="pop-ttl">NY BOKNING</span><button class="pop-close" id="closepopup">✕</button></div>
+    <div class="pop-hdr"><span style="font-size:22px">🔔</span><span class="pop-ttl">NY BOKNING</span><button type="button" class="pop-close" id="closepopup">✕</button></div>
     <div class="pop-body" id="popbody"></div>
     <div class="pop-ftr">
       <a id="callbtn" href="#" class="btn-call">📞 Ring kunden</a>
-      <button class="btn-ok" id="cfmpopup">✓ Bekräfta</button>
-      <button class="btn-skip" id="skippopup">Stäng — visa senare</button>
+      <button type="button" class="btn-ok" id="cfmpopup">✓ Bekräfta</button>
+      <button type="button" class="btn-skip" id="skippopup">Stäng — visa senare</button>
     </div>
   </div>
 </div>
 <div id="modal" class="modal" style="display:none">
   <div class="modbox">
-    <div class="mod-hdr"><span class="mod-ttl">Bokning</span><button class="mod-close" id="closemodal">✕</button></div>
+    <div class="mod-hdr"><span class="mod-ttl">Bokning</span><button type="button" class="mod-close" id="closemodal">✕</button></div>
     <div class="mod-body" id="modalbody"></div>
     <div class="mod-ftr" id="modalftr"></div>
   </div>
@@ -358,10 +358,10 @@ pointer-events:none;
     <span class="logo-text">RBwolf</span>
   </div>
   <div class="nav-links">
-    <button class="nbtn act" id="nb-home">Start</button>
-    <button class="nbtn" id="nb-book">Boka</button>
-    <button class="nbtn" id="nb-admin">Admin</button>
-    <button class="notifbtn" id="notifbtn">
+    <button type="button" class="nbtn act" id="nb-home">Start</button>
+    <button type="button" class="nbtn" id="nb-book">Boka</button>
+    <button type="button" class="nbtn" id="nb-admin">Admin</button>
+    <button type="button" class="notifbtn" id="notifbtn">
       <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
       <div class="ndot" id="ndot"></div>
     </button>
@@ -381,8 +381,8 @@ pointer-events:none;
     <div class="hero-sub">Service · Reparationer · Felsökning</div>
     <p>Professionell bilservice med personlig touch. Vi tar hand om din bil som om det vore vår egen.</p>
     <div class="hero-btns">
-      <button class="btn-gold" id="herobookbtn">Boka tid nu</button>
-      <button class="btn-out" id="herocontactbtn">Kontakt</button>
+      <button type="button" class="btn-gold" id="herobookbtn">Boka tid nu</button>
+      <button type="button" class="btn-out" id="herocontactbtn">Kontakt</button>
     </div>
     <div class="hero-scroll">
       <div class="hero-scroll-line"></div>
@@ -402,7 +402,7 @@ pointer-events:none;
     </div>
     <h2 style="font-family:'Bebas Neue','Arial Black',sans-serif;font-size:clamp(28px,6vw,42px);color:#fff;letter-spacing:2px;margin-bottom:.75rem">VI HÄMTAR DIN BIL</h2>
     <p style="color:#666;font-size:15px;line-height:1.8;max-width:420px;margin:0 auto 1.5rem">Boka tid som vanligt — välj hämtning så kommer vi till dig. Smidigare kan det inte bli!</p>
-    <button class="btn-gold" id="pickup-cta-btn" style="font-size:14px;padding:14px 32px">Boka hämtning nu →</button>
+    <button type="button" class="btn-gold" id="pickup-cta-btn" style="font-size:14px;padding:14px 32px">Boka hämtning nu →</button>
   </div>
 </div>
 <div class="svc-sec">
@@ -471,7 +471,7 @@ pointer-events:none;
           <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">🔧 Inklusive nollställning av service-lampa</div>
           <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">📖 Stämpel i serviceboken ingår</div>
         </div>
-        <button class="btn-gold" id="erbjudande-book-btn" style="width:100%;padding:13px;font-size:13px">Boka oljebyte nu →</button>
+        <button type="button" class="btn-gold" id="erbjudande-book-btn" style="width:100%;padding:13px;font-size:13px">Boka oljebyte nu →</button>
       </div>
 
       <!-- Däckbyte kort -->
@@ -488,7 +488,7 @@ pointer-events:none;
           <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">🛞 Säsongsbyte sommar/vinter</div>
           <div style="display:flex;align-items:center;gap:10px;color:#C9A227;font-size:13px">⚖️ Balansering ingår</div>
         </div>
-        <button class="btn-gold" id="dack-book-btn" style="width:100%;padding:13px;font-size:13px">Boka däckbyte nu →</button>
+        <button type="button" class="btn-gold" id="dack-book-btn" style="width:100%;padding:13px;font-size:13px">Boka däckbyte nu →</button>
       </div>
 
     </div>
@@ -503,7 +503,7 @@ pointer-events:none;
     <div style="margin-top:2rem;background:rgba(255,255,255,.03);padding:1.5rem;border-radius:16px;border:1px solid rgba(255,255,255,.06)">
       <input id="status-reg" class="fi" placeholder="Skriv registreringsnummer..." style="margin-bottom:1rem;text-transform:uppercase">
 
-      <button class="btn-gold" onclick="checkCarStatus()" style="width:100%">
+      <button type="button" class="btn-gold" onclick="checkCarStatus()" style="width:100%">
         Kontrollera status
       </button>
 
@@ -522,7 +522,7 @@ pointer-events:none;
         <div class="eyebrow">Kontakt</div>
         <div class="big-ttl sec-ttl-light">Hitta oss</div>
         <p style="color:#444;font-size:14px;line-height:1.9;margin-top:.75rem;margin-bottom:2rem">Välkommen in utan bokning under öppettiderna, eller boka din tid nedan — vi ringer upp dig!</p>
-        <button class="btn-gold" id="contactbookbtn">Boka tid nu →</button>
+        <button type="button" class="btn-gold" id="contactbookbtn">Boka tid nu →</button>
       </div>
       <div class="contact-items">
         <div class="ci"><div class="ci-icon">📞</div><div><div class="ci-lbl">Telefon</div><div class="ci-val"><a href="tel:0739334446" style="color:#aaa;text-decoration:none">073-933 44 46</a></div></div></div>
@@ -569,7 +569,7 @@ pointer-events:none;
           <label class="fl">Din adress för hämtning</label>
           <input class="fi" type="text" id="b-address" placeholder="Storgatan 1, Bromölla">
         </div>
-        <button class="btn-gold" id="subbookbtn" style="width:100%;padding:15px;margin-top:20px;font-size:14px">Skicka bokningsförfrågan →</button>
+        <button type="button" class="btn-gold" id="subbookbtn" style="width:100%;padding:15px;margin-top:20px;font-size:14px">Skicka bokningsförfrågan →</button>
       </div>
     </div>
     <div id="bokOk" class="bcard" style="display:none">
@@ -578,25 +578,25 @@ pointer-events:none;
         <h3>Förfrågan skickad!</h3>
         <p>Vi ringer upp dig inom kort för att bekräfta tid och gå igenom jobbet.</p>
         <div id="bconf" style="margin-top:1.25rem;padding:1rem 1.25rem;background:rgba(255,255,255,.04);border-radius:10px;font-size:13px;color:#555;text-align:left;line-height:1.9;border:1px solid rgba(255,255,255,.06)"></div>
-        <button class="btn-gold" id="newbookbtn" style="margin-top:1.75rem">Ny bokning</button>
+        <button type="button" class="btn-gold" id="newbookbtn" style="margin-top:1.75rem">Ny bokning</button>
       </div>
     </div>
   </div>
 </div>
 <div id="pg-admin" class="page">
   <div class="adm-wrap">
-    <div style="margin-bottom:1rem"><button onclick="showPage('home');document.querySelectorAll('.nbtn').forEach(function(b){b.classList.remove('act')});document.getElementById('nb-home').classList.add('act')" style="background:none;border:1px solid rgba(255,255,255,.1);color:#666;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;font-family:Barlow,sans-serif;text-transform:uppercase;letter-spacing:.5px">← Tillbaka till startsidan</button></div>
+    <div style="margin-bottom:1rem"><button type="button" onclick="showPage('home');document.querySelectorAll('.nbtn').forEach(function(b){b.classList.remove('act')});document.getElementById('nb-home').classList.add('act')" style="background:none;border:1px solid rgba(255,255,255,.1);color:#666;padding:7px 14px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:700;font-family:Barlow,sans-serif;text-transform:uppercase;letter-spacing:.5px">← Tillbaka till startsidan</button></div>
 <div class="adm-top">
       <div class="adm-ttl">Administration</div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <div class="tabs">
-          <button class="tab act" id="tab-b">📋 Bokningar</button>
-          <button class="tab" id="tab-c">🚗 Bilar</button>
-          <button class="tab" id="tab-h">🔧 Historik</button>
-          <button class="tab" id="tab-r">🧾 Kvitton</button>
-          <button class="tab" id="tab-insp">🚗 Besiktning</button>
+          <button type="button" class="tab act" id="tab-b">📋 Bokningar</button>
+          <button type="button" class="tab" id="tab-c">🚗 Bilar</button>
+          <button type="button" class="tab" id="tab-h">🔧 Historik</button>
+          <button type="button" class="tab" id="tab-r">🧾 Kvitton</button>
+          <button type="button" class="tab" id="tab-insp">🚗 Besiktning</button>
         </div>
-        <button class="btn-logout" id="logoutbtn">🔒 Logga ut</button>
+        <button type="button" class="btn-logout" id="logoutbtn">🔒 Logga ut</button>
       </div>
     </div>
     <div class="stats">
@@ -620,18 +620,18 @@ pointer-events:none;
   </select>
 
   <div style="display:flex;gap:10px;flex-wrap:wrap">
-    <button class="btn-gold" onclick="updateCarStatus('waiting')">🔴 Väntar</button>
-    <button class="btn-gold" onclick="updateCarStatus('working')">🟡 Påbörjad</button>
-    <button class="btn-gold" onclick="updateCarStatus('done')">🟢 Klar</button>
+    <button type="button" class="btn-gold" onclick="updateCarStatus('waiting')">🔴 Väntar</button>
+    <button type="button" class="btn-gold" onclick="updateCarStatus('working')">🟡 Påbörjad</button>
+    <button type="button" class="btn-gold" onclick="updateCarStatus('done')">🟢 Klar</button>
   </div>
 
   <div id="admin-status-msg" style="margin-top:12px;font-size:13px;color:#999"></div>
 </div>
 
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-<button class="btn-gold" onclick="quickSetStatus('waiting')" style="padding:10px 14px;font-size:12px">🔴 Väntar</button>
-<button class="btn-gold" onclick="quickSetStatus('working')" style="padding:10px 14px;font-size:12px">🟡 Påbörjad</button>
-<button class="btn-gold" onclick="quickSetStatus('done')" style="padding:10px 14px;font-size:12px">🟢 Klar</button>
+<button type="button" class="btn-gold" onclick="quickSetStatus('waiting')" style="padding:10px 14px;font-size:12px">🔴 Väntar</button>
+<button type="button" class="btn-gold" onclick="quickSetStatus('working')" style="padding:10px 14px;font-size:12px">🟡 Påbörjad</button>
+<button type="button" class="btn-gold" onclick="quickSetStatus('done')" style="padding:10px 14px;font-size:12px">🟢 Klar</button>
 </div>
 
         <span id="nbadge" style="display:none;background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.2);font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700"></span>
@@ -641,7 +641,7 @@ pointer-events:none;
     <div id="tc-c" class="tc">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
         <strong style="font-size:15px;color:#fff">Bilar</strong>
-        <button class="btn-gold" id="addcarbtn" style="font-size:11px;padding:7px 14px">+ Ny bil</button>
+        <button type="button" class="btn-gold" id="addcarbtn" style="font-size:11px;padding:7px 14px">+ Ny bil</button>
       </div>
       <div id="addcarform" class="addf" style="display:none;margin-bottom:14px">
         <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#333;margin-bottom:10px;letter-spacing:1px">Lägg till bil</div>
@@ -654,14 +654,14 @@ pointer-events:none;
         <label class="fl">E-post</label><input class="fi" id="cemail" type="email" placeholder="anna@epost.se">
         <label class="fl">Nästa besiktning (datum)</label><input class="fi" type="date" id="cinsp">
         <label class="fl">Anteckningar</label><textarea class="fi" id="cnotes" placeholder="Extra info..."></textarea>
-        <button class="btn-gold" id="savecarbtn" style="margin-top:14px">Spara bil</button>
+        <button type="button" class="btn-gold" id="savecarbtn" style="margin-top:14px">Spara bil</button>
       </div>
       <div id="clist"></div>
     </div>
     <div id="tc-h" class="tc">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
         <strong style="font-size:15px;color:#fff">Jobbhistorik</strong>
-        <button class="btn-gold" id="addjobbtn" style="font-size:11px;padding:7px 14px">+ Nytt jobb</button>
+        <button type="button" class="btn-gold" id="addjobbtn" style="font-size:11px;padding:7px 14px">+ Nytt jobb</button>
       </div>
       <div id="addjobform" class="addf" style="display:none;margin-bottom:14px">
         <div style="font-size:10px;font-weight:700;text-transform:uppercase;color:#333;margin-bottom:10px;letter-spacing:1px">Välj kategori</div>
@@ -672,7 +672,7 @@ pointer-events:none;
         <label class="fl">Mekaniker</label><input class="fi" id="jmek" placeholder="Ahmad">
         <label class="fl">Status</label><select class="fi" id="jstat"><option value="done">Utfört</option><option value="progress">Pågående</option><option value="pending">Väntar</option></select>
         <label class="fl">Anteckningar</label><textarea class="fi" id="jnotes" placeholder="Extra info..."></textarea>
-        <button class="btn-gold" id="savejobbtn" style="margin-top:14px;width:100%">Spara jobb</button>
+        <button type="button" class="btn-gold" id="savejobbtn" style="margin-top:14px;width:100%">Spara jobb</button>
       </div>
       <div id="hlist"></div>
     </div>
@@ -683,8 +683,8 @@ pointer-events:none;
         <div><label class="fl">Jobb</label><select class="fi" id="rjob"></select></div>
       </div>
       <div style="display:flex;gap:8px">
-        <button class="btn-gold" id="genrecbtn" style="flex:1;padding:12px">Generera kvitto</button>
-        <button class="btn-logout" id="printbtn" style="padding:12px 16px">🖨️</button>
+        <button type="button" class="btn-gold" id="genrecbtn" style="flex:1;padding:12px">Generera kvitto</button>
+        <button type="button" class="btn-logout" id="printbtn" style="padding:12px 16px">🖨️</button>
       </div>
       <div id="rout" style="margin-top:1.5rem"></div>
     </div>
@@ -1079,7 +1079,7 @@ function uStats(){
 </script>
 
 <div class="mobile-book-bar">
-<button onclick="showPage('book')">🚗 Boka tid nu</button>
+<button type="button" onclick="showPage('book')">🚗 Boka tid nu</button>
 </div>
 
 
@@ -1289,54 +1289,34 @@ function checkCarStatus(){
   updated.innerHTML = "Uppdaterad: " + booking.updated;
 }
 
-
 document.addEventListener("DOMContentLoaded", function(){
 
   refreshAdminBookings();
 
-  const bookingForm =
-    document.querySelector("#booking-form") ||
-    document.querySelector("form");
+  const form = document.querySelector("form");
 
-  if(bookingForm){
-
-    bookingForm.addEventListener("submit", function(e){
-
-      e.preventDefault();
+  if(form){
+    form.addEventListener("submit", function(){
 
       const bookingData = {
-        name:
-          document.querySelector('input[name="name"]')?.value ||
-          document.querySelector('#name')?.value ||
-          "",
-
-        reg:
-          document.querySelector('input[name="reg"]')?.value ||
-          document.querySelector('#reg')?.value ||
-          ""
+        name: document.querySelector('input[name="name"]')?.value || "",
+        reg: document.querySelector('input[name="reg"]')?.value || ""
       };
 
       saveBookingToSystem(bookingData);
 
-      alert("Bokning skickad!");
-
-      if(window.emailjs){
-        console.log("EmailJS redo");
-      }
-
     });
-
   }
 
 });
 </script>
 
 
-
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function(){
 
-  const buttons = [
+  // Fix all booking CTA buttons
+  const ids = [
     "herobookbtn",
     "pickup-cta-btn",
     "erbjudande-book-btn",
@@ -1344,17 +1324,45 @@ document.addEventListener("DOMContentLoaded", () => {
     "contactbookbtn"
   ];
 
-  buttons.forEach(id => {
+  ids.forEach(id => {
     const btn = document.getElementById(id);
 
     if(btn){
-      btn.addEventListener("click", () => {
-        const bookingSection = document.getElementById("book");
-        if(bookingSection){
-          bookingSection.scrollIntoView({behavior:"smooth"});
+      btn.onclick = function(e){
+        e.preventDefault();
+
+        const target =
+          document.getElementById("book") ||
+          document.getElementById("booking") ||
+          document.querySelector("form");
+
+        if(target){
+          target.scrollIntoView({
+            behavior:"smooth"
+          });
         }
-      });
+      };
     }
+  });
+
+  // Fix all nav buttons with data-page
+  document.querySelectorAll("[data-page]").forEach(btn => {
+
+    btn.onclick = function(){
+
+      const page = btn.getAttribute("data-page");
+
+      document.querySelectorAll(".page").forEach(p=>{
+        p.classList.remove("active");
+      });
+
+      const activePage = document.getElementById(page);
+
+      if(activePage){
+        activePage.classList.add("active");
+      }
+    };
+
   });
 
 });
