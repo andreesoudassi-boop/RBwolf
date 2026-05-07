@@ -846,9 +846,10 @@ window.addEventListener("load",function(){
     if(!n||!p||!r){btn.disabled=false;btn.innerHTML=oldText;alert("Fyll i namn, telefon och reg.nr");return}
     var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var customerEmail=G("be").value.trim();var b={id:Date.now(),name:n,phone:p,email:customerEmail,reg:r,car:G("bc").value,date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",isNew:true};
     fbSet("bookings/"+b.id,b).then(function(){
+      var hasCustomerEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email);
       var params={
         customer_name:b.name,
-        customer_email:b.email || "Ingen e-post",
+        customer_email:hasCustomerEmail ? b.email : "rb-wolf@hotmail.com",
         phone:b.phone,
         reg:b.reg,
         car:b.car || "Ej angivet",
@@ -857,21 +858,32 @@ window.addEventListener("load",function(){
         desc:b.desc || "Ej angivet",
         delivery:b.delivery==="pickup" ? "Hämtning - " + (b.address || "Adress saknas") : "Lämnar in själv"
       };
-      var mails=[emailjs.send("service_xs7d5ok","template_fbcfzng",Object.assign({},params,{to_email:"Rb-wolf@hotmail.com"}))];
-      if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email)){
-        mails.push(emailjs.send("service_xs7d5ok","template_fbcfzng",Object.assign({},params,{to_email:b.email})));
+      function sendMail(toEmail){
+        var data=Object.assign({},params,{to_email:toEmail});
+        return emailjs.send("service_8wmiuen","template_fbcfzng",data);
+      }
+      var mails=[sendMail("rb-wolf@hotmail.com")];
+      if(hasCustomerEmail){
+        mails.push(sendMail(b.email));
       }
       return Promise.all(mails).then(function(){
         showToast();
         G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
         G("bform").style.display="none";G("bokOk").style.display="block";
         btn.innerHTML = "✅ Skickad!";
+      }).catch(function(mailErr){
+        console.log("EmailJS all services failed:", mailErr);
+        showToast();
+        G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet")+" - Bokningen sparades, men e-post kunde inte skickas automatiskt.";
+        G("bform").style.display="none";G("bokOk").style.display="block";
+        btn.innerHTML = "✅ Bokning sparad";
+        alert("Bokningen sparades i systemet, men e-post kunde inte skickas. Kontrollera EmailJS public key, service och template.");
       });
     }).catch(function(err){
       console.log("Bokning/mail error:", err);
       btn.disabled=false;
       btn.innerHTML=oldText;
-      alert("Bokningen kunde inte skickas. Kontrollera EmailJS/Firebase och försök igen.");
+      alert("Bokningen kunde inte sparas i Firebase. Kontrollera Firebase och försök igen.");
     });
   });
   G("newbookbtn").addEventListener("click",function(){
