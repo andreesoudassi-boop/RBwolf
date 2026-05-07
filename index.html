@@ -1399,8 +1399,7 @@ document.addEventListener("DOMContentLoaded", function(){
       document.querySelector('#email')?.value ||
       "";
 
-    const templateParams = {
-
+    const params = {
       customer_name:
         document.querySelector('[name="name"]')?.value ||
         document.querySelector('#name')?.value ||
@@ -1439,20 +1438,24 @@ document.addEventListener("DOMContentLoaded", function(){
     emailjs.send(
       "service_8wmiuen",
       "template_fbcfzng",
-      templateParams
+      params
     )
-    .then(function(){
+    .then(function(response){
 
-      alert("Bokning skickad 😎");
+      console.log("SUCCESS", response);
+
+      alert("Bokning skickad 😎 Mail skickat!");
 
       bookingForm.reset();
 
     })
     .catch(function(error){
 
-      console.log(error);
+      console.log("EMAILJS ERROR:", error);
 
-      alert("EmailJS fel - kontrollera template");
+      alert(
+        "EmailJS fel. Ändra 'To Email' i template till {{to_email}} och spara."
+      );
 
     });
 
