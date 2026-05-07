@@ -700,12 +700,14 @@ pointer-events:none;
     </div>
   </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
 
 var firebaseConfig={apiKey:"AIzaSyDZKkeY0QhRlv0FhmChJ968ryq50EDy6_c",authDomain:"rbwolf-2aaaa.firebaseapp.com",databaseURL:"https://rbwolf-2aaaa-default-rtdb.europe-west1.firebasedatabase.app",projectId:"rbwolf-2aaaa",storageBucket:"rbwolf-2aaaa.firebasestorage.app",messagingSenderId:"672592251642",appId:"1:672592251642:web:82745de3714ee887b15743"};
-if(!firebase.apps.length){firebase.initializeApp(firebaseConfig);}
+if(!firebase.apps.length){firebase.initializeApp(firebaseConfig);
+emailjs.init("8I4fjO7HkfSQgBUG7");}
 
 var PW="Ahmad_rbwolf",unlocked=false,selCat="",popId=null,modIdx=null;
 var CATS=[{id:"service",e:"Service"},{id:"brakes",e:"Bromsar"},{id:"engine",e:"Motor"},{id:"tires",e:"Dackbyte"},{id:"electrical",e:"El"},{id:"gearbox",e:"Vaxellada"},{id:"steering",e:"Styrning"},{id:"inspection",e:"Besiktning"},{id:"suspension",e:"Fjadring"},{id:"other",e:"Ovrigt"}];
@@ -843,6 +845,17 @@ window.addEventListener("load",function(){
     var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var b={id:Date.now(),name:n,phone:p,email:G("be").value,reg:r,car:G("bc").value,date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",isNew:true};
     fbSet("bookings/"+b.id,b).then(function(){
       showToast();
+      if(b.email){
+        emailjs.send("service_8wmiuen","template_fbcfzng",{
+          customer_name:b.name,
+          email:b.email,
+          reg:b.reg,
+          car:b.car||"Ej angivet",
+          date:b.date||"Ej angivet",
+          time:b.time||"Ej angivet",
+          desc:b.desc||"Ej angivet"
+        });
+      }
       G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
       G("bform").style.display="none";G("bokOk").style.display="block";
   G("savejobbtn").addEventListener("click",function(){
