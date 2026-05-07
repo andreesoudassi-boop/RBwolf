@@ -695,6 +695,7 @@ pointer-events:none;
     </div>
   </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 <script>
@@ -788,6 +789,7 @@ function pickOpt(val){
   }
 }
 window.addEventListener("load",function(){
+  emailjs.init("8I4fjO7HkfSQgBUG7");
   try{if(localStorage.getItem("rbw_auth")==="1")unlocked=true}catch(e){}
   loadAll();
   if(unlocked){showPage("admin");uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}
@@ -843,7 +845,35 @@ window.addEventListener("load",function(){
       
 
 
+emailjs.send("service_18463g5","template_fbcfzng",{
+to_email:b.email || "test@test.com",
+customer_name:b.name,
+customer_email:b.email || "Ingen e-post",
+phone:b.phone,
+reg:b.reg,
+car:b.car || "Ej angivet",
+date:b.date || "Ej angivet",
+time:b.time || "Ej angivet",
+desc:b.desc || "Ej angivet",
+delivery:b.delivery==="pickup"
+? "Hämtning - " + b.address
+: "Lämnar in själv"
+}).then(function(){
 
+return emailjs.send("service_18463g5","template_fbcfzng",{
+to_email:"Rb-wolf@hotmail.com",
+customer_name:b.name,
+customer_email:b.email || "Ingen e-post",
+phone:b.phone,
+reg:b.reg,
+car:b.car || "Ej angivet",
+date:b.date || "Ej angivet",
+time:b.time || "Ej angivet",
+desc:b.desc || "Ej angivet",
+delivery:b.delivery==="pickup"
+? "Hämtning - " + b.address
+: "Lämnar in själv"
+});
 
 }).then(function(){
 btn.innerHTML = "✅ Skickad!";
@@ -1106,7 +1136,7 @@ function uStats(){
   G("s4").textContent=done.reduce(function(s,j){return s+j.price},0).toLocaleString("sv")+" kr";
 }
 
-</script>
+</script><script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <div class="mobile-book-bar">
 <button onclick="showPage('book')">🚗 Boka tid nu</button>
