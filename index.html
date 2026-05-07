@@ -843,62 +843,42 @@ window.addEventListener("load",function(){
     btn.innerHTML = "⏳ Skickar...";
 
     var n=G("bn").value.trim(),p=G("bp").value.trim(),r=G("br").value.trim().toUpperCase();
-    if(!n||!p||!r){alert("Fyll i namn, telefon och reg.nr");return}
-    var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var b={id:Date.now(),name:n,phone:p,email:G("be").value,reg:r,car:G("bc").value,date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",isNew:true};
+    if(!n||!p||!r){btn.disabled=false;btn.innerHTML=oldText;alert("Fyll i namn, telefon och reg.nr");return}
+    var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var customerEmail=G("be").value.trim();var b={id:Date.now(),name:n,phone:p,email:customerEmail,reg:r,car:G("bc").value,date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",isNew:true};
     fbSet("bookings/"+b.id,b).then(function(){
-      showToast();
-      G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
-      G("bform").style.display="none";G("bokOk").style.display="block";
-      
-
-
-emailjs.send("service_xs7d5ok","template_fbcfzng",{
-to_email:b.email || "test@test.com",
-customer_name:b.name,
-customer_email:b.email || "Ingen e-post",
-phone:b.phone,
-reg:b.reg,
-car:b.car || "Ej angivet",
-date:b.date || "Ej angivet",
-time:b.time || "Ej angivet",
-desc:b.desc || "Ej angivet",
-delivery:b.delivery==="pickup"
-? "Hämtning - " + b.address
-: "Lämnar in själv"
-}).then(function(){
-
-return emailjs.send("service_xs7d5ok","template_fbcfzng",{
-to_email:"Rb-wolf@hotmail.com",
-customer_name:b.name,
-customer_email:b.email || "Ingen e-post",
-phone:b.phone,
-reg:b.reg,
-car:b.car || "Ej angivet",
-date:b.date || "Ej angivet",
-time:b.time || "Ej angivet",
-desc:b.desc || "Ej angivet",
-delivery:b.delivery==="pickup"
-? "Hämtning - " + b.address
-: "Lämnar in själv"
-});
-
-}).then(function(){
-btn.innerHTML = "✅ Skickad!";
-console.log("Alla mail skickade");
-}).catch(function(err){
-console.log("EmailJS error:", err);
-btn.disabled=false;
-btn.innerHTML=oldText;
-alert("EmailJS fel");
-});
-
-
-
+      var params={
+        customer_name:b.name,
+        customer_email:b.email || "Ingen e-post",
+        phone:b.phone,
+        reg:b.reg,
+        car:b.car || "Ej angivet",
+        date:b.date || "Ej angivet",
+        time:b.time || "Ej angivet",
+        desc:b.desc || "Ej angivet",
+        delivery:b.delivery==="pickup" ? "Hämtning - " + (b.address || "Adress saknas") : "Lämnar in själv"
+      };
+      var mails=[emailjs.send("service_xs7d5ok","template_fbcfzng",Object.assign({},params,{to_email:"Rb-wolf@hotmail.com"}))];
+      if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email)){
+        mails.push(emailjs.send("service_xs7d5ok","template_fbcfzng",Object.assign({},params,{to_email:b.email})));
+      }
+      return Promise.all(mails).then(function(){
+        showToast();
+        G("bconf").textContent=n+" - "+r+(b.car?" ("+b.car+")":"")+" - "+(b.date||"Datum ej angivet");
+        G("bform").style.display="none";G("bokOk").style.display="block";
+        btn.innerHTML = "✅ Skickad!";
+      });
+    }).catch(function(err){
+      console.log("Bokning/mail error:", err);
+      btn.disabled=false;
+      btn.innerHTML=oldText;
+      alert("Bokningen kunde inte skickas. Kontrollera EmailJS/Firebase och försök igen.");
     });
   });
   G("newbookbtn").addEventListener("click",function(){
     G("bform").style.display="block";G("bokOk").style.display="none";
     ["bn","bp","be","br","bc","bd","bt","bdesc"].forEach(function(i){if(G(i))G(i).value=""});
+    G("subbookbtn").disabled=false;
+    G("subbookbtn").innerHTML="Skicka bokningsförfrågan →";
   });
   G("addcarbtn").addEventListener("click",function(){var f=G("addcarform");f.style.display=f.style.display==="none"?"block":"none"});
   G("savecarbtn").addEventListener("click",function(){
