@@ -628,12 +628,6 @@ pointer-events:none;
   <div id="admin-status-msg" style="margin-top:12px;font-size:13px;color:#999"></div>
 </div>
 
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
-<button class="btn-gold" onclick="quickSetStatus('waiting')" style="padding:10px 14px;font-size:12px">🔴 Väntar</button>
-<button class="btn-gold" onclick="quickSetStatus('working')" style="padding:10px 14px;font-size:12px">🟡 Påbörjad</button>
-<button class="btn-gold" onclick="quickSetStatus('done')" style="padding:10px 14px;font-size:12px">🟢 Klar</button>
-</div>
-
         <span id="nbadge" style="display:none;background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.2);font-size:10px;padding:3px 10px;border-radius:20px;font-weight:700"></span>
       </div>
       <div id="blist"></div>
@@ -729,7 +723,7 @@ function fbRemove(path){
 function loadAll(){
   firebase.database().ref("bookings").on("value",function(snap){
     D.bookings=snap.val()||{};
-    if(unlocked){rBooks();uBell()}
+    if(unlocked){rBooks();uBell();refreshAdminBookings()}
     uStats();
   });
   firebase.database().ref("cars").on("value",function(snap){
@@ -755,7 +749,7 @@ function showPage(p){
 function showAdmin(){
   if(!unlocked){G("lock").style.display="flex";G("pw").value="";G("pwerr").style.display="none";setTimeout(function(){G("pw").focus()},100);return}
   showPage("admin");
-  uStats();rCars();rHist();rBooks();fillRC();bCats();uBell();
+  uStats();rCars();rHist();rBooks();fillRC();bCats();uBell();refreshAdminBookings();
 }
 
 function showTab(t){
@@ -766,7 +760,7 @@ function showTab(t){
   if(t==="r")fillRC();
   if(t==="c")rCars();
   if(t==="h"){rHist();bCats()}
-  if(t==="b")rBooks();
+  if(t==="b"){rBooks();refreshAdminBookings()}
   if(t==="insp")rInsp();
 }
 
@@ -799,7 +793,7 @@ window.addEventListener("load",function(){
   });
   try{if(localStorage.getItem("rbw_auth")==="1")unlocked=true}catch(e){}
   loadAll();
-  if(unlocked){showPage("admin");uStats();rCars();rHist();rBooks();fillRC();bCats();uBell()}
+  if(unlocked){showPage("admin");uStats();rCars();rHist();rBooks();fillRC();bCats();uBell();refreshAdminBookings()}
   G("logobtn").addEventListener("click",function(){showPage("home")});
   G("nb-home").addEventListener("click",function(){showPage("home")});
   G("nb-book").addEventListener("click",function(){showPage("book")});
@@ -844,7 +838,7 @@ window.addEventListener("load",function(){
 
     var n=G("bn").value.trim(),p=G("bp").value.trim(),r=G("br").value.trim().toUpperCase();
     if(!n||!p||!r){btn.disabled=false;btn.innerHTML=oldText;alert("Fyll i namn, telefon och reg.nr");return}
-    var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var customerEmail=G("be").value.trim();var b={id:Date.now(),name:n,phone:p,email:customerEmail,reg:r,car:G("bc").value,date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",isNew:true};
+    var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var customerEmail=G("be").value.trim();var nowText=new Date().toLocaleString("sv-SE");var b={id:Date.now(),name:n,phone:p,email:customerEmail,reg:r,car:G("bc").value,date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",carStatus:"waiting",statusUpdated:nowText,isNew:true};
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email)){btn.disabled=false;btn.innerHTML=oldText;alert("Fyll i kundens e-postadress");return}
     fbSet("bookings/"+b.id,b).then(function(){
       var params={
@@ -1269,26 +1263,46 @@ function refreshAdminBookings(){
 
   select.innerHTML = "";
 
-  window.bookings.forEach(b => {
+  const bookings = D && D.bookings ? Object.entries(D.bookings) : [];
+
+  if(!bookings.length){
     const option = document.createElement("option");
-    option.value = b.reg;
-    option.textContent = b.reg + " - " + (b.customer || "Kund");
+    option.value = "";
+    option.textContent = "Inga bokningar ännu";
+    select.appendChild(option);
+    return;
+  }
+
+  const statusLabels = {waiting:"Väntar",working:"Påbörjad",done:"Klar"};
+  bookings.reverse().forEach(entry => {
+    const key = entry[0];
+    const b = entry[1] || {};
+    if(!b.reg) return;
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = b.reg + " - " + (b.name || b.customer || "Kund") + " - " + (statusLabels[b.carStatus] || "Väntar");
     select.appendChild(option);
   });
+
+  if(!select.options.length){
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = "Inga reg.nr i bokningar";
+    select.appendChild(option);
+  }
 }
 
 function updateCarStatus(status){
-  const reg = document.getElementById("admin-reg-select").value;
+  const key = document.getElementById("admin-reg-select").value;
   const msg = document.getElementById("admin-status-msg");
 
-  const booking = window.bookings.find(b => b.reg === reg);
+  if(!key || !D.bookings || !D.bookings[key]){
+    msg.innerHTML = "Välj en bokning först";
+    return;
+  }
 
-  if(!booking) return;
-
-  booking.status = status;
-  booking.updated = new Date().toLocaleString("sv-SE");
-
-  localStorage.setItem("rbwolf_bookings", JSON.stringify(window.bookings));
+  const booking = D.bookings[key];
+  const updated = new Date().toLocaleString("sv-SE");
 
   let text = "";
 
@@ -1304,7 +1318,13 @@ function updateCarStatus(status){
     text = "🟢 Klar";
   }
 
-  msg.innerHTML = reg + " → " + text;
+  fbSet("bookings/"+key+"/carStatus",status);
+  fbSet("bookings/"+key+"/statusUpdated",updated);
+  msg.innerHTML = booking.reg + " → " + text;
+}
+
+function quickSetStatus(status){
+  updateCarStatus(status);
 }
 
 function checkCarStatus(){
@@ -1315,7 +1335,8 @@ function checkCarStatus(){
   const text = document.getElementById("status-text");
   const updated = document.getElementById("status-updated");
 
-  const booking = window.bookings.find(b => b.reg === reg);
+  const bookings = D && D.bookings ? Object.values(D.bookings) : [];
+  const booking = bookings.find(b => (b.reg || "").toUpperCase() === reg);
 
   result.style.display = "block";
 
@@ -1326,22 +1347,25 @@ function checkCarStatus(){
     return;
   }
 
-  if(booking.status === "waiting"){
+  const carStatus = booking.carStatus || "waiting";
+  const statusUpdated = booking.statusUpdated || booking.updated || "";
+
+  if(carStatus === "waiting"){
     icon.innerHTML = "🔴";
     text.innerHTML = "Din bil väntar på service";
   }
 
-  if(booking.status === "working"){
+  if(carStatus === "working"){
     icon.innerHTML = "🟡";
     text.innerHTML = "Din bil är under arbete";
   }
 
-  if(booking.status === "done"){
+  if(carStatus === "done"){
     icon.innerHTML = "🟢";
     text.innerHTML = "Din bil är klar för hämtning";
   }
 
-  updated.innerHTML = "Uppdaterad: " + booking.updated;
+  updated.innerHTML = statusUpdated ? "Uppdaterad: " + statusUpdated : "";
 }
 
 document.addEventListener("DOMContentLoaded", function(){
