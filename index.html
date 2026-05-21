@@ -660,6 +660,7 @@ url('assets/service-cards.png') center/cover no-repeat;opacity:.72;border:1px so
         <label class="fl">Registreringsnummer</label><input class="fi" type="text" id="br" placeholder="ABC123" style="text-transform:uppercase" autocomplete="off">
         <label class="fl">Bilmärke och modell</label><input class="fi" type="text" id="bc" placeholder="Volvo V70 2018">
         <div class="fc2"><div><label class="fl">Miltal</label><input class="fi" type="number" id="bmil" placeholder="15200"></div><div><label class="fl">Nästa besiktning</label><input class="fi" type="date" id="binsp"></div></div>
+        <label class="fl">Extra info om bilen</label><textarea class="fi" id="bextra" placeholder="T.ex. färg, motorlampa, tidigare fel, särskilda önskemål..."></textarea>
         <label class="fl">Önskat datum</label><input class="fi" type="date" id="bd">
         <label class="fl">Önskad tid</label><input class="fi" type="time" id="bt">
         <label class="fl">Beskriv ärendet</label><textarea class="fi" id="bdesc" placeholder="Vad behöver din bil hjälp med?"></textarea>
@@ -917,13 +918,14 @@ function bookingToCar(b,existing){
   var parsed=splitCarName(b.car);
   var car=Object.assign({},existing||{});
   car.reg=reg;
-  car.make=car.make||parsed.make;
-  car.model=car.model||parsed.model;
-  car.owner=b.name||car.owner||"";
-  car.phone=b.phone||car.phone||"";
-  car.email=b.email||car.email||"";
-  car.mileage=b.mileage||car.mileage||"";
-  car.insp=b.insp||car.insp||"";
+  car.make=(b.carInfo&&b.carInfo.make)||car.make||parsed.make;
+  car.model=(b.carInfo&&b.carInfo.model)||car.model||parsed.model;
+  car.owner=b.name||(b.carInfo&&b.carInfo.owner)||car.owner||"";
+  car.phone=b.phone||(b.carInfo&&b.carInfo.phone)||car.phone||"";
+  car.email=b.email||(b.carInfo&&b.carInfo.email)||car.email||"";
+  car.mileage=b.mileage||(b.carInfo&&b.carInfo.mileage)||car.mileage||"";
+  car.insp=b.insp||(b.carInfo&&b.carInfo.insp)||car.insp||"";
+  car.extraInfo=b.extraInfo||(b.carInfo&&b.carInfo.extraInfo)||car.extraInfo||"";
   car.latestBookingId=b.id||car.latestBookingId||"";
   car.latestBookingDate=b.date||car.latestBookingDate||"";
   car.latestBookingTime=b.time||car.latestBookingTime||"";
@@ -932,6 +934,7 @@ function bookingToCar(b,existing){
   car.address=b.address||car.address||"";
   var noteParts=[];
   if(b.desc)noteParts.push("Bokning: "+b.desc);
+  if(b.extraInfo)noteParts.push("Bilinfo: "+b.extraInfo);
   if(b.delivery==="pickup"&&b.address)noteParts.push("Hämtning: "+b.address);
   if(noteParts.length){
     var note=noteParts.join(" | ");
@@ -948,15 +951,21 @@ function ensureCarFromBooking(b){
   if(!b||!b.reg)return Promise.resolve();
   var reg=(b.reg||"").trim().toUpperCase();
   if(!reg)return Promise.resolve();
-  return firebase.database().ref("cars/"+reg).once("value").then(function(snap){
-    var existing=snap.val()||{};
-    var car=bookingToCar(b,existing);
+  var saveCar=function(existing){
+    var car=bookingToCar(b,existing||{});
     if(!car.notes)car.notes="Skapad automatiskt från bokning";
     if(!car.createdFromBooking)car.createdFromBooking=b.id||Date.now();
     return fbSet("cars/"+reg,car);
+  };
+  return firebase.database().ref("cars/"+reg).once("value").then(function(snap){
+    return saveCar(snap.val()||{});
+  }).catch(function(err){
+    console.log("RBWOLF car read failed, trying direct car save",err);
+    return saveCar({});
+  }).catch(function(err){
+    console.log("RBWOLF car save failed",err);
   });
 }
-
 function syncConfirmedBookingsToCars(){
   var bookings=D.bookings?Object.values(D.bookings):[];
   bookings.forEach(function(b){ensureCarFromBooking(b)});
@@ -1109,7 +1118,8 @@ window.addEventListener("load",function(){
 
     var n=G("bn").value.trim(),p=G("bp").value.trim(),r=G("br").value.trim().toUpperCase();
     if(!n||!p||!r){btn.disabled=false;btn.innerHTML=oldText;alert("Fyll i namn, telefon och reg.nr");return}
-    var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var customerEmail=G("be").value.trim();var nowText=new Date().toLocaleString("sv-SE");var b={id:Date.now(),name:n,phone:p,email:customerEmail,reg:r,car:G("bc").value,mileage:G("bmil")?G("bmil").value:"",insp:G("binsp")?G("binsp").value:"",date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",carStatus:"waiting",statusUpdated:nowText,isNew:true};
+    var deliveryEl=G("b-delivery");var delivery=deliveryEl?deliveryEl.value:"dropoff";var addressEl=G("b-address");var address=addressEl?addressEl.value:"";var customerEmail=G("be").value.trim();var nowText=new Date().toLocaleString("sv-SE");var b={id:Date.now(),name:n,phone:p,email:customerEmail,reg:r,car:G("bc").value,mileage:G("bmil")?G("bmil").value:"",insp:G("binsp")?G("binsp").value:"",extraInfo:G("bextra")?G("bextra").value:"",date:G("bd").value,time:G("bt")?G("bt").value:"",desc:G("bdesc").value,delivery:delivery,address:address,status:"pending",carStatus:"waiting",statusUpdated:nowText,isNew:true};
+    b.carInfo=bookingToCar(b,{});
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email)){btn.disabled=false;btn.innerHTML=oldText;alert("Fyll i kundens e-postadress");return}
     fbSet("bookings/"+b.id,b).then(function(){
       ensureCarFromBooking(b);
@@ -1121,6 +1131,7 @@ window.addEventListener("load",function(){
         car:b.car || "Ej angivet",
         mileage:b.mileage || "Ej angivet",
         insp:b.insp || "Ej angivet",
+        extra_info:b.extraInfo || "Ej angivet",
         date:b.date || "Ej angivet",
         time:b.time || "Ej angivet",
         desc:b.desc || "Ej angivet",
@@ -1152,7 +1163,7 @@ window.addEventListener("load",function(){
   });
   G("newbookbtn").addEventListener("click",function(){
     G("bform").style.display="block";G("bokOk").style.display="none";
-    ["bn","bp","be","br","bc","bmil","binsp","bd","bt","bdesc"].forEach(function(i){if(G(i))G(i).value=""});
+    ["bn","bp","be","br","bc","bmil","binsp","bextra","bd","bt","bdesc"].forEach(function(i){if(G(i))G(i).value=""});
     G("subbookbtn").disabled=false;
     G("subbookbtn").innerHTML="Skicka bokningsförfrågan →";
   });
@@ -1214,9 +1225,20 @@ function showPopup(b){
 function openModal(key){
   modIdx=key;
   var b=D.bookings[key];
+  if(!b.carInfo)b.carInfo=bookingToCar(b,{});
   fbSet("bookings/"+key+"/isNew",false);
   var statusMap={pending:"Vantar",confirmed:"Bekraftad",done:"Avslutad"};
   G("modalbody").innerHTML="<div class='mrow'><div><div class='mlbl'>Kund</div><div class='mval'>"+b.name+"</div></div></div><div class='mrow'><div><div class='mlbl'>Telefon</div><div class='mval' style='color:#22c55e;font-size:16px;font-weight:700'>"+b.phone+"</div></div></div>"+(b.email?"<div class='mrow'><div><div class='mlbl'>E-post</div><div class='mval'>"+b.email+"</div></div></div>":"")+"<div class='mrow'><div><div class='mlbl'>Reg.nr</div><div class='mval'>"+b.reg+"</div></div></div>"+(b.car?"<div class='mrow'><div><div class='mlbl'>Bil</div><div class='mval'>"+b.car+"</div></div></div>":"")+(b.date?"<div class='mrow'><div><div class='mlbl'>Datum och tid</div><div class='mval'>"+b.date+(b.time?" kl "+b.time:"")+"</div></div></div>":"")+(b.desc?"<div class='mrow'><div><div class='mlbl'>Arende</div><div class='mval'>"+b.desc+"</div></div></div>":"")+(b.delivery==="pickup"?"<div class='mrow'><div><div class='mlbl'>Leverans</div><div class='mval' style='color:#22c55e'>🚗 Hämtning</div></div></div>"+(b.address?"<div class='mrow'><div><div class='mlbl'>Hämtningsadress</div><div class='mval' style='color:#FFD600;font-weight:700'>📍 "+b.address+"</div></div></div>":""):"<div class='mrow'><div><div class='mlbl'>Leverans</div><div class='mval'>🏁 Lämnar in själv</div></div></div>")+"<div class='mrow'><div><div class='mlbl'>Status</div><div class='mval'>"+statusMap[b.status]+"</div></div></div>";
+  var carExtra=[];
+  if(b.mileage)carExtra.push({l:"Miltal",v:b.mileage+" mil"});
+  if(b.insp)carExtra.push({l:"Besiktning",v:b.insp});
+  if(b.extraInfo)carExtra.push({l:"Extra bilinfo",v:b.extraInfo});
+  if(b.carInfo&&b.carInfo.extraInfo&&!b.extraInfo)carExtra.push({l:"Extra bilinfo",v:b.carInfo.extraInfo});
+  carExtra.forEach(function(item){
+    var row=document.createElement("div");row.className="mrow";
+    row.innerHTML="<div><div class='mlbl'>"+item.l+"</div><div class='mval'>"+item.v+"</div></div>";
+    G("modalbody").appendChild(row);
+  });
   var ftr=G("modalftr");ftr.innerHTML="";
   var ca=document.createElement("a");ca.href="tel:"+b.phone.replace(/[^0-9+]/g,"");ca.className="btn-call";ca.style.flex="1";ca.textContent="Ring "+b.phone;ftr.appendChild(ca);
   if(b.status!=="confirmed"){
@@ -1313,7 +1335,8 @@ function rCars(){
       grid.appendChild(cell);
     });
     body.appendChild(grid);
-    if(c.notes){var n=document.createElement("div");n.style.cssText="margin-top:8px;font-size:12px;color:#555;background:rgba(255,255,255,.04);padding:8px;border-radius:5px";n.textContent=c.notes;body.appendChild(n)}
+    if(c.notes){var n=document.createElement("div");n.style.cssText="margin-top:8px;font-size:12px;color:#bbb;background:rgba(255,255,255,.04);padding:8px;border-radius:5px;white-space:pre-wrap";n.textContent=c.notes;body.appendChild(n)}
+    if(c.extraInfo&&(!c.notes||c.notes.indexOf(c.extraInfo)===-1)){var ex=document.createElement("div");ex.style.cssText="margin-top:8px;font-size:12px;color:#FFD600;background:rgba(255,214,0,.08);border:1px solid rgba(255,214,0,.18);padding:8px;border-radius:5px";ex.textContent="Extra info: "+c.extraInfo;body.appendChild(ex)}
     div.appendChild(body);el.appendChild(div);
   });
 }
